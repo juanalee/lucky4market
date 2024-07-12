@@ -96,8 +96,8 @@ hr {
 }
 
 .category_container li {
-  width: 300px;
-  padding: 25px;
+  width: 250px;
+  padding: 25px 0px;
   box-sizing: border-box;
 }
 
@@ -128,7 +128,7 @@ hr {
     width: 300px;
   }
   to {
-    width: 600px;
+    width: 500px;
   }
 }
 
@@ -143,8 +143,8 @@ hr {
 .category_container {
   display: flex;
   flex-flow: row nowrap;
-  width: 607px;
-  height: 0;
+  width: 507px;
+  height: 0px;
   overflow-x: hidden;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   position: relative;
@@ -208,10 +208,10 @@ hr {
   font-weight: bold;
   font-size: 20px;
   display: block;
-  padding: 10px;
   color: black;
+  padding: 20px 0px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
 }
 
 .category a:hover {

@@ -2,13 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/header.css';
 
-const Header = () => {
+
+export default () => {
+
   return (
     <>
       <div className='header_container'>
         <div className='link_container'>
-          <Link to="register">로그인/회원가입</Link>
-          <Link to="mystore">내상점</Link>
+          <Link to="#">로그인/회원가입</Link>
+          <Link to="#">내상점</Link>
         </div>
       </div>
       <div className='search_container'>
@@ -193,5 +195,3 @@ const Header = () => {
     </>
   );
 }
-
-export default Header;
