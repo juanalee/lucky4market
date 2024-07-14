@@ -6,13 +6,19 @@
 .header_container {
   width: 1440px;
   margin: 0 auto;
+  display: flex;
+  position: relative;
 }
 
-ul{
+.header{
+  width: 1440px;
+}
+
+ul {
   list-style: none;
 }
 
-.link_container a{
+.link_container a {
   text-decoration: none;
   color: #9c9e9c;
 }
@@ -33,7 +39,6 @@ ul{
 }
 
 hr {
-  margin-top: 5px;
   border: 0.5px solid #cccccc;
 }
 
@@ -54,7 +59,7 @@ hr {
   box-sizing: border-box;
 }
 
-.nav_container{
+.nav_container {
   width: 1440px;
   display: flex;
   flex-flow: row nowrap;
@@ -67,13 +72,14 @@ hr {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  padding-bottom: 5px;
 }
 
-.main_category_container{
+.main_category_container {
   list-style: none;
 }
 
-.main_category_container  > li {
+.main_category_container > li {
   width: 150px;
   text-align: center;
 }
@@ -123,34 +129,19 @@ hr {
   }
 }
 
-@keyframes categoryWidth {
-  from {
-    width: 300px;
-  }
-  to {
-    width: 500px;
-  }
-}
-
 .first_category:hover .category_container {
   animation: categoryHeight 1s forwards;
-}
-
-.sub_category_container:hover .category_container {
-  animation: categoryWidth 1s forwards;
 }
 
 .category_container {
   display: flex;
   flex-flow: row nowrap;
-  width: 507px;
+  width: 1200px;
   height: 0px;
   overflow-x: hidden;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   position: relative;
-  z-index: 10; /* 필요에 따라 z-index 설정 */
+  padding-top: 5px;
 }
-
 
 .first_category {
   max-height: 60px;
@@ -160,7 +151,7 @@ hr {
   height: 30px;
 }
 
-.menu_container {
+.menu{
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -179,8 +170,12 @@ hr {
 }
 
 .category {
+  box-sizing: border-box;
   position: relative;
-  padding-top: 30px;
+  width: 250px;
+  padding-top: 20px;
+  border: 1px solid black;
+  z-index: 10;
 }
 
 .sub_category_container {
@@ -188,19 +183,23 @@ hr {
   position: absolute;
   left: 100%;
   top: 0;
-  height: 700px;
-  display: none;
+  width: 500px;
+  max-height: 700px;
+  display: none;  
   background-color: #fff;
   border-left: 1px solid #ccc;
-  z-index: 10;
   overflow-x: hidden;
+}
+
+.sub_category{
+  width: 50%;
 }
 
 .main_category:hover .sub_category_container {
   display: block;
 }
 
-.category_container::-webkit-scrollbar{
+.category_container::-webkit-scrollbar {
   display: none;
 }
 
@@ -209,7 +208,7 @@ hr {
   font-size: 20px;
   display: block;
   color: black;
-  padding: 20px 0px;
+  padding: 10px 0px;
   text-decoration: none;
   transition: background-color 0.5s ease;
 }
@@ -218,11 +217,11 @@ hr {
   background-color: #f0f0f0;
 }
 
-.menu_container{
+.menu {
   padding: 15px 0px;
 }
 
-.menu_item{
+.menu_item {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -230,13 +229,64 @@ hr {
   align-items: center;
 }
 
-.menu_item img{
+.menu_item img {
   width: 40px;
   height: 40px;
 }
 
-.menu_item_container{
+.menu_item_container {
   display: flex;
   flex-flow: row nowrap;
   gap: 15px;
+}
+
+.menu_item button {
+  border: none;
+  background-color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.chat{
+  width: 0px;
+  height: 100%;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  background-color: #fcedaa;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.chat a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  clear: #363636;
+  display: block;
+  transition: 0.3s;
+}
+
+.chat a:hover{
+  color: #a9cfe2;
+}
+
+.chat .closeBtn{
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+} 
+
+.chat img{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
 }
