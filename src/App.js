@@ -1,15 +1,17 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminHeader from './admin/components/AdminHeader/AdminHeader';
+import AdminMembers from './admin/components/AdminMembers/AdminMembers';
+
 
 function App() {
   return (
     <Router>
-      <Routes>        
-      <Route path="/admin" element={<AdminHeader />} />
+      <Routes>
+        <Route path="/admin/members" element={<AdminMembers />} />
       </Routes>
     </Router>
   );
 }
 
+export default App;
