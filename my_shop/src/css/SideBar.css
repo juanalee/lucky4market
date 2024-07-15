@@ -1,0 +1,88 @@
+.side_bar {
+  width: 300px;
+  margin: 0px 50px;
+}
+
+tr {
+  display: flex;
+  flex-flow: column nowrap;
+  text-decoration-line: none;
+}
+
+td {
+  padding: 20px 0px;
+}
+
+tr td a {
+  color: black;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.my_page {
+  border-bottom: 1px solid black;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.my_info {
+  background-image: url('../../public/img/info.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.buy_history {
+  background-image: url('../../public/img/buy.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.sell_history {
+  background-image: url('../../public/img/sell.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.interest_product {
+  background-image: url('../../public/img/interest.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.writed_review {
+  background-image: url('../../public/img/writed_review.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.received_review {
+  background-image: url('../../public/img/received_review.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.follow_list {
+  background-image: url('../../public/img/follow.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
+.profile {
+  width: 300px;
+  height: 48px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  background-image: url('../../public/img/profile.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 60px;
+  font-size: 24px;
+}
