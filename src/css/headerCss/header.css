@@ -11,7 +11,7 @@
 }
 
 .header{
-  width: 1440px;
+  width: 100%;
 }
 
 ul {
@@ -52,7 +52,7 @@ hr {
 }
 
 .search_container input {
-  width: 800px;
+  width: 600px;
   border: 3px solid black;
   height: 65px;
   padding-left: 10px;
@@ -80,8 +80,7 @@ hr {
 }
 
 .main_category_container > li {
-  width: 150px;
-  text-align: center;
+  width: 150px; 
 }
 
 .main_category_container > li:first-child {
@@ -102,10 +101,11 @@ hr {
 }
 
 .category_container li {
-  width: 250px;
+  width: 300px;
   padding: 25px 0px;
   box-sizing: border-box;
 }
+
 
 .sub_category_container::-webkit-scrollbar {
   width: 7px;
@@ -125,11 +125,11 @@ hr {
     height: 0;
   }
   to {
-    height: 600px;
+    height: 900px;
   }
 }
 
-.first_category:hover .category_container {
+.first_category:hover .category_container{
   animation: categoryHeight 1s forwards;
 }
 
@@ -138,9 +138,11 @@ hr {
   flex-flow: row nowrap;
   width: 1200px;
   height: 0px;
-  overflow-x: hidden;
+  overflow: scroll;
   position: relative;
   padding-top: 5px;
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 .first_category {
@@ -172,27 +174,42 @@ hr {
 .category {
   box-sizing: border-box;
   position: relative;
-  width: 250px;
-  padding-top: 20px;
-  border: 1px solid black;
+  width: 300px;
+  height: 870px;
   z-index: 10;
+  border: 1px solid #ccc;
+  background-color: white;
 }
 
 .sub_category_container {
-  padding-top: 30px;
+  box-sizing: border-box;
   position: absolute;
   left: 100%;
   top: 0;
-  width: 500px;
-  max-height: 700px;
-  display: none;  
+  width: 905px;
+  height: 869px;
   background-color: #fff;
-  border-left: 1px solid #ccc;
   overflow-x: hidden;
+  display: none;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
+.sub_category_block{
+  display: flex;
+  width: 900px;
+  flex-flow: row wrap;
+} 
+
 .sub_category{
-  width: 50%;
+  border-right: 1px solid #ccc;
+  width: 300px;
+  min-height: 868px;
+  box-sizing: border-box;
+}
+
+.sub_category:nth-child(odd){
+  background-color: #f5f5f5;
 }
 
 .main_category:hover .sub_category_container {
@@ -208,13 +225,13 @@ hr {
   font-size: 20px;
   display: block;
   color: black;
-  padding: 10px 0px;
+  padding: 10px 30px;
   text-decoration: none;
   transition: background-color 0.5s ease;
 }
 
 .category a:hover {
-  background-color: #f0f0f0;
+  background-color: #ccc;
 }
 
 .menu {

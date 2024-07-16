@@ -1,5 +1,5 @@
 import { BrowserRouter , Route, Routes } from "react-router-dom";
-import Sub_page from "./components/Sub_page";
+import Main from "./components/sub_page/Sub_main";
 
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Sub_page />}></Route>
+          <Route path="/" element={<Main/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
