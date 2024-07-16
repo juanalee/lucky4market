@@ -1,11 +1,10 @@
-// src/App.js
 import React from 'react';
-import MyShop from './components/MyShop';
+import MyStore from './components/mystore/MyStore';
 
 function App() {
   return (
     <div className="App">
-      <MyShop/>
+      <MyStore/>
     </div>
   );
 }

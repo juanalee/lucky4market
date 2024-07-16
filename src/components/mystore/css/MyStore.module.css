@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   width: 1440px;
   display: flex;
@@ -15,7 +20,7 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  background-image: url('../../public/img/profile.png');
+  background-image: url('/public/img/mystore/profile.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 60px;
