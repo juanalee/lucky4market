@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './AdminPopup.module.css';
 
-const AdminPopup = ({ show, onClose, onConfirm, message }) => {
+const AdminPopup = ({ show, onClose, onConfirm, message, isConfirmation }) => {
   if (!show) return null;
 
   return (
@@ -15,8 +15,14 @@ const AdminPopup = ({ show, onClose, onConfirm, message }) => {
           <p>{message}</p>
         </div>
         <div className={styles.modalFooter}>
-          <button onClick={onConfirm} className={styles.btnConfirm}>확인</button>
-          <button onClick={onClose} className={styles.btnCancel}>취소</button>
+          {isConfirmation ? (
+            <>
+              <button onClick={onConfirm} className={styles.btnConfirm}>확인</button>
+              <button onClick={onClose} className={styles.btnCancel}>취소</button>
+            </>
+          ) : (
+            <button onClick={onClose} className={`${styles.btnConfirm} ${styles.btnSingle}`}>확인</button>
+          )}
         </div>
       </div>
     </div>

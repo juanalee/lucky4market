@@ -12,6 +12,8 @@ const AdminMembers = () => {
   const [editMemberId, setEditMemberId] = useState(null);
   const [editedMemberData, setEditedMemberData] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [isConfirmation, setIsConfirmation] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
   const [memberToDelete, setMemberToDelete] = useState(null);
 
   useEffect(() => {
@@ -69,13 +71,21 @@ const AdminMembers = () => {
 
   const handleSave = async () => {
     try {
+      console.log('저장하는 회원 정보:', editedMemberData);
       const response = await MemberService.updateMember(editedMemberData);
-      alert(response.data.msg);
+      if (response.data.count === 0) {
+        throw new Error(response.data.msg);
+      }
+      setPopupMessage(response.data.msg);
+      setIsConfirmation(false);
       setEditMemberId(null);
       fetchMembers();
     } catch (error) {
       console.error('회원 정보 수정 오류:', error);
+      setPopupMessage('회원 정보 수정 실패');
+      setIsConfirmation(false);
     }
+    setShowModal(true);
   };
 
   const handleCancel = () => {
@@ -85,18 +95,22 @@ const AdminMembers = () => {
 
   const handleDelete = (memberId) => {
     setMemberToDelete(memberId);
+    setPopupMessage('해당 회원 정보를 삭제하시겠습니까?');
+    setIsConfirmation(true);
     setShowModal(true);
   };
 
   const confirmDelete = async () => {
     try {
       const response = await MemberService.deleteMember(memberToDelete);
-      alert(response.data.msg);
+      setPopupMessage(response.data.msg);
       fetchMembers();
     } catch (error) {
       console.error('회원 삭제 오류:', error);
+      setPopupMessage('회원 삭제 오류');
     }
-    setShowModal(false);
+    setIsConfirmation(false);
+    setShowModal(true);
     setMemberToDelete(null);
   };
 
@@ -104,6 +118,10 @@ const AdminMembers = () => {
     if (event.key === 'Enter') {
       handleSearch();
     }
+  };
+
+  const closePopup = () => {
+    setShowModal(false);
   };
 
   return (
@@ -145,14 +163,15 @@ const AdminMembers = () => {
           <table>
             <thead>
               <tr>
-                <th>아이디</th>
-                <th>회원이름</th>
-                <th>닉네임</th>
-                <th>이메일</th>
-                <th>회원등급</th>
-                <th>전화번호</th>
-                <th>가입일자</th>
-                <th>관리</th>
+                <th className={styles.memberId}>아이디</th>
+                <th className={styles.memberName}>회원이름</th>
+                <th className={styles.memberNick}>닉네임</th>
+                <th className={styles.memberEmail}>이메일</th>
+                <th className={styles.memberAddr}>주소</th>
+                <th className={styles.memberGrade}>회원등급</th>
+                <th className={styles.memberPhoneNo}>전화번호</th>
+                <th className={styles.memberRegDate}>가입일자</th>
+                <th className={styles.manage}>관리</th>
               </tr>
             </thead>
             <tbody>
@@ -167,7 +186,7 @@ const AdminMembers = () => {
                             type="text"
                             value={editedMemberData.memberName}
                             onChange={(e) => handleInputChange(e, 'memberName')}
-                            className={styles.inputField}
+                            className={styles.fixedWidthInput}
                           />
                         ) : (
                           result.memberName
@@ -179,7 +198,7 @@ const AdminMembers = () => {
                             type="text"
                             value={editedMemberData.memberNick}
                             onChange={(e) => handleInputChange(e, 'memberNick')}
-                            className={styles.inputField}
+                            className={styles.fixedWidthInput}
                           />
                         ) : (
                           result.memberNick
@@ -191,20 +210,34 @@ const AdminMembers = () => {
                             type="text"
                             value={editedMemberData.memberEmail}
                             onChange={(e) => handleInputChange(e, 'memberEmail')}
-                            className={styles.inputField}
+                            className={styles.fixedWidthInput}
                           />
                         ) : (
                           result.memberEmail
                         )}
                       </td>
-                      <td className={styles.memberGrade}>
+                      <td className={styles.memberAddr}>
                         {editMemberId === result.memberId ? (
                           <input
                             type="text"
-                            value={editedMemberData.memberGradeName}
-                            onChange={(e) => handleInputChange(e, 'memberGradeName')}
-                            className={styles.inputField}
+                            value={editedMemberData.memberAddr}
+                            onChange={(e) => handleInputChange(e, 'memberAddr')}
+                            className={styles.fixedWidthInput}
                           />
+                        ) : (
+                          result.memberAddr
+                        )}
+                      </td>
+                      <td className={styles.memberGrade}>
+                        {editMemberId === result.memberId ? (
+                          <select
+                            value={editedMemberData.memberGrade}
+                            onChange={(e) => handleInputChange(e, 'memberGrade')}
+                            className={styles.fixedWidthInput}
+                          >
+                            <option value="1">일반회원</option>
+                            <option value="2">차단된회원</option>
+                          </select>
                         ) : (
                           result.memberGradeName
                         )}
@@ -215,7 +248,7 @@ const AdminMembers = () => {
                             type="text"
                             value={editedMemberData.memberPhoneNo}
                             onChange={(e) => handleInputChange(e, 'memberPhoneNo')}
-                            className={styles.inputField}
+                            className={styles.fixedWidthInput}
                           />
                         ) : (
                           result.memberPhoneNo
@@ -240,7 +273,7 @@ const AdminMembers = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="8" className={styles.noResults}>일치하는 회원이 없습니다</td>
+                  <td colSpan="9" className={styles.noResults}>일치하는 회원이 없습니다</td>
                 </tr>
               )}
             </tbody>
@@ -249,9 +282,10 @@ const AdminMembers = () => {
       </div>
       <AdminPopup
         show={showModal}
-        onClose={() => setShowModal(false)}
-        onConfirm={confirmDelete}
-        message="해당 회원 정보를 삭제하시겠습니까?"
+        onClose={closePopup}
+        onConfirm={isConfirmation ? confirmDelete : closePopup}
+        message={popupMessage}
+        isConfirmation={isConfirmation}
       />
     </div>
   );

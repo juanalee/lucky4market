@@ -59,8 +59,8 @@
 }
 
 .btnConfirm:hover {
-  background: #d32f2f;
-  border: #d32f2f solid 1px;
+  background: #000000;
+  border: #000000 solid 1px;
 }
 
 .btnCancel {
@@ -91,4 +91,12 @@
 
 .btnClose:hover {
   color: #777;
+}
+
+.modalFooter.singleButton {
+  justify-content: center;
+}
+
+.btnSingle {
+  margin-left: auto;
 }
