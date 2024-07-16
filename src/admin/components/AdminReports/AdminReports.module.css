@@ -3,15 +3,14 @@
   padding: 0;
 }
 
-
-.membersContent {
+.reportsContent {
   width: 1440px;
   margin: 0 auto;
   padding: 20px;
   background-color: #FFF;
 }
 
-.membersTitle {
+.reportsTitle {
   margin: 0 10px 0 20px;
   padding: 10px;
 }
@@ -60,6 +59,39 @@
 
 .selectInput:focus {
   border-right: none;
+  outline: none;
+}
+
+.searchDateInput1 {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  padding: 15px 45px 15px 15px;
+  background-color: #FFFFFF;
+  color: #9C9E9C;
+  border-top-right-radius: 6px;
+  border: 1px solid #9C9E9C;
+  border-left: none;
+  border-bottom: none;
+  transition: all .4s;
+}
+
+.searchDateInput2 {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  padding: 15px 45px 15px 15px;
+  background-color: #FFFFFF;
+  color: #9C9E9C;
+  border-bottom-right-radius: 6px;
+  border: 1px solid #9C9E9C;
+  border-left: none;
+  border-top: none;
+  transition: all .4s;
+}
+
+.searchDateInput1, .searchDateInput2:focus {
+  border-left: none;
   outline: none;
 }
 
@@ -139,45 +171,7 @@
   background-color: #f1f1f1;
 }
 
-.membersTable .inputField {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 5px;
-}
-
-.membersTable th.memberId, .membersTable td.memberId {
-  width: 11%;
-}
-
-.membersTable th.memberName, .membersTable td.memberName {
-  width: 11%;
-}
-
-.membersTable th.memberNick, .membersTable td.memberNick {
-  width: 11%;
-}
-
-.membersTable th.memberEmail, .membersTable td.memberEmail {
-  width: 20%;
-}
-
-.membersTable th.memberGrade, .membersTable td.memberGrade {
-  width: 11%;
-}
-
-.membersTable th.memberPhoneNo, .membersTable td.memberPhoneNo {
-  width: 14%;
-}
-
-.membersTable th.memberRegDate, .membersTable td.memberRegDate {
-  width: 11%;
-}
-
-.membersTable th.manage, .membersTable td.manage {
-  width: 11%;
-}
-
-.membersTable .editButton, .saveButton, .cancelButton {
+.membersTable .editButton {
   padding: 5px;
   background-color: #393B3F;
   color: white;

@@ -1,0 +1,94 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modalDialog {
+  background: #fefefe;
+  border: #333 solid 1px;
+  border-radius: 5px;
+  width: 360px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader,
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalHeader {
+  border-bottom: #eee solid 1px;
+  padding-bottom: 10px;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modalFooter {
+  border-top: #eee solid 1px;
+  padding-top: 10px;
+}
+
+.modalBody {
+  padding: 20px 0;
+}
+
+.btnConfirm {
+  background: #393B3F;
+  border: #393B3F solid 1px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btnConfirm:hover {
+  background: #d32f2f;
+  border: #d32f2f solid 1px;
+}
+
+.btnCancel {
+  background: #393B3F;
+  border: #393B3F solid 1px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btnCancel:hover {
+  background: #CCCCCC;
+  border: #CCCCCC solid 1px;
+}
+
+.btnClose {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btnClose:hover {
+  color: #777;
+}
