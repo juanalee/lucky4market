@@ -46,7 +46,7 @@ export default () => {
     const productImage = async () => {
       try {
         const response = await axios.get('http://localhost:9999/productImage?productNo=20');
-        console.log(response);
+        // console.log(response);
         setProductImg(response.data);
       } catch (error) {
         console.error(error);

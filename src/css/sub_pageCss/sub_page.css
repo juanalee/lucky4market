@@ -15,7 +15,7 @@
   width: 1440px;
   display: flex;
   flex-flow: row wrap;
-  gap: 140px;
+  gap: 130px;
 }
 
 .product_main_img{
@@ -87,7 +87,7 @@
 }
 
 .product_information{
-  width: 700px;
+  width: 710px;
   height: 600px;
   margin-top: 50px;
 }
@@ -247,10 +247,15 @@
 }
 
 .product_content_container{
+  width: 608px;
   display: flex;
   flex-flow: row nowrap;
   gap: 150px;
-  height: 1400px;
+  height: 100%;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  justify-content: center;
+  padding-top: 30px ;
 }
 
 .product_content hr{
@@ -276,7 +281,8 @@
 }
 
 .product_content{
-  width: 770px
+  width: 696px;
+
 }
 
 .seller_inpormation{
@@ -286,6 +292,8 @@
 .member_id img{
   width: 50px;
   height: 50px;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 .member_id{
@@ -295,8 +303,10 @@
   font-size: 20px;
 }
 
-.member_id span{
+.member_id a{
   font-weight: bold;
+  text-decoration: none;
+  color: black;
 }
 
 .seller_sub_2{
@@ -312,9 +322,10 @@
 .seller_sub_2 span{
   margin: 0px 10px;
 }
-.seller_sub_2 p{
-  padding-bottom: 5px;
-}
+.seller_sub_2 a{
+  text-decoration: none;
+  color: #ccc;  
+  }
 
 .follow {
   padding-left: 30px;
@@ -340,7 +351,7 @@
   top: 10px;
 }
 
-.seller{
+.store_info{
   padding-left: 30px;
 }
 
@@ -362,21 +373,25 @@
   margin: 5px 0px;
 }
 
-.more{
+.more, .review_more {
   display: inline-block;
   width: 350px;
   text-align: center;
   margin-bottom: 100px;
 }
 
-.more a{
+.more a, .review_more a {
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
 
+
 .seller_review_container{
   width: 500px;
+  max-height: 600px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .buyer_review_img{
@@ -398,6 +413,7 @@
 }
 
 .buyer_review p{
+  text-overflow: ellipsis;
   margin-bottom: 10px;
 }
 
@@ -459,4 +475,13 @@
   background-color: white;
   cursor: pointer;
   font-size: 20px;
+}
+
+.more span{
+  color: red;
+  font-size: 16px;
+}
+
+.review_more{
+  padding-left: 30px;
 }

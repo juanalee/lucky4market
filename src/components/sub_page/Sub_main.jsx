@@ -13,8 +13,8 @@ export default () => {
       <div className="sub_page_container">
         <div className="sub_page_main">
           <ImageSlider />
-          <ProductInfo />
-          <SellerInfo />
+            <ProductInfo />
+            <SellerInfo />
         </div>  
       </div>
     </>

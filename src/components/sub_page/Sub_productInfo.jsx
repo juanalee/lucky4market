@@ -36,16 +36,16 @@ const ProductInfo = () => {
     const fetchData = async () => {
       try {
         const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
-        console.log(productResponse.data);
+        // console.log(productResponse.data);
         setProductInfo(productResponse.data);
 
         const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=20');
-        console.log(deliveryResponse.data);
+        // console.log(deliveryResponse.data);
         setDeliveryInfo(deliveryResponse.data);
 
         const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
-        console.log(categoryResponse.data);
-        setCategoryInfo(categoryResponse.data); // 실제 데이터를 설정
+        // console.log(categoryResponse.data);
+        setCategoryInfo(categoryResponse.data);
       } catch (error) {
         console.error(error);
       }
@@ -83,10 +83,6 @@ const ProductInfo = () => {
       item === "/img/heart.png" ? "/img/redheart.png" : "/img/heart.png"
     );
   };
-
-  useEffect(() => {
-    // 이 부분에서 필요한 경우 추가적인 작업을 수행할 수 있습니다.
-  }, [productInfo.productPrice]);
 
   return (
     <>
