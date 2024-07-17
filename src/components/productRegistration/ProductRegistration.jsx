@@ -7,6 +7,7 @@ export default function ProductRegistration() {
     const selectCategoryNo = useRef();
     const productContent = useRef();
     const productPrice = useRef();
+    const deliveryCharge =useRef();
     const [ProductCategoryList, setProductCategoryList] = useState([]);
     const [formData, setFormData] = useState({
         productTitle: '',
@@ -15,6 +16,7 @@ export default function ProductRegistration() {
         deliveryNo: '',
         tradeArea: 'seoul',
         directDeal: 'select',
+        deliveryCharge:'',
     });
 
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
@@ -72,6 +74,7 @@ export default function ProductRegistration() {
         formDataToSend.append('productStatus', formData.productStatus);
         formDataToSend.append('deliveryNo', formData.deliveryNo);
         formDataToSend.append('tradeArea', formData.tradeArea);
+        formDataToSend.append('deliveryCharge',formData.deliveryCharge)
 
         const fileInputs = document.querySelectorAll('input[type="file"]');
         fileInputs.forEach((fileInput, index) => {
@@ -212,6 +215,16 @@ export default function ProductRegistration() {
                         />
                         선불
                     </label>
+                    {(formData.deliveryNo === '2' || formData.deliveryNo === '3') && (
+                        <input
+                            type="text"
+                            ref={deliveryCharge}
+                            name="deliveryCharge"
+                            placeholder="택배비를 입력하세요"
+                            onChange={handleChange}
+                            className={styles.deliveryChargeInput}
+                        />
+                    )}
                 </div>
 
                 <div className={styles.tradeArea}>
