@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import styles from './ProductRegistration.module.css';
+import ProductinsertPopup from './productinsertPopup';
 
 export default function ProductRegistration() {
     const productTitle = useRef();
     const selectCategoryNo = useRef();
     const productContent = useRef();
     const productPrice = useRef();
-    const deliveryCharge =useRef();
+    const deliveryCharge = useRef();
     const [ProductCategoryList, setProductCategoryList] = useState([]);
     const [formData, setFormData] = useState({
         productTitle: '',
@@ -16,11 +17,18 @@ export default function ProductRegistration() {
         deliveryNo: '',
         tradeArea: 'seoul',
         directDeal: 'select',
-        deliveryCharge:'',
+        deliveryCharge: '',
     });
 
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
     const [parentNumber, setParentNumber] = useState('1');
+
+    // 팝업 상태 추가
+    const [popup, setPopup] = useState({
+        show: false,
+        message: '',
+        isConfirmation: false,
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,10 +82,10 @@ export default function ProductRegistration() {
         formDataToSend.append('productStatus', formData.productStatus);
         formDataToSend.append('deliveryNo', formData.deliveryNo);
         formDataToSend.append('tradeArea', formData.tradeArea);
-        formDataToSend.append('deliveryCharge',formData.deliveryCharge)
+        formDataToSend.append('deliveryCharge', formData.deliveryCharge);
 
         const fileInputs = document.querySelectorAll('input[type="file"]');
-        fileInputs.forEach((fileInput, index) => {
+        fileInputs.forEach((fileInput) => {
             const files = fileInput.files;
             for (let i = 0; i < files.length; i++) {
                 formDataToSend.append('file', files[i]);
@@ -88,16 +96,22 @@ export default function ProductRegistration() {
             console.log('Submitting form data...');
             const response = await axios.post('http://localhost:9999/product/insert', formDataToSend, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             });
             console.log('Response:', response);
-            alert(response.data.msg);
-            if (response.data.result) {
-                // 성공 처리
-            }
+            setPopup({
+                show: true,
+                message: response.data.msg,
+                isConfirmation: false,
+            });
         } catch (error) {
             console.error('Error submitting form:', error);
+            setPopup({
+                show: true,
+                message: '상품 등록에 실패했습니다.',
+                isConfirmation: false,
+            });
         }
     };
 
@@ -129,13 +143,15 @@ export default function ProductRegistration() {
                                 className={styles.priceInput}
                             />
                             <div className={styles.freeCheckbox}>
-                                <input
-                                    type="checkbox"
-                                    id="free"
-                                    name="priceFree"
-                                    onChange={(e) => handleChange({ target: { name: 'productPrice', value: e.target.checked ? '0' : '' } })}
-                                />
-                                <label htmlFor="free">무료나눔</label>
+                                <label htmlFor="free">
+                                    <input
+                                        type="checkbox"
+                                        id="free"
+                                        name="priceFree"
+                                        onChange={(e) => handleChange({ target: { name: 'productPrice', value: e.target.checked ? '0' : '' } })}
+                                    />
+                                    무료나눔
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -240,6 +256,12 @@ export default function ProductRegistration() {
 
                 <button type="submit" className={styles.submitButton}>작성 완료</button>
             </form>
+            <ProductinsertPopup
+                show={popup.show}
+                onClose={() => setPopup({ ...popup, show: false })}
+                message={popup.message}
+                isConfirmation={popup.isConfirmation}
+            />
         </div>
     );
 }
