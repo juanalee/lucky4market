@@ -6,25 +6,27 @@ export default function ProductRegistration() {
     const productTitle = useRef();
     const selectCategoryNo = useRef();
     const productContent = useRef();
-    const tradeArea = useRef();
+    const productPrice = useRef();
     const [ProductCategoryList, setProductCategoryList] = useState([]);
     const [formData, setFormData] = useState({
+        productTitle: '',
         productPrice: '',
-        productState: '',
+        productStatus: '',
         deliveryNo: '',
-        tradeArea: '',
-        directDeal: 'select', // Assuming a default value for directDeal
-        location: 'seoul' // Assuming a default value for location
+        tradeArea: 'seoul',
+        directDeal: 'select',
     });
-    const [parentNumberOptions, setParentNumberOptions] = useState([]); // State to hold parent number options
-    const [parentNumber, setParentNumber] = useState('1'); // Default parentNumber
+
+    const [parentNumberOptions, setParentNumberOptions] = useState([]);
+    const [parentNumber, setParentNumber] = useState('1');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log('Fetching parent number options...');
                 const response = await axios.get('http://localhost:9999/Category/list');
-                console.log(response.data);
-                setParentNumberOptions(response.data); // Assuming response.data is an array of objects with properties like categoryNo and categoryName
+                console.log('Parent number options:', response.data);
+                setParentNumberOptions(response.data);
             } catch (error) {
                 console.error('Error fetching parent number options:', error);
             }
@@ -35,54 +37,65 @@ export default function ProductRegistration() {
     useEffect(() => {
         const readData = async () => {
             try {
+                console.log(`Fetching categories for parent number ${parentNumber}...`);
                 const response = await axios.get(`http://localhost:9999/Category/list/${parentNumber}`);
-                console.log(response.data);
+                console.log('Categories:', response.data);
                 setProductCategoryList(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
         };
         readData();
-    }, [parentNumber]); // Fetch whenever parentNumber changes
+    }, [parentNumber]);
 
     const parentchange = (e) => {
         const { value } = e.target;
-        setParentNumber(value); 
+        setParentNumber(value);
     };
 
     const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const obj = {
-            productTitle: productTitle.current.value,
-            productPrice: formData.productPrice,
-            categoryNo: selectCategoryNo.current.value,
-            productContent: productContent.current.value,
-            productStatus: formData.productStatus,
-            deliveryNo: formData.deliveryNo,
-            tradeArea: formData.tradeArea
-        };
-        console.log(obj);
 
-        axios.post('http://localhost:9999/product/insert', obj)
-            .then(response => {
-                console.log(response);
-                alert(response.data.msg);
-                if (response.data.result) {
-                    // Navigate or perform other actions
+        const formDataToSend = new FormData();
+        formDataToSend.append('productTitle', formData.productTitle);
+        formDataToSend.append('productPrice', formData.productPrice);
+        formDataToSend.append('categoryNo', selectCategoryNo.current.value);
+        formDataToSend.append('productContent', productContent.current.value);
+        formDataToSend.append('productStatus', formData.productStatus);
+        formDataToSend.append('deliveryNo', formData.deliveryNo);
+        formDataToSend.append('tradeArea', formData.tradeArea);
+
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach((fileInput, index) => {
+            const files = fileInput.files;
+            for (let i = 0; i < files.length; i++) {
+                formDataToSend.append('file', files[i]);
+            }
+        });
+
+        try {
+            console.log('Submitting form data...');
+            const response = await axios.post('http://localhost:9999/product/insert', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-            })
-            .catch(error => {
-                console.error('Error submitting form:', error);
             });
+            console.log('Response:', response);
+            alert(response.data.msg);
+            if (response.data.result) {
+                // 성공 처리
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (
@@ -90,7 +103,9 @@ export default function ProductRegistration() {
             <form onSubmit={handleSubmit}>
                 <div className={styles.productRegisterHeader}>
                     <div className={styles.photoUpload}>
-                        <div className={styles.photoPlaceholder}>0 / 3</div>
+                        <input type="file" name="file1" />
+                        <input type="file" name="file2" />
+                        <input type="file" name="file3" />
                     </div>
                     <div className={styles.priceContainer1}>
                         <input
@@ -99,12 +114,13 @@ export default function ProductRegistration() {
                             name="productTitle"
                             placeholder="상품명"
                             className={styles.productName}
+                            onChange={handleChange}
                         />
                         <div className={styles.priceContainer2}>
                             <input
                                 type="text"
                                 name="productPrice"
-                                value={formData.productPrice}
+                                ref={productPrice}
                                 onChange={handleChange}
                                 placeholder="₩판매가격"
                                 className={styles.priceInput}
@@ -128,17 +144,18 @@ export default function ProductRegistration() {
                     ))}
                 </select>
 
-                <select name="categoryNo" ref={selectCategoryNo} className={styles.categorySelect}>
+                <select name="categoryNo" ref={selectCategoryNo} className={styles.categorySelect} onChange={handleChange}>
                     {ProductCategoryList.map((item) => (
                         <option key={item.categoryNo} value={item.categoryNo}>{item.categoryName}</option>
                     ))}
                 </select>
 
                 <textarea
-                    name="description"
+                    name="productContent"
                     ref={productContent}
                     placeholder="판매상품 상세 설명"
                     className={styles.description}
+                    onChange={handleChange}
                 />
 
                 <div className={styles.productState}>
@@ -197,14 +214,14 @@ export default function ProductRegistration() {
                     </label>
                 </div>
 
-                <div className={styles.location}>
+                <div className={styles.tradeArea}>
                     <select
-                        name="location"
-                        value={formData.location === '서울'}
+                        name="tradeArea"
+                        value={formData.tradeArea}
                         onChange={handleChange}
                     >
-                        <option value="seoul">서울</option>
-                        <option value="gangnam">강서구</option>
+                        <option value="서울">서울</option>
+                        <option value="경기도">경기도</option>
                     </select>
                 </div>
 
