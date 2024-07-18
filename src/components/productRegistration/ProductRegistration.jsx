@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import styles from './ProductRegistration.module.css';
+import styles from './css/ProductRegistration.module.css';
 import ProductinsertPopup from './productinsertPopup';
+import ProductImageUpload from './ProductImageUpload';
+import ProductDeliveryOptions from './ProductDeliveryOptions';
 
 export default function ProductRegistration() {
     const productTitle = useRef();
@@ -168,11 +170,7 @@ export default function ProductRegistration() {
         <div className={styles.container}>
             <form onSubmit={handleSubmit}>
                 <div className={styles.productRegisterHeader}>
-                    <div className={styles.photoUpload}>
-                        <input type="file" name="file1" />
-                        <input type="file" name="file2" />
-                        <input type="file" name="file3" />
-                    </div>
+                <ProductImageUpload/>
                     <div className={styles.priceContainer1}>
                         <input
                             type="text"
@@ -256,48 +254,7 @@ export default function ProductRegistration() {
                 </div>
 
                 <div className={styles.directDeal}>
-                    <label className={`${styles.radioLabel} ${formData.deliveryNo === '1' ? styles.selected : ''}`}>
-                        <input
-                            type="radio"
-                            name="deliveryNo"
-                            value="1"
-                            checked={formData.deliveryNo === '1'}
-                            onChange={handleChange}
-                        />
-                        무료배송
-                    </label>
-                    <label className={`${styles.radioLabel} ${formData.deliveryNo === '2' ? styles.selected : ''}`}>
-                        <input
-                            type="radio"
-                            name="deliveryNo"
-                            value="2"
-                            checked={formData.deliveryNo === '2'}
-                            onChange={handleChange}
-                        />
-                        착불
-                    </label>
-                    <label className={`${styles.radioLabel} ${formData.deliveryNo === '3' ? styles.selected : ''}`}>
-                        <input
-                            type="radio"
-                            name="deliveryNo"
-                            value="3"
-                            checked={formData.deliveryNo === '3'}
-                            onChange={handleChange}
-                        />
-                        선불
-                    </label>
-                    {(formData.deliveryNo === '2' || formData.deliveryNo === '3') && (
-                        <input
-                            type="text"
-                            ref={deliveryCharge}
-                            name="deliveryCharge"
-                            placeholder="택배비를 입력하세요"
-                            onChange={handleChange}
-                            className={styles.deliveryChargeInput}
-                        />
-                    )}
-                    {errors.deliveryNo && <div className={`${styles.error} ${styles.red}`}>{errors.deliveryNo}</div>}
-                    {errors.deliveryCharge && <div className={`${styles.error} ${styles.red}`}>{errors.deliveryCharge}</div>}
+                <ProductDeliveryOptions formData={formData} handleChange={handleChange} errors={errors} />
                 </div>
 
                 <div className={styles.tradeArea}>

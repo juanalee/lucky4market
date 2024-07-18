@@ -1,0 +1,19 @@
+.productImageUpload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  background-image: url('../img/camera_create_icon.png');
+  background-size: cover;
+  width: 100px; /* 원하는 사이즈로 조정 */
+  height: 100px; /* 원하는 사이즈로 조정 */
+}
+
+.productImageUpload input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
