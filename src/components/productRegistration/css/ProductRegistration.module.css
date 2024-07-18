@@ -7,23 +7,10 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-
-.photo-upload {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;
-  width: 180px;
-  border: 1px dashed #ccc;
-  margin-bottom: 20px;
+.heafer{
+  padding-right: 20px;
 }
-
-.photo-placeholder {
-  color: #ccc;
-}
-
 .categorySelect,
-.description,
 .submitButton {
   width: 100%;
   padding: 10px;
@@ -32,13 +19,19 @@
   border-radius: 5px;
 }
 
+.description{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 .priceInput {
   border: 0px;
 }
 
 .productName,
-.priceContainer2 {
-  margin: 20px;
+.priceContainer {
   width: 100%;
   height: 17px;
   padding: 10px;

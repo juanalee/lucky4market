@@ -138,13 +138,21 @@ export default function ProductRegistration() {
         const fileInputs = document.querySelectorAll('input[type="file"]');
         fileInputs.forEach((fileInput) => {
             const files = fileInput.files;
-            for (let i = 0; i < files.length; i++) {
+            for (let i = 0; i < files.length ; i++) {
                 formDataToSend.append('file', files[i]);
+                console.log("파일길이: "+i);
+                console.log("파일길이: "+files.length);
             }
         });
 
+        
+
+        console.log('FormData to Send:');
+    for (let [key, value] of formDataToSend.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+
         try {
-            console.log('Submitting form data...');
             const response = await axios.post('http://localhost:9999/product/insert', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -169,8 +177,8 @@ export default function ProductRegistration() {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit}>
-                <ProductImageUpload/>
-                    <div className={styles.priceContainer1}>
+                <ProductImageUpload />
+                      <div className={styles.heafer}>
                         <input
                             type="text"
                             ref={productTitle}
@@ -180,7 +188,8 @@ export default function ProductRegistration() {
                             onChange={handleChange}
                         />
                         {errors.productTitle && <div className={`${styles.error} ${styles.red}`}>{errors.productTitle}</div>}
-                        <div className={styles.priceContainer2}>
+                      
+                        <div className={styles.priceContainer}>
                             <input
                                 type="text"
                                 name="productPrice"
@@ -204,7 +213,7 @@ export default function ProductRegistration() {
                             </div>
                         </div>
                         {errors.productPrice && <div className={`${styles.error} ${styles.red}`}>{errors.productPrice}</div>}
-                    </div>
+                        </div>
              
 
                 <select value={parentNumber} onChange={parentchange} className={styles.categorySelect}>
@@ -218,7 +227,7 @@ export default function ProductRegistration() {
                         <option key={item.categoryNo} value={item.categoryNo}>{item.categoryName}</option>
                     ))}
                 </select>
-
+                <div className={styles.heafer}>
                 <textarea
                     name="productContent"
                     ref={productContent}
@@ -227,6 +236,7 @@ export default function ProductRegistration() {
                     onChange={handleChange}
                 />
                 {errors.productContent && <div className={`${styles.error} ${styles.red}`}>{errors.productContent}</div>}
+                </div>
 
                 <div className={styles.productState}>
                     <label className={`${styles.radioLabel} ${formData.productStatus === '새상품' ? styles.selected : ''}`}>

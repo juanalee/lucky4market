@@ -15,6 +15,7 @@ const ProductImageUpload = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreviews(prev => [...prev, { src: reader.result, name: file.name }]);
+                console.log('파일이름:',file.name);
             };
             reader.readAsDataURL(file);
         });
@@ -26,10 +27,11 @@ const ProductImageUpload = () => {
 
     return (
         <div className={styles.productImageUpload}>
-            {imagePreviews.length < 3 && (
+            {imagePreviews.length < 4 && (
                 <>
                     <input
                         type="file"
+                        name="file"
                         id="fileUpload"
                         multiple
                         onChange={handleFileChange}
