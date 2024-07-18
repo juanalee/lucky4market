@@ -82,3 +82,23 @@ label {
 .submitButton:hover {
   background-color: #555;
 }
+
+.radioLabel {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  width: 65px;
+  height: 20px;
+  text-align: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.radioLabel input[type="radio"] {
+  display: none;
+}
+
+.radioLabel.selected {
+  background-color: #D3D3D3; /* 원하는 배경색으로 변경 */
+}

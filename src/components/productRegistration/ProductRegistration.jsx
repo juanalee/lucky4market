@@ -20,6 +20,8 @@ export default function ProductRegistration() {
         deliveryCharge: '',
     });
 
+    const [errors, setErrors] = useState({}); // 오류 상태 추가
+
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
     const [parentNumber, setParentNumber] = useState('1');
 
@@ -33,9 +35,7 @@ export default function ProductRegistration() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log('Fetching parent number options...');
-                const response = await axios.get('http://localhost:9999/Category/list');
-                console.log('Parent number options:', response.data);
+                const response = await axios.get('http://localhost:9999/category/list');
                 setParentNumberOptions(response.data);
             } catch (error) {
                 console.error('Error fetching parent number options:', error);
@@ -47,9 +47,7 @@ export default function ProductRegistration() {
     useEffect(() => {
         const readData = async () => {
             try {
-                console.log(`Fetching categories for parent number ${parentNumber}...`);
-                const response = await axios.get(`http://localhost:9999/Category/list/${parentNumber}`);
-                console.log('Categories:', response.data);
+                const response = await axios.get(`http://localhost:9999/category/list/${parentNumber}`);
                 setProductCategoryList(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -71,8 +69,22 @@ export default function ProductRegistration() {
         });
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.productTitle) newErrors.productTitle = '상품명을 입력하세요';
+        if (!formData.productPrice) newErrors.productPrice = '판매가격을 입력하세요';
+        if (!formData.productStatus) newErrors.productStatus = '상품 상태를 선택하세요';
+        if (!formData.deliveryNo) newErrors.deliveryNo = '배송 정보를 선택하세요';
+        if (!formData.tradeArea) newErrors.tradeArea = '거래 지역을 선택하세요';
+        if (!formData.productContent) newErrors.productContent = '상품 설명을 입력하세요';
+        if ((formData.deliveryNo === '2' || formData.deliveryNo === '3') && !formData.deliveryCharge) newErrors.deliveryCharge = '택배비를 입력하세요';
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
 
         const formDataToSend = new FormData();
         formDataToSend.append('productTitle', formData.productTitle);
@@ -92,6 +104,10 @@ export default function ProductRegistration() {
             }
         });
 
+        for (const [key, value] of formDataToSend.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
         try {
             console.log('Submitting form data...');
             const response = await axios.post('http://localhost:9999/product/insert', formDataToSend, {
@@ -99,7 +115,6 @@ export default function ProductRegistration() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Response:', response);
             setPopup({
                 show: true,
                 message: response.data.msg,
@@ -133,6 +148,7 @@ export default function ProductRegistration() {
                             className={styles.productName}
                             onChange={handleChange}
                         />
+                        {errors.productTitle && <div className={styles.error}>{errors.productTitle}</div>}
                         <div className={styles.priceContainer2}>
                             <input
                                 type="text"
@@ -142,6 +158,7 @@ export default function ProductRegistration() {
                                 placeholder="₩판매가격"
                                 className={styles.priceInput}
                             />
+                            {errors.productPrice && <div className={styles.error}>{errors.productPrice}</div>}
                             <div className={styles.freeCheckbox}>
                                 <label htmlFor="free">
                                     <input
@@ -176,9 +193,10 @@ export default function ProductRegistration() {
                     className={styles.description}
                     onChange={handleChange}
                 />
+                {errors.productContent && <div className={styles.error}>{errors.productContent}</div>}
 
                 <div className={styles.productState}>
-                    <label>
+                    <label className={`${styles.radioLabel} ${formData.productStatus === '새상품' ? styles.selected : ''}`}>
                         <input
                             type="radio"
                             name="productStatus"
@@ -188,7 +206,7 @@ export default function ProductRegistration() {
                         />
                         새상품
                     </label>
-                    <label>
+                    <label className={`${styles.radioLabel} ${formData.productStatus === '중고' ? styles.selected : ''}`}>
                         <input
                             type="radio"
                             name="productStatus"
@@ -199,9 +217,10 @@ export default function ProductRegistration() {
                         중고
                     </label>
                 </div>
+                {errors.productStatus && <div className={styles.error}>{errors.productStatus}</div>}
 
                 <div className={styles.directDeal}>
-                    <label>
+                    <label className={`${styles.radioLabel} ${formData.deliveryNo === '1' ? styles.selected : ''}`}>
                         <input
                             type="radio"
                             name="deliveryNo"
@@ -211,17 +230,19 @@ export default function ProductRegistration() {
                         />
                         무료배송
                     </label>
-                    <label>
+                    <label className={`${styles.radioLabel} ${formData.deliveryNo === '2' ? styles.selected : ''}`}>
                         <input
                             type="radio"
                             name="deliveryNo"
                             value="2"
+
                             checked={formData.deliveryNo === '2'}
                             onChange={handleChange}
                         />
                         착불
                     </label>
-                    <label>
+                    <label
+                    className={`${styles.radioLabel} ${formData.deliveryNo === '3' ? styles.selected : ''}`}>
                         <input
                             type="radio"
                             name="deliveryNo"
