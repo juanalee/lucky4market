@@ -102,3 +102,7 @@ label {
 .radioLabel.selected {
   background-color: #D3D3D3; /* 원하는 배경색으로 변경 */
 }
+
+.red {
+  color: red;
+}

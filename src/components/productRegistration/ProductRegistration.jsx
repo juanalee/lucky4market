@@ -20,12 +20,19 @@ export default function ProductRegistration() {
         deliveryCharge: '',
     });
 
-    const [errors, setErrors] = useState({}); // 오류 상태 추가
-
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
     const [parentNumber, setParentNumber] = useState('1');
 
-    // 팝업 상태 추가
+    // 오류 상태와 팝업 상태 추가
+    const [errors, setErrors] = useState({
+        productTitle: '',
+        productPrice: '',
+        productStatus: '',
+        deliveryNo: '',
+        productContent: '',
+        deliveryCharge: '',
+    });
+
     const [popup, setPopup] = useState({
         show: false,
         message: '',
@@ -70,21 +77,51 @@ export default function ProductRegistration() {
     };
 
     const validateForm = () => {
-        const newErrors = {};
-        if (!formData.productTitle) newErrors.productTitle = '상품명을 입력하세요';
-        if (!formData.productPrice) newErrors.productPrice = '판매가격을 입력하세요';
-        if (!formData.productStatus) newErrors.productStatus = '상품 상태를 선택하세요';
-        if (!formData.deliveryNo) newErrors.deliveryNo = '배송 정보를 선택하세요';
-        if (!formData.tradeArea) newErrors.tradeArea = '거래 지역을 선택하세요';
-        if (!formData.productContent) newErrors.productContent = '상품 설명을 입력하세요';
-        if ((formData.deliveryNo === '2' || formData.deliveryNo === '3') && !formData.deliveryCharge) newErrors.deliveryCharge = '택배비를 입력하세요';
+        let valid = true;
+        const newErrors = {
+            productTitle: '',
+            productPrice: '',
+            productStatus: '',
+            deliveryNo: '',
+            productContent: '',
+            deliveryCharge: '',
+        };
+
+        if (!formData.productTitle) {
+            newErrors.productTitle = '상품명을 입력하세요';
+            valid = false;
+        }
+        if (!formData.productPrice) {
+            newErrors.productPrice = '판매가격을 입력하세요';
+            valid = false;
+        }
+        if (!formData.productStatus) {
+            newErrors.productStatus = '상품 상태를 선택하세요';
+            valid = false;
+        }
+        if (!formData.deliveryNo) {
+            newErrors.deliveryNo = '배송 정보를 선택하세요';
+            valid = false;
+        }
+        if (!formData.productContent) {
+            newErrors.productContent = '상품 설명을 입력하세요';
+            valid = false;
+        }
+        if ((formData.deliveryNo === '2' || formData.deliveryNo === '3') && !formData.deliveryCharge) {
+            newErrors.deliveryCharge = '택배비를 입력하세요';
+            valid = false;
+        }
+
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        return valid;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return;
+
+        if (!validateForm()) {
+            return;
+        }
 
         const formDataToSend = new FormData();
         formDataToSend.append('productTitle', formData.productTitle);
@@ -104,10 +141,6 @@ export default function ProductRegistration() {
             }
         });
 
-        for (const [key, value] of formDataToSend.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-
         try {
             console.log('Submitting form data...');
             const response = await axios.post('http://localhost:9999/product/insert', formDataToSend, {
@@ -115,6 +148,7 @@ export default function ProductRegistration() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            console.log(formDataToSend.values);
             setPopup({
                 show: true,
                 message: response.data.msg,
@@ -148,17 +182,18 @@ export default function ProductRegistration() {
                             className={styles.productName}
                             onChange={handleChange}
                         />
-                        {errors.productTitle && <div className={styles.error}>{errors.productTitle}</div>}
+                        {errors.productTitle && <div className={`${styles.error} ${styles.red}`}>{errors.productTitle}</div>}
                         <div className={styles.priceContainer2}>
                             <input
                                 type="text"
                                 name="productPrice"
                                 ref={productPrice}
                                 onChange={handleChange}
+                                value={formData.productPrice === '0' ? '0' : formData.productPrice} 
                                 placeholder="₩판매가격"
                                 className={styles.priceInput}
                             />
-                            {errors.productPrice && <div className={styles.error}>{errors.productPrice}</div>}
+                           
                             <div className={styles.freeCheckbox}>
                                 <label htmlFor="free">
                                     <input
@@ -171,6 +206,7 @@ export default function ProductRegistration() {
                                 </label>
                             </div>
                         </div>
+                        {errors.productPrice && <div className={`${styles.error} ${styles.red}`}>{errors.productPrice}</div>}
                     </div>
                 </div>
 
@@ -193,7 +229,7 @@ export default function ProductRegistration() {
                     className={styles.description}
                     onChange={handleChange}
                 />
-                {errors.productContent && <div className={styles.error}>{errors.productContent}</div>}
+                {errors.productContent && <div className={`${styles.error} ${styles.red}`}>{errors.productContent}</div>}
 
                 <div className={styles.productState}>
                     <label className={`${styles.radioLabel} ${formData.productStatus === '새상품' ? styles.selected : ''}`}>
@@ -216,8 +252,8 @@ export default function ProductRegistration() {
                         />
                         중고
                     </label>
+                    {errors.productStatus && <div className={`${styles.error} ${styles.red}`}>{errors.productStatus}</div>}
                 </div>
-                {errors.productStatus && <div className={styles.error}>{errors.productStatus}</div>}
 
                 <div className={styles.directDeal}>
                     <label className={`${styles.radioLabel} ${formData.deliveryNo === '1' ? styles.selected : ''}`}>
@@ -235,14 +271,12 @@ export default function ProductRegistration() {
                             type="radio"
                             name="deliveryNo"
                             value="2"
-
                             checked={formData.deliveryNo === '2'}
                             onChange={handleChange}
                         />
                         착불
                     </label>
-                    <label
-                    className={`${styles.radioLabel} ${formData.deliveryNo === '3' ? styles.selected : ''}`}>
+                    <label className={`${styles.radioLabel} ${formData.deliveryNo === '3' ? styles.selected : ''}`}>
                         <input
                             type="radio"
                             name="deliveryNo"
@@ -262,6 +296,8 @@ export default function ProductRegistration() {
                             className={styles.deliveryChargeInput}
                         />
                     )}
+                    {errors.deliveryNo && <div className={`${styles.error} ${styles.red}`}>{errors.deliveryNo}</div>}
+                    {errors.deliveryCharge && <div className={`${styles.error} ${styles.red}`}>{errors.deliveryCharge}</div>}
                 </div>
 
                 <div className={styles.tradeArea}>
