@@ -169,7 +169,6 @@ export default function ProductRegistration() {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit}>
-                <div className={styles.productRegisterHeader}>
                 <ProductImageUpload/>
                     <div className={styles.priceContainer1}>
                         <input
@@ -206,7 +205,7 @@ export default function ProductRegistration() {
                         </div>
                         {errors.productPrice && <div className={`${styles.error} ${styles.red}`}>{errors.productPrice}</div>}
                     </div>
-                </div>
+             
 
                 <select value={parentNumber} onChange={parentchange} className={styles.categorySelect}>
                     {parentNumberOptions.map((item) => (
