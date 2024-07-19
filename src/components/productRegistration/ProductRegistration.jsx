@@ -4,6 +4,7 @@ import styles from './css/ProductRegistration.module.css';
 import ProductinsertPopup from './productinsertPopup';
 import ProductImageUpload from './ProductImageUpload';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
+import ProductTradeArea from './ProductTradeArea';
 
 export default function ProductRegistration() {
     const productTitle = useRef();
@@ -17,7 +18,7 @@ export default function ProductRegistration() {
         productPrice: '',
         productStatus: '',
         deliveryNo: '',
-        tradeArea: 'seoul',
+        tradeArea: '',
         directDeal: 'select',
         deliveryCharge: '',
     });
@@ -78,6 +79,25 @@ export default function ProductRegistration() {
         });
     };
 
+    const [deliveryTransaction, setDeliveryTransaction] = useState(false);
+    const [directTransaction, setDirectTransaction] = useState(false);
+    
+    useEffect(() => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            tradeArea: directTransaction ? 'seoul' : '',
+        }));
+    }, [directTransaction]);
+
+    useEffect(() => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            deliveryNo: deliveryTransaction ? prevFormData.deliveryNo : '',
+        }));
+    }, [deliveryTransaction]);
+
+    
+
     const validateForm = () => {
         let valid = true;
         const newErrors = {
@@ -101,7 +121,7 @@ export default function ProductRegistration() {
             newErrors.productStatus = '상품 상태를 선택하세요';
             valid = false;
         }
-        if (!formData.deliveryNo) {
+        if (deliveryTransaction && !formData.deliveryNo) {
             newErrors.deliveryNo = '배송 정보를 선택하세요';
             valid = false;
         }
@@ -140,8 +160,6 @@ export default function ProductRegistration() {
             const files = fileInput.files;
             for (let i = 0; i < files.length ; i++) {
                 formDataToSend.append('file', files[i]);
-                console.log("파일길이: "+i);
-                console.log("파일길이: "+files.length);
             }
         });
 
@@ -261,22 +279,29 @@ export default function ProductRegistration() {
                     </label>
                     {errors.productStatus && <div className={`${styles.error} ${styles.red}`}>{errors.productStatus}</div>}
                 </div>
-
-                <div className={styles.directDeal}>
+                
+                <div>
+                    <label>
+                    <input type='checkbox' name='directTransaction'
+                      checked={directTransaction}
+                      onChange={(e) => setDirectTransaction(e.target.checked)}/>
+                    직거래
+                    </label>
+                    <label>
+                    <input
+                     type='checkbox' 
+                     name='deliveryTransaction'
+                     checked={deliveryTransaction}
+                     onChange={(e) => setDeliveryTransaction(e.target.checked)}/>
+                    택배거래
+                    </label>
+                </div>
+                  {deliveryTransaction && (
                 <ProductDeliveryOptions formData={formData} handleChange={handleChange} errors={errors} />
-                </div>
-
-                <div className={styles.tradeArea}>
-                    <select
-                        name="tradeArea"
-                        value={formData.tradeArea}
-                        onChange={handleChange}
-                    >
-                        <option value="서울">서울</option>
-                        <option value="경기도">경기도</option>
-                    </select>
-                </div>
-
+            )}
+             {directTransaction && (
+                <ProductTradeArea formData={formData} handleChange={handleChange} />
+            )}
                 <button type="submit" className={styles.submitButton}>작성 완료</button>
             </form>
             <ProductinsertPopup

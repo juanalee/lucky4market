@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
 import styles from './css/ProductImageUpload.module.css';
+import ProductinsertPopup from './productinsertPopup';
 
 const ProductImageUpload = () => {
     const [imagePreviews, setImagePreviews] = useState([]);
 
+    
+    const [popup, setPopup] = useState({
+        show: false,
+        message: '',
+        isConfirmation: false,
+    });
+
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
         if (files.length + imagePreviews.length > 3) {
-            alert('상품 사진은 최대 3개까지 가능합니다.');
+            setPopup({
+                show: true,
+                message: "상품 사진은 최대 3개까지 가능합니다."
+            });
+
             return;
         }
-
+ 
         files.forEach(file => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreviews(prev => [...prev, { src: reader.result, name: file.name }]);
-                console.log('파일이름:',file.name);
             };
             reader.readAsDataURL(file);
         });
@@ -28,7 +39,7 @@ const ProductImageUpload = () => {
     return (
         <div className={styles.productImageUpload}>
             {imagePreviews.length < 4 && (
-                <>
+                <div className={styles.productImageUploadimage}>
                     <input
                         type="file"
                         name="file"
@@ -39,7 +50,7 @@ const ProductImageUpload = () => {
                     />
                     <label htmlFor="fileUpload" className={styles.fileUploadButton}></label>
                     <span className={styles.uploadCount}>{imagePreviews.length}/3</span>
-                </>
+                </div>
             )}
             <div className={styles.imagePreviewContainer}>
                 {imagePreviews.map((preview, index) => (
@@ -49,7 +60,14 @@ const ProductImageUpload = () => {
                     </div>
                 ))}
             </div>
+            <ProductinsertPopup
+           show={popup.show}
+           onClose={() => setPopup({ ...popup, show: false })}
+           message={popup.message}
+           isConfirmation={popup.isConfirmation}
+       />
         </div>
+   
     );
 };
 

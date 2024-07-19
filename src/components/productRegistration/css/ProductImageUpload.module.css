@@ -1,8 +1,15 @@
 .productImageUpload {
+  padding-left: 30px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: row;
   gap: 10px;
+}
+
+.productImageUploadimage{
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }
 
 .fileInput {
