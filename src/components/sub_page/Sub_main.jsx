@@ -1,22 +1,17 @@
 import React from "react";
 import Header from "../header/Header";
 import ImageSlider from "./Sub_imageSlider";
-import ProductInfo from "./Sub_productInfo";
-import SellerInfo from "./Sub_sellerInfo";
-import '../../css/sub_pageCss/sub_page.css';
+import '../../css/sub_pageCss/sub_imageSlider.css'
+import '../../css/sub_pageCss/sub_productInfo.css'
+import '../../css/sub_pageCss/sub_sellerInfo.css'
+import '../../css/sub_pageCss/sub_purchase_side.css'
 
 export default () => {
 
   return (
     <>
       <Header />
-      <div className="sub_page_container">
-        <div className="sub_page_main">
-          <ImageSlider />
-            <ProductInfo />
-            <SellerInfo />
-        </div>  
-      </div>
+      <ImageSlider />         
     </>
   );
 }

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import PurchaseSide from './Sub_side';
 
-const ProductInfo = () => {
+const ProductInfo = ({productImage}) => {
   const reportArea = useRef();
+
   const [timePassed, setTimePassed] = useState("");
   const [likeImg, setLikeImg] = useState("/img/heart.png");
   const [productInfo, setProductInfo] = useState({
@@ -23,6 +25,11 @@ const ProductInfo = () => {
   });
 
   const [categoryInfo, setCategoryInfo] = useState([]);
+  const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
+
+  const buyWidth = () => {
+    setIsPurchaseOpen(true);
+  };
 
   const reportOpen = () => {
     reportArea.current.style.display = 'block';
@@ -32,25 +39,22 @@ const ProductInfo = () => {
     reportArea.current.style.display = 'none';
   };
 
+  const fetchData = async () => {
+    try {
+      const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
+      setProductInfo(productResponse.data);
+
+      const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=20');
+      setDeliveryInfo(deliveryResponse.data);
+
+      const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
+      setCategoryInfo(categoryResponse.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
-        // console.log(productResponse.data);
-        setProductInfo(productResponse.data);
-
-        const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=20');
-        // console.log(deliveryResponse.data);
-        setDeliveryInfo(deliveryResponse.data);
-
-        const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
-        // console.log(categoryResponse.data);
-        setCategoryInfo(categoryResponse.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -106,7 +110,7 @@ const ProductInfo = () => {
             <span>{productInfo.productCount}</span>
           </div>
           <div className="product_like">
-            <img src="/img/heart.png" alt="like" />
+            <img src="/img/heart.png" alt="like" onClick={likeClick} />
             <span>{productInfo.productLike}</span>
           </div>
           <div className="product_report">
@@ -158,14 +162,17 @@ const ProductInfo = () => {
             <img src={likeImg} alt="like" />
           </button>
           <button className="chat_btn">채팅하기</button>
-          <button className="buy_btn">구매하기</button>
+          <button className="buy_btn" onClick={buyWidth}>구매하기</button>
         </div>
       </div>
       <div className="product_content">
-        <h2>상품 정보</h2>
-        <hr />
-        <p>{productInfo.productContent}</p>
+        <div className='content'>
+          <h2>상품 정보</h2>
+          <hr />
+          <p>{productInfo.productContent}</p>
+        </div>
       </div>
+      <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
     </>
   );
 };

@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  
 }
 
 .header_container {
@@ -8,6 +9,7 @@
   margin: 0 auto;
   display: flex;
   position: relative;
+  zoom: 0.75;  /* 75% 크기로 축소 */
 }
 
 .header{
@@ -265,43 +267,47 @@ hr {
   cursor: pointer;
 }
 
-.chat{
+.side, .purchase_side, .tradeMethod_side {
   width: 0px;
   height: 100%;
   position: fixed;
   z-index: 10;
   top: 0;
   right: 0;
-  background-color: #fcedaa;
+  background-color: white;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-.chat a {
+.side.open, .purchase_side.open, .tradeMethod_side.open {
+  width: 600px;
+}
+
+.side a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  clear: #363636;
+  color: #363636;
   display: block;
   transition: 0.3s;
 }
 
-.chat a:hover{
+.side a:hover {
   color: #a9cfe2;
 }
 
-.chat .closeBtn{
+.side .closeBtn, .purchase_side .closeBtn, .tradeMethod_side .closeBtn {
   position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
-} 
+}
 
-.chat img{
-  width: 40px;
-  height: 40px;
+.side .x, .purchase_side .x, .tradeMethod_side .x{
+  width: 20px;
+  height: 20px;
   position: absolute;
   top: 30px;
   right: 30px;

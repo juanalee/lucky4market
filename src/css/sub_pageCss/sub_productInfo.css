@@ -1,95 +1,9 @@
-*{
-  padding: 0;
-  margin: 0;
-}
-
-.sub_page_container{
-  width: 1440px;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.sub_page_main{
-  width: 1440px;
-  display: flex;
-  flex-flow: row wrap;
-  gap: 130px;
-}
-
-.product_main_img{
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.product_main_img > img{  
-  border-radius: 20px;
-}
-
-.arrow a{
-  width: 50px;
-  height: 50px;
-}
-
-.product_main_img_container{
-  margin-left: 100px;
-  position: relative;
-  width: 500px;
-  height: 550px;
-  margin-top: 50px;
-}
-
-.product_main_img_move{
-  overflow: hidden;
-  width: 500px;
-  height: 550px;
-}
-
-.product_main_img > img {
-  width: 500px;
-  height: 550px;
-}
-
-.left_arrow{
-  width: 50px;
-  position: absolute;
-  left: -60px;
-  top: calc(50% - 50px);
-}
-
-.right_arrow{
-  width: 50px;
-  position: absolute;
-  left: 510px;
-  top: calc(50% - 50px);
-}
-
-.slider_dot{
-  position: absolute;
-  left: 240px;
-  bottom: -40px;
-  transform:  translateX(-50%);
-}
-
-.slider_dot .dot{
-  width: 15px;
-  height: 15px;
-  border: 1px solid black;
-  display: inline-block;
-  border-radius: 50%;
-  transition: all 0.3s;
-  margin: 0px 5px;
-}
-
-.dot.active{
-  background-color: gray;
-}
-
 .product_information{
-  width: 710px;
+  box-sizing: border-box;
+  width: 720px;
   height: 600px;
   margin-top: 50px;
+  padding-left: 100px;
 }
 
 .product_title {
@@ -247,7 +161,8 @@
 }
 
 .product_content_container{
-  width: 608px;
+  width: 620px;
+  box-sizing: border-box;
   display: flex;
   flex-flow: row nowrap;
   gap: 150px;
@@ -265,162 +180,31 @@
 .product_content_container hr{
   margin: 10px 0px 50px;
 }
-.seller_inpormation hr{
-  margin: 10px 0px 50px;
-}
 
 .product_content p{
   font-size: 24px;
   padding-left: 30px;
 }
+
 .product_content_container h2{
   padding-left: 30px;
 }
+
 .product_content h2{
   padding-left: 30px;
 }
 
 .product_content{
+  display: flex;
+  justify-content: center;
   width: 696px;
-
+  padding-top: 30px;
+  border-left: 1px solid #ccc;
 }
 
-.seller_inpormation{
-  width: 500px;
-}
-
-.member_id img{
-  width: 50px;
-  height: 50px;
-  border: 1px solid black;
-  border-radius: 50%;
-}
-
-.member_id{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 20px;
-}
-
-.member_id a{
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-}
-
-.seller_sub_2{
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  color: #ccc;
-  gap: 5px;
-  padding-left: 50px;
-  margin-bottom: 20px;
-}
-
-.seller_sub_2 span{
-  margin: 0px 10px;
-}
-.seller_sub_2 a{
-  text-decoration: none;
-  color: #ccc;  
-  }
-
-.follow {
-  padding-left: 30px;
-  width: 350px;
-  height: 60px;
-  font-size: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-  cursor: pointer;
-  margin-bottom: 30px;
-}
-
-.followBtn_container{
-  width: 350px;
-  position: relative;
-}
-
-.followBtn_container img{
-  width: 40px;
-  position: absolute;
-  left: 110px;
-  top: 10px;
-}
-
-.store_info{
-  padding-left: 30px;
-}
-
-.seller_product_img{
-  display: flex;
-  flex-flow: row;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.seller_product_img img{
-  width: 170px;
-  height: 100px;
-}
-
-.seller_product_img p{
-  text-align: center;
-  font-weight: bold;
-  margin: 5px 0px;
-}
-
-.more, .review_more {
-  display: inline-block;
-  width: 350px;
-  text-align: center;
-  margin-bottom: 100px;
-}
-
-.more a, .review_more a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-}
-
-
-.seller_review_container{
-  width: 500px;
-  max-height: 600px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-.buyer_review_img{
-  display: flex;
-  gap: 3px;
-  margin-bottom: 20px;
-}
-
-.buyer_review_img img{
-  width: 20px;
-  height: 20px;
-}
-
-.buyer_review{
-  margin-left: 60px;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 50px;
-}
-
-.buyer_review p{
-  text-overflow: ellipsis;
-  margin-bottom: 10px;
-}
-
-.review{
-  width: 350px;
-  padding-left: 30px;
-}
+.content{
+  width: 550px;
+} 
 
 .report_container {
   position: absolute;
@@ -453,18 +237,6 @@
   padding: 0px 20px;
 }
 
-.close{
-  cursor: pointer;
-}
-
-.close img{
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 50px;
-  right: 0px;
-}
-
 .reportSubmit{
   position: absolute;
   bottom: 0;
@@ -475,13 +247,4 @@
   background-color: white;
   cursor: pointer;
   font-size: 20px;
-}
-
-.more span{
-  color: red;
-  font-size: 16px;
-}
-
-.review_more{
-  padding-left: 30px;
 }

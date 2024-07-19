@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '../../css/headerCss/header.css';
 
 export default () => {
-  const chat = useRef();
   const chatArea = useRef();
 
   const chatWidth = () => {
@@ -343,7 +342,7 @@ export default () => {
                 <img src='/img/profile.png' alt='profile' />
                 <li><Link to='#'>내상점</Link></li>
               </div>
-              <div className='menu_item'  ref={chat}>
+              <div className='menu_item'>
                 <img src='/img/chat.png' alt='chat' />
                 <li><button onClick={chatWidth}>채팅하기</button></li>
               </div>
@@ -351,8 +350,8 @@ export default () => {
           </nav>
         </div>
       </div>
-      <div className='chat' ref={chatArea}>
-        <span onClick={closeChat}><img src='/img/x.png' alt='close'></img></span>
+      <div className='side' ref={chatArea}>
+        <span onClick={closeChat}><img src='/img/x.png' alt='close' className='x'></img></span>
         <a href='#'>하이</a>
         <a href='#'>하이</a>
         <a href='#'>하이</a>

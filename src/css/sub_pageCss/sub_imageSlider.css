@@ -1,0 +1,89 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.sub_page_container{
+  width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  zoom: 0.75;  /* 75% 크기로 축소 */
+  
+}
+
+.sub_page_main{
+  width: 1440px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 120px;
+}
+
+.product_main_img{
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.product_main_img > img{  
+  border-radius: 20px;
+}
+
+.arrow a{
+  width: 50px;
+  height: 50px;
+}
+
+.product_main_img_container{
+  margin-left: 100px;
+  position: relative;
+  width: 500px;
+  height: 550px;
+  margin-top: 50px;
+}
+
+.product_main_img_move{
+  overflow: hidden;
+  width: 500px;
+  height: 550px;
+}
+
+.product_main_img > img {
+  width: 500px;
+  height: 550px;
+}
+
+.left_arrow{
+  width: 50px;
+  position: absolute;
+  left: -60px;
+  top: calc(50% - 50px);
+}
+
+.right_arrow{
+  width: 50px;
+  position: absolute;
+  left: 510px;
+  top: calc(50% - 50px);
+}
+
+.slider_dot{
+  position: absolute;
+  left: 240px;
+  bottom: -40px;
+  transform:  translateX(-50%);
+}
+
+.slider_dot .dot{
+  width: 15px;
+  height: 15px;
+  border: 1px solid black;
+  display: inline-block;
+  border-radius: 50%;
+  transition: all 0.3s;
+  margin: 0px 5px;
+}
+
+.dot.active{
+  background-color: gray;
+}

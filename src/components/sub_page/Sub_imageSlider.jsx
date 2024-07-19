@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import ProductInfo from './Sub_productInfo';
+import StoreInfo from './Sub_sellerInfo';
 
 export default () => {
   const [productImg, setProductImg] = useState([]); 
 
   useEffect(() => {
     let currentIndex = 0; // 현재 보이는 이미지
-    const sliderCount = 3; // 이미지 갯수
+    const sliderCount = productImg.length; // 이미지 갯수
     const sliderMove = document.querySelector('.product_main_img');
     const sliderBtn = document.querySelectorAll('.arrow a');
 
@@ -38,9 +40,9 @@ export default () => {
       } else {
         btn.onclick = handleNext;
       }
-    });    
+    });  
 
-  }, []);
+  }, [productImg]);
 
   useEffect(() => {
     const productImage = async () => {
@@ -58,29 +60,39 @@ export default () => {
 
 
   return (
-    <div className="slide_container">
-      <div className="product_main_img_container">
-        <div className="product_main_img_move">
-          <div className="product_main_img">
-          {productImg.map((img, index) => (
-            <img key={index} src={img.productImagePath} alt={`Product ${index}`} />
-          ))}
+    <>
+    <div className="sub_page_container">
+      <div className="sub_page_main">
+        <div className="slide_container">
+          <div className="product_main_img_container">
+            <div className="product_main_img_move">
+              <div className="product_main_img">
+              {productImg.map((img, index) => (
+                <img key={index} src={img.productImagePath} alt={`Product ${index}`} />
+              ))}
+              </div>
+            </div>
+            {productImg.length > 1  &&
+              <div className="arrow">
+                <a href="#" className="prev">
+                  <img src="/img/left.png" className="left_arrow" alt="Previous" />
+                </a>
+                <a href="#" className="next">
+                  <img src="/img/right.png" className="right_arrow" alt="Next" />
+                </a>
+              </div>
+            }
+            <div className="slider_dot">
+                {productImg.map((_, index) => (
+                  <span key={index} className={`dot ${index === 0 ? 'active' : ''}`}></span>
+                ))}
+            </div>
           </div>
         </div>
-        <div className="arrow">
-          <a href="#" className="prev">
-            <img src="/img/left.png" className="left_arrow" alt="Previous" />
-          </a>
-          <a href="#" className="next">
-            <img src="/img/right.png" className="right_arrow" alt="Next" />
-          </a>
-        </div>
-        <div className="slider_dot">
-          <span className="dot active"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
-        </div>
+        <ProductInfo productImage={productImg[0]}/>
+        <StoreInfo />
       </div>
     </div>
+    </>
   );
 }
