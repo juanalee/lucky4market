@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './css/SideBar.module.css';
 
-const SideBar = () => {
+export default function SideBar() {
   return (
     <div className={styles.side_bar}>
       <tr>
@@ -9,16 +9,19 @@ const SideBar = () => {
           <div className={styles.my_page}>마이 페이지</div>
         </td>
         <td>
+          <a href="#" className={styles.my_store}>내 상점</a>
+        </td>
+        <td>
           <a href="#" className={styles.my_info}>내 정보</a>
+        </td>
+        <td>
+          <a href="#" className={styles.like_product}>관심 상품</a>
         </td>
         <td>
           <a href="#" className={styles.buy_history}>구매 내역</a>
         </td>
         <td>
           <a href="#" className={styles.sell_history}>판매 내역</a>
-        </td>
-        <td>
-          <a href="#" className={styles.interest_product}>관심 상품</a>
         </td>
         <td>
           <a href="#" className={styles.writed_review}>작성 후기</a>
@@ -33,5 +36,3 @@ const SideBar = () => {
     </div>
   );
 };
-
-export default SideBar;

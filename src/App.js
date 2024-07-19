@@ -1,5 +1,5 @@
 import React from 'react';
-import MyStore from './components/mystore/MyStore';
+import MyStore from './components/mypage/MyStore';
 
 function App() {
   return (

@@ -25,50 +25,57 @@ tr td a {
   font-weight: bold;
 }
 
+.my_store {
+  background-image: url('/public/img/mypage/store.png');
+  background-repeat: no-repeat;
+  background-position: 5px;
+  padding-left: 35px;
+}
+
 .my_info {
-  background-image: url('/public/img/mystore/info.png');
+  background-image: url('/public/img/mypage/info.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .buy_history {
-  background-image: url('/public/img/mystore/buy.png');
+  background-image: url('/public/img/mypage/buy.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .sell_history {
-  background-image: url('/public/img/mystore/sell.png');
+  background-image: url('/public/img/mypage/sell.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
-.interest_product {
-  background-image: url('/public/img/mystore/interest.png');
+.like_product {
+  background-image: url('/public/img/mypage/like.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .writed_review {
-  background-image: url('/public/img/mystore/writed_review.png');
+  background-image: url('/public/img/mypage/writed_review.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .received_review {
-  background-image: url('/public/img/mystore/received_review.png');
+  background-image: url('/public/img/mypage/received_review.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .follow_list {
-  background-image: url('/public/img/mystore/follow.png');
+  background-image: url('/public/img/mypage/follow.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;

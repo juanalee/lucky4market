@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './css/ProductCard.module.css';
 
-const ProductCard = ({ product }) => {
+export default function ProductCard({ product }) {
   return (
     <div className={styles.product_card}>
       <img src={product.imageUrl} alt={product.name}/>
@@ -13,5 +13,3 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
-
-export default ProductCard;
