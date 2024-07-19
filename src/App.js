@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/admin" element={<Navigate to="/admin/members" />} />
+        <Route path="/admin" element={<Navigate to="/admin/reports" />} />
         <Route path="/admin/members" element={<AdminMembers />} />
         <Route path="/admin/reports" element={<AdminReports />} />
       </Routes>

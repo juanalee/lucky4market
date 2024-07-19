@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:9999/api/members';
+const API_BASE_URL = 'http://localhost:9999';
 
 const getAllMembers = () => {
-  return axios.get(API_BASE_URL);
+  return axios.get(`${API_BASE_URL}`);
 };
 
 const searchMembers = (params) => {
