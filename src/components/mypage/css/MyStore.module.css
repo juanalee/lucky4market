@@ -7,13 +7,14 @@
   width: 1440px;
   display: flex;
   flex-flow: column wrap;
+  margin: 0 auto;
 }
 
 .content {
   display: flex;
 }
 
-.profile {
+.my_profile {
   width: 300px;
   height: 48px;
   display: flex;

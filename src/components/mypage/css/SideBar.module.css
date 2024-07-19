@@ -3,7 +3,7 @@
   margin: 0px 50px;
 }
 
-tr {
+.tr_container {
   display: flex;
   flex-flow: column nowrap;
   text-decoration-line: none;

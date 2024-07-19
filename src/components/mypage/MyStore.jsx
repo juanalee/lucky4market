@@ -39,7 +39,7 @@ export default function MyStore() {
       <div className={styles.content}>
         <SideBar/>
           <main>
-            <div className={styles.profile}>닉네임 | 평점: <span className={styles.score}>★</span>4.5</div>
+            <div className={styles.my_profile}>닉네임 | 평점: <span className={styles.score}>★</span>4.5</div>
             <nav>
               <ul>
                 <li><a href="#" className={styles.product}>상품</a></li>

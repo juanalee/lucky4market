@@ -4,7 +4,7 @@ import styles from './css/SideBar.module.css';
 export default function SideBar() {
   return (
     <div className={styles.side_bar}>
-      <tr>
+      <tr className={styles.tr_container}>
         <td>
           <div className={styles.my_page}>마이 페이지</div>
         </td>
