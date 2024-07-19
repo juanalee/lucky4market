@@ -1,16 +1,16 @@
 // Payment.jsx
 import React from 'react';
 
-const Payment = ({buyMehod}) => {
+const Payment = ({buyMethod}) => {
 
   const onClickPayment = () => {
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP.init('imp51217870');
-    console.log(buyMehod);
+    console.log(buyMethod);
     /* 2. 결제 데이터 정의하기 */
     const data = {
-      pg: buyMehod,                           // PG사
+      pg: buyMethod,                           // PG사
       pay_method: 'card',                           // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
       amount: 1000,                                 // 결제금액

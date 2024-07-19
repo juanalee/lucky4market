@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductInfo from './Sub_productInfo';
 import StoreInfo from './Sub_sellerInfo';
+import '../../css/sub_pageCss/sub_imageSlider.css'
 
 export default () => {
   const [productImg, setProductImg] = useState([]); 
@@ -61,6 +62,9 @@ export default () => {
 
   return (
     <>
+    <div className='hr_container'>
+      <hr />
+    </div>
     <div className="sub_page_container">
       <div className="sub_page_main">
         <div className="slide_container">

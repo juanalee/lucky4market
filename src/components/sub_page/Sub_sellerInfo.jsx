@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useRef, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import '../../css/sub_pageCss/sub_sellerInfo.css'
 
 const StoreInfo = () => {
   const followBtn = useRef();

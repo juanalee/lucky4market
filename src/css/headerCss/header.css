@@ -40,10 +40,6 @@ ul {
   font-weight: bold;
 }
 
-hr {
-  border: 0.5px solid #cccccc;
-}
-
 .search_container {
   width: 1440px;
   display: flex;
@@ -74,7 +70,6 @@ hr {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding-bottom: 5px;
 }
 
 .main_category_container {
@@ -265,6 +260,10 @@ hr {
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.side{
+  zoom: 0.75;
 }
 
 .side, .purchase_side, .tradeMethod_side {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PurchaseSide from './Sub_side';
+import '../../css/sub_pageCss/sub_productInfo.css'
 
 const ProductInfo = ({productImage}) => {
   const reportArea = useRef();

@@ -17,7 +17,7 @@
   width: 1440px;
   display: flex;
   flex-flow: row wrap;
-  gap: 120px;
+  gap: 110px;
 }
 
 .product_main_img{
@@ -86,4 +86,15 @@
 
 .dot.active{
   background-color: gray;
+}
+
+.hr_container{
+  position: relative;
+  width: 100%;
+}
+
+.hr_container hr{
+  width: 100%;
+  position: absolute;
+  top: 565px;
 }
