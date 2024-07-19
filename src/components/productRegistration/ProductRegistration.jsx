@@ -5,6 +5,7 @@ import ProductinsertPopup from './productinsertPopup';
 import ProductImageUpload from './ProductImageUpload';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
 import ProductTradeArea from './ProductTradeArea';
+import CategorySelector from './CategorySelector';
 
 export default function ProductRegistration() {
     const productTitle = useRef();
@@ -96,7 +97,7 @@ export default function ProductRegistration() {
         }));
     }, [deliveryTransaction]);
 
-    
+
 
     const validateForm = () => {
         let valid = true;
@@ -234,7 +235,7 @@ export default function ProductRegistration() {
                         </div>
              
 
-                <select value={parentNumber} onChange={parentchange} className={styles.categorySelect}>
+             {/*    <select value={parentNumber} onChange={parentchange} className={styles.categorySelect}>
                     {parentNumberOptions.map((item) => (
                         <option key={item.categoryNo} value={item.categoryNo}>{item.categoryName}</option>
                     ))}
@@ -244,7 +245,13 @@ export default function ProductRegistration() {
                     {ProductCategoryList.map((item) => (
                         <option key={item.categoryNo} value={item.categoryNo}>{item.categoryName}</option>
                     ))}
-                </select>
+                </select> */}
+                 <CategorySelector
+                    ref={selectCategoryNo} // Pass ref here
+                    onCategoryChange={(value) => setFormData({ ...formData, categoryNo: value })}
+                    onParentChange={(value) => setParentNumber(value)}
+                />
+                
                 <div className={styles.heafer}>
                 <textarea
                     name="productContent"
@@ -287,6 +294,7 @@ export default function ProductRegistration() {
                       onChange={(e) => setDirectTransaction(e.target.checked)}/>
                     직거래
                     </label>
+
                     <label>
                     <input
                      type='checkbox' 
