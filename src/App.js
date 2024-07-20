@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {Route, BrowserRouter as Router, Routes,  Navigate } from 'react-router-dom';
 import './App.css';
 import AdminMembers from './admin/components/AdminMembers/AdminMembers';
 import AdminReports from './admin/components/AdminReports/AdminReports';
