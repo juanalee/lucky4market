@@ -89,9 +89,14 @@ const ProductInfo = ({ productImage }) => {
 
   const likeClick = () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);  // 좋아요 상태를 토글
-    const productLikeResponse = axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20');
-    // alert(productLikeResponse);
-    console.log(productLikeResponse)
+    const productLikeResponse = axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20')
+    .then(response => {
+      console.log(response);
+      alert(response.data.msg);
+    })
+    .catch(error => {
+      console.error('Error occurred:', error); 
+    });
   };
 
   return (

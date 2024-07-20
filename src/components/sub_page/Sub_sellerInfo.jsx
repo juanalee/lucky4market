@@ -7,7 +7,7 @@ const StoreInfo = () => {
   const followBtn = useRef();
   const followImg = useRef();
   const sellerImageCount = useRef([]);
-  const [isFollowing, setIsFollowing] = useState(false);  // 팔로우 상태를 boolean으로 관리
+  const [isFollowing, setIsFollowing] = useState(false);
   const [storeInfo, setStoreInfo] = useState([{}]);
   const [profileInfo, setProfileInfo] = useState([{}]);
   const [buyerProfileInfo, setBuyerProfileInfo] = useState({});
@@ -15,15 +15,20 @@ const StoreInfo = () => {
 
   const followClick = () => {
     setIsFollowing((prevState) => !prevState);
-    const productLikeResponse = axios.get('http://localhost:9999/insertFollow?buyerId=member10&sellerId=member4');
-    console.log(productLikeResponse)
+    axios.get('http://localhost:9999/insertFollow?buyerId=member10&sellerId=member4')
+    .then(response => {
+      console.log(response);
+      alert(response.data.msg);
+    })
+    .catch(error => {
+      console.error('Error occurred:', error); 
+    });
   };
   
   useEffect(() => {
     const fetchData = async () => {
       try {        
         const storeResponse = await axios.get('http://localhost:9999/storeInfo?memberId=member4');
-        console.log(storeResponse.data);
         setStoreInfo(storeResponse.data);
         
         const sellerProfileResponse = await axios.get('http://localhost:9999/sellerProfile?memberId=member4');
@@ -32,12 +37,10 @@ const StoreInfo = () => {
         const buyerIds = storeResponse.data.filter(item => item.review !== null).map(item => item.buyerId);
         if (buyerIds.length > 0) {
           const buyerProfileResponse = await axios.post('http://localhost:9999/buyerProfile', { memberId: buyerIds });
-          console.log(buyerProfileResponse.data);
           setBuyerProfileInfo(buyerProfileResponse.data);
         }
 
         const response = await axios.get('http://localhost:9999/sellerProductImage?memberId=member4');
-        console.log(response.data);
         setSellerProductImage(response.data);
       } catch (error) {
         console.error(error);
@@ -105,7 +108,7 @@ const StoreInfo = () => {
                 <div className={styles.review_container}>
                   {storeInfo.map((item, index) => (
                     item.review !== null && (
-                      <Fragment key={item.buyerId}>
+                      <Fragment key={index}>
                         <div className={styles.member_id}>
                           <Link to='#'><img src={buyerProfileInfo.length > 0 && buyerProfileInfo[index] && item.buyerId === buyerProfileInfo[index].MEMBERID ? buyerProfileInfo[index].PROFILEPATH : "/img/store_basic.png"} alt="profile" /></Link>
                           <Link to='#'>{item.buyerId}</Link>
