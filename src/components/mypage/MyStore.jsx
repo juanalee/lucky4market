@@ -40,7 +40,7 @@ export default function MyStore() {
         <SideBar/>
           <main>
             <div className={styles.profile}>닉네임 | 평점: <span className={styles.score}>★</span>4.5</div>
-            <nav>
+            <nav className='mystore_nav'>
               <ul>
                 <li><a href="#" className={styles.product}>상품</a></li>
                 <li><a href="#" className={styles.review}>후기</a></li>

@@ -1,13 +1,17 @@
-.purchase_tradeMethod_container{
+/* sub_purchase_side.module.css */
+
+/* 전체 레이아웃 스타일 */
+.purchase_tradeMethod_container {
   padding: 50px;
 }
 
-.purchase_tradeMethod_container h2{
+.purchase_tradeMethod_container h2 {
   width: 230px;
   padding-bottom: 50px;
 }
 
-.direct, .delivery{
+/* 거래 방법 선택 */
+.direct, .delivery {
   padding: 20px;
   width: 500px;
   height: 150px;
@@ -22,16 +26,21 @@
   cursor: pointer;
 }
 
-.purchase_next{
+.direct.selected, .delivery.selected {
+  border-color: black; /* 선택된 거래 방법의 테두리 색상 */
+}
+
+.purchase_next {
   width: 500px;
-  padding: 20px 0px;
+  padding: 20px 0;
   border-radius: 10px;
   color: white;
   background-color: black;
   cursor: pointer;
 }
 
-.purchase_container{
+/* 구매 사이드 바 컨테이너 */
+.purchase_container {
   box-sizing: border-box;
   padding: 50px 30px;
 }
@@ -42,7 +51,7 @@
   border-radius: 10px;
 }
 
-.purchase_productInfo{
+.purchase_productInfo {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -56,22 +65,22 @@
   font-weight: bold;
 }
 
-hr{
-  border: 3px solid #F1F4F6; 
+hr {
+  border: 3px solid #F1F4F6;
 }
 
-.buyer_address{
+.buyer_address {
   height: 180px;
   position: relative;
   padding-top: 30px;
   padding-left: 30px;
 }
 
-.buyer_address h2{
+.buyer_address h2 {
   margin-bottom: 20px;
 }
 
-.change_address{
+.change_address {
   position: absolute;
   top: 30px;
   right: 70px;
@@ -82,34 +91,40 @@ hr{
   cursor: pointer;
 }
 
-.buyMethod{
+/* 결제 방법 선택 */
+.buyMethod {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 10px ;
+  gap: 10px;
   margin-top: 20px;
 }
 
-.buyMethod_container{
+.buyMethod_container {
   padding: 30px;
 }
 
-.buyMethod_container span{
+.buyMethod_container span {
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 230px;
   padding: 15px;
   text-align: center;
-  cursor: pointer ;
+  cursor: pointer;
 }
 
-.Payment_amount{
+.buyMethod span.selected {
+  border-color: black; /* 선택된 결제 방법의 테두리 색상 */
+}
+
+/* 결제 금액 */
+.payment_amount {
   padding: 30px;
-  position: absolute;
+  position: relative;
 }
 
-.last_price{
+.last_price {
   position: absolute;
   right: 30px;
   font-size: 24px;
@@ -117,11 +132,11 @@ hr{
   color: green;
 }
 
-.last_price_container{
+.last_price_container {
   margin-bottom: 100px;
 }
 
-.Payment_amount button{
+.payment_amount button {
   width: 540px;
   padding: 20px;
   font-size: 20px;
@@ -133,11 +148,8 @@ hr{
   cursor: pointer;
 }
 
-.buyMethod span.selected {
-  border-color: black; /* 선택된 아이템의 테두리 색상 */
-}
-
-.purchase_side {
+/* 사이드 바 스타일 */
+.purchase_side, .tradeMethod_side {
   position: fixed;
   top: 0;
   right: 0;
@@ -145,18 +157,22 @@ hr{
   height: 100%;
   background: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Backdrop보다 높은 값 */
-  transition: width 0.3s ease;
+  z-index: 1000;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: translateX(100%);
+  opacity: 0;
 }
 
-.tradeMethod_side {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 600px;
-  height: 100%;
-  background: white;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Backdrop보다 높은 값 */
-  transition: width 0.3s ease;
+.purchase_side.open, .tradeMethod_side.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.purchase_side .x, .tradeMethod_side .x {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
 }

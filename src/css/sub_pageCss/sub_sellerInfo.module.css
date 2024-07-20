@@ -163,3 +163,24 @@
 .review_more{
   padding-left: 30px;
 }
+
+.product_content_container hr{
+  margin: 10px 0px 50px;
+}
+
+.product_content_container h2{
+  padding-left: 30px;
+}
+
+.product_content_container{
+  width: 620px;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 150px;
+  height: 100%;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  justify-content: center;
+  padding-top: 30px ;
+}

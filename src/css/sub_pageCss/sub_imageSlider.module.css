@@ -1,40 +1,39 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
 
-.sub_page_container{
+.subPageContainer {
   width: 1440px;
   margin: 0 auto;
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  zoom: 0.75;  /* 75% 크기로 축소 */
-  
+  zoom: 0.75; /* 75% 크기로 축소 */
 }
 
-.sub_page_main{
+.subPageMain {
   width: 1440px;
   display: flex;
   flex-flow: row wrap;
   gap: 110px;
 }
 
-.product_main_img{
+.productMainImg {
   display: flex;
   flex-flow: row nowrap;
 }
 
-.product_main_img > img{  
+.productMainImg > img {  
   border-radius: 20px;
 }
 
-.arrow a{
+.arrow a {
   width: 50px;
   height: 50px;
 }
 
-.product_main_img_container{
+.productMainImgContainer {
   margin-left: 100px;
   position: relative;
   width: 500px;
@@ -42,39 +41,39 @@
   margin-top: 50px;
 }
 
-.product_main_img_move{
+.productMainImgMove {
   overflow: hidden;
   width: 500px;
   height: 550px;
 }
 
-.product_main_img > img {
+.productMainImg > img {
   width: 500px;
   height: 550px;
 }
 
-.left_arrow{
+.leftArrow {
   width: 50px;
   position: absolute;
   left: -60px;
   top: calc(50% - 50px);
 }
 
-.right_arrow{
+.rightArrow {
   width: 50px;
   position: absolute;
   left: 510px;
   top: calc(50% - 50px);
 }
 
-.slider_dot{
+.sliderDot {
   position: absolute;
   left: 240px;
   bottom: -40px;
-  transform:  translateX(-50%);
+  transform: translateX(-50%);
 }
 
-.slider_dot .dot{
+.sliderDot .dot {
   width: 15px;
   height: 15px;
   border: 1px solid black;
@@ -84,16 +83,16 @@
   margin: 0px 5px;
 }
 
-.dot.active{
+.dot.active {
   background-color: gray;
 }
 
-.hr_container{
+.hrContainer {
   position: relative;
   width: 100%;
 }
 
-.hr_container hr{
+.hrContainer hr {
   width: 100%;
   position: absolute;
   top: 565px;

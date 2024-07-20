@@ -262,53 +262,30 @@ ul {
   cursor: pointer;
 }
 
-.side{
-  zoom: 0.75;
-}
 
-.side, .purchase_side, .tradeMethod_side {
-  width: 0px;
-  height: 100%;
+.side {
   position: fixed;
-  z-index: 10;
   top: 0;
   right: 0;
-  background-color: white;
-  overflow-x: hidden;
-  transition: 0.5s;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.side.open, .purchase_side.open, .tradeMethod_side.open {
   width: 600px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
 }
 
-.side a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #363636;
-  display: block;
-  transition: 0.3s;
-}
-
-.side a:hover {
-  color: #a9cfe2;
-}
-
-.side .closeBtn, .purchase_side .closeBtn, .tradeMethod_side .closeBtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.side .x, .purchase_side .x, .tradeMethod_side .x{
-  width: 20px;
-  height: 20px;
+.side .x{
+  width: 25px;
+  height: 25px;
   position: absolute;
   top: 30px;
   right: 30px;
   cursor: pointer;
+}
+
+.side.hidden {
+  width: 0;
+  overflow: hidden;
 }

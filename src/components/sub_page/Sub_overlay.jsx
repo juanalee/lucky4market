@@ -1,6 +1,6 @@
 // Backdrop.js
 import React from 'react';
-import '../../css/sub_pageCss/sub_overlay.css'
+import styles from '../../css/sub_pageCss/sub_overlay.module.css'
 
 const Backdrop = ({ show, onClick, excludeClasses = [] }) => {
   if (!show) return null;
@@ -18,7 +18,7 @@ const Backdrop = ({ show, onClick, excludeClasses = [] }) => {
   };
 
   return (
-    <div className='backdrop' onClick={handleClick}></div>
+    <div className={styles.backdrop} onClick={handleClick}></div>
   );
 };
 

@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PurchaseSide from './Sub_side';
-import '../../css/sub_pageCss/sub_productInfo.css'
+import styles from '../../css/sub_pageCss/sub_productInfo.module.css';
+import Backdrop from './Sub_overlay';
 
-const ProductInfo = ({productImage}) => {
+const ProductInfo = ({ productImage }) => {
   const reportArea = useRef();
 
   const [timePassed, setTimePassed] = useState("");
@@ -27,6 +28,7 @@ const ProductInfo = ({productImage}) => {
 
   const [categoryInfo, setCategoryInfo] = useState([]);
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
+  const [isReportOpen, setIsReportOpen] = useState(false);
 
   const buyWidth = () => {
     setIsPurchaseOpen(true);
@@ -34,10 +36,12 @@ const ProductInfo = ({productImage}) => {
 
   const reportOpen = () => {
     reportArea.current.style.display = 'block';
+    setIsReportOpen(true);
   };
 
   const reportClose = () => {
     reportArea.current.style.display = 'none';
+    setIsReportOpen(false);
   };
 
   const fetchData = async () => {
@@ -91,38 +95,43 @@ const ProductInfo = ({productImage}) => {
 
   return (
     <>
-      <div className="product_information">
-        <div className="product_category">
+      <div className={styles.product_information}>
+        <div className={styles.product_category}>
           <Link to="#">홈</Link>
           <span>{'>'}</span>
-          <Link to="#">{categoryInfo.length > 0 && categoryInfo[1].categoryName}</Link>
+          <Link to="#">{categoryInfo.length > 0 && categoryInfo[1]?.categoryName}</Link>
           <span>{'>'}</span>
-          <Link to="#">{categoryInfo.length > 0 && categoryInfo[0].categoryName}</Link>
+          <Link to="#">{categoryInfo.length > 0 && categoryInfo[0]?.categoryName}</Link>
         </div>
-        <p className="product_title">{productInfo.productTitle}</p>
-        <p className="product_price">{productInfo.productPrice.toLocaleString()}원</p>
-        <div className="product_sub_information">
-          <div className="product_create">
+        <p className={styles.product_title}>{productInfo.productTitle}</p>
+        <p className={styles.product_price}>{productInfo.productPrice.toLocaleString()}원</p>
+        <div className={styles.product_sub_information}>
+          <div className={styles.product_create}>
             <img src="/img/time.png" alt="time" />
             <span>{timePassed}</span>
           </div>
-          <div className="product_count">
+          <div className={styles.product_count}>
             <img src="/img/find.png" alt="find" />
             <span>{productInfo.productCount}</span>
           </div>
-          <div className="product_like">
-            <img src="/img/heart.png" alt="like" onClick={likeClick} />
+          <div className={styles.product_like}>
+            <img src={likeImg} alt="like" onClick={likeClick} />
             <span>{productInfo.productLike}</span>
           </div>
-          <div className="product_report">
+          <div className={styles.product_report}>
             <a href="#" onClick={reportOpen}>
               <img src="/img/report.png" alt="report" />신고하기
             </a>
           </div>
-          <div className="report_container" ref={reportArea}>
-            <div className="report">
+          <Backdrop
+            show={isReportOpen}
+            onClick={reportClose} // 수정된 부분
+            excludeClasses={['report_container']} // 사이드 바를 제외하고 클릭을 감지
+          />
+          <div className={styles.report_container} ref={reportArea}>
+            <div className={styles.report}>
               <h2>신고하기</h2>
-              <span className="close" onClick={reportClose}>
+              <span className={styles.close} onClick={reportClose}>
                 <img src="/img/x.png" alt="close" />
               </span>
               <hr />
@@ -135,39 +144,39 @@ const ProductInfo = ({productImage}) => {
               <p>사기가 의심돼요.</p>
               <hr />
               <p>기타</p>
-              <button className="reportSubmit">등록</button>
+              <button className={styles.reportSubmit}>등록</button>
             </div>
           </div>
         </div>
-        <div className="product_status_information">
-          <div className="product_status">
+        <div className={styles.product_status_information}>
+          <div className={styles.product_status}>
             <p>제품상태</p>
             <p>{productInfo.productStatus}</p>
           </div>
-          <span className="line"></span>
-          <div className="product_delivery">
+          <span className={styles.line}></span>
+          <div className={styles.product_delivery}>
             <p>거래방식</p>
             <p>직거래,택배</p>
           </div>
-          <span className="line"></span>
-          <div className="product_delivery_fee">
+          <span className={styles.line}></span>
+          <div className={styles.product_delivery_fee}>
             <p>배송</p>
             <p>{deliveryInfo.deliveryName}</p>
           </div>
         </div>
-        <ul className="product_trade_area">
+        <ul className={styles.product_trade_area}>
           <li>거래희망 지역 - {deliveryInfo.tradiArea}</li>
         </ul>
-        <div className="product_interaction_area">
-          <button className="like_btn" onClick={likeClick}>
+        <div className={styles.product_interaction_area}>
+          <button className={styles.like_btn} onClick={likeClick}>
             <img src={likeImg} alt="like" />
           </button>
-          <button className="chat_btn">채팅하기</button>
-          <button className="buy_btn" onClick={buyWidth}>구매하기</button>
+          <button className={styles.chat_btn}>채팅하기</button>
+          <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
         </div>
       </div>
-      <div className="product_content">
-        <div className='content'>
+      <div className={styles.product_content}>
+        <div className={styles.content}>
           <h2>상품 정보</h2>
           <hr />
           <p>{productInfo.productContent}</p>

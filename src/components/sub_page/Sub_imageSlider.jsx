@@ -2,25 +2,25 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductInfo from './Sub_productInfo';
 import StoreInfo from './Sub_sellerInfo';
-import '../../css/sub_pageCss/sub_imageSlider.css'
+import styles from '../../css/sub_pageCss/sub_imageSlider.module.css'; // 모듈 CSS 파일 가져오기
 
-export default () => {
-  const [productImg, setProductImg] = useState([]); 
+export default function ImageSlider() {
+  const [productImg, setProductImg] = useState([]);
 
   useEffect(() => {
     let currentIndex = 0; // 현재 보이는 이미지
     const sliderCount = productImg.length; // 이미지 갯수
-    const sliderMove = document.querySelector('.product_main_img');
-    const sliderBtn = document.querySelectorAll('.arrow a');
+    const sliderMove = document.querySelector(`.${styles.productMainImg}`);
+    const sliderBtn = document.querySelectorAll(`.${styles.arrow} a`);
 
     function moveSlider(num) {
       sliderMove.style.transition = "all 400ms";
       sliderMove.style.transform = `translateX(${-500 * num}px)`;
       currentIndex = num;
 
-      let dotActive = document.querySelectorAll(".slider_dot .dot");
-      dotActive.forEach((active) => active.classList.remove("active"));
-      dotActive[num].classList.add("active");
+      let dotActive = document.querySelectorAll(`.${styles.sliderDot} .${styles.dot}`);
+      dotActive.forEach((active) => active.classList.remove(styles.active));
+      dotActive[num].classList.add(styles.active);
     }
 
     function handlePrev(e) {
@@ -41,7 +41,7 @@ export default () => {
       } else {
         btn.onclick = handleNext;
       }
-    });  
+    });
 
   }, [productImg]);
 
@@ -49,7 +49,6 @@ export default () => {
     const productImage = async () => {
       try {
         const response = await axios.get('http://localhost:9999/productImage?productNo=20');
-        // console.log(response);
         setProductImg(response.data);
       } catch (error) {
         console.error(error);
@@ -59,44 +58,43 @@ export default () => {
     productImage();
   }, []);
 
-
   return (
     <>
-    <div className='hr_container'>
-      <hr />
-    </div>
-    <div className="sub_page_container">
-      <div className="sub_page_main">
-        <div className="slide_container">
-          <div className="product_main_img_container">
-            <div className="product_main_img_move">
-              <div className="product_main_img">
-              {productImg.map((img, index) => (
-                <img key={index} src={img.productImagePath} alt={`Product ${index}`} />
-              ))}
+      <div className={styles.hrContainer}>
+        <hr />
+      </div>
+      <div className={styles.subPageContainer}>
+        <div className={styles.subPageMain}>
+          <div className={styles.slideContainer}>
+            <div className={styles.productMainImgContainer}>
+              <div className={styles.productMainImgMove}>
+                <div className={styles.productMainImg}>
+                  {productImg.map((img, index) => (
+                    <img key={index} src={img.productImagePath} alt={`Product ${index}`} />
+                  ))}
+                </div>
               </div>
-            </div>
-            {productImg.length > 1  &&
-              <div className="arrow">
-                <a href="#" className="prev">
-                  <img src="/img/left.png" className="left_arrow" alt="Previous" />
-                </a>
-                <a href="#" className="next">
-                  <img src="/img/right.png" className="right_arrow" alt="Next" />
-                </a>
-              </div>
-            }
-            <div className="slider_dot">
+              {productImg.length > 1 &&
+                <div className={styles.arrow}>
+                  <a href="#" className={styles.prev}>
+                    <img src="/img/left.png" className={styles.leftArrow} alt="Previous" />
+                  </a>
+                  <a href="#" className={styles.next}>
+                    <img src="/img/right.png" className={styles.rightArrow} alt="Next" />
+                  </a>
+                </div>
+              }
+              <div className={styles.sliderDot}>
                 {productImg.map((_, index) => (
-                  <span key={index} className={`dot ${index === 0 ? 'active' : ''}`}></span>
+                  <span key={index} className={`${styles.dot} ${index === 0 ? styles.active : ''}`}></span>
                 ))}
+              </div>
             </div>
           </div>
+          <ProductInfo productImage={productImg[0]} />
+          <StoreInfo />
         </div>
-        <ProductInfo productImage={productImg[0]}/>
-        <StoreInfo />
       </div>
-    </div>
     </>
   );
 }
