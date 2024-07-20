@@ -7,20 +7,16 @@ const StoreInfo = () => {
   const followBtn = useRef();
   const followImg = useRef();
   const sellerImageCount = useRef([]);
-  const [followImage, setFollowImage] = useState("/img/follow.png");
-  const [buttonText, setButtonText] = useState('팔로우');
+  const [isFollowing, setIsFollowing] = useState(false);  // 팔로우 상태를 boolean으로 관리
   const [storeInfo, setStoreInfo] = useState([{}]);
   const [profileInfo, setProfileInfo] = useState([{}]);
   const [buyerProfileInfo, setBuyerProfileInfo] = useState({});
   const [sellerProductImage, setSellerProductImage] = useState([]);
 
   const followClick = () => {
-    setFollowImage((item) =>
-      item === "/img/follow.png" ? "/img/star.png" : "/img/follow.png"
-    );
-    setButtonText((prevText) =>
-      prevText === '팔로우' ? '팔로잉' : '팔로우'
-    );
+    setIsFollowing((prevState) => !prevState);
+    const productLikeResponse = axios.get('http://localhost:9999/insertFollow?buyerId=member10&sellerId=member4');
+    console.log(productLikeResponse)
   };
   
   useEffect(() => {
@@ -49,7 +45,7 @@ const StoreInfo = () => {
     };
   
     fetchData();
-  }, []);
+  }, [storeInfo]);
 
   const remainingProducts = storeInfo.length > 0 ? storeInfo[0].saleCount - (1 + sellerImageCount.current.length) : 0;
   const remainingReviews = storeInfo.filter(item => item.review !== null).length;
@@ -71,12 +67,14 @@ const StoreInfo = () => {
               <Link>팔로워 {storeInfo.length > 0 && storeInfo[0].followerCount}명</Link>
             </div>
             <div className={styles.followBtn_container}>
-              <img src={followImage} ref={followImg} alt="followImage" />
-              <button className={styles.follow} ref={followBtn} onClick={followClick}>{buttonText}</button>
+              <img src={isFollowing ? "/img/star.png" : "/img/follow.png"} ref={followImg} alt="followImage" />
+              <button className={styles.follow} ref={followBtn} onClick={followClick}>
+                {isFollowing ? '팔로잉' : '팔로우'}
+              </button>
             </div>
             <div className={styles.seller_product_img}>
               {sellerProductImage.slice(0, 2).map((img, index) => (
-                img.productNo != 16 && (
+                img.productNo !== 16 && (
                   <div key={index}>
                     <Link to='#'><img src={img.image} alt={`Product ${index}`} ref={(el) => {
                       if (el && !sellerImageCount.current.includes(el)) {

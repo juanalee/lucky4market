@@ -9,7 +9,7 @@ const ProductInfo = ({ productImage }) => {
   const reportArea = useRef();
 
   const [timePassed, setTimePassed] = useState("");
-  const [likeImg, setLikeImg] = useState("/img/heart.png");
+  const [isLiked, setIsLiked] = useState(false);  // 좋아요 상태를 관리하는 state
   const [productInfo, setProductInfo] = useState({
     productTitle: '',
     productPrice: 0,
@@ -61,7 +61,7 @@ const ProductInfo = ({ productImage }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [productInfo]);
 
   useEffect(() => {
     const updateTimePassed = () => {
@@ -88,9 +88,10 @@ const ProductInfo = ({ productImage }) => {
   }, [productInfo, categoryInfo]);
 
   const likeClick = () => {
-    setLikeImg((item) =>
-      item === "/img/heart.png" ? "/img/redheart.png" : "/img/heart.png"
-    );
+    setIsLiked((prevIsLiked) => !prevIsLiked);  // 좋아요 상태를 토글
+    const productLikeResponse = axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20');
+    // alert(productLikeResponse);
+    console.log(productLikeResponse)
   };
 
   return (
@@ -99,9 +100,9 @@ const ProductInfo = ({ productImage }) => {
         <div className={styles.product_category}>
           <Link to="#">홈</Link>
           <span>{'>'}</span>
-          <Link to="#">{categoryInfo.length > 0 && categoryInfo[1]?.categoryName}</Link>
+          {categoryInfo?.length > 1 && <Link to="#">{categoryInfo[1]?.categoryName}</Link>}
           <span>{'>'}</span>
-          <Link to="#">{categoryInfo.length > 0 && categoryInfo[0]?.categoryName}</Link>
+          {categoryInfo?.length > 0 && <Link to="#">{categoryInfo[0]?.categoryName}</Link>}
         </div>
         <p className={styles.product_title}>{productInfo.productTitle}</p>
         <p className={styles.product_price}>{productInfo.productPrice.toLocaleString()}원</p>
@@ -115,7 +116,7 @@ const ProductInfo = ({ productImage }) => {
             <span>{productInfo.productCount}</span>
           </div>
           <div className={styles.product_like}>
-            <img src={likeImg} alt="like" onClick={likeClick} />
+            <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" onClick={likeClick} />
             <span>{productInfo.productLike}</span>
           </div>
           <div className={styles.product_report}>
@@ -125,8 +126,8 @@ const ProductInfo = ({ productImage }) => {
           </div>
           <Backdrop
             show={isReportOpen}
-            onClick={reportClose} // 수정된 부분
-            excludeClasses={['report_container']} // 사이드 바를 제외하고 클릭을 감지
+            onClick={reportClose}
+            excludeClasses={['report_container']}
           />
           <div className={styles.report_container} ref={reportArea}>
             <div className={styles.report}>
@@ -169,7 +170,7 @@ const ProductInfo = ({ productImage }) => {
         </ul>
         <div className={styles.product_interaction_area}>
           <button className={styles.like_btn} onClick={likeClick}>
-            <img src={likeImg} alt="like" />
+            <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" />
           </button>
           <button className={styles.chat_btn}>채팅하기</button>
           <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
@@ -182,7 +183,7 @@ const ProductInfo = ({ productImage }) => {
           <p>{productInfo.productContent}</p>
         </div>
       </div>
-      <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
+      <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo} />
     </>
   );
 };

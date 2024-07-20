@@ -8,26 +8,24 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
   const [buyMethod, setBuyMethod] = useState('kakaopay');
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
 
+  useEffect(() => {
+  }, [tradeMethod]);
+
   const tradeMethodClass = isOpen ? styles.open : '';
   const purchaseClass = isPurchaseOpen ? styles.open : '';
 
-  const tradeMethodDirectClass = tradeMethod === 1 ? styles.selected : '';
-  const tradeMethodDeliveryClass = tradeMethod === 2 ? styles.selected : '';
+  const tradeMethodDeliveryClass = tradeMethod === 1 ? styles.selected : '';
+  const tradeMethodDirectClass = tradeMethod === 2 ? styles.selected : '';
 
-  const tradeMethodDirect = () => {
+  const selectTradeMethodDelivery = () => {
     setTradeMethod(1);
   };
 
-  const tradeMethodDelivery = () => {
+  const selectTradeMethodDirect = () => {
     setTradeMethod(2);
   };
 
-  const resetTradeMethodSelection = () => {
-    setTradeMethod(0);
-  };
-
-  const nextPurchase = () => {
-    resetTradeMethodSelection();
+  const proceedToPurchase = () => {
     setIsPurchaseOpen(true);
   };
 
@@ -59,20 +57,20 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
           </div>
           <div className={styles.purchase_main}>
             <div 
-              className={`${styles.direct} ${tradeMethodDirectClass}`} 
-              onClick={tradeMethodDirect}
+              className={`${styles.direct} ${tradeMethodDeliveryClass}`} 
+              onClick={selectTradeMethodDelivery}
             >
               <h3>택배거래</h3>
               <p>원하는 주소로 판매자에게 택배로 받을 수 있어요.</p>
             </div>
             <div 
-              className={`${styles.delivery} ${tradeMethodDeliveryClass}`} 
-              onClick={tradeMethodDelivery}
+              className={`${styles.delivery} ${tradeMethodDirectClass}`} 
+              onClick={selectTradeMethodDirect}
             >
               <h3>직거래</h3>
               <p>채팅으로 약속을 정하고 현금없이 직접 만나 받을 수 있어요.</p>
             </div>
-            <button className={styles.purchase_next} onClick={nextPurchase}>다음</button>
+            <button className={styles.purchase_next} onClick={proceedToPurchase}>다음</button>
           </div>
         </div>
       </div>
@@ -81,9 +79,12 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
           <span onClick={closePurchase}>
             <img src='/img/x.png' alt='close' className={styles.x} />
           </span>
-          <h2>택배거래로 구매</h2>
+          {tradeMethod == 1 ?
+          <h2>택배거래로 구매</h2> :
+          <h2>직거래로 구매</h2>
+          }
           <div className={styles.purchase_productInfo}>
-            {productImage && productImage.productImagePath ? (
+            {productImage?.productImagePath ? (
               <img src={productImage.productImagePath} alt='Product' />
             ) : (
               <p>상품 이미지를 불러올 수 없습니다.</p>
@@ -95,6 +96,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
           </div>
         </div>
         <hr />
+        {tradeMethod === 1 &&
         <div className={styles.buyer_address}>
           <h2>배송정보</h2>  
           <p>집</p>
@@ -102,37 +104,38 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
           <span>전화번호</span>
           <p>주소</p>
           <button type='button' className={styles.change_address}>변경</button>
-        </div>
-        <hr />
-        <div className={styles.buyMethod_container}>
-          <h2>결제방법</h2>
-          <div className={styles.buyMethod}>
-            <span 
-              className={`${styles.buyMethod} ${buyMethod === 'kakaopay' ? styles.selected : ''}`} 
-              onClick={() => setBuyMethod('kakaopay')}
-            >
-              카카오페이
-            </span>
-            <span 
-              className={`${styles.buyMethod} ${buyMethod === 'tosspay' ? styles.selected : ''}`} 
-              onClick={() => setBuyMethod('tosspay')}
-            >
-              토스페이
-            </span>
-            <span 
-              className={`${styles.buyMethod} ${buyMethod === 'payco' ? styles.selected : ''}`} 
-              onClick={() => setBuyMethod('payco')}
-            >
-              PAYCO
-            </span>
-            <span 
-              className={`${styles.buyMethod} ${buyMethod === 'html5_inicis' ? styles.selected : ''}`} 
-              onClick={() => setBuyMethod('html5_inicis')}
-            >
-              카드결제
-            </span>
           </div>
-        </div>
+        }
+        <hr />
+          <div className={styles.buyMethod_container}>
+            <h2>결제방법</h2>
+            <div className={styles.buyMethod}>
+              <span 
+                className={`${styles.buyMethod} ${buyMethod === 'kakaopay' ? styles.selected : ''}`} 
+                onClick={() => setBuyMethod('kakaopay')}
+              >
+                카카오페이
+              </span>
+              <span 
+                className={`${styles.buyMethod} ${buyMethod === 'tosspay' ? styles.selected : ''}`} 
+                onClick={() => setBuyMethod('tosspay')}
+              >
+                토스페이
+              </span>
+              <span 
+                className={`${styles.buyMethod} ${buyMethod === 'payco' ? styles.selected : ''}`} 
+                onClick={() => setBuyMethod('payco')}
+              >
+                PAYCO
+              </span>
+              <span 
+                className={`${styles.buyMethod} ${buyMethod === 'html5_inicis' ? styles.selected : ''}`} 
+                onClick={() => setBuyMethod('html5_inicis')}
+              >
+                카드결제
+              </span>
+            </div>
+          </div>
         <hr />
         <div className={styles.payment_amount}>
           <div className={styles.last_price_container}>
