@@ -72,7 +72,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.followBtn_container}>
               <img src={followImage} ref={followImg} alt="followImage" />
-              <button className="follow" ref={followBtn} onClick={followClick}>{buttonText}</button>
+              <button className={styles.follow} ref={followBtn} onClick={followClick}>{buttonText}</button>
             </div>
             <div className={styles.seller_product_img}>
               {sellerProductImage.slice(0, 2).map((img, index) => (
