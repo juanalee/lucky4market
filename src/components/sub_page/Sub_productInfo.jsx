@@ -4,12 +4,11 @@ import axios from 'axios';
 import PurchaseSide from './Sub_side';
 import styles from '../../css/sub_pageCss/sub_productInfo.module.css';
 import Backdrop from './Sub_overlay';
+import Report from './sub_report';
 
 const ProductInfo = ({ productImage }) => {
-  const reportArea = useRef();
-
   const [timePassed, setTimePassed] = useState("");
-  const [isLiked, setIsLiked] = useState(false);  // 좋아요 상태를 관리하는 state
+  const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 관리하는 state
   const [productInfo, setProductInfo] = useState({
     productTitle: '',
     productPrice: 0,
@@ -30,20 +29,6 @@ const ProductInfo = ({ productImage }) => {
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
 
-  const buyWidth = () => {
-    setIsPurchaseOpen(true);
-  };
-
-  const reportOpen = () => {
-    reportArea.current.style.display = 'block';
-    setIsReportOpen(true);
-  };
-
-  const reportClose = () => {
-    reportArea.current.style.display = 'none';
-    setIsReportOpen(false);
-  };
-
   const fetchData = async () => {
     try {
       const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
@@ -61,13 +46,13 @@ const ProductInfo = ({ productImage }) => {
 
   useEffect(() => {
     fetchData();
-  }, [productInfo]);
+  }, []);
 
   useEffect(() => {
     const updateTimePassed = () => {
       if (productInfo.productDate) {
         const currentDate = new Date();
-        const createDate = new Date(productInfo.productDate); // Using ISO 8601 format
+        const createDate = new Date(productInfo.productDate);
 
         const second = currentDate - createDate;
         const hour = Math.floor(second / 1000 / 60 / 60);
@@ -85,18 +70,25 @@ const ProductInfo = ({ productImage }) => {
     };
 
     updateTimePassed();
-  }, [productInfo, categoryInfo]);
+  }, [productInfo]);
 
-  const likeClick = () => {
-    setIsLiked((prevIsLiked) => !prevIsLiked);  // 좋아요 상태를 토글
-    const productLikeResponse = axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20')
-    .then(response => {
+  const likeClick = async () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+    try {
+      const response = await axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20');
       console.log(response);
       alert(response.data.msg);
-    })
-    .catch(error => {
+    } catch (error) {
       console.error('Error occurred:', error); 
-    });
+    }
+  };
+
+  const buyWidth = () => {
+    setIsPurchaseOpen(true);
+  };
+
+  const reportOpen = () => {
+    setIsReportOpen(true);
   };
 
   return (
@@ -129,30 +121,7 @@ const ProductInfo = ({ productImage }) => {
               <img src="/img/report.png" alt="report" />신고하기
             </a>
           </div>
-          <Backdrop
-            show={isReportOpen}
-            onClick={reportClose}
-            excludeClasses={['report_container']}
-          />
-          <div className={styles.report_container} ref={reportArea}>
-            <div className={styles.report}>
-              <h2>신고하기</h2>
-              <span className={styles.close} onClick={reportClose}>
-                <img src="/img/x.png" alt="close" />
-              </span>
-              <hr />
-              <p>광고성 상점이에요.</p>
-              <hr />
-              <p>상품 정보가 부정확해요.</p>
-              <hr />
-              <p>거래 금지 품목으로 판단돼요.</p>
-              <hr />
-              <p>사기가 의심돼요.</p>
-              <hr />
-              <p>기타</p>
-              <button className={styles.reportSubmit}>등록</button>
-            </div>
-          </div>
+          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
         </div>
         <div className={styles.product_status_information}>
           <div className={styles.product_status}>

@@ -48,7 +48,7 @@ const StoreInfo = () => {
     };
   
     fetchData();
-  }, [storeInfo]);
+  }, []);
 
   const remainingProducts = storeInfo.length > 0 ? storeInfo[0].saleCount - (1 + sellerImageCount.current.length) : 0;
   const remainingReviews = storeInfo.filter(item => item.review !== null).length;

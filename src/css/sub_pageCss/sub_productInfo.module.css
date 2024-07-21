@@ -1,4 +1,58 @@
-.product_information{
+/* 기존 CSS */
+/* ... 기존 스타일 ... */
+
+/* 애니메이션을 위한 클래스 추가 */
+
+.detailReport.expandable {
+  height: 250px; /* 충분히 큰 값을 설정하여 내용이 모두 보이도록 함 */
+  background-color: #F9F9F9;
+}
+
+/* .detailReport 수정 */
+.detailReport {
+  overflow: hidden; /* 내용이 넘칠 경우 숨기기 */
+  transition: height 0.5s ease-out; /* 높이 애니메이션 */
+  height: 70px; /* 기본 높이 0 */
+  position: relative;
+  padding: 20px;
+}
+
+/* 텍스트영역과 버튼의 위치 조정 */
+.report textarea {
+  width: 90%;
+  height: 120px;
+  padding: 10px;
+  font-size: 20px;
+  border-color: #ccc;
+  resize: none;
+  position: relative;
+  margin-top: 10px;
+  left: 30px;
+}
+
+.reportSubmit {
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+  position: relative;
+  left: 585px;
+  border: 1px solid #ccc;
+}
+
+.report_height{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 25px;
+  height: 25px;
+}
+
+/* 기존 CSS */
+.product_information {
   box-sizing: border-box;
   width: 730px;
   height: 600px;
@@ -12,7 +66,7 @@
   margin: 10px 0px; 
 }
 
-.product_price{
+.product_price {
   font-size: 40px;
   margin-bottom: 10px;
   font-weight: bold;
@@ -23,17 +77,17 @@
   color: #ccc;
 }
 
-.product_category > a{
+.product_category > a {
   text-decoration: none;
   color: #A2A9B4;
   font-weight: 400;
 }
 
-.product_category > a:last-child{
+.product_category > a:last-child {
   color: black;
 }
 
-.product_sub_information span{
+.product_sub_information span {
   padding: 0px 3px;
   color: #A2A9B4;
 }
@@ -47,18 +101,18 @@
   gap: 3px;
 }
 
-.product_information img{
+.product_information img {
   width: 16px;
   height: 16px;
 }
 
-.product_sub_information{
+.product_sub_information {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.product_status_information{
+.product_status_information {
   width: 100%;
   height: 100px;
   border: 1px solid #ccc;
@@ -68,22 +122,22 @@
   margin-bottom: 20px;
 }
 
-.product_status_information div{
+.product_status_information div {
   width: 200px;
   text-align: center;
 }
 
-.product_status_information p:first-child{
+.product_status_information p:first-child {
   margin-bottom: 5px;
 }
 
-.product_status_information p+p{
+.product_status_information p+p {
   font-size: 20px;
   font-weight: bold;
 }
 
-.product_report a{
-  margin-left: 350px;
+.product_report a {
+  margin-left: 377px;
   text-decoration: none;
   gap: 3px;
   color: black;
@@ -94,7 +148,7 @@
   margin-right: 5px;
 }
 
-.line{
+.line {
   display: inline-block;
   box-sizing: border-box;
   width: 1px;
@@ -102,13 +156,13 @@
   background-color: #ccc;
 }
 
-.product_trade_area{
+.product_trade_area {
   padding-left: 20px;
   list-style: disc;
   margin-bottom: 90px;
 }
 
-.product_interaction_area{
+.product_interaction_area {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -127,12 +181,12 @@
   cursor: pointer;
 }
 
-.like_btn img{
+.like_btn img {
   width: 30px;
   height: 30px;
 }
 
-.chat_btn{
+.chat_btn {
   width: 270px;
   height: 75px;
   background-color: white;
@@ -146,7 +200,7 @@
   border: 3px solid black;
 }
 
-.buy_btn{
+.buy_btn {
   width: 270px;
   height: 75px;
   background-color: black;
@@ -161,23 +215,20 @@
   color: white;
 }
 
-
-.product_content hr{
+.product_content hr {
   margin: 10px 0px 50px;
 }
 
-
-
-.product_content p{
+.product_content p {
   font-size: 24px;
   padding-left: 30px;
 }
 
-.product_content h2{
+.product_content h2 {
   padding-left: 30px;
 }
 
-.product_content{
+.product_content {
   display: flex;
   justify-content: center;
   width: 696px;
@@ -185,60 +236,64 @@
   border-left: 1px solid #ccc;
 }
 
-.content{
+.content {
   width: 550px;
-} 
+}
 
 .report_container {
   position: absolute;
   background-color: white;
   width: 850px;
-  height: 950px;
-  display: none;
+  height: 1000px;
   border: 1px solid black;
   z-index: 1000;
   top: -150px;
-  right: 300px;   
+  right: 300px;
+  overflow: auto;
 }
 
-.report_container h2{
+.report_container h2 {
   padding-left: 20px;
-  margin-bottom: 50px;
 }
 
-.report{
+.report {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   position: relative;
-  width: 700px;
+  width: 100%;
+  height: 100%;
   padding-top: 50px;
-  padding-left: 70px;
+  padding: 50px;
+  box-sizing: border-box;
 }
 
-.report p{
+.report p {
   width: 700px;
-  height: 150px;
   font-size: 24px;
-  padding: 0px 20px;
+  padding: 0px 25px;
 }
 
-.reportSubmit{
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100px;
-  height: 50px;
+.report_container::-webkit-scrollbar {
+  width: 7px;
+}
+
+.report_container::-webkit-scrollbar-thumb {
+  background: black;
   border-radius: 10px;
-  background-color: white;
-  cursor: pointer;
-  font-size: 20px;
 }
 
-.close{
+.report_container::-webkit-scrollbar-track {
+  background: rgba(220, 20, 60, .1);
+}
+
+.close {
   position: absolute;
   top: 40px;
-  right: -100px;
+  right: 50px;
 }
 
-.close img{
+.close img {
   width: 30px;
   height: 30px;
   cursor: pointer;
