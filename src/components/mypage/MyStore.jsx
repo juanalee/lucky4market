@@ -34,25 +34,25 @@ const products = [
 
 export default function MyStore() {
   return (
-    <div className={styles.container}>
+    <div className={styles.header_container}>
       <Header/>
-      <div className={styles.content}>
+      <div className={styles.side_container}>
         <SideBar/>
-          <main>
-            <div className={styles.my_profile}>닉네임 | 평점: <span className={styles.score}>★</span>4.5</div>
-            <nav>
-              <ul>
-                <li><a href="#" className={styles.product}>상품</a></li>
-                <li><a href="#" className={styles.review}>후기</a></li>
-                <li><a href="#" className={styles.follow}>팔로우</a></li>
+          <div className={styles.main_container}>
+            <div className={styles.my_profile}>닉네임 | 평점: <span className={styles.my_score}>★</span>4.5</div>
+            <div className={styles.nav_container}>
+              <ul className={styles.nav_ul}>
+                <li className={styles.nav_li}><a href="#" className={styles.nav_item}>상품</a></li>
+                <li className={styles.nav_li}><a href="#" className={styles.nav_item}>후기</a></li>
+                <li className={styles.nav_li}><a href="#" className={styles.nav_item}>팔로우</a></li>
               </ul>
-           </nav>
-            <div className={styles.products}>
+            </div>
+            <div className={styles.my_products}>
               {products.map((product, index) => (
                 <ProductCard key={index} product={product}/>
               ))}
             </div>
-          </main>
+          </div>
         <div className={styles.banner}>배너</div>
       </div>
       <Footer/>

@@ -1,19 +1,20 @@
-.side_bar {
+.nav_container {
   width: 300px;
   margin: 0px 50px;
 }
 
-.tr_container {
+.nav_ul {
   display: flex;
   flex-flow: column nowrap;
   text-decoration-line: none;
 }
 
-td {
+.nav_li {
+  list-style-type: none;
   padding: 20px 0px;
 }
 
-tr td a {
+.nav_ul .nav_li .nav_item {
   color: black;
   font-size: 24px;
   text-decoration: none;

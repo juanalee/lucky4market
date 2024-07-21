@@ -1,16 +1,16 @@
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
-.container {
+.header_container {
   width: 1440px;
   display: flex;
   flex-flow: column wrap;
-  margin: 0 auto;
+  margin: 0px auto;
 }
 
-.content {
+.side_container {
   display: flex;
 }
 
@@ -28,11 +28,11 @@
   font-size: 24px;
 }
 
-.score {
+.my_score {
   color: red;
 }
 
-nav ul {
+.nav_container .nav_ul {
   width: 700px;
   display: flex;
   flex-flow: row nowrap;
@@ -40,23 +40,23 @@ nav ul {
   font-size: 24px;
 }
 
-nav ul li {
+.nav_container .nav_ul .nav_li {
   width: 200px;
   border-bottom: 1px solid black;
   list-style-type: none;
   text-align: center;
 }
 
-nav ul li:hover {
+.nav_container .nav_ul .nav_li:hover {
   border-bottom: 1px solid red;
 }
 
-nav ul li a {
+.nav_container .nav_ul .nav_li .nav_item {
   color: black;
   text-decoration: none;
 }
 
-.products {
+.my_products {
   width: 700px;
   display: flex;
   flex-flow: row wrap;
