@@ -72,7 +72,7 @@ const ProductInfo = ({ productImage }) => {
     updateTimePassed();
   }, [productInfo]);
 
-  const likeClick = async () => {
+   const likeClick = async () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
     try {
       const response = await axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20');
@@ -83,7 +83,7 @@ const ProductInfo = ({ productImage }) => {
     }
   };
 
-  const buyWidth = () => {
+  const buyWidth = async () => {
     setIsPurchaseOpen(true);
   };
 
@@ -105,20 +105,20 @@ const ProductInfo = ({ productImage }) => {
         <p className={styles.product_price}>{productInfo.productPrice.toLocaleString()}원</p>
         <div className={styles.product_sub_information}>
           <div className={styles.product_create}>
-            <img src="/img/time.png" alt="time" />
+            <img src="/img/time.png" alt="time" className={styles.information_img}/>
             <span>{timePassed}</span>
           </div>
           <div className={styles.product_count}>
-            <img src="/img/find.png" alt="find" />
+            <img src="/img/find.png" alt="find" className={styles.information_img}/>
             <span>{productInfo.productCount}</span>
           </div>
           <div className={styles.product_like}>
-            <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" onClick={likeClick} />
+            <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" onClick={likeClick} className={styles.information_img}/>
             <span>{productInfo.productLike}</span>
           </div>
           <div className={styles.product_report}>
             <a href="#" onClick={reportOpen}>
-              <img src="/img/report.png" alt="report" />신고하기
+              <img src="/img/report.png" alt="report" className={styles.information_img}/>신고하기
             </a>
           </div>
           <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
@@ -157,7 +157,7 @@ const ProductInfo = ({ productImage }) => {
           <p>{productInfo.productContent}</p>
         </div>
       </div>
-      <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo} />
+      <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
     </>
   );
 };
