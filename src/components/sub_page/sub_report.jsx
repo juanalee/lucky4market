@@ -44,13 +44,14 @@ const Report = ({ isReportOpen, onClose }) => {
     try {
       // axios 요청에 params로 전달
       const response = await axios.post('http://localhost:9999/insertReport', {
-        productNo: '19',
+        productNo: '15',
         claimerId: 'member10',
         sellerId: 'member4',
         reportContent: `[${typeText}] ${reportContents[type]}` // 타입에 따른 문구와 내용을 결합
       });
   
       // 요청이 성공적으로 완료되면 처리할 로직
+      alert(response.data.msg);
     } catch (error) {
       console.error(error);
     }
