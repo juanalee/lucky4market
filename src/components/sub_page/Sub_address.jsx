@@ -1,46 +1,70 @@
-import React from 'react';
-import { useDaumPostcodePopup } from 'react-daum-postcode';
+import React, { useEffect, useState } from 'react';
+import Postcode from 'react-daum-postcode';
+import styles from '../../css/sub_pageCss/sub_purchase_side.module.css';
 
-function Sub_address({ setAddressObj }) {
-  const open = useDaumPostcodePopup();
+function SubAddress({ setAddressMainInfo, resetAddress }) {
+  const [showPostcode, setShowPostcode] = useState(false);
+  const [selectAddress, setSelectAddress] = useState({});
+
+  useEffect(() => {
+    if (resetAddress) {
+      setSelectAddress({});
+    }
+  }, [resetAddress]);
+
 
   const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = ''; // 추가될 주소
-    let localAddress = data.sido + ' ' + data.sigungu; // 지역주소 (시, 도 + 시, 군, 구)
-    
-    if (data.addressType === 'R') { // 주소 타입이 도로명 주소일 경우
-      if (data.bname !== '') {
-        extraAddress += data.bname; // 법정동, 법정리
-      }
-      if (data.buildingName !== '') { // 건물명
-        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-      }
-      // 지역주소 제외 전체주소 치환
-      fullAddress = fullAddress.replace(localAddress, '');
-    }
-    
-    // 최종 주소 객체를 생성합니다
+  
+    const fullAddress = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
     const address = {
       fullAddress,
-      extraAddress,
-      postalCode: data.zonecode,
+      postalCode: data.zonecode
     };
 
-    // 상위 컴포넌트로 주소를 전달합니다
-    setAddressObj(address);
-  }
+    setSelectAddress(address);
+    setAddressMainInfo(address);
+    setShowPostcode(false);
+  };
 
-  // 클릭 시 발생할 이벤트
-  const handleClick = () => {
-    open({ onComplete: handleComplete });
-  }
+  // Toggle sidebar class
+  const sidebarClass = showPostcode ? `${styles.postcode_side} ${styles.open}` : styles.postcode_side;
 
+  const postcodeStyle = {
+    width: '100%',
+    height: '100%',
+    marginTop : '70px',
+    borderTop : '1px solid black',
+  };
+  
   return (
     <div>
-      <button type="button" onClick={handleClick}>주소찾기</button>
+      <div className={styles.address_container}>
+        <input
+          type='text'
+          placeholder='주소찾기'
+          value={selectAddress.fullAddress || ''}
+          onClick={() => setShowPostcode(true)}
+          readOnly
+        />
+      </div>
+
+      {showPostcode && (
+        <div className={sidebarClass}>
+          <Postcode
+          onComplete={handleComplete}
+          autoClose={false}
+          style={postcodeStyle}
+          />
+          <button
+            onClick={() => setShowPostcode(false)}
+            className={styles.close_button}
+          >
+            <img src='/img/back_arrow.png' alt='back'></img>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Sub_address;
+export default SubAddress;
