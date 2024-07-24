@@ -27,6 +27,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
       try {
         const response = await axios.get('http://localhost:9999/addressInfo?memberId=member4');
         setAddressInfo(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('주소 정보를 가져오는 데 실패했습니다:', error);
       }

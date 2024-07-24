@@ -84,6 +84,15 @@
   color: black;
 }
 
+.product_create span{
+  width: 60px;
+  margin-right: 10px;
+}
+
+.product_like span, .product_count span {
+  width: 25px;
+}
+
 .product_sub_information span {
   padding: 0px 3px;
   color: #A2A9B4;
@@ -95,7 +104,6 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  gap: 3px;
 }
 
 .information_img {
@@ -105,7 +113,7 @@
 
 .product_sub_information {
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
   margin-bottom: 20px;
 }
 

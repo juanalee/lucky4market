@@ -262,31 +262,6 @@ ul {
   cursor: pointer;
 }
 
-
-.side {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 600px;
-  height: 100%;
-  background: white;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  transition: width 0.4s ease, opacity 0.4s ease;
-  opacity: 1;
-}
-
-.side .x{
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  cursor: pointer;
-}
-
-.side.hidden {
-  width: 0;
-  overflow: hidden;
-  opacity: 0;
+.header_hr hr{
+  border: 3px solid #F1F4F6;
 }

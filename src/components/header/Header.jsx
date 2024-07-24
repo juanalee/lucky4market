@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../../css/headerCss/header.module.css';
 import Backdrop from '../sub_page/Sub_overlay';
+import Chat from './Header_ChatList';
 
 export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const chatArea = useRef();
 
   const chatWidth = () => {
     setIsChatOpen(true);
@@ -133,17 +133,11 @@ export default function Header() {
             </ul>
           </nav>
         </div>
-        <Backdrop
-          show={isChatOpen} 
-          onClick={closeChat}
-          excludeClasses={['side']} // 사이드 바를 제외하고 클릭을 감지
-        />
-        <div className={`${styles.side} ${!isChatOpen ? styles.hidden : ''}`} ref={chatArea}>
-          <span onClick={closeChat}><img src='/img/x.png' alt='close' className={styles.x} /></span>
-          {/* <a href='#'>하이</a> */}
-        </div>
+        <Chat isChatOpen={isChatOpen} onClose={closeChat} />
       </div>
-      <hr />
+      <div className={styles.header_hr}>
+        <hr />
+      </div>
     </>
   );
 }

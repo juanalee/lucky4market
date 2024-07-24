@@ -33,12 +33,18 @@ const ProductInfo = ({ productImage }) => {
     try {
       const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
       setProductInfo(productResponse.data);
+      // console.log(productResponse.data);
 
       const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=20');
       setDeliveryInfo(deliveryResponse.data);
 
       const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
       setCategoryInfo(categoryResponse.data);
+
+      const likeStatusResponse = await axios.get('http://localhost:9999/selectLikeStatus?productNo=20');
+      // console.log(likeStatusResponse.data);
+      const userLiked = likeStatusResponse.data.includes('member4');
+      setIsLiked(userLiked);
     } catch (error) {
       console.error(error);
     }
