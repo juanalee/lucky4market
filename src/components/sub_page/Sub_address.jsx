@@ -26,7 +26,6 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
     setShowPostcode(false);
   };
 
-  // Toggle sidebar class
   const sidebarClass = showPostcode ? `${styles.postcode_side} ${styles.open}` : styles.postcode_side;
 
   const postcodeStyle = {
