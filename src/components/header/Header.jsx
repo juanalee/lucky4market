@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './css/Header.module.css';
 import Chat from './Header_ChatList';
+import { AuthContext } from '../../services/AuthContext';
 
 export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
   const chatWidth = () => {
     setIsChatOpen(true);
@@ -14,12 +17,29 @@ export default function Header() {
     setIsChatOpen(false);
   };
 
+  useEffect(() => {
+    console.log('Header isAuthenticated', isAuthenticated);
+  }, [isAuthenticated]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenProvider');
+    setIsAuthenticated(false);
+    navigate('/');
+  };
+
   return (
     <>
       <div className={styles.header_container}>
         <div className={styles.header}>
           <div className={styles.link_container}>
-            <Link to="#">로그인/회원가입</Link>
+            {isAuthenticated ? (
+              <Link to="/" onClick={handleLogout} className={styles.logoutButton}>
+                로그아웃
+              </Link>
+            ) : (
+              <Link to="/login">로그인/회원가입</Link>
+            )}
             <Link to="#">내상점</Link>
           </div>
           <div className={styles.search_container}>
@@ -132,7 +152,7 @@ export default function Header() {
             </ul>
           </nav>
         </div>
-        <Chat isChatOpen={isChatOpen} onClose={closeChat}/>
+        <Chat isChatOpen={isChatOpen} onClose={closeChat} />
       </div>
       <div className={styles.header_hr}>
         <hr />

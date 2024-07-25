@@ -45,7 +45,7 @@ export default function ProductRegistration() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9999/category/list');
+                const response = await axios.get('http://localhost:9999/api/product/category/list');
                 setParentNumberOptions(response.data);
             } catch (error) {
                 console.error('Error fetching parent number options:', error);
@@ -57,7 +57,7 @@ export default function ProductRegistration() {
     useEffect(() => {
         const readData = async () => {
             try {
-                const response = await axios.get(`http://localhost:9999/category/list/${parentNumber}`);
+                const response = await axios.get(`http://localhost:9999/api/product/category/list/${parentNumber}`);
                 setProductCategoryList(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);

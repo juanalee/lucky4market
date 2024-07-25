@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Postcode from 'react-daum-postcode';
-import styles from './css/SubPurchaseSide.module.css';
+import styles from './css/sub_purchase_side.module.css';
 
 function SubAddress({ setAddressMainInfo, resetAddress }) {
   const [showPostcode, setShowPostcode] = useState(false);
