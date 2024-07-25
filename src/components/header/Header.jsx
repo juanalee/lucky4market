@@ -133,7 +133,7 @@ export default function Header() {
             </ul>
           </nav>
         </div>
-        <Chat isChatOpen={isChatOpen} onClose={closeChat} />
+        <Chat isChatOpen={isChatOpen} onClose={closeChat}/>
       </div>
       <div className={styles.header_hr}>
         <hr />

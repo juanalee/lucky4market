@@ -5,6 +5,7 @@ import PurchaseSide from './Sub_side';
 import styles from '../../css/sub_pageCss/sub_productInfo.module.css';
 import Backdrop from './Sub_overlay';
 import Report from './sub_report';
+import Sub_chat from './Sub_chat';
 
 const ProductInfo = ({ productImage }) => {
   const [timePassed, setTimePassed] = useState("");
@@ -28,6 +29,8 @@ const ProductInfo = ({ productImage }) => {
   const [categoryInfo, setCategoryInfo] = useState([]);
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInfo, setChatInfo] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -97,6 +100,17 @@ const ProductInfo = ({ productImage }) => {
     setIsReportOpen(true);
   };
 
+  const chatOpen = async () => { 
+      try {
+        const responseChatInfo = await axios.get('http://localhost:9999/selectChatInfo?memberId=member4');
+        console.log(responseChatInfo.data);
+        setChatInfo(responseChatInfo.data)
+      } catch (error) {
+        console.error(error);
+      }
+    setIsChatOpen(true);
+  }
+
   return (
     <>
       <div className={styles.product_information}>
@@ -152,7 +166,7 @@ const ProductInfo = ({ productImage }) => {
           <button className={styles.like_btn} onClick={likeClick}>
             <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" />
           </button>
-          <button className={styles.chat_btn}>채팅하기</button>
+          <button className={styles.chat_btn} onClick={chatOpen}>채팅하기</button>
           <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
         </div>
       </div>
@@ -164,6 +178,7 @@ const ProductInfo = ({ productImage }) => {
         </div>
       </div>
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
+      <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId='member4' chatInfo={chatInfo}/>
     </>
   );
 };

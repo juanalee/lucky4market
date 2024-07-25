@@ -29,6 +29,7 @@ const Payment = ({buyMethod, productNo}) => {
           const response = await axios.put(`http://localhost:9999/updateProductSaleSatus?productNo=${productNo}`);
           // console.log(response);       
           alert(response.data.msg);
+          window.location.reload();
         } catch (error) {
           console.log(error);
         }    

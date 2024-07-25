@@ -62,7 +62,6 @@ const Report = ({ isReportOpen, onClose }) => {
       <Backdrop
         show={isReportOpen}
         onClick={onClose}
-        excludeClasses={['report_container']}
       />
       {isReportOpen && (
         <div className={styles.report_container}>

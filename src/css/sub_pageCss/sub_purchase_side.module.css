@@ -132,13 +132,14 @@
 .last_price {
   position: absolute;
   right: 30px;
+  top: 30px;
   font-size: 24px;
   font-weight: bold;
   color: green;
 }
 
 .last_price_container {
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 
 .payment_amount button {
@@ -338,12 +339,12 @@
 }
 
 .addAddressInfo input{
-    width: 550px;
-    padding: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-weight: bold;
-    font-size: 16px;
+  width: 550px;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .postcode_side {

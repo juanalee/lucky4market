@@ -60,7 +60,6 @@ export default function ImageSlider() {
 
     productImage();
   }, []);
-  console.log(productInfo);
   const imageStyle = productInfo.productSale === '판매중' ? true : false;
   const imageClass = imageStyle ? '' : styles.imageSale
   return (
