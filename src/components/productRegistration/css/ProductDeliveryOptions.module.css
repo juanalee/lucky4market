@@ -1,0 +1,36 @@
+.productRadioLabel {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    width: 90px;
+    height: 20px;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  
+
+.directDeal {
+  margin-bottom: 10px;
+}
+
+.red {
+    color: red;
+  }
+  
+.deliveryChargeInput{
+padding: 10px;
+border: 1px solid #ccc;
+height: 10px;
+border-radius: 5px;
+}
+
+.productRadioLabel input[type="radio"] {
+  display: none;
+}
+
+.productRadioLabel.selected {
+  background-color: #D3D3D3; 
+}

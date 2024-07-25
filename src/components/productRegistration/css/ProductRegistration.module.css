@@ -1,0 +1,100 @@
+.productContainer {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.productHeader{
+  padding-right: 20px;
+}
+.categorySelect,
+.submitButton {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.description{
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.priceInput {
+  border: 0px;
+}
+
+.productName,
+.priceContainer {
+  width: 100%;
+  height: 17px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.freeCheckbox {
+  display: flex;
+  align-items: center;
+}
+
+.productState,
+.location {
+  margin-bottom: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.submitButton {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background-color: #555;
+}
+
+.productRadioLabel {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  width: 90px;
+  height: 20px;
+  text-align: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.productRadioLabel input[type="radio"] {
+  display: none;
+}
+
+.productRadioLabel.selected {
+  background-color: #D3D3D3; 
+}
+
+.red {
+  color: red;
+}
+
+.ProductTransaction{
+  margin-bottom: 10px;
+}

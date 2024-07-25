@@ -1,0 +1,35 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.interest_product_header_container {
+  width: 1440px;
+  display: flex;
+  flex-flow: column wrap;
+  margin: 0px auto;
+}
+
+.interest_product_side_container {
+  display: flex;
+}
+
+.my_interest_product {
+  display: flex;
+  font-size: 24px;
+  padding: 20px 0px;
+}
+
+.interest_product_card {
+  width: 700px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.interest_product_banner {
+  width: 200px;
+  border: 1px solid black;
+  text-align: center;
+  margin: 20px 50px;
+}

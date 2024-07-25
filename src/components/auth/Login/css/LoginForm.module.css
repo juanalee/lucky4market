@@ -1,0 +1,232 @@
+@font-face {
+  font-family: 'GodoM';
+  src: url('../../../../../public/fonts/GodoM.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://rsms.me/inter/inter-ui.css');
+
+::selection {
+  background: #2D2F36;
+}
+
+::-webkit-selection {
+  background: #2D2F36;
+}
+
+::-moz-selection {
+  background: #2D2F36;
+}
+
+.loginFormPage body {
+  background: white;
+  font-family: 'Inter UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+body:lang(ko), .korean-text, [lang="ko"] {
+  font-family: 'GodoM', sans-serif;
+}
+
+.loginFormPage {
+  background: #e2e2e5;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  place-content: center;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .loginFormPage {
+    height: auto;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.loginFormContainer {
+  display: flex;
+  height: 550px;
+  margin: 0 auto;
+  width: 640px;
+}
+
+@media (max-width: 767px) {
+  .loginFormContainer {
+    flex-direction: column;
+    height: 630px;
+    width: 320px;
+  }
+}
+
+.loginFormLeft {
+  background: white;
+  height: calc(100% - 40px);
+  top: 20px;
+  position: relative;
+  width: 50%;
+}
+
+@media (max-width: 767px) {
+  .loginFormLeft {
+    height: 100%;
+    left: 20px;
+    width: calc(100% - 40px);
+    max-height: 550px;
+  }
+}
+
+.loginFormLogin {
+  font-size: 50px;
+  font-weight: 900;
+  margin: 50px 40px 40px;
+}
+
+.loginFormErrormessages {
+  color: red;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 40px;
+}
+
+.loginFormRight {
+  background: #000000;
+  box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
+  color: #F1F1F2;
+  position: relative;
+  width: 50%;
+}
+
+@media (max-width: 767px) {
+  .loginFormRight {
+    flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+    max-height: 650px;
+  }
+}
+
+.loginFormRight svg {
+  position: absolute;
+  width: 320px;
+}
+
+.loginFormPath {
+  fill: none;
+  stroke: url(#linearGradient);
+  stroke-width: 2;
+  stroke-dasharray: 240 1386;
+}
+
+.loginFormHiddenPath {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.loginFormShowPath {
+    opacity: 1;
+}
+
+.loginFormPathAnimation {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 2s forwards;
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.loginFormInput {
+  margin: 40px;
+  position: absolute;
+}
+
+.loginFormInput label {
+  color: #CCCCCC;
+  display: block;
+  font-size: 14px;
+  height: 16px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.loginFormInput input {
+  background: transparent;
+  border: 0;
+  color: #f2f2f2;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none !important;
+  width: 100%;
+}
+
+.loginFormInput input::-moz-focus-inner { 
+  border: 0; 
+}
+
+.loginFormInput input:focus, .loginFormInput input:active {
+  background: #000000;
+  color: #f2f2f2;
+}
+
+.loginFormInput input:-webkit-autofill {
+  background: #000000 !important;
+  color: #f2f2f2 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #000000 inset !important;
+  -webkit-text-fill-color: #f2f2f2 !important;
+}
+
+.idPasswdRecovery{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  font-size: 12px;
+}
+
+.loginRecovery{
+  text-decoration: none;
+  color: #CCCCCC;
+  background-color: #000000;
+  border: 1px solid #000000;
+  padding: 0 10px;
+}
+
+.loginRecovery, #button {
+  cursor: pointer;
+}
+
+.loginSeparator{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.loginButton {
+  color: #CCCCCC !important;
+  margin-top: 40px;
+  transition: color 300ms, text-shadow 300ms;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  color: #FFFFFF !important;
+}
+
+.socialLoginButtons{
+  display: flex;
+  flex-flow: nowrap;
+  margin-top: 60px;
+  justify-content: space-around;
+}
