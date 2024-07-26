@@ -1,0 +1,27 @@
+.dissolveText {
+  animation: slide 10s ease infinite;
+  transform: translate(0, 0);
+  opacity: 1;
+  filter: blur(0);
+}
+
+@keyframes slide {
+  0% {  
+    transform: translate(0, 0);
+    opacity: 1;
+    filter: blur(0);
+  }
+  5%{
+    filter: blur(10px);
+  }
+  80%{
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    filter: blur(50px);
+    opacity: 0;
+  }
+}

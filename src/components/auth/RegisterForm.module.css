@@ -19,19 +19,43 @@
   background: #2D2F36;
 }
 
-.registerFormPage body {
-  background: white;
-  font-family: 'Inter UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+
+.emergeText {
+  width: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  animation: slide 12s ease infinite;
+  transform: translate(0, 0);
+  opacity: 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-body:lang(ko), .korean-text, [lang="ko"] {
-  font-family: 'GodoM', sans-serif;
+@keyframes slide {
+  0% {    
+    filter: blur(80px);
+    opacity: 0;
+  }
+  10%{
+    opacity: 0.8;
+  }
+  15% {
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+.registerFormPage {
+  background: #e2e2e5;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  place-content: center;
+  width: 100%;
 }
 
 .registerFormPage {
@@ -45,7 +69,7 @@ body:lang(ko), .korean-text, [lang="ko"] {
 }
 
 @media (max-width: 767px) {
-  .registerFormage {
+  .registerFormPage {
     height: auto;
     margin-bottom: 20px;
     padding-bottom: 20px;
@@ -85,20 +109,11 @@ body:lang(ko), .korean-text, [lang="ko"] {
 }
 
 .registerFormTitle{
-  font-family: 'Inter UI', sans-serif;
-}
-
-.registerFormLogin {
+  font-family: 'Inter-UI', sans-serif;
   font-size: 50px;
   font-weight: 900;
   margin: 50px 40px 40px;
-}
-
-.registerFormErrormessages {
-  color: red;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 40px;
+  opacity: 0;
 }
 
 .registerFormRight {
@@ -118,37 +133,9 @@ body:lang(ko), .korean-text, [lang="ko"] {
   }
 }
 
-.registerFormight svg {
+.registerFormRight svg {
   position: absolute;
   width: 320px;
-}
-
-.registerFormPath {
-  fill: none;
-  stroke: url(#linearGradient);
-  stroke-width: 2;
-  stroke-dasharray: 240 1386;
-}
-
-.registerFormHiddenPath {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.registerFormShowPath {
-    opacity: 1;
-}
-
-.registerFormPathAnimation {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: draw 2s forwards;
-}
-
-@keyframes draw {
-    to {
-        stroke-dashoffset: 0;
-    }
 }
 
 .registerFormInput {
@@ -156,31 +143,38 @@ body:lang(ko), .korean-text, [lang="ko"] {
   position: absolute;
 }
 
+.registerFormInputBox{
+  border: solid transparent;
+  border-width: 0 0 1px 0;
+  border-image: linear-gradient(to right, #2D2F36, #fff) 1 / 0 0 1px 0;
+}
+
 .registerFormInput label {
   color: #CCCCCC;
   display: block;
   font-size: 14px;
   height: 16px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 
-.registerFormInput input {
+.registerFormInputField {
   background: transparent;
   border: 0;
   color: #f2f2f2;
-  font-size: 20px;
-  height: 30px;
+  font-size: 16px;
   line-height: 30px;
   outline: none !important;
   width: 100%;
+  box-sizing: border-box;
+  padding: 3px 7px 0px 7px;
 }
 
 .registerFormInput input::-moz-focus-inner { 
   border: 0; 
 }
 
-.registerFormInput input:focus, .registerFormInput input:active {
+.registerFormInput input:focus, .loginFormInput input:active {
   background: #000000;
   color: #f2f2f2;
 }
@@ -192,45 +186,53 @@ body:lang(ko), .korean-text, [lang="ko"] {
   -webkit-text-fill-color: #f2f2f2 !important;
 }
 
-.idPasswdRecovery{
+.registerFormErrorText {
+  color: white;
+  font-size: 10px;
+  line-height: 12px; 
+  height: 12px;
+  visibility: hidden;
+  margin: 4px 7px 0 7px;    
+  display: block;
+}
+
+.registerFormSSN{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-  font-size: 12px;
+  flex-flow: nowrap row;
 }
 
-.loginRecovery{
-  text-decoration: none;
+.registerFormDash{
+  padding: 0 5px;
+}
+
+.registerFormPNo{
+  display: flex;
+  flex-flow: nowrap row;
+}
+
+.registerFormInputField option {  
+  font-size: 14px;
+  background-color: black;
+  padding: 8px 10px;
+  line-height: 1.6;
+}
+
+.registerFormButton {
+  background: transparent;
+  height: 30px;
+  line-height: 30px;
+  border: 0;
+  font-size: 20px;  
+  outline: none !important;
+  width: 100%;
   color: #CCCCCC;
-  background-color: #000000;
-  border: 1px solid #000000;
-  padding: 0 10px;
-}
-
-.loginRecovery, #button {
-  cursor: pointer;
-}
-
-.loginSeparator{
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.loginButton {
-  color: #CCCCCC !important;
-  margin-top: 40px;
+  margin-top: 35px;
   transition: color 300ms, text-shadow 300ms;
   cursor: pointer;
 }
 
-.loginButton:hover {
+.registerFormButton:hover {
   color: #FFFFFF !important;
 }
 
-.socialLoginButtons{
-  display: flex;
-  flex-flow: nowrap;
-  margin-top: 60px;
-  justify-content: space-around;
-}
+
