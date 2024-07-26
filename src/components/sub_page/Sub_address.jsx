@@ -36,8 +36,7 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
   };
   
   return (
-    <div>
-      <div className={styles.address_container}>
+    <>
         <input
           type='text'
           placeholder='주소찾기'
@@ -45,7 +44,6 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
           onClick={() => setShowPostcode(true)}
           readOnly
         />
-      </div>
 
       {showPostcode && (
         <div className={sidebarClass}>
@@ -62,7 +60,7 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

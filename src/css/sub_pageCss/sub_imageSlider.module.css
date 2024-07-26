@@ -10,9 +10,11 @@
   display: flex;
   flex-flow: column nowrap;
   zoom: 0.75; /* 75% 크기로 축소 */
+  background-color: white;
 }
 
 .subPageMain {
+  margin-top: 180px;
   width: 1440px;
   display: flex;
   flex-flow: row wrap;
@@ -95,7 +97,8 @@
 .hrContainer hr {
   width: 100%;
   position: absolute;
-  top: 565px;
+  top: 705px;
+  z-index: 500;
 }
 
 .imageSale{

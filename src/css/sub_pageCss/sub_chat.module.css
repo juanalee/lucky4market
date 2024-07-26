@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 600px;
+  width: 800px;
   height: 100%;
   background: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
@@ -51,7 +51,8 @@
   flex-flow: column nowrap;
   gap: 50px;
   padding: 50px 20px;
-  margin: 20px 0px;
+  margin-top: 20px;
+  margin-bottom: 50px;
   height: 65%;
   background-color: #E9EDEF;
   position: relative;
@@ -72,7 +73,7 @@
 
 .chatContentOpponent {
   border-radius: 10px;
-  max-width: 300px; /* 최대 너비 설정 */
+  max-width: 350px; /* 최대 너비 설정 */
   padding: 20px;
   background-color: white;
   font-size: 20px;
@@ -129,4 +130,40 @@
 .dateLine{
   width: 100px;
   border: 1px solid #ccc;
+}
+
+.chat_content_container::-webkit-scrollbar {
+  display: none;
+}
+
+.messageSendContainer{
+  position: relative;
+}
+
+.messageSendContainer textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+  border: none;
+  background-color: #E9EDEF;
+  font-size: 24px;
+  padding: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.messageSendContainer button{
+  position: absolute;
+  bottom: 20px;
+  right: 100px;
+  border: none;
+}
+
+.messageSendContainer img{
+  width: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.messageSendContainer textarea:focus{
+  outline: none;
 }

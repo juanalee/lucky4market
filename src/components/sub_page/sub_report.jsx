@@ -44,9 +44,9 @@ const Report = ({ isReportOpen, onClose }) => {
     try {
       // axios 요청에 params로 전달
       const response = await axios.post('http://localhost:9999/insertReport', {
-        productNo: '10',
-        claimerId: 'member10',
-        sellerId: 'member4',
+        productNo: '19',
+        claimerId: 'member3',
+        sellerId: 'member2',
         reportContent: `[${typeText}] ${reportContents[type]}` // 타입에 따른 문구와 내용을 결합
       });
   

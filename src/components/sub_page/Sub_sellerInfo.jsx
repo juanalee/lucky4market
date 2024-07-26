@@ -16,7 +16,7 @@ const StoreInfo = () => {
   const followClick = () => {
     setIsFollowing((prevState) => !prevState);
 
-    axios.get('http://localhost:9999/insertFollow?buyerId=member10&sellerId=member4')
+    axios.get('http://localhost:9999/insertFollow?buyerId=member3&sellerId=member2')
     .then(response => {
       console.log(response);
       alert(response.data.msg);
@@ -29,10 +29,10 @@ const StoreInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {        
-        const storeResponse = await axios.get('http://localhost:9999/storeInfo?memberId=member4');
+        const storeResponse = await axios.get('http://localhost:9999/storeInfo?memberId=member2');
         setStoreInfo(storeResponse.data);
 
-        const sellerProfileResponse = await axios.get('http://localhost:9999/sellerProfile?memberId=member4');
+        const sellerProfileResponse = await axios.get('http://localhost:9999/sellerProfile?memberId=member2');
         setProfileInfo(sellerProfileResponse.data);
   
         const buyerIds = storeResponse.data.filter(item => item.review !== null).map(item => item.buyerId);
@@ -41,12 +41,12 @@ const StoreInfo = () => {
           setBuyerProfileInfo(buyerProfileResponse.data);
         }
 
-        const response = await axios.get('http://localhost:9999/sellerProductImage?memberId=member4');
+        const response = await axios.get('http://localhost:9999/sellerProductImage?memberId=member2');
         setSellerProductImage(response.data);
 
-        const followStatusResponse = await axios.get('http://localhost:9999/selectFollowStatus?memberId=member4');
+        const followStatusResponse = await axios.get('http://localhost:9999/selectFollowStatus?memberId=member2');
         // console.log(followStatusResponse.data);
-        const userLiked = followStatusResponse.data.includes('member10');
+        const userLiked = followStatusResponse.data.includes('member3');
         setIsFollowing(userLiked);
       } catch (error) {
         console.error(error);

@@ -49,9 +49,9 @@ export default function ImageSlider() {
   useEffect(() => {
     const productImage = async () => {
       try {
-        const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
+        const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=19');
         setProductInfo(productResponse.data);
-        const response = await axios.get('http://localhost:9999/productImage?productNo=20');
+        const response = await axios.get('http://localhost:9999/productImage?productNo=19');
         setProductImg(response.data);
       } catch (error) {
         console.error(error);

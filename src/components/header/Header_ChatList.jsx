@@ -6,12 +6,12 @@ import Sub_chat from '../sub_page/Sub_chat';
 
 const Chat = ({ isChatOpen, onClose }) => {
   const [chatRooms, setChatRooms] = useState([]);
-  const [chatInfo, setChatInfo] = useState([]);
   const [otherIds, setOtherIds] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [productImg, setProductImg] = useState(null); // 초기값을 null로 설정
   const [productInfo, setProductInfo] = useState(null); // 초기값을 null로 설정
   const [activeMemberId, setActiveMemberId] = useState('');
+  const [activeChatNo, setActiveChatNo] = useState('');
   const [activeProductNo, setActiveProductNo] = useState(''); // 추가된 상태
   const chatSideClass = isChatOpen ? styles.open : '';
 
@@ -30,7 +30,7 @@ const Chat = ({ isChatOpen, onClose }) => {
   useEffect(() => {
     if (chatRooms.length > 0) {
       const otherIds = chatRooms.flatMap(room =>
-        [room.buyerId, room.sellerId]
+        [room.receiverId, room.senderId]
           .filter(id => id !== 'member3') // 'member3'이 아닌 아이디만 필터링
       );
       setOtherIds(otherIds);
@@ -54,9 +54,10 @@ const Chat = ({ isChatOpen, onClose }) => {
 
   const [isMainChatOpen, setIsMainChatOpen] = useState(false);
 
-  const mainChatOpen = async (profileId, productNo) => {
-    setActiveMemberId(profileId);
-    setActiveProductNo(productNo); // 활성화된 상품 번호 설정s
+  const mainChatOpen = async (chatNo, productNo, profileId) => {
+    setActiveChatNo(chatNo);
+    setActiveMemberId(profileId)
+    setActiveProductNo(productNo);
     setIsMainChatOpen(true);
 
     try {
@@ -64,9 +65,6 @@ const Chat = ({ isChatOpen, onClose }) => {
       setProductInfo(productResponse.data);
       const imageResponse = await axios.get(`http://localhost:9999/productImage?productNo=${productNo}`);
       setProductImg(imageResponse.data[0]);
-      const responseChatInfo = await axios.get(`http://localhost:9999/selectChatInfo?memberId=${profileId}`);
-      console.log(responseChatInfo.data);
-      setChatInfo(responseChatInfo.data); // 채팅방 정보로 상태 업데이트
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +74,6 @@ const Chat = ({ isChatOpen, onClose }) => {
   const mainChatClose = () => {
     setIsMainChatOpen(false);
   };
-
   return (
     <>
       <Backdrop
@@ -92,7 +89,7 @@ const Chat = ({ isChatOpen, onClose }) => {
         </div>
         {chatRooms.map((room, index) => {
           // 채팅방에 연결된 상대방의 ID를 찾기
-          const profileId = room.buyerId === 'member3' ? room.sellerId : room.buyerId;
+          const profileId = room.senderId === 'member3' ? room.receiverId : room.senderId;
           // 프로필 이미지를 찾기
           const profile = profiles.find(profile => profile.MEMBERID === profileId);
           const profileImage = profile ? profile.PROFILEPATH : '/img/basic.png';
@@ -102,7 +99,7 @@ const Chat = ({ isChatOpen, onClose }) => {
             <>
               <div 
                 className={styles.chat_list} 
-                onClick={() => mainChatOpen(profileId, room.productNo)} // 채팅방 클릭 시 상품 번호도 전달
+                onClick={() => mainChatOpen(room.chatNo, room.productNo, profileId)} // 채팅방 클릭 시 상품 번호도 전달
               >
                 <img src={profileImage} alt='profile' />
                 <div>
@@ -119,7 +116,7 @@ const Chat = ({ isChatOpen, onClose }) => {
                 memberId={activeMemberId} 
                 productImage={productImg} 
                 productInfo={productInfo}
-                chatInfo={chatInfo}
+                roomId = {activeChatNo}
               />
             </>
           );

@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PurchaseSide from './Sub_side';
 import styles from '../../css/sub_pageCss/sub_productInfo.module.css';
-import Backdrop from './Sub_overlay';
-import Report from './sub_report';
+import Report from './Sub_report';
 import Sub_chat from './Sub_chat';
 
 const ProductInfo = ({ productImage }) => {
@@ -30,33 +29,35 @@ const ProductInfo = ({ productImage }) => {
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatInfo, setChatInfo] = useState(false);
+  const [roomId, setRoomId] = useState(null);
+  const [productMemberId, setProductMemberId] = useState(null);
+  
 
   const fetchData = async () => {
     try {
-      const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=20');
+      const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=19');
       setProductInfo(productResponse.data);
-      // console.log(productResponse.data);
-
-      const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=20');
+      console.log(productResponse.data);
+      setProductMemberId(productResponse.data.memberId);
+      const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=19');
       setDeliveryInfo(deliveryResponse.data);
-
+      
       const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
       setCategoryInfo(categoryResponse.data);
-
-      const likeStatusResponse = await axios.get('http://localhost:9999/selectLikeStatus?productNo=20');
+      
+      const likeStatusResponse = await axios.get('http://localhost:9999/selectLikeStatus?productNo=19');
       // console.log(likeStatusResponse.data);
-      const userLiked = likeStatusResponse.data.includes('member4');
+      const userLiked = likeStatusResponse.data.includes('member2');
       setIsLiked(userLiked);
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   useEffect(() => {
     fetchData();
   }, []);
-
+  
   useEffect(() => {
     const updateTimePassed = () => {
       if (productInfo.productDate) {
@@ -84,7 +85,7 @@ const ProductInfo = ({ productImage }) => {
    const likeClick = async () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
     try {
-      const response = await axios.get('http://localhost:9999/insertProductLike?memberId=member4&productNo=20');
+      const response = await axios.get('http://localhost:9999/insertProductLike?memberId=member2&productNo=19');
       console.log(response);
       alert(response.data.msg);
     } catch (error) {
@@ -100,17 +101,35 @@ const ProductInfo = ({ productImage }) => {
     setIsReportOpen(true);
   };
 
-  const chatOpen = async () => { 
-      try {
-        const responseChatInfo = await axios.get('http://localhost:9999/selectChatInfo?memberId=member4');
-        console.log(responseChatInfo.data);
-        setChatInfo(responseChatInfo.data)
-      } catch (error) {
-        console.error(error);
+  const chatOpen = async () => {
+    try {
+      // 채팅방 존재 여부 확인
+      const chatRoomExistResponse = await axios.get('http://localhost:9999/chatRoomExist', {
+        params: {
+          memberId: 'member3',
+          productNo: productInfo.productNo
+        }
+      });
+      if (chatRoomExistResponse.data.length > 0) { // 채팅방이 존재하면
+        // 채팅방이 존재하면 채팅 정보 가져오기
+        setRoomId(chatRoomExistResponse.data[0]);
+      } else { // 채팅방이 없으면
+        // 채팅방이 없으면 생성
+        const newChatRoomResponse = await axios.post('http://localhost:9999/createChatRoom', {
+          receiverId : productInfo.memberId,
+          senderId: 'member3', // 로그인한 사용자 ID로 변경
+          productNo: productInfo.productNo
+        });
+  
+        setRoomId(newChatRoomResponse.data.chatNo);
+  
       }
+    } catch (error) {
+      console.error(error);
+    }
+  
     setIsChatOpen(true);
-  }
-
+  };
   return (
     <>
       <div className={styles.product_information}>
@@ -178,7 +197,7 @@ const ProductInfo = ({ productImage }) => {
         </div>
       </div>
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
-      <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId='member4' chatInfo={chatInfo}/>
+      <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId={productMemberId} roomId={roomId}/>
     </>
   );
 };
