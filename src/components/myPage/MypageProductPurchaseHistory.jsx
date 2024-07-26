@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import MypageSideBar from './MypageSideBar';
+import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
-import styles from './css/MypageProductSalesList.module.css';
-import MypagReviewWrite from './MypagReviewWrite';
+import styles from './css/MyPageProductSalesList.module.css';
+import MyPageReviewWrite from './MyPageReviewWrite';
 
-const MypageProductPurchaseHistory = () => {
+const MyPageProductPurchaseHistory = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState({}); // 리뷰 작성 폼 상태
   const buyerId = 'member5';
@@ -69,14 +69,14 @@ const MypageProductPurchaseHistory = () => {
 
   return (
     <div>
-      <div className={styles.MypageProductSalesListComponent}>
-        <MypageSideBar />
+      <div className={styles.MyPageProductSalesListComponent}>
+        <MyPageSideBar/>
         <div>
           <h3>최근구매내역 ({reviewWritable.length})</h3>
           {reviewWritable.map((memberProduct, index) => (
             <div key={index}>
-              <div className={styles.MypageProductSalesList}>
-                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+              <div className={styles.MyPageProductSalesList}>
+                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product"/>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
@@ -92,20 +92,20 @@ const MypageProductPurchaseHistory = () => {
                   <p>작성기한 : {memberProduct.deadline} ({`D-${memberProduct.dDay}`})</p>
                 </div>
               </div>
-              {showReviewForm[index] && <MypagReviewWrite
+              {showReviewForm[index] && <MyPageReviewWrite
                 productNo={memberProduct.productNo}
                 buyerId={buyerId}
                 sellerId={memberProduct.memberId}
 
-              />}
+            />}
             </div>
           ))}
 
           <h3>구매내역({reviewExpired.length})</h3>
           {reviewExpired.map((memberProduct, index) => (
             <div key={index}>
-              <div className={styles.MypageProductSalesList}>
-                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+              <div className={styles.MyPageProductSalesList}>
+                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product"/>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
@@ -123,4 +123,4 @@ const MypageProductPurchaseHistory = () => {
   );
 };
 
-export default MypageProductPurchaseHistory;
+export default MyPageProductPurchaseHistory;

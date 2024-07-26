@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './css/MypageProductSalesList.module.css';
+import styles from './css/MyPageProductSalesList.module.css';
 
-const MypageProductSoldoutList = () => {
+const MyPageProductSoldoutList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const memberId = 'member5';
 
@@ -29,13 +29,13 @@ const MypageProductSoldoutList = () => {
 
   return (
     <div>
-      <div className={styles.MypageProductSalesListComponent}>
+      <div className={styles.MyPageProductSalesListComponent}>
         <div>
           <h3>판매완료 ({memberProductList.length})</h3>
           {memberProductList.map((memberProduct, index) => (
             <div key={index}>
-              <div className={styles.MypageProductSalesList}>
-                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+              <div className={styles.MyPageProductSalesList}>
+                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product"/>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
@@ -50,4 +50,4 @@ const MypageProductSoldoutList = () => {
   );
 };
 
-export default MypageProductSoldoutList;
+export default MyPageProductSoldoutList;

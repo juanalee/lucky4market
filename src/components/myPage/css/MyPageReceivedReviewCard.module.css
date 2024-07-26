@@ -1,0 +1,22 @@
+.received_review_card {
+  width: 700px;
+  display: flex;
+  flex-flow: row nowrap;
+  border: 1px solid #CCCCCC;
+  margin: 10px;
+  padding: 10px;
+}
+
+.received_review_card img {
+  width: 150px;
+  height: 150px;
+  padding-right: 10px;
+}
+
+.receivced_review_card_info {
+  font-size: 16px;
+}
+
+.receivced_review_card_score {
+  color: red;
+}

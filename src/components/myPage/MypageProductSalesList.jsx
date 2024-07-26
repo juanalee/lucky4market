@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import MypageSideBar from './MypageSideBar';
+import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
-import styles from './css/MypageProductSalesList.module.css';
-import MypageProductSoldoutList from './MypageProductSoldoutList';
+import styles from './css/MyPageProductSalesList.module.css';
+import MyPageProductSoldoutList from './MyPageProductSoldoutList';
 
 
-const MypageProductSalesList = () => {
+const MyPageProductSalesList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
 
   const memberId = 'member5';
@@ -33,14 +33,14 @@ const MypageProductSalesList = () => {
 
   return (
     <div>
-      <div className={styles.MypageProductSalesListComponent}>
-        <MypageSideBar />
+      <div className={styles.MyPageProductSalesListComponent}>
+        <MyPageSideBar/>
         <div>
           <h3>판매중 ({memberProductList.length})</h3>
           {memberProductList.map((memberProduct, index) => (
             <div key={index}>
-              <div className={styles.MypageProductSalesList}>
-                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+              <div className={styles.MyPageProductSalesList}>
+                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product"/>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
@@ -50,11 +50,11 @@ const MypageProductSalesList = () => {
 
             </div>
           ))}
-          <MypageProductSoldoutList />
+          <MyPageProductSoldoutList/>
         </div>
       </div>
     </div>
   );
 };
 
-export default MypageProductSalesList;
+export default MyPageProductSalesList;
