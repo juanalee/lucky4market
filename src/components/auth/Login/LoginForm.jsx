@@ -8,6 +8,7 @@ import NaverLoginButton from './NaverLoginButton';
 import KakaoLoginButton from './KakaoLoginButton';
 import { AuthContext } from '../../../services/AuthContext';
 import ModalPopup from '../../modalPopup/ModalPopup';
+import Slide from './SlideAnimation';
 
 const LoginForm = () => {
     const [memberId, setMemberId] = useState('');
@@ -15,6 +16,7 @@ const LoginForm = () => {
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [showAnimation, setShowAnimation] = useState(false);
     const navigate = useNavigate();
     const { isAuthenticated, setIsAuthenticated, setRoles } = useContext(AuthContext);
 
@@ -110,7 +112,11 @@ const LoginForm = () => {
     };
 
     const goToRegisterForm = () => {
-        navigate('/register');
+        setShowAnimation(true);
+        setTimeout(() => {
+            navigate('/register');
+            setShowAnimation(false);
+        }, 700);
     };
 
     const handleModalClose = () => {
@@ -129,7 +135,9 @@ const LoginForm = () => {
             />
             <div className={styles.loginFormContainer}>
                 <div className={styles.loginFormLeft}>
-                    <div className={styles.loginFormLogin}>Login</div>
+                    <div className={styles.loginFormLogin}>
+                        <Slide show={showAnimation}>Login</Slide>
+                    </div>
                     {error && <div className={styles.loginFormErrormessages}>{error}</div>}
                 </div>
                 <div className={styles.loginFormRight}>
@@ -147,6 +155,7 @@ const LoginForm = () => {
                         <form onSubmit={handleLogin}>
                             <label htmlFor="memberId">회원 아이디</label>
                             <input
+                                className={styles.loginFormInputField}
                                 type="text"
                                 id="memberId"
                                 value={memberId}
@@ -155,6 +164,7 @@ const LoginForm = () => {
                             />
                             <label htmlFor="memberPasswd">비밀번호</label>
                             <input
+                                className={styles.loginFormInputField}
                                 type="password"
                                 id="memberPasswd"
                                 value={memberPasswd}
@@ -171,14 +181,14 @@ const LoginForm = () => {
                                 id="submit"
                                 value="로그인"
                                 lang="ko"
-                                className={styles.loginButton}
+                                className={styles.loginFormButton}
                             />
                             <input
                                 type="button"
                                 id="submit"
                                 value="회원가입"
                                 lang="ko"
-                                className={styles.loginButton}
+                                className={styles.loginFormButton}
                                 onClick={goToRegisterForm}
                             />
                         </form>
