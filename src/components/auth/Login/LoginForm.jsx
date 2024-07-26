@@ -29,7 +29,7 @@ const LoginForm = () => {
     useEffect(() => {
         let current = null;
 
-        const emailInput = document.querySelector('#memberId');
+        const idInput = document.querySelector('#memberId');
         const passwordInput = document.querySelector('#memberPasswd');
         const submitButton = document.querySelector('#submit');
         const hoverPath = document.querySelector('#hoverPath');
@@ -52,7 +52,7 @@ const LoginForm = () => {
             });
         };
 
-        emailInput.addEventListener('focus', () => handleFocus(0, '240 1386'));
+        idInput.addEventListener('focus', () => handleFocus(0, '240 1386'));
         passwordInput.addEventListener('focus', () => handleFocus(-336, '240 1386'));
 
         submitButton.addEventListener('mouseover', () => {
@@ -64,7 +64,7 @@ const LoginForm = () => {
         });
 
         return () => {
-            emailInput.removeEventListener('focus', () => handleFocus(0, '240 1386'));
+            idInput.removeEventListener('focus', () => handleFocus(0, '240 1386'));
             passwordInput.removeEventListener('focus', () => handleFocus(-336, '240 1386'));
             submitButton.removeEventListener('mouseover', () => {
                 hoverPath.classList.add(styles.loginFormShowPath, styles.loginFormPathAnimation);
@@ -107,6 +107,10 @@ const LoginForm = () => {
         } catch (err) {
             setError('id 또는 비밀번호 오류');
         }
+    };
+
+    const goToRegisterForm = () => {
+        navigate('/register');
     };
 
     const handleModalClose = () => {
@@ -168,6 +172,14 @@ const LoginForm = () => {
                                 value="로그인"
                                 lang="ko"
                                 className={styles.loginButton}
+                            />
+                            <input
+                                type="button"
+                                id="submit"
+                                value="회원가입"
+                                lang="ko"
+                                className={styles.loginButton}
+                                onClick={goToRegisterForm}
                             />
                         </form>
                         <div className={styles.socialLoginButtons}>
