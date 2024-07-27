@@ -83,7 +83,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.seller_product_img}>
               {sellerProductImage.slice(0, 2).map((img, index) => (
-                img.productNo !== 16 && (
+                img.productNo !== 19 && (
                   <div key={index}>
                     <Link to='#'><img src={img.image} alt={`Product ${index}`} ref={(el) => {
                       if (el && !sellerImageCount.current.includes(el)) {

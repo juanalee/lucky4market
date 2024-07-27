@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+body::-webkit-scrollbar{
+  display: none;
+}
+
 .subPageContainer {
   width: 1440px;
   margin: 0 auto;

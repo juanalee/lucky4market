@@ -23,6 +23,13 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
     const [mainAddressInfo, setMainAddressInfo] = useState([]);
     const [addressMainInfo, setAddressMainInfo] = useState({ postalCode: '', fullAddress: '' });
 
+    //오류 관리
+    const [deliveryAddressError, setDeliveryAddressError] = useState('');
+    const [addressNameError, setAddressNameError] = useState('');
+    const [addressPhoneNumberError, setAddressPhoneNumberError] = useState('');
+    const [addressDetailInfoError, setAddressDetailInfoError] = useState('');
+    const [addressMainInfoError, setAddressMainInfoError] = useState('');
+
     // 주소 정보 가져오기
     const fetchAddressInfo = async () => {
         try {
@@ -103,27 +110,44 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
 
     // 필드 유효성 검사
     const checkField = () => {
+        let isValid = true;
+
         if (deliveryAddressValue === '') {
-            alert("배송지를 입력하세요.");
-            return false;
+            setDeliveryAddressError("배송지를 입력하세요.");
+            isValid = false;
+        } else {
+            setDeliveryAddressError('');
         }
+
         if (addressNameValue === '') {
-            alert("이름을 입력하세요.");
-            return false;
+            setAddressNameError("이름을 입력하세요.");
+            isValid = false;
+        } else {
+            setAddressNameError('');
         }
+
         if (addressPhoneNumberValue === '') {
-            alert("핸드폰 번호를 입력하세요.");
-            return false;
+            setAddressPhoneNumberError("핸드폰 번호를 입력하세요.");
+            isValid = false;
+        } else {
+            setAddressPhoneNumberError('');
         }
+
         if (addressDetailInfoValue === '') {
-            alert("상세 주소를 입력하세요.");
-            return false;
+            setAddressDetailInfoError("상세 주소를 입력하세요.");
+            isValid = false;
+        } else {
+            setAddressDetailInfoError('');
         }
+
         if (addressMainInfo.postalCode === '' || addressMainInfo.fullAddress === '') {
-            alert("주소를 입력하세요.");
-            return false;
+            setAddressMainInfoError("주소를 입력하세요.");
+            isValid = false;
+        } else {
+            setAddressMainInfoError('');
         }
-        return true;
+
+        return isValid;
     };
 
     // 주소 추가
@@ -358,12 +382,17 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                 <h2>배송지 추가</h2>
                 <div className={styles.addAddressInfo}>
                     <input type='text' placeholder='배송지명 (최대 10글자)' maxLength={10} value={deliveryAddressValue} onChange={handleDeliveryAddressChange} />
+                    {deliveryAddressError && <p className={styles.errorMessage}>{deliveryAddressError}</p>}
                     <input type='text' placeholder='이름 입력' value={addressNameValue} onChange={handleAddressNameChange} />
+                    {addressNameError && <p className={styles.errorMessage}>{addressNameError}</p>}
                     <InputMask mask="999-9999-9999" maskChar={null} value={addressPhoneNumberValue} onChange={handleAddressPhoneNumberChange}>
                         {(inputProps) => <input type='text' {...inputProps} placeholder='휴대폰 번호' />}
                     </InputMask>
+                    {addressPhoneNumberError && <p className={styles.errorMessage}>{addressPhoneNumberError}</p>}
                     <Sub_address setAddressMainInfo={setAddressMainInfo} />
+                    {addressMainInfoError && <p className={styles.errorMessage}>{addressMainInfoError}</p>}
                     <input type='text' placeholder='상세 주소(예시: 101동 101호)' value={addressDetailInfoValue} onChange={handleAddressDetailInfoChange} />
+                    {addressDetailInfoError && <p className={styles.errorMessage}>{addressDetailInfoError}</p>}
                 </div>
                 <button className={styles.editSubmit} onClick={insertMemberAddress}>추가</button>
             </div>

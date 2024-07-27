@@ -25,7 +25,8 @@ const Report = ({ isReportOpen, onClose }) => {
       [type]: value
     }));
   };
-  // console.log(reportContents);
+
+  // 신고 제출 함수
   const submitReport = async (type) => {
     // 유형에 따른 문구를 반환하는 함수
     const getTypeText = (type) => {
@@ -39,8 +40,7 @@ const Report = ({ isReportOpen, onClose }) => {
       return typeText[type] || '기타';
     };
     const typeText = getTypeText(type);
-    // console.log(typeText);
-  
+
     try {
       // axios 요청에 params로 전달
       const response = await axios.post('http://localhost:9999/insertReport', {
@@ -49,14 +49,23 @@ const Report = ({ isReportOpen, onClose }) => {
         sellerId: 'member2',
         reportContent: `[${typeText}] ${reportContents[type]}` // 타입에 따른 문구와 내용을 결합
       });
-  
-      // 요청이 성공적으로 완료되면 처리할 로직
+
+      // 요청이 성공적으로 완료되면 필드 초기화
+      setReportContents({
+        ad: '',
+        inaccurate: '',
+        prohibited: '',
+        scam: '',
+        other: ''
+      });
+      setExpanded(null); // 모든 섹션 닫기
       alert(response.data.msg);
       onClose();
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <>
       <Backdrop
