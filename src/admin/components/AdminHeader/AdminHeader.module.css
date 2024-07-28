@@ -7,7 +7,8 @@
   color: white;
 }
 
-.adminTop {
+.adminHeaderTop {
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,22 +17,24 @@
   font-size: 24px;
 }
 
-.adminBottom {
+.adminHeaderBottom {
   font-size: 16px;
   background-color: #494B50;
   padding: 10px 0;
 }
 
-.leftSection, .rightSection {
+.adminHeaderLeftSection, .adminHeaderRightSection {
   display: flex;
   align-items: center;
 }
 
-.headerLogo {
+.adminHeaderLogo {
   margin-right: 20px;
+  margin-top: 10px;
+  height: 100%;
 }
 
-.adminBottom a {
+.adminHeaderBottom a {
   color: white;
   text-decoration: none;
   padding: 10px 20px;
@@ -41,22 +44,22 @@
   transition: text-shadow 0.3s ease, box-shadow 0.3s ease;
 }
 
-.adminBottom a:hover {
+.adminHeaderBottom a:hover {
   text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 
-.adminBottom a:last-child {
+.adminHeaderBottom a:last-child {
   margin-right: 0;
 }
 
-.rightSection a {
+.adminHeaderRightSection a {
   margin-left: 20px;
   color: #9C9E9C;
   text-decoration: none;
   font-size: 14px;
 }
 
-.rightSection .logoutLink {
+.adminHeaderRightSection .adminHeaderLogoutLink {
   color: red;
 }

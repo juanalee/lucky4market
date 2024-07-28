@@ -1,4 +1,3 @@
-// ReportsTable.js
 import React from 'react';
 import styles from './AdminReports.module.css';
 

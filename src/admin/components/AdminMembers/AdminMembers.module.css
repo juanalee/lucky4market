@@ -1,28 +1,21 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.membersContentContainer {
+/* AdminMembers.module.css */
+.adminMembersContainer {
   width: 100%;
 }
 
-.membersContent {
+.adminMembersContent {
   width: 1440px;
   margin: 0 auto;
   padding: 20px;
   background-color: #FFF;
 }
 
-.membersTitle {
+.adminMembersTitle {
   margin: 0 10px 0 20px;
   padding: 10px;
 }
 
-.searchFilterSection {
+.adminMembersSearchFilterSection {
   padding: 20px;
   margin-left: 30px;
   display: flex;
@@ -30,7 +23,7 @@
   align-items: center;
 }
 
-.searchCondition {
+.adminMembersSearchCondition {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -39,17 +32,17 @@
   justify-content: flex-start;
 }
 
-.labelMargin {
+.adminMembersLabelMargin {
   margin-left: 10px;
 }
 
-.searchBox {
+.adminMembersSearchBox {
   width: 350px;
   display: flex;
   margin-top: 10px;
 }
 
-.selectInput {
+.adminMembersSelectInput {
   width: 150px;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
@@ -64,12 +57,12 @@
   text-align-last: center;
 }
 
-.selectInput:focus {
+.adminMembersSelectInput:focus {
   border-right: none;
   outline: none;
 }
 
-.searchInput {
+.adminMembersSearchInput {
   width: 100%;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
@@ -83,18 +76,18 @@
   transition: all .4s;
 }
 
-.searchInput:focus {
+.adminMembersSearchInput:focus {
   border-left: none;
   outline: none;
 }
 
-.buttonGroup {
+.adminMembersButtonGroup {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-.searchButton {
+.adminMembersSearchButton {
   padding: 8px 16px;
   background-color: #393B3F;
   color: white;
@@ -103,11 +96,11 @@
   cursor: pointer;
 }
 
-.searchButton:hover {
+.adminMembersSearchButton:hover {
   background-color: #CCCCCC;
 }
 
-.resetButton {
+.adminMembersResetButton {
   padding: 8px 16px;
   background-color: #9C9E9C;
   color: white;
@@ -116,72 +109,81 @@
   cursor: pointer;
 }
 
-.resetButton:hover {
+.adminMembersResetButton:hover {
   background-color: #d32f2f;
 }
 
-.membersTable table {
+.adminMembersResultInfo {
+  margin-top: 20px;
+}
+
+.adminMembersTable table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.membersTable th, .membersTable td {
+.adminMembersTable th, .adminMembersTable td {
   border: 1px solid #CCCCCC;
   padding: 8px;
   text-align: center;
 }
 
-.membersTable th {
+.adminMembersTable th {
   background-color: #f4f4f4;
   font-weight: bold;
 }
 
-.membersTable tr:nth-child(even) {
+.adminMembersTable tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.membersTable tr:hover {
+.adminMembersTable tr:hover {
   background-color: #f1f1f1;
 }
 
-.membersTable th.memberId, .membersTable td.memberId {
+.adminMembersTable th.adminMembersId, .adminMembersTable td.adminMembersId {
   width: 10%;
 }
 
-.membersTable th.memberName, .membersTable td.memberName {
+.adminMembersTable th.adminMembersName, .adminMembersTable td.adminMembersName {
   width: 10%;
 }
 
-.membersTable th.memberNick, .membersTable td.memberNick {
+.adminMembersTable th.adminMembersNick, .adminMembersTable td.adminMembersNick {
   width: 10%;
 }
 
-.membersTable th.memberEmail, .membersTable td.memberEmail {
+.adminMembersTable th.adminMembersEmail, .adminMembersTable td.adminMembersEmail {
   width: 15%;
 }
 
-.membersTable th.memberAddr, .membersTable td.memberAddr {
+.adminMembersTable th.adminMembersAddr, .adminMembersTable td.adminMembersAddr {
   width: 15%;
 }
 
-.membersTable th.memberGrade, .membersTable td.memberGrade {
+.adminMembersTable th.adminMembersGrade, .adminMembersTable td.adminMembersGrade {
   width: 8%;
 }
 
-.membersTable th.memberPhoneNo, .membersTable td.memberPhoneNo {
+.adminMembersTable th.adminMembersPhoneNo, .adminMembersTable td.adminMembersPhoneNo {
   width: 12%;
 }
 
-.membersTable th.memberRegDate, .membersTable td.memberRegDate {
+.adminMembersTable th.adminMembersRegDate, .adminMembersTable td.adminMembersRegDate {
   width: 10%;
 }
 
-.membersTable th.manage, .membersTable td.manage {
+.adminMembersTable th.adminMembersManage, .adminMembersTable td.adminMembersManage {
   width: 10%;
 }
 
-.membersTable .editButton, .saveButton, .cancelButton {
+.adminMembersFixedWidthInput {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.adminMembersSaveButton, .adminMembersCancelButton {
   padding: 5px;
   background-color: #393B3F;
   color: white;
@@ -190,15 +192,15 @@
   cursor: pointer;
 }
 
-.membersTable .editButton, .saveButton {
+.adminMembersSaveButton {
   margin-right: 5px;
 }
 
-.membersTable .editButton:hover {
+.adminMembersSaveButton:hover {
   background-color: #CCCCCC;
 }
 
-.membersTable .deleteButton {
+.adminMembersDeleteButton {
   padding: 5px;
   background-color: #9C9E9C;
   color: white;
@@ -207,15 +209,28 @@
   cursor: pointer;
 }
 
-.membersTable .deleteButton, .cancelButton {
+.adminMembersDeleteButton {
   margin-left: 5px;
 }
 
-.membersTable .deleteButton:hover {
+.adminMembersDeleteButton:hover {
   background-color: #d32f2f;
 }
 
-.fixedWidthInput {
-  width: 100%;
-  box-sizing: border-box;
+.adminMembersEditButton, .adminMembersCancelButton {
+  padding: 5px;
+  background-color: #393B3F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersEditButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminMembersNoResults {
+  text-align: center;
+  padding: 20px;
 }

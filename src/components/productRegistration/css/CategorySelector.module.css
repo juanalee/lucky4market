@@ -1,36 +1,35 @@
 /* CategorySelector.module.css */
-.categorySelect {
+.category {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  display: flex;
+  flex: row;
 }
 
 .customDropdown {
-  position: relative;
-  width: 100%;
+  position: relative; /* Position relative to ensure correct positioning */
+  width: 30%;
 }
 
 .dropdownHeader {
   padding: 10px;
   border: 1px solid #ccc;
+  border-bottom: 0px;
   border-radius: 5px;
   background: #f9f9f9;
-  cursor: pointer;
+  font-size: 13px;
+  color: black;
 }
 
 .dropdownList {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+  width: 100%; /* Full width of the parent container */
   border: 1px solid #ccc;
   border-radius: 5px;
   background: #fff;
-  max-height: 200px; /* 최대 높이 설정 */
-  overflow-y: auto; /* 스크롤 추가 */
-  z-index: 1000;
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Scroll if needed */
+  margin-top: 0px;
+  padding-left: 0;
+  font-size: 14px;
 }
 
 .dropdownItem {
@@ -40,4 +39,10 @@
 
 .dropdownItem:hover {
   background: #f0f0f0;
+}
+
+li{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }

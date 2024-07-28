@@ -1,27 +1,27 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './AdminReports.module.css';
 
 const ReportSearchFilter = ({
   searchTerm,
   searchDateTerm,
   selectedSearchOption,
-  selectedStatusOption,
+  selectedProcessStatusOption,
   setSearchTerm,
   setSearchDateTerm,
   handleSearchOptionChange,
-  handleStatusOptionChange,
+  handleProcessStatusOptionChange,
   handleSearch,
   handleReset,
   handleKeyDown,
   notification
 }) => {
 
-  const handleDateKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
-    if (handleKeyDown) {
-      handleKeyDown(event);
+  const processStatusRef = useRef(null);
+
+  const handleProcessStatusChange = (event) => {
+    handleProcessStatusOptionChange(event);
+    if (processStatusRef.current) {
+      processStatusRef.current.blur();
     }
   };
 
@@ -30,7 +30,12 @@ const ReportSearchFilter = ({
       <div className={styles.searchCondition}>
         <label className={styles.labelMargin}>검색조건</label>
         <div className={styles.searchBox}>
-          <select className={styles.selectInput1} value={selectedSearchOption} onChange={handleSearchOptionChange}>
+          <select
+            className={styles.selectInput1}
+            value={selectedSearchOption}
+            onChange={handleSearchOptionChange}
+            onKeyDown={handleKeyDown}
+          >
             <option value="productNo">상품번호</option>
             <option value="sellerId">판매자 아이디</option>
             <option value="claimerId">신고자 아이디</option>
@@ -41,7 +46,7 @@ const ReportSearchFilter = ({
             placeholder="검색어 입력"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyDown} // Add onKeyDown handler
           />
           <span className={styles.searchlabel}>신고일자: </span>
           <div>
@@ -51,7 +56,7 @@ const ReportSearchFilter = ({
               placeholder="시작일"
               value={searchDateTerm.startDate}
               onChange={(e) => setSearchDateTerm({ ...searchDateTerm, startDate: e.target.value })}
-              onKeyDown={handleDateKeyDown}
+              onKeyDown={handleKeyDown} // Add onKeyDown handler
             />
             <span className={styles.searchlabel}>~</span>
             <input
@@ -60,10 +65,16 @@ const ReportSearchFilter = ({
               placeholder="종료일"
               value={searchDateTerm.endDate}
               onChange={(e) => setSearchDateTerm({ ...searchDateTerm, endDate: e.target.value })}
-              onKeyDown={handleDateKeyDown}
+              onKeyDown={handleKeyDown} // Add onKeyDown handler
             />
             <span className={styles.searchlabel}>처리 상태: </span>
-            <select className={styles.selectInput2} value={selectedStatusOption} onChange={handleStatusOptionChange}>
+            <select
+              ref={processStatusRef}
+              className={styles.selectInput2}
+              value={selectedProcessStatusOption}
+              onChange={handleProcessStatusChange}
+              onKeyDown={handleKeyDown} // Add onKeyDown handler
+            >
               <option value="">-----</option>
               <option value="N">신규</option>
               <option value="P">처리중</option>

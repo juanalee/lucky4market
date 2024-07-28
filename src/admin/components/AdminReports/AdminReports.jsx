@@ -9,11 +9,11 @@ const AdminReports = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchDateTerm, setSearchDateTerm] = useState({ startDate: '', endDate: '' });
   const [selectedSearchOption, setSelectedSearchOption] = useState('productNo');
-  const [selectedStatusOption, setSelectedStatusOption] = useState(''); // Default to empty string
+  const [selectedProcessStatusOption, setSelectedProcessStatusOption] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [unreadReports, setUnreadReports] = useState([]);
   const [expandedRows, setExpandedRows] = useState({});
-  const [activeReadSection, setActiveReadSection] = useState(false); // Track if 'read' section is active
+  const [activeReadSection, setActiveReadSection] = useState(false);
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const AdminReports = () => {
         params: filters,
       });
       const allReports = response.data;
+      console.log("All Reports:", allReports);
 
       const unread = allReports.filter(report => report.reportReadStatus === 'N');
       const read = allReports.filter(report => report.reportReadStatus !== 'N');
@@ -66,7 +67,7 @@ const AdminReports = () => {
   const handleSearch = () => {
     const trimmedSearchTerm = searchTerm.trim();
 
-    if (!trimmedSearchTerm && (!searchDateTerm.startDate || !searchDateTerm.endDate) && !selectedStatusOption) {
+    if (!trimmedSearchTerm && (!searchDateTerm.startDate || !searchDateTerm.endDate) && !selectedProcessStatusOption) {
       setNotification('*검색 조건 중 적어도 하나를 입력해야 합니다');
       return;
     }
@@ -81,17 +82,16 @@ const AdminReports = () => {
       filters.startDate = searchDateTerm.startDate;
       filters.endDate = searchDateTerm.endDate;
     }
-    if (selectedStatusOption) {
-      filters.status = selectedStatusOption;
+    if (selectedProcessStatusOption) {
+      filters.processStatus = selectedProcessStatusOption;
     }
-
     fetchFilteredReports(filters);
   };
 
   const handleReset = () => {
     setSearchTerm('');
     setSearchDateTerm({ startDate: '', endDate: '' });
-    setSelectedStatusOption('');
+    setSelectedProcessStatusOption('');
     setNotification('');
     fetchReports();
   };
@@ -101,17 +101,17 @@ const AdminReports = () => {
     setSearchTerm('');
   };
 
-  const handleStatusOptionChange = (event) => {
-    setSelectedStatusOption(event.target.value);
+  const handleProcessStatusOptionChange = (event) => {
+    setSelectedProcessStatusOption(event.target.value);
   };
 
   const handleStatusChange = async (event, report) => {
-    const updatedStatus = event.target.value;
+    const updatedProcessStatus = event.target.value;
     try {
       const response = await axios.put('http://localhost:9999/reports', {
         productNo: report.productNo,
         sellerId: report.sellerId,
-        reportStatus: updatedStatus,
+        reportStatus: updatedProcessStatus,
       }, {
         headers: {
           'Admin-Id': 'member1',
@@ -119,7 +119,7 @@ const AdminReports = () => {
         },
       });
       if (response.status === 200) {
-        report.reportStatus = updatedStatus;
+        report.reportStatus = updatedProcessStatus;
         setSearchResults([...searchResults]);
         setUnreadReports([...unreadReports]);
       } else {
@@ -132,6 +132,7 @@ const AdminReports = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
+      event.preventDefault();
       handleSearch();
     }
   };
@@ -153,11 +154,11 @@ const AdminReports = () => {
           searchTerm={searchTerm}
           searchDateTerm={searchDateTerm}
           selectedSearchOption={selectedSearchOption}
-          selectedStatusOption={selectedStatusOption}
+          selectedProcessStatusOption={selectedProcessStatusOption}
           setSearchTerm={setSearchTerm}
           setSearchDateTerm={setSearchDateTerm}
           handleSearchOptionChange={handleSearchOptionChange}
-          handleStatusOptionChange={handleStatusOptionChange}
+          handleProcessStatusOptionChange={handleProcessStatusOptionChange}
           handleSearch={handleSearch}
           handleReset={handleReset}
           handleKeyDown={handleKeyDown}

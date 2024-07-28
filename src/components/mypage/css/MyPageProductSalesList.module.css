@@ -1,0 +1,42 @@
+.MypageProductSalesListComponent{
+    display: flex;
+    flex: row;
+}
+
+.MypageProductSalesList{
+    display: flex;
+    flex: row;
+    margin-top: 50px;
+   margin-bottom: 25px;
+}
+
+.ProductSalesimg{
+    width: 110px;
+    height: 110px;
+}
+
+.ProductSalestext{
+    font-weight: bold;
+    width: 300px;
+  
+}
+.ProductSalesthDate{
+font-size: 13px;   
+margin-top: 0px;
+margin-left: 7px;
+}
+
+.productPrice,
+.productTitle{
+font-size: 22px;    
+margin: 5px;
+margin-left: 7px;
+width: 350px;
+}
+
+.reviewWrite {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 오른쪽 정렬 */
+    margin-left: 500px; /* 왼쪽 여백을 자동으로 설정하여 오른쪽으로 배치 */
+  }

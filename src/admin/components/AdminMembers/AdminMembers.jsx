@@ -125,16 +125,16 @@ const AdminMembers = () => {
   };
 
   return (
-    <div className={styles.membersContentContainer}>
+    <div className={styles.adminMembersContainer}>
       <AdminHeader />
-      <div className={styles.membersContent}>
-        <h2 className={styles.membersTitle}>회원 정보관리</h2>
+      <div className={styles.adminMembersContent}>
+        <h2 className={styles.adminMembersTitle}>회원 정보관리</h2>
         <hr></hr>
-        <div className={styles.searchFilterSection}>
-          <div className={styles.searchCondition}>
-            <label className={styles.labelMargin}>검색조건</label>
-            <div className={styles.searchBox}>
-              <select className={styles.selectInput} value={searchField} onChange={handleSearchFieldChange}>
+        <div className={styles.adminMembersSearchFilterSection}>
+          <div className={styles.adminMembersSearchCondition}>
+            <label className={styles.adminMembersLabelMargin}>검색조건</label>
+            <div className={styles.adminMembersSearchBox}>
+              <select className={styles.adminMembersSelectInput} value={searchField} onChange={handleSearchFieldChange}>
                 <option value="memberId">아이디</option>
                 <option value="memberName">이름</option>
                 <option value="memberNick">닉네임</option>
@@ -142,7 +142,7 @@ const AdminMembers = () => {
                 <option value="memberPhoneNo">전화번호</option>
               </select>
               <input
-                className={styles.searchInput}
+                className={styles.adminMembersSearchInput}
                 type="text"
                 placeholder="검색어 입력"
                 value={searchTerm}
@@ -151,27 +151,27 @@ const AdminMembers = () => {
               />
             </div>
           </div>
-          <div className={styles.buttonGroup}>
-            <button className={styles.searchButton} onClick={handleSearch}>검색</button>
-            <button className={styles.resetButton} onClick={handleReset}>초기화</button>
+          <div className={styles.adminMembersButtonGroup}>
+            <button className={styles.adminMembersSearchButton} onClick={handleSearch}>검색</button>
+            <button className={styles.adminMembersResetButton} onClick={handleReset}>초기화</button>
           </div>
         </div>
-        <div className={styles.resultInfo}>
+        <div className={styles.adminMembersResultInfo}>
           <span>총 회원 수 : {searchResults.length}명</span>
         </div>
-        <div className={styles.membersTable}>
+        <div className={styles.adminMembersTable}>
           <table>
             <thead>
               <tr>
-                <th className={styles.memberId}>아이디</th>
-                <th className={styles.memberName}>회원이름</th>
-                <th className={styles.memberNick}>닉네임</th>
-                <th className={styles.memberEmail}>이메일</th>
-                <th className={styles.memberAddr}>주소</th>
-                <th className={styles.memberGrade}>회원등급</th>
-                <th className={styles.memberPhoneNo}>전화번호</th>
-                <th className={styles.memberRegDate}>가입일자</th>
-                <th className={styles.manage}>관리</th>
+                <th className={styles.adminMembersId}>아이디</th>
+                <th className={styles.adminMembersName}>회원이름</th>
+                <th className={styles.adminMembersNick}>닉네임</th>
+                <th className={styles.adminMembersEmail}>이메일</th>
+                <th className={styles.adminMembersAddr}>주소</th>
+                <th className={styles.adminMembersGrade}>회원등급</th>
+                <th className={styles.adminMembersPhoneNo}>전화번호</th>
+                <th className={styles.adminMembersRegDate}>가입일자</th>
+                <th className={styles.adminMembersManage}>관리</th>
               </tr>
             </thead>
             <tbody>
@@ -179,61 +179,61 @@ const AdminMembers = () => {
                 searchResults.map((result, index) => (
                   result && (
                     <tr key={index}>
-                      <td className={styles.memberId}>{result.memberId}</td>
-                      <td className={styles.memberName}>
+                      <td className={styles.adminMembersId}>{result.memberId}</td>
+                      <td className={styles.adminMembersName}>
                         {editMemberId === result.memberId ? (
                           <input
                             type="text"
                             value={editedMemberData.memberName}
                             onChange={(e) => handleInputChange(e, 'memberName')}
-                            className={styles.fixedWidthInput}
+                            className={styles.adminMembersFixedWidthInput}
                           />
                         ) : (
                           result.memberName
                         )}
                       </td>
-                      <td className={styles.memberNick}>
+                      <td className={styles.adminMembersNick}>
                         {editMemberId === result.memberId ? (
                           <input
                             type="text"
                             value={editedMemberData.memberNick}
                             onChange={(e) => handleInputChange(e, 'memberNick')}
-                            className={styles.fixedWidthInput}
+                            className={styles.adminMembersFixedWidthInput}
                           />
                         ) : (
                           result.memberNick
                         )}
                       </td>
-                      <td className={styles.memberEmail}>
+                      <td className={styles.adminMembersEmail}>
                         {editMemberId === result.memberId ? (
                           <input
                             type="text"
                             value={editedMemberData.memberEmail}
                             onChange={(e) => handleInputChange(e, 'memberEmail')}
-                            className={styles.fixedWidthInput}
+                            className={styles.adminMembersFixedWidthInput}
                           />
                         ) : (
                           result.memberEmail
                         )}
                       </td>
-                      <td className={styles.memberAddr}>
+                      <td className={styles.adminMembersAddr}>
                         {editMemberId === result.memberId ? (
                           <input
                             type="text"
                             value={editedMemberData.memberAddr}
                             onChange={(e) => handleInputChange(e, 'memberAddr')}
-                            className={styles.fixedWidthInput}
+                            className={styles.adminMembersFixedWidthInput}
                           />
                         ) : (
                           result.memberAddr
                         )}
                       </td>
-                      <td className={styles.memberGrade}>
+                      <td className={styles.adminMembersGrade}>
                         {editMemberId === result.memberId ? (
                           <select
                             value={editedMemberData.memberGrade}
                             onChange={(e) => handleInputChange(e, 'memberGrade')}
-                            className={styles.fixedWidthInput}
+                            className={styles.adminMembersFixedWidthInput}
                           >
                             <option value="1">일반회원</option>
                             <option value="2">차단된회원</option>
@@ -242,29 +242,29 @@ const AdminMembers = () => {
                           result.memberGradeName
                         )}
                       </td>
-                      <td className={styles.memberPhoneNo}>
+                      <td className={styles.adminMembersPhoneNo}>
                         {editMemberId === result.memberId ? (
                           <input
                             type="text"
                             value={editedMemberData.memberPhoneNo}
                             onChange={(e) => handleInputChange(e, 'memberPhoneNo')}
-                            className={styles.fixedWidthInput}
+                            className={styles.adminMembersFixedWidthInput}
                           />
                         ) : (
                           result.memberPhoneNo
                         )}
                       </td>
-                      <td className={styles.memberRegDate}>{result.memberRegDate}</td>
-                      <td className={styles.manage}>
+                      <td className={styles.adminMembersRegDate}>{result.memberRegDate}</td>
+                      <td className={styles.adminMembersManage}>
                         {editMemberId === result.memberId ? (
                           <>
-                            <button className={styles.saveButton} onClick={handleSave}>저장</button>
-                            <button className={styles.cancelButton} onClick={handleCancel}>취소</button>
+                            <button className={styles.adminMembersSaveButton} onClick={handleSave}>저장</button>
+                            <button className={styles.adminMembersCancelButton} onClick={handleCancel}>취소</button>
                           </>
                         ) : (
                           <>
-                            <button className={styles.editButton} onClick={() => handleEdit(result)}>수정</button>
-                            <button className={styles.deleteButton} onClick={() => handleDelete(result.memberId)}>삭제</button>
+                            <button className={styles.adminMembersEditButton} onClick={() => handleEdit(result)}>수정</button>
+                            <button className={styles.adminMembersDeleteButton} onClick={() => handleDelete(result.memberId)}>삭제</button>
                           </>
                         )}
                       </td>
@@ -273,7 +273,7 @@ const AdminMembers = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="9" className={styles.noResults}>일치하는 회원이 없습니다</td>
+                  <td colSpan="9" className={styles.adminMembersNoResults}>일치하는 회원이 없습니다</td>
                 </tr>
               )}
             </tbody>
