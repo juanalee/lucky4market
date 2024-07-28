@@ -107,7 +107,7 @@ const Chat = ({ isChatOpen, onClose }) => {
                     <h2>{profileId}</h2>
                     <span>{chatDate}</span>
                   </div>
-                  <p>{room.chatContent}</p> 
+                  <p>{room.chatContent.startsWith('/file/ajax/down/') && room.chatContent.match(/\.(jpg|jpeg|png|gif)$/) ? '이미지' : room.chatContent}</p> 
                 </div>
               </div>
               <Sub_chat 

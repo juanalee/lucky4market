@@ -99,7 +99,6 @@ export default function ImageSlider() {
             </div>
           </div>
           <ProductInfo productImage={productImg[0]} />
-          <StoreInfo />
         </div>
       </div>
     </>

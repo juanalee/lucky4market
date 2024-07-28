@@ -237,8 +237,7 @@
   display: flex;
   justify-content: center;
   width: 696px;
-  padding-top: 30px;
-  border-left: 1px solid #ccc;
+  padding-top: 70px;
 }
 
 .content {
@@ -302,4 +301,8 @@
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+
+.suggestContainer{
+  height: 500px;
 }

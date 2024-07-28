@@ -5,6 +5,7 @@ import PurchaseSide from './Sub_side';
 import styles from '../../css/sub_pageCss/sub_productInfo.module.css';
 import Report from './Sub_report';
 import Sub_chat from './Sub_chat';
+import StoreInfo from './Sub_sellerInfo';
 
 const ProductInfo = ({ productImage }) => {
   const [timePassed, setTimePassed] = useState("");
@@ -44,7 +45,6 @@ const ProductInfo = ({ productImage }) => {
       
       const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
       setCategoryInfo(categoryResponse.data);
-      
       const likeStatusResponse = await axios.get('http://localhost:9999/selectLikeStatus?productNo=19');
       // console.log(likeStatusResponse.data);
       const userLiked = likeStatusResponse.data.includes('member2');
@@ -111,7 +111,6 @@ const ProductInfo = ({ productImage }) => {
         }
       });
       if (chatRoomExistResponse.data.length > 0) { // 채팅방이 존재하면
-        // 채팅방이 존재하면 채팅 정보 가져오기
         setRoomId(chatRoomExistResponse.data[0]);
       } else { // 채팅방이 없으면
         // 채팅방이 없으면 생성
@@ -130,6 +129,7 @@ const ProductInfo = ({ productImage }) => {
   
     setIsChatOpen(true);
   };
+
   return (
     <>
       <div className={styles.product_information}>
@@ -198,6 +198,7 @@ const ProductInfo = ({ productImage }) => {
       </div>
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
       <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId={productMemberId} roomId={roomId}/>
+      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} />}
     </>
   );
 };
