@@ -100,8 +100,9 @@ const StoreInfo = ({ categoryInfo }) => {
                         if (el && !sellerImageCount.current.includes(el)) {
                           sellerImageCount.current.push(el);
                         }
-                      }} /></Link>
-                      <p>{img.price.toLocaleString()}원</p>
+                      }} />
+                      </Link>
+                      <p className={styles.sellerProductPrice}>{img.price.toLocaleString()}원</p>
                     </div>
                   )
                 ))}

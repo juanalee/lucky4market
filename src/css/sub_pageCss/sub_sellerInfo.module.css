@@ -182,7 +182,6 @@
 .categoryItem a{
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
   color: black;
   text-decoration: none;
   font-size: 20px;
@@ -190,4 +189,9 @@
 
 .categoryProductPrice{
   font-weight: bold;
+  font-size: 24px;
+}
+
+.sellerProductPrice{
+  font-size: 20px;
 }
