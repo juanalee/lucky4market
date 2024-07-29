@@ -41,7 +41,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages }) => {
         console.log('Received preSignedUrl:', preSignedUrl);
         console.log('Object Key:', objectKey);
 
-        //S3 PUT request용으로 axios 인터셉터를 피하기 위한 새로운 axios 인스턴스 생성
+        // S3 PUT request용으로 axios 인터셉터를 피하기 위한 새로운 axios 인스턴스 생성
         const s3Axios = axios.create();
 
         // pre-signed URL을 사용해 AWS S3에 파일 업로드

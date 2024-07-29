@@ -8,9 +8,8 @@ import ProductTradeArea from './ProductTradeArea';
 import CategorySelector from './CategorySelector';
 import ProductMemberId from './ProductMemberId';
 
-
 export default function ProductRegistration() {
-    const memberId = ProductMemberId();
+    const memberId = ProductMemberId(); // Ensure this function returns a value
     const productTitle = useRef();
     const productContent = useRef();
     const productPrice = useRef();
@@ -26,9 +25,7 @@ export default function ProductRegistration() {
         directDeal: 'select',
         deliveryCharge: '',
         categoryNo: '',
-
     });
-
 
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
     const [parentNumber, setParentNumber] = useState('1');
@@ -172,6 +169,7 @@ export default function ProductRegistration() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             setPopup({
                 show: true,
                 message: response.data.msg,
@@ -185,6 +183,10 @@ export default function ProductRegistration() {
                 isConfirmation: false,
             });
         }
+    };
+
+    const handleImageUpload = (images) => {
+        setUploadedImages(images);
     };
 
     return (
