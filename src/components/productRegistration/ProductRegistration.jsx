@@ -6,13 +6,16 @@ import ProductImageUpload from './ProductImageUpload';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
 import ProductTradeArea from './ProductTradeArea';
 import CategorySelector from './CategorySelector';
+import ProductMemberId from './ProductMemberId';
 
 export default function ProductRegistration() {
+    const memberId = ProductMemberId(); // Ensure this function returns a value
     const productTitle = useRef();
     const productContent = useRef();
     const productPrice = useRef();
     const deliveryCharge = useRef();
     const [ProductCategoryList, setProductCategoryList] = useState([]);
+    const [uploadedImages, setUploadedImages] = useState([]);
     const [formData, setFormData] = useState({
         productTitle: '',
         productPrice: '',
@@ -21,7 +24,7 @@ export default function ProductRegistration() {
         tradeArea: '',
         directDeal: 'select',
         deliveryCharge: '',
-        categoryNo: '' // Add categoryNo to formData
+        categoryNo: '',
     });
 
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
@@ -80,7 +83,6 @@ export default function ProductRegistration() {
     useEffect(() => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-
         }));
     }, [directTransaction]);
 
@@ -100,7 +102,6 @@ export default function ProductRegistration() {
             deliveryNo: '',
             productContent: '',
             deliveryCharge: '',
-
         };
 
         if (!formData.productTitle) {
@@ -135,6 +136,8 @@ export default function ProductRegistration() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log("Form is being submitted");
+
         if (!validateForm()) {
             return;
         }
@@ -142,19 +145,17 @@ export default function ProductRegistration() {
         const formDataToSend = new FormData();
         formDataToSend.append('productTitle', formData.productTitle);
         formDataToSend.append('productPrice', formData.productPrice);
-        formDataToSend.append('categoryNo', formData.categoryNo); // Use categoryNo from formData
+        formDataToSend.append('categoryNo', formData.categoryNo);
         formDataToSend.append('productContent', productContent.current.value);
         formDataToSend.append('productStatus', formData.productStatus);
         formDataToSend.append('deliveryNo', formData.deliveryNo);
         formDataToSend.append('tradeArea', formData.tradeArea);
         formDataToSend.append('deliveryCharge', formData.deliveryCharge);
+        formDataToSend.append('memberId', memberId);
 
-        const fileInputs = document.querySelectorAll('input[type="file"]');
-        fileInputs.forEach((fileInput) => {
-            const files = fileInput.files;
-            for (let i = 0; i < files.length; i++) {
-                formDataToSend.append('file', files[i]);
-            }
+        uploadedImages.forEach((image, index) => {
+            formDataToSend.append(`imageKey${index}`, image.key); // 이미지 키를 폼 데이터에 추가
+            console.log(`imageKey${index}:`, image.key);
         });
 
         console.log('FormData to Send:');
@@ -168,6 +169,7 @@ export default function ProductRegistration() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             setPopup({
                 show: true,
                 message: response.data.msg,
@@ -183,10 +185,17 @@ export default function ProductRegistration() {
         }
     };
 
+    const handleImageUpload = (images) => {
+        setUploadedImages(images);
+    };
+
     return (
         <div className={styles.productContainer}>
             <form onSubmit={handleSubmit}>
-                <ProductImageUpload />
+                <ProductImageUpload
+                    uploadedImages={uploadedImages}
+                    setUploadedImages={setUploadedImages}
+                />
                 <div className={styles.productHeader}>
                     <input
                         type="text"
@@ -304,8 +313,6 @@ export default function ProductRegistration() {
                 message={popup.message}
                 isConfirmation={popup.isConfirmation}
             />
-
-
         </div>
     );
 }
