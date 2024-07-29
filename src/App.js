@@ -4,7 +4,8 @@ import './App.css';
 import AdminMembers from './admin/components/adminMembers/AdminMembers';
 import AdminReports from './admin/components/adminReports/AdminReports';
 import LoginForm from './components/auth/Login/LoginForm';
-import PreRegisterForm from './components/auth/PreRegisterForm';
+import PreRegisterForm from './components/auth/Register/PreRegisterForm';
+import RegisterForm from './components/auth/Register/RegisterForm';
 import NaverAuthCallback from './components/auth/Login/NaverAuthCallback';
 import KakaoAuthCallback from './components/auth/Login/KakaoAuthCallback';
 import ProductRegistration from './components/productRegistration/ProductRegistration';
@@ -27,7 +28,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<PreRegisterForm />} />          
+          <Route path="/register" element={<PreRegisterForm />} />
+          <Route path="/registerMember" element={<RegisterForm />} />         
           <Route path="/naverAuthCallback" element={<NaverAuthCallback />} />
           <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback />} />
           <Route path="/productPage" element={<SubMain />} />         

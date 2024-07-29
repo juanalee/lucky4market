@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'GodoM';
-  src: url('../../../public/fonts/GodoM.ttf') format('truetype');
+  src: url('../../../../../public/fonts/GodoM.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -19,12 +19,11 @@
   background: #2D2F36;
 }
 
-
 .emergeText {
   width: 100px;
   padding: 10px;
   border-radius: 10px;
-  animation: slide 12s ease infinite;
+  animation: slide 12s ease forwards;
   transform: translate(0, 0);
   opacity: 0;
   font-size: 20px;
@@ -46,16 +45,6 @@
     transform: translate(0, 0);
     opacity: 1;
   }
-}
-
-.registerFormPage {
-  background: #e2e2e5;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: absolute;
-  place-content: center;
-  width: 100%;
 }
 
 .registerFormPage {
@@ -108,7 +97,7 @@
   }
 }
 
-.registerFormTitle{
+.registerFormTitle {
   font-family: 'Inter-UI', sans-serif;
   font-size: 50px;
   font-weight: 900;
@@ -143,7 +132,7 @@
   position: absolute;
 }
 
-.registerFormInputBox{
+.registerFormInputBox {
   border: solid transparent;
   border-width: 0 0 1px 0;
   border-image: linear-gradient(to right, #2D2F36, #fff) 1 / 0 0 1px 0;
@@ -196,16 +185,25 @@
   display: block;
 }
 
-.registerFormSSN{
+.registerFormSSN {
   display: flex;
   flex-flow: nowrap row;
 }
 
-.registerFormDash{
+.registerFormInputFieldShort {
+  width: 15%;
+}
+
+.filledCirclesShort {
+  width: 85%;
+  margin-bottom: 0; 
+}
+
+.registerFormDash {
   padding: 0 5px;
 }
 
-.registerFormPNo{
+.registerFormPNo {
   display: flex;
   flex-flow: nowrap row;
 }
