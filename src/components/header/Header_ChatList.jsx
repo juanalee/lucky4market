@@ -35,7 +35,7 @@ const Chat = ({ isChatOpen, onClose }) => {
       );
       setOtherIds(otherIds);
     }
-  }, [chatRooms]); // `chatRooms`가 변경될 때마다 실행
+  }, [chatRooms]);
 
   useEffect(() => {
     const fetchChatProfile = async () => {

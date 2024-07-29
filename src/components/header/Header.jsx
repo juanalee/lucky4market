@@ -29,7 +29,6 @@ export default function Header() {
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
               <li className={styles.first_category}>
-                <div className={styles.menu_container}></div>
                 <div className={styles.menu}>
                   <img src='/img/menu.png' className={styles.menu_bar} alt='menu' />
                   <p>카테고리</p>

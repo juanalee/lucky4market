@@ -38,8 +38,8 @@ const ProductInfo = ({ productImage }) => {
     try {
       const productResponse = await axios.get('http://localhost:9999/productInfo?productNo=19');
       setProductInfo(productResponse.data);
-      console.log(productResponse.data);
       setProductMemberId(productResponse.data.memberId);
+
       const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=19');
       setDeliveryInfo(deliveryResponse.data);
       
@@ -180,6 +180,11 @@ const ProductInfo = ({ productImage }) => {
         </div>
         <ul className={styles.product_trade_area}>
           <li>거래희망 지역 - {deliveryInfo.tradiArea}</li>
+          {deliveryInfo.deliveryCharge !== 0 && (
+            <li>
+              배송비 - {deliveryInfo.deliveryCharge && deliveryInfo.deliveryCharge.toLocaleString()}원
+            </li>
+           )} 
         </ul>
         <div className={styles.product_interaction_area}>
           <button className={styles.like_btn} onClick={likeClick}>
@@ -190,7 +195,7 @@ const ProductInfo = ({ productImage }) => {
         </div>
       </div>
       <div className={styles.product_content}>
-        <div className={styles.content}>
+        <div className={styles.product_info_content}>
           <h2>상품 정보</h2>
           <hr />
           <p>{productInfo.productContent}</p>
@@ -198,7 +203,7 @@ const ProductInfo = ({ productImage }) => {
       </div>
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
       <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId={productMemberId} roomId={roomId}/>
-      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} />}
+      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle}/>}
     </>
   );
 };

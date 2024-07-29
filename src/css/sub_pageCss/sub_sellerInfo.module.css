@@ -52,7 +52,7 @@
 
 .follow {
   padding-left: 30px;
-  width: 470px;
+  width: 500px;
   height: 60px;
   font-size: 20px;
   border: 1px solid #ccc;
@@ -75,9 +75,8 @@
 }
 
 .store_info{
-  width: 500px;
+  width: 100%;
   height: 540px;
-  padding-left: 30px;
 }
 
 .seller_product_img{
@@ -89,14 +88,13 @@
 }
 
 .seller_product_img img{
-  width: 230px;
-  height: 170px;
+  width: 240px;
+  height: 180px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
 }
 
-.seller_product_img p{
-  text-align: center;
-  font-weight: bold;
+.sellerProductTitle{
+  font-size: 20px;
   margin: 5px 0px;
 }
 
@@ -136,16 +134,22 @@
   margin: 10px 0px 55px;
 }
 
-
+.product_content_container h2{
+  padding-left: 30px;
+}
+ 
 .product_content_container{
   width: 634px;
   box-sizing: border-box;
   display: flex;
   flex-flow: row nowrap;
-  gap: 150px;
   height: 100%;
-  justify-content: center;
-  padding-top: 70px ;
+  justify-content: end;
+  padding: 70px 0px;
+}
+
+.seller_information{
+  width: 500px;
 }
 
 .line{
@@ -164,6 +168,8 @@
 .categoryProductItem img{
   width: 250px;
   margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .categoryProductItem{
@@ -193,5 +199,19 @@
 }
 
 .sellerProductPrice{
-  font-size: 20px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.suggestContainer{
+  margin-top: 5 0px;
+}
+
+.newProductTitle{
+  width: 250px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* 클램핑할 줄 수 설정 (여기서는 2줄) */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -163,8 +163,11 @@
 
 .product_trade_area {
   padding-left: 20px;
-  list-style: disc;
   margin-bottom: 90px;
+  list-style: disc;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
 }
 
 .product_interaction_area {
@@ -235,13 +238,13 @@
 
 .product_content {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   width: 696px;
   padding-top: 70px;
 }
 
-.content {
-  width: 550px;
+.product_info_content {
+  width: 100%;
 }
 
 .report_container {
