@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './css/ProductImageUpload.module.css';
-import ProductinsertPopup from './ProductinsertPopup';
+import ProductInsertPopup from './ProductInsertPopup';
 
 const ProductImageUpload = () => {
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -60,7 +60,7 @@ const ProductImageUpload = () => {
           </div>
         ))}
       </div>
-      <ProductinsertPopup
+      <ProductInsertPopup
         show={popup.show}
         onClose={() => setPopup({ ...popup, show: false })}
         message={popup.message}

@@ -1,44 +1,41 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Header from "../header/Header";
 import MyPageMemberId from "./MyPageMemberId";
 import MyPageSideBar from "./MyPageSideBar";
 import styles from "./css/MyPageInterestProduct.module.css";
-import axios from "axios";
 
 export default function MyPageInterestProduct() {
-  const [interest, setInterest] = useState([]);
+  const [interestData, setInterestData] = useState([]);
 
   const memberId = MyPageMemberId();
-
-  const defaultProfileImage = "/img/mypage/profile.png";
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('ko-KR').format(price);
   };
 
   useEffect(() => {
-    const interestData = async () => {
+    const interestProductData = async () => {
       try {
         const interestResponse = await axios.get(`http://localhost:9999/api/product/myPageInterest/${memberId}`);
-        setInterest(interestResponse.data);
+        setInterestData(interestResponse.data);
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생: ", error);
       }
     };
-
-    interestData();
+    interestProductData();
   }, [memberId]);
 
   return (
     <div className={styles.interest_product_header_container}>
-      <Header/>
+      {/* <Header/> */}
       <div className={styles.interest_product_side_container}>
         <MyPageSideBar/>
         <div className={styles.interest_product_main_container}>
           <div className={styles.interest_product}>관심 상품</div>
           <div className={styles.interest_product_container}>
-            {interest.length > 0 ? (
-              interest.map((product, index) => (
+            {interestData.length > 0 ? (
+              interestData.map((product, index) => (
                 <div key={index} className={styles.interest_product_list}>
                   <img
                     className={styles.interest_product_image}

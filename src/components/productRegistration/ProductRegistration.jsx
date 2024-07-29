@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductRegistration.module.css';
-import ProductinsertPopup from './ProductinsertPopup';
+import ProductInsertPopup from './ProductInsertPopup';
 import ProductImageUpload from './ProductImageUpload';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
 import ProductTradeArea from './ProductTradeArea';
@@ -297,7 +297,7 @@ export default function ProductRegistration() {
                 )}
                 <button type="submit" className={styles.submitButton}>작성 완료</button>
             </form>
-            <ProductinsertPopup
+            <ProductInsertPopup
                 show={popup.show}
                 onClose={() => setPopup({ ...popup, show: false })}
                 message={popup.message}
