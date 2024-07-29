@@ -309,3 +309,39 @@
 .suggestContainer{
   height: 500px;
 }
+
+.likeContainer {
+  position: fixed;
+  width: 400px;
+  background-color: #4C4C4C;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 30px;
+  right: calc(50% - 175px);
+  color: white;
+  top: -200px; /* 초기 위치: 화면 밖 */
+  transition: top 1s ease-in-out;
+}
+
+@keyframes bounce {
+  0% {
+    top: -200px; /* 처음 위치 */
+  }
+  20% {
+    top: 270px; /* 내려가는 위치 */
+  }
+  50% {
+    top: 250px; /* 가장 낮은 위치 */
+  }
+  80% {
+    top: 290px; /* 다시 올라가는 위치 */
+  }
+  100% {
+    top: -200px; /* 사라지는 위치 */
+  }
+}
+
+.likeContainer.show {
+  animation: bounce 1.5s forwards; /* 3초 동안 메시지 유지 */
+}

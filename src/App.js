@@ -15,8 +15,9 @@ function App() {
         <Route path="/admin/members" element={<AdminMembers />} />
         <Route path="/admin/reports" element={<AdminReports />} /> */}
         <Route path="/productPage" element={<Main/>}></Route>
+        <Route path="/myStore" element={<MyStore/>} />
         {/* <Route path="/productRegister" element={<ProductRegistration/>} />
-        <Route path="/myStore" element={<MyStore/>} /> */}
+         */}
       </Routes>
     </Router>
   );

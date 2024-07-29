@@ -32,6 +32,8 @@ const ProductInfo = ({ productImage }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const [productMemberId, setProductMemberId] = useState(null);
+  const [likeMsgOpen, setLikeMsgOpen] = useState(false);
+  const [likeMsg, setLikeMsg] = useState(false);
   
 
   const fetchData = async () => {
@@ -42,7 +44,7 @@ const ProductInfo = ({ productImage }) => {
 
       const deliveryResponse = await axios.get('http://localhost:9999/deliveryInfo?productNo=19');
       setDeliveryInfo(deliveryResponse.data);
-      
+
       const categoryResponse = await axios.get(`http://localhost:9999/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
       setCategoryInfo(categoryResponse.data);
       const likeStatusResponse = await axios.get('http://localhost:9999/selectLikeStatus?productNo=19');
@@ -83,15 +85,19 @@ const ProductInfo = ({ productImage }) => {
   }, [productInfo]);
 
    const likeClick = async () => {
-    setIsLiked((prevIsLiked) => !prevIsLiked);
     try {
-      const response = await axios.get('http://localhost:9999/insertProductLike?memberId=member2&productNo=19');
-      console.log(response);
-      alert(response.data.msg);
+      await axios.get(`http://localhost:9999/insertProductLike?memberId=member2&productNo=19`);
+      setIsLiked(prevIsLiked => {
+        const newIsLiked = !prevIsLiked;
+        setLikeMsg(newIsLiked ? "찜 상품에 추가 하셨습니다" : "찜한 상품에서 제외 했습니다");
+        setLikeMsgOpen(true);
+        setTimeout(() => setLikeMsgOpen(false), 3000); // Hide message after 3 seconds
+        return newIsLiked;
+      });
     } catch (error) {
       console.error('Error occurred:', error); 
     }
-  };
+  };  
 
   const buyWidth = async () => {
     setIsPurchaseOpen(true);
@@ -201,6 +207,11 @@ const ProductInfo = ({ productImage }) => {
           <p>{productInfo.productContent}</p>
         </div>
       </div>
+      
+      <div className={`${styles.likeContainer} ${likeMsgOpen ? styles.show : ''}`}>
+        <p>{likeMsg}</p>
+      </div>
+      
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo}/>
       <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId={productMemberId} roomId={roomId}/>
       {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle}/>}

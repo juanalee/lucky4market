@@ -92,7 +92,7 @@ export default function ImageSlider() {
                 </div>
               }
               <div className={styles.sliderDot}>
-                {imageStyle && productImg.map((_, index) => (
+                {imageStyle > 1 && productImg.map((_, index) => (
                   <span key={index} className={`${styles.dot} ${index === 0 ? styles.active : ''}`}></span>
                 ))}
               </div>

@@ -14,18 +14,21 @@ const StoreInfo = ({ categoryInfo, productTitle }) => {
   const [sellerProductImage, setSellerProductImage] = useState([]);
   const [categoryProductImg, setCategoryProductImg] = useState([]);
   const [newProductInfo, setNewProductInfo] = useState([]);
+  const [followOpen, setFollowOpen] = useState(false);
+  const [followMsg, setFollowMsg] = useState(false);
 
-  const followClick = () => {
-    setIsFollowing((prevState) => !prevState);
+  const followClick = async () => {
+    const response = await axios.get(`http://localhost:9999/insertFollow?buyerId=member3&sellerId=member2`);
 
-    axios.get('http://localhost:9999/insertFollow?buyerId=member3&sellerId=member2')
-      .then(response => {
-        console.log(response);
-        alert(response.data.msg);
-      })
-      .catch(error => {
-        console.error('Error occurred:', error);
-      });
+    // Update local state and show message
+    setIsFollowing(prevState => {
+      const newState = !prevState;
+      setFollowMsg(newState ? "팔로우 목록에 추가 하셨습니다" : "팔로우 목록에서 제외 했습니다");
+      setFollowOpen(true);
+      // Hide the message after 3 seconds
+      setTimeout(() => setFollowOpen(false), 3000);
+      return newState;
+    });
   };
 
   useEffect(() => {
@@ -176,6 +179,9 @@ const StoreInfo = ({ categoryInfo, productTitle }) => {
             })}
           </div>
         </div>
+      </div>
+      <div className={`${styles.followContainer} ${followOpen ? styles.show : ''}`}>
+        <p>{followMsg}</p>
       </div>
     </>
   );
