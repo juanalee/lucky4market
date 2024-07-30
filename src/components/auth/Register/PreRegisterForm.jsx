@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styles from './Login/css/LoginForm.module.css'
-import registerStyles from './RegisterForm.module.css';
+import styles from '../Login/css/LoginForm.module.css';
+import registerStyles from './css/RegisterForm.module.css';
+import registerScss from './css/RegisterFormAddon.module.css';
+import ModalPopup from '../../modalPopup/ModalPopup';
+
 
 const PreRegisterForm = () => {
   const [memberName, setMemberName] = useState('');
@@ -20,11 +23,18 @@ const PreRegisterForm = () => {
   const [carrierError, setCarrierError] = useState('');
   const [error, setError] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isConfirmation, setIsConfirmation] = useState(false);
+  const [isNotRegistered, setIsNotRegistered] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false);
+  const animationRunRef = useRef(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setShowAnimation(true);
-    return () => setShowAnimation(false); //한 번만 실행된 후로 더 이상 애니메이션 실행X
+    if (!animationRunRef.current) {
+      setShowAnimation(true);
+      animationRunRef.current = true;
+    }
   }, []);
 
   const handleBlurMultipleInputs = (inputs, setError, errorMessage) => {
@@ -35,7 +45,6 @@ const PreRegisterForm = () => {
       setError('');
     }
   };
-
 
   const handleMemberNameChange = (e) => {
     const value = e.target.value;
@@ -58,11 +67,11 @@ const PreRegisterForm = () => {
         regSSN2Ref.current.focus();
       }
     }
-  }
+  };
 
   const handleSSN2Change = (e) => {
     const value = e.target.value;
-    if (/^\d{0,1}$/.test(value)) {  // Ensures only 1 digit can be entered
+    if (/^\d{0,1}$/.test(value)) {  // 1자리만 입력 가능
       setRegSSN2(value);
       if (value.length !== 1) {
         setSsnError('주민등록번호 뒷자리 1자리를 입력해 주세요');
@@ -101,7 +110,6 @@ const PreRegisterForm = () => {
 
   const handleSelectionChange = (event) => {
     const value = event.target.value;
-    console.log('Selected:', value);
     if (!value) {
       setCarrierError('통신사를 선택해 주세요');
     } else {
@@ -113,30 +121,69 @@ const PreRegisterForm = () => {
     e.preventDefault();
     const memberPhoneNo = `${regPNo1}-${regPNo2}-${regPNo3}`;
 
-    if (!memberPhoneNo || memberPhoneNo.split('-').some(part => part.length === 0) || !memberName) {
-      setPhoneNoError('본인 명의의 전화번호를 정확히 입력해주세요');
-      setMemberNameError('이름을 입력해 주세요');
+    let phoneError = '';
+    let nameError = '';
+
+    // 전화번호 입력 오류 확인
+    const phoneParts = [regPNo1, regPNo2, regPNo3];
+    const totalPhoneLength = phoneParts.join('').length;
+
+    if (!memberPhoneNo || phoneParts.some(part => part.length === 0)) {
+      phoneError = '본인 명의의 전화번호를 정확히 입력해주세요';
+    } else if (regPNo3.length < 4) {
+      phoneError = '전화번호 마지막 4자리를 입력해 주세요';
+    } else if (totalPhoneLength < 10) {
+      phoneError = '전화번호 전체 10자리 이상을 입력해 주세요';
+    }
+
+    // 이름 입력 오류 확인
+    if (!memberName) {
+      nameError = '이름을 입력해 주세요';
+    }
+
+    setPhoneNoError(phoneError);
+    setMemberNameError(nameError);
+
+    // 오류가 있다면 진행 안 함
+    if (phoneError || nameError) {
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/preregister', {
+      const response = await axios.post('http://localhost:9999/api/auth/preRegister', {
         memberName,
         memberPhoneNo
       });
 
-      if (response.data.isRegistered) {
-        setError('이미 등록된 정보입니다');
-        // Assuming ModalPopup is a component that needs to be defined or imported
-        // <ModalPopup message={error} />
-      } else {
-        navigate('/registerMember', { state: { memberName, memberPhoneNo } });
+      if (response.status === 200) {
+        console.log('가입 가능');
+        setIsNotRegistered(true);
+        setStartAnimation(true);
+        setTimeout(() => {
+          navigate('/registerMember', {
+            state: {
+              memberName,
+              memberPhoneNo
+            }
+          });
+        }, 1000);
       }
-
-    } catch (err) {
-      console.error('등록 여부 확인 오류:', err);
-      setError('전화번호 확인 과정 오류: ' + err.message);
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        console.log('이미 가입된 전화번호');
+        setError('이미 가입된 전화번호입니다');
+        setIsConfirmation(false);
+        setShowModal(true);
+      } else {
+        console.log('등록 여부 확인 오류:', error);
+        setError('알 수 없는 오류가 발생했습니다');
+        setIsConfirmation(false);
+        setShowModal(true);
+      }
     }
+  };
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -149,7 +196,7 @@ const PreRegisterForm = () => {
         </div>
         <div className={registerStyles.registerFormRight}>
           <div className={registerStyles.registerFormInput}>
-            <form>
+            <form className={`${registerStyles.registerForm} ${startAnimation ? registerStyles.registerFormFadeOut : ''}`}>
               <div className={registerStyles.registerFormInputBox}>
                 <label htmlFor="regName">이름</label>
                 <input
@@ -183,7 +230,7 @@ const PreRegisterForm = () => {
                   />
                   <span className={registerStyles.registerFormDash}>-</span>
                   <input
-                    className={registerStyles.registerFormInputField}
+                    className={`${registerStyles.registerFormInputField} ${registerStyles.registerFormInputFieldShort}`}
                     type="text"
                     id="regSSN2"
                     value={regSSN2}
@@ -193,7 +240,7 @@ const PreRegisterForm = () => {
                     maxLength="1"
                     required
                   />
-                  <span className="filled-circles">●●●●●●</span>
+                  <span className={`filled-circles ${registerStyles.filledCirclesShort}`}>●●●●●●</span>
                 </div>
               </div>
               <p className={`${registerStyles.registerFormErrorText} ${ssnError ? registerStyles.visible : ''}`}
@@ -267,18 +314,35 @@ const PreRegisterForm = () => {
                 style={{ visibility: carrierError ? 'visible' : 'hidden' }}>
                 {carrierError || ' '}
               </p>
-              <input
-                type="button"
-                id="submit"
-                value="확인"
-                lang="ko"
-                className={styles.loginFormButton}
-                onClick={handlePreRegister}
-              />
+              <div className={registerScss.buttonWrapper}>
+                <input
+                  type="button"
+                  id="submit"
+                  value="확인"
+                  lang="ko"
+                  className={styles.loginFormButton}
+                  onClick={handlePreRegister}
+                />
+                <div
+                  className={registerScss.arrowNext}
+                  onClick={handlePreRegister}
+                >
+                  <div className={registerScss.arrowNextTop}></div>
+                  <div className={registerScss.arrowNextBottom}></div>
+                </div>
+              </div>
             </form>
           </div>
         </div >
       </div >
+      {showModal && (
+        <ModalPopup
+          show={showModal}
+          message={error}
+          onClose={closeModal}
+          isConfirmation={isConfirmation}
+        />
+      )}
     </div >
   );
 };
