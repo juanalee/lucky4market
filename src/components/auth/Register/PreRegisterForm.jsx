@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../Login/css/LoginForm.module.css';
 import registerStyles from './css/RegisterForm.module.css';
 import registerScss from './css/RegisterFormAddon.module.css';
 import ModalPopup from '../../modalPopup/ModalPopup';
+import { RegistrationContext } from '../../../services/RegistrationContext';
 
 
 const PreRegisterForm = () => {
@@ -26,6 +27,7 @@ const PreRegisterForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [isNotRegistered, setIsNotRegistered] = useState(false);
+  const { setIsPreRegistered } = useContext(RegistrationContext);
   const animationRunRef = useRef(false);
   const navigate = useNavigate();
 
@@ -157,7 +159,8 @@ const PreRegisterForm = () => {
       if (response.status === 200) {
         console.log('가입 가능');
         setIsNotRegistered(true);
-
+        setIsPreRegistered(true);
+        console.log('Pre-registered successfully');
         navigate('/registerMember', {
           state: {
             memberName,
