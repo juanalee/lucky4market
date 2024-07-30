@@ -1,0 +1,236 @@
+/* AdminMembers.module.css */
+.adminMembersContainer {
+  width: 100%;
+}
+
+.adminMembersContent {
+  width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #FFF;
+}
+
+.adminMembersTitle {
+  margin: 0 10px 0 20px;
+  padding: 10px;
+}
+
+.adminMembersSearchFilterSection {
+  padding: 20px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminMembersSearchCondition {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.adminMembersLabelMargin {
+  margin-left: 10px;
+}
+
+.adminMembersSearchBox {
+  width: 350px;
+  display: flex;
+  margin-top: 10px;
+}
+
+.adminMembersSelectInput {
+  width: 150px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  background-color: #FFFFFF;
+  color: #9C9E9C;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border: 1px solid #9C9E9C;
+  border-right: none;
+  transition: all .4s;
+  text-align: center;
+  text-align-last: center;
+}
+
+.adminMembersSelectInput:focus {
+  border-right: none;
+  outline: none;
+}
+
+.adminMembersSearchInput {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  padding: 15px 45px 15px 15px;
+  background-color: #FFFFFF;
+  color: #9C9E9C;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border: 1px solid #9C9E9C;
+  border-left: none;
+  transition: all .4s;
+}
+
+.adminMembersSearchInput:focus {
+  border-left: none;
+  outline: none;
+}
+
+.adminMembersButtonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.adminMembersSearchButton {
+  padding: 8px 16px;
+  background-color: #393B3F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersSearchButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminMembersResetButton {
+  padding: 8px 16px;
+  background-color: #9C9E9C;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersResetButton:hover {
+  background-color: #d32f2f;
+}
+
+.adminMembersResultInfo {
+  margin-top: 20px;
+}
+
+.adminMembersTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.adminMembersTable th, .adminMembersTable td {
+  border: 1px solid #CCCCCC;
+  padding: 8px;
+  text-align: center;
+}
+
+.adminMembersTable th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.adminMembersTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.adminMembersTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.adminMembersTable th.adminMembersId, .adminMembersTable td.adminMembersId {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersName, .adminMembersTable td.adminMembersName {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersNick, .adminMembersTable td.adminMembersNick {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersEmail, .adminMembersTable td.adminMembersEmail {
+  width: 15%;
+}
+
+.adminMembersTable th.adminMembersAddr, .adminMembersTable td.adminMembersAddr {
+  width: 15%;
+}
+
+.adminMembersTable th.adminMembersGrade, .adminMembersTable td.adminMembersGrade {
+  width: 8%;
+}
+
+.adminMembersTable th.adminMembersPhoneNo, .adminMembersTable td.adminMembersPhoneNo {
+  width: 12%;
+}
+
+.adminMembersTable th.adminMembersRegDate, .adminMembersTable td.adminMembersRegDate {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersManage, .adminMembersTable td.adminMembersManage {
+  width: 10%;
+}
+
+.adminMembersFixedWidthInput {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.adminMembersSaveButton, .adminMembersCancelButton {
+  padding: 5px;
+  background-color: #393B3F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersSaveButton {
+  margin-right: 5px;
+}
+
+.adminMembersSaveButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminMembersDeleteButton {
+  padding: 5px;
+  background-color: #9C9E9C;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersDeleteButton {
+  margin-left: 5px;
+}
+
+.adminMembersDeleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.adminMembersEditButton, .adminMembersCancelButton {
+  padding: 5px;
+  background-color: #393B3F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersEditButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminMembersNoResults {
+  text-align: center;
+  padding: 20px;
+}

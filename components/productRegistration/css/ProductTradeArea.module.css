@@ -1,0 +1,22 @@
+
+
+.ProductTradeArea{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 40px;
+  width: 160px;
+  font-size: 15px;
+}
+
+.ProductTradeArea:hover{
+  background-color: rgb(214, 214, 214);
+}
+
+.tradeAreaInput {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}

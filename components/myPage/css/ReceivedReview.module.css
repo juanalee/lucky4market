@@ -1,0 +1,52 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.received_review_header_container {
+  width: 1440px;
+  display: flex;
+  flex-flow: column wrap;
+  margin: 0px auto;
+}
+
+.received_review_side_container {
+  display: flex;
+}
+
+.my_received_review {
+  display: flex;
+  font-size: 24px;
+  padding: 20px 0px;
+}
+
+.received_review_nav_container .received_review_nav_ul {
+  width: 700px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.received_review_nav_container .received_review_nav_ul .received_review_nav_li {
+  width: 200px;
+  border-bottom: 1px solid black;
+  list-style-type: none;
+  text-align: center;
+}
+
+.received_review_nav_container .received_review_nav_ul .received_review_nav_li:hover {
+  border-bottom: 1px solid red;
+}
+
+.received_review_nav_container .received_review_nav_ul .received_review_nav_li .received_review_nav_item {
+  color: black;
+  text-decoration: none;
+}
+
+.received_review_banner {
+  width: 200px;
+  border: 1px solid black;
+  text-align: center;
+  margin: 20px 50px;
+}
