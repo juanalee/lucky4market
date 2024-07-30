@@ -14,13 +14,12 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
 
 
   const handleComplete = (data) => {
-  
+    console.log(data);
     const fullAddress = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
     const address = {
       fullAddress,
       postalCode: data.zonecode
     };
-
     setSelectAddress(address);
     setAddressMainInfo(address);
     setShowPostcode(false);
