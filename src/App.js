@@ -5,6 +5,8 @@ import AdminMembers from './admin/components/adminMembers/AdminMembers';
 import AdminReports from './admin/components/adminReports/AdminReports';
 import LoginForm from './components/auth/Login/LoginForm';
 import PreRegisterForm from './components/auth/Register/PreRegisterForm';
+import RegisterForm from './components/auth/Register/RegisterForm';
+import RegisterSuccess from './components/auth/Register/RegisterSuccess';
 import NaverAuthCallback from './components/auth/Login/NaverAuthCallback';
 import KakaoAuthCallback from './components/auth/Login/KakaoAuthCallback';
 import ProductRegistration from './components/productRegistration/ProductRegistration';
@@ -16,39 +18,20 @@ import InterestProduct from './components/myPage/InterestProduct';
 import ReceivedReview from './components/myPage/ReceivedReview';
 import SubMain from './components/subPage/SubMain';
 import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
-import RegistrationProtectedRoute from './components/auth/RegistrationProtectedRoute';
 import './services/AxiosSetup';
 import { AuthProvider } from './services/AuthContext';
-import { RegistrationProvider } from './services/RegistrationContext';
-import RegisterSuccess from './components/auth/Register/RegisterSuccess';
-import SimpleTestComponent from './components/auth/SimpleTestComponent';
 
 function App() {
 
 
   return (
     <AuthProvider>
-      <RegistrationProvider>
       <Router>
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<PreRegisterForm />} />
-          <Route
-              path="/registerMember"
-              element={
-                <RegistrationProtectedRoute additionalCheck="preRegistered">
-                  <SimpleTestComponent/>
-                </RegistrationProtectedRoute>
-              }
-            />
-            <Route
-              path="/registerSuccess"
-              element={
-                <RegistrationProtectedRoute additionalCheck="registered">
-                  <RegisterSuccess />
-                </RegistrationProtectedRoute>
-              }
-            />          
+          <Route path="/registerMember" element={<RegisterForm />} />
+          <Route path="/registerSuccess" element={<RegisterSuccess />} />          
           <Route path="/naverAuthCallback" element={<NaverAuthCallback />} />
           <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback />} />
           <Route path="/productPage" element={<SubMain />} />         
@@ -68,7 +51,6 @@ function App() {
           </Route>
         </Routes>
       </Router>
-      </RegistrationProvider>
     </AuthProvider>
   );
 }

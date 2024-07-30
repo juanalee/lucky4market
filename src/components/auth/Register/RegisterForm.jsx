@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../Login/css/LoginForm.module.css';
 import registerStyles from './css/RegisterForm.module.css';
 import ModalPopup from '../../modalPopup/ModalPopup';
-import { RegistrationContext } from '../../../services/RegistrationContext';
 
 const RegisterMemberForm = () => {
-  const { setIsRegistered } = useContext(RegistrationContext);
   const { state } = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const [memberName] = useState(state?.memberName || '');
   const [memberPhoneNo] = useState(state?.memberPhoneNo || '');
@@ -32,13 +31,27 @@ const RegisterMemberForm = () => {
   const [consentError, setConsentError] = useState('');
 
   useEffect(() => {
-    console.log('RegisterForm loaded with state:', { memberName, memberPhoneNo });
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
     if (!state?.memberName || !state?.memberPhoneNo) {
       setError('회원 등록 중 오류가 발생했습니다. 본인 인증을 다시 진행해주세요.');
       setShowModal(true);
       setShouldNavigate(true);
     }
   }, [state]);
+
+
+  useEffect(() => {
+    if (shouldNavigate) {
+      navigate('/register');
+    }
+  }, [shouldNavigate, navigate]);
 
   const handleMemberIdChange = (e) => {
     const value = e.target.value;
@@ -213,8 +226,8 @@ const RegisterMemberForm = () => {
       });
 
       if (response.status === 200) {
-        setIsRegistered(true);
-        console.log('Registered successfully');
+        localStorage.setItem('isRegistered', 'true');
+        console.log('Registration successful');
         navigate('/registerSuccess');
       }
     } catch (error) {
@@ -238,134 +251,140 @@ const RegisterMemberForm = () => {
           <div className={registerStyles.registerFormTitle}>Join</div>
         </div>
         <div className={registerStyles.registerFormRight}>
-          <div className={registerStyles.registerFormInput}>
-            <form>
-              <div className={registerStyles.registerFormInputBox}>
-                <label htmlFor="memberId">회원 아이디</label>
-                <div className={registerStyles.registerFormInputWithButton}>
+          {loading ? (
+            <div className={registerStyles.registerFormLoadingSpinner}>
+              <div className={registerStyles.registerFormSpinner}></div>
+            </div>
+          ) : (
+            <div className={registerStyles.registerFormInput}>
+              <form className={registerStyles.registerFormFadeIn}>
+                <div className={registerStyles.registerFormInputBox}>
+                  <label htmlFor="memberId">회원 아이디</label>
+                  <div className={registerStyles.registerFormInputWithButton}>
+                    <input
+                      className={registerStyles.registerFormInputField}
+                      type="text"
+                      id="memberId"
+                      value={memberId}
+                      onChange={handleMemberIdChange}
+                      onBlur={() => {
+                        if (!isIdChecked) setMemberIdError('아이디 중복 확인을 해주세요');
+                      }}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className={registerStyles.checkIdButton}
+                      onClick={checkDuplicateMemberId}
+                    >
+                      중복확인
+                    </button>
+                  </div>
+                </div>
+                <p className={`${registerStyles.registerFormErrorText} ${memberIdError ? registerStyles.visible : ''}`}
+                  style={{ visibility: memberIdError ? 'visible' : 'hidden' }}>
+                  {memberIdError || ' '}
+                </p>
+                <div className={registerStyles.registerFormInputBox}>
+                  <label htmlFor="memberPasswd">비밀번호</label>
                   <input
                     className={registerStyles.registerFormInputField}
-                    type="text"
-                    id="memberId"
-                    value={memberId}
-                    onChange={handleMemberIdChange}
-                    onBlur={() => {
-                      if (!isIdChecked) setMemberIdError('아이디 중복 확인을 해주세요');
-                    }}
+                    type="password"
+                    id="memberPasswd"
+                    value={memberPasswd}
+                    onChange={handlePasswdChange}
                     required
                   />
+                </div>
+                <p
+                  className={`${registerStyles.registerFormErrorText} ${passwdError ? registerStyles.visible : ''}`}
+                  style={{ visibility: passwdError ? 'visible' : 'hidden' }}
+                >
+                  {passwdError || ' '}
+                </p>
+                <div className={registerStyles.registerFormInputBox}>
+                  <label htmlFor="memberPasswdConfirm">비밀번호 확인</label>
+                  <input
+                    className={registerStyles.registerFormInputField}
+                    type="password"
+                    id="memberPasswdConfirm"
+                    value={memberPasswdConfirm}
+                    onChange={handlePasswdConfirmChange}
+                    required
+                  />
+                </div>
+                <p className={`${registerStyles.registerFormErrorText} ${passwdConfirmError ? registerStyles.visible : ''}`}
+                  style={{ visibility: passwdConfirmError ? 'visible' : 'hidden' }}>
+                  {passwdConfirmError || ' '}
+                </p>
+                <div className={registerStyles.registerFormInputBox}>
+                  <label htmlFor="email">이메일</label>
+                  <div className={registerStyles.registerFormEmail}>
+                    <input
+                      className={registerStyles.registerFormEmailInputField}
+                      type="text"
+                      name="email"
+                      value={emailId}
+                      onChange={handleEmailIdChange}
+                      required
+                    />@
+                    <input
+                      className={registerStyles.registerFormEmailInputField}
+                      type="text"
+                      name="email_domain"
+                      value={emailDomain}
+                      onChange={handleEmailDomainChange}
+                      readOnly={emailOption !== "직접 입력"}
+                      required
+                    />
+                    <select
+                      className={`${registerStyles.registerFormEmailInputField} ${emailOption ? registerStyles.shrink : ''}`}
+                      onChange={handleEmailChange}
+                      value={emailOption}
+                    >
+                      <option value="">선택</option>
+                      <option value="naver.com">naver.com</option>
+                      <option value="daum.net">daum.net</option>
+                      <option value="gmail.com">gmail.com</option>
+                      <option value="nate.com">nate.com</option>
+                      <option value="직접 입력">직접 입력</option>
+                    </select>
+                  </div>
+                </div>
+                <p className={`${registerStyles.registerFormErrorText} ${emailError ? registerStyles.visible : ''}`}
+                  style={{ visibility: emailError ? 'visible' : 'hidden' }}>
+                  {emailError || ' '}
+                </p>
+                <div className={`${registerStyles.consentContainer} ${isChecked ? registerStyles.consentChecked : ''}`} onClick={toggleAgreementSection}>
+                  <label className={registerStyles.consentCheckbox}>
+                    <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+                    <span className={registerStyles.consentCheckmark}></span>
+                  </label>
+                  <span>개인정보 수집 이용 동의 (필수)</span>
+                  <div className={registerStyles.agreementArrow}><img src="/img/down_arrow.png" alt="Toggle agreement section" /></div>
+                </div>
+                <div className={`${registerStyles.agreementSection} ${isAgreementOpen ? registerStyles.open : ''}`}>
+                  <div className={registerStyles.agreementText}>
+                    <p>럭키마켓은 건전한 거래를 지향합니다.</p>
+                  </div>
+                </div>
+                {consentError && (
+                  <p className={registerStyles.consentErrorMessage}>{consentError}</p>
+                )}
+                <div>
                   <button
-                    type="button"
-                    className={registerStyles.checkIdButton}
-                    onClick={checkDuplicateMemberId}
+                    type="submit"
+                    id="submit"
+                    lang="ko"
+                    className={styles.loginFormButton}
+                    onClick={handleRegister}
                   >
-                    중복확인
+                    등록
                   </button>
                 </div>
-              </div>
-              <p className={`${registerStyles.registerFormErrorText} ${memberIdError ? registerStyles.visible : ''}`}
-                style={{ visibility: memberIdError ? 'visible' : 'hidden' }}>
-                {memberIdError || ' '}
-              </p>
-              <div className={registerStyles.registerFormInputBox}>
-                <label htmlFor="memberPasswd">비밀번호</label>
-                <input
-                  className={registerStyles.registerFormInputField}
-                  type="password"
-                  id="memberPasswd"
-                  value={memberPasswd}
-                  onChange={handlePasswdChange}
-                  required
-                />
-              </div>
-              <p
-                className={`${registerStyles.registerFormErrorText} ${passwdError ? registerStyles.visible : ''}`}
-                style={{ visibility: passwdError ? 'visible' : 'hidden' }}
-              >
-                {passwdError || ' '}
-              </p>
-              <div className={registerStyles.registerFormInputBox}>
-                <label htmlFor="memberPasswdConfirm">비밀번호 확인</label>
-                <input
-                  className={registerStyles.registerFormInputField}
-                  type="password"
-                  id="memberPasswdConfirm"
-                  value={memberPasswdConfirm}
-                  onChange={handlePasswdConfirmChange}
-                  required
-                />
-              </div>
-              <p className={`${registerStyles.registerFormErrorText} ${passwdConfirmError ? registerStyles.visible : ''}`}
-                style={{ visibility: passwdConfirmError ? 'visible' : 'hidden' }}>
-                {passwdConfirmError || ' '}
-              </p>
-              <div className={registerStyles.registerFormInputBox}>
-                <label htmlFor="email">이메일</label>
-                <div className={registerStyles.registerFormEmail}>
-                  <input
-                    className={registerStyles.registerFormEmailInputField}
-                    type="text"
-                    name="email"
-                    value={emailId}
-                    onChange={handleEmailIdChange}
-                    required
-                  />@
-                  <input
-                    className={registerStyles.registerFormEmailInputField}
-                    type="text"
-                    name="email_domain"
-                    value={emailDomain}
-                    onChange={handleEmailDomainChange}
-                    readOnly={emailOption !== "직접 입력"}
-                    required
-                  />
-                  <select
-                    className={`${registerStyles.registerFormEmailInputField} ${emailOption ? registerStyles.shrink : ''}`}
-                    onChange={handleEmailChange}
-                    value={emailOption}
-                  >
-                    <option value="">선택</option>
-                    <option value="naver.com">naver.com</option>
-                    <option value="daum.net">daum.net</option>
-                    <option value="gmail.com">gmail.com</option>
-                    <option value="nate.com">nate.com</option>
-                    <option value="직접 입력">직접 입력</option>
-                  </select>
-                </div>
-              </div>
-              <p className={`${registerStyles.registerFormErrorText} ${emailError ? registerStyles.visible : ''}`}
-                style={{ visibility: emailError ? 'visible' : 'hidden' }}>
-                {emailError || ' '}
-              </p>
-              <div className={`${registerStyles.consentContainer} ${isChecked ? registerStyles.consentChecked : ''}`} onClick={toggleAgreementSection}>
-                <label className={registerStyles.consentCheckbox}>
-                  <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-                  <span className={registerStyles.consentCheckmark}></span>
-                </label>
-                <span>개인정보 수집 이용 동의 (필수)</span>
-                <div className={registerStyles.agreementArrow}><img src="/img/down_arrow.png" alt="Toggle agreement section" /></div>
-              </div>
-              <div className={`${registerStyles.agreementSection} ${isAgreementOpen ? registerStyles.open : ''}`}>
-                <div className={registerStyles.agreementText}>
-                  <p>럭키마켓은 건전한 거래를 지향합니다.</p>
-                </div>
-              </div>
-              {consentError && (
-                <p className={registerStyles.consentErrorMessage}>{consentError}</p>
-              )}
-              <div>
-                <button
-                  type="submit"
-                  id="submit"
-                  lang="ko"
-                  className={styles.loginFormButton}
-                  onClick={handleRegister}
-                >
-                  등록
-                </button>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          )}
         </div >
       </div >
       {showModal && (

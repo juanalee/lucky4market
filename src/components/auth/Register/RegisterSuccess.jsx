@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Typed from 'typed.js';
-import { Link as ScrollLink } from 'react-scroll';
 import styles from './css/RegisterSuccess.module.css';
 
 const RegisterSuccess = () => {
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isRegistered = localStorage.getItem('isRegistered');
+    if (!isRegistered) {
+      navigate('/registerMember');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,10 +27,10 @@ const RegisterSuccess = () => {
       const options = {
         stringsElement: '#typed-strings',
         loop: true,
-        typeSpeed: 50, // Increased type speed to slow down the typing
-        backSpeed: 25, // Increased back speed to slow down the backspacing
+        typeSpeed: 60, // Increased type speed to slow down the typing
+        backSpeed: 35, // Increased back speed to slow down the backspacing
         startDelay: 1000,
-        backDelay: 5000,
+        backDelay: 7000,
       };
 
       const typed = new Typed('#typed', options);

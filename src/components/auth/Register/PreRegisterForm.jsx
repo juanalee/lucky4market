@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../Login/css/LoginForm.module.css';
 import registerStyles from './css/RegisterForm.module.css';
 import registerScss from './css/RegisterFormAddon.module.css';
 import ModalPopup from '../../modalPopup/ModalPopup';
-import { RegistrationContext } from '../../../services/RegistrationContext';
 
 
 const PreRegisterForm = () => {
@@ -27,7 +26,7 @@ const PreRegisterForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [isNotRegistered, setIsNotRegistered] = useState(false);
-  const { setIsPreRegistered } = useContext(RegistrationContext);
+  const [startAnimation, setStartAnimation] = useState(false);
   const animationRunRef = useRef(false);
   const navigate = useNavigate();
 
@@ -159,14 +158,15 @@ const PreRegisterForm = () => {
       if (response.status === 200) {
         console.log('가입 가능');
         setIsNotRegistered(true);
-        setIsPreRegistered(true);
-        console.log('Pre-registered successfully');
-        navigate('/registerMember', {
-          state: {
-            memberName,
-            memberPhoneNo
-          }
-        });
+        setStartAnimation(true);
+        setTimeout(() => {
+          navigate('/registerMember', {
+            state: {
+              memberName,
+              memberPhoneNo
+            }
+          });
+        }, 1000);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -196,7 +196,7 @@ const PreRegisterForm = () => {
         </div>
         <div className={registerStyles.registerFormRight}>
           <div className={registerStyles.registerFormInput}>
-            <form>
+            <form className={`${registerStyles.registerForm} ${startAnimation ? registerStyles.registerFormFadeOut : ''}`}>
               <div className={registerStyles.registerFormInputBox}>
                 <label htmlFor="regName">이름</label>
                 <input

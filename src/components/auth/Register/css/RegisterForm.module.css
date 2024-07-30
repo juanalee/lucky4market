@@ -115,7 +115,10 @@ body:lang(ko), .korean-text, [lang="ko"] {
   color: #F1F1F2;
   position: relative;
   width: 50%;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
+
 
 @media (max-width: 767px) {
   .registerFormRight {
@@ -399,3 +402,54 @@ body:lang(ko), .korean-text, [lang="ko"] {
 }
 
 
+.registerFormFadeOut {
+  animation: fadeOutAnimation 1.5s forwards;
+}
+
+@keyframes fadeOutAnimation {
+  to {
+    opacity: 0.3;
+  }
+}
+
+.registerFormLoadingSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.registerFormSpinner {
+  border: 2px dotted #FFFFFF;
+  border-left-color: #FFFFFF;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingSpinner.fadeOut {
+  opacity: 0;
+}
+
+.registerFormFadeIn {
+  animation: fadeInAnimation 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
