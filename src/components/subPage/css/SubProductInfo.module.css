@@ -141,7 +141,7 @@
   font-weight: bold;
 }
 
-.product_report a {
+.product_report{
   margin-left: 359px;
   text-decoration: none;
   gap: 3px;

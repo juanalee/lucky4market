@@ -80,8 +80,8 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId}) => {
         const response = await axios.get(`http://localhost:9999/api/product/sellerProductImage?memberId=${sellerId}`);
         setSellerProductImage(response.data);
 
-        const userLiked = followStatusResponse.data.includes(profileSub);
         const followStatusResponse = await axios.get(`http://localhost:9999/api/member/selectFollowStatus?memberId=${sellerId}`);
+        const userLiked = followStatusResponse.data.includes(profileSub);
         setIsFollowing(userLiked);
 
         const categoryProductInfoResponse = await axios.get(`http://localhost:9999/api/product/categoryProductInfo?categoryNo=${categoryInfo.categoryNo}`);

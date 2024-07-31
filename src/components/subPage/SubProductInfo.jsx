@@ -218,9 +218,9 @@ const ProductInfo = ({ productImage }) => {
             <span>{productInfo.productLike}</span>
           </div>
           <div className={styles.product_report}>
-            <a href="#" onClick={reportOpen}>
+            <div onClick={reportOpen}>
               <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
-            </a>
+            </div>
           </div>
           <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
         </div>
