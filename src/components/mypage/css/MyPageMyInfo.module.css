@@ -63,19 +63,42 @@
 .my_info_item {
   width: 500px;
   height: 30px;
+  display: flex;
+  flex-flow: row nowrap;
   border: none;
   border-bottom: 1px solid #CCCCCC;
   outline: none;
   margin: 10px 0px;
 }
 
-.my_info_email_item {
-  width: calc(215px - 20px);
+.my_info_phone_number_item {
+  width: calc((100% - 20px) / 3);
   height: 30px;
   border: none;
   border-bottom: 1px solid #CCCCCC;
   outline: none;
+  text-align: center;
   margin: 10px 0px;
+}
+
+.my_info_email_item {
+  width: calc((100% - 190px) / 2);
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #CCCCCC;
+  outline: none;
+  text-align: center;
+  margin: 10px 0px;
+}
+
+.my_info_select_email {
+  width: 160px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #CCCCCC;
+  outline: none;
+  text-align: center;
+  margin-left: 10px;
 }
 
 .my_info_button_container2 {

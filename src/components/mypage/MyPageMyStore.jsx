@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -41,7 +40,7 @@ export default function MyPageMyStore() {
     <div className={styles.my_store_header_container}>
       {/* <Header/> */}
       <div className={styles.my_store_side_container}>
-        <MyPageSideBar />
+        <MyPageSideBar/>
         <div className={styles.my_store_main_container}>
             {profileData.map((profile, index) => (
               <div className={styles.my_store_profile_container} key={index}>
@@ -111,4 +110,4 @@ export default function MyPageMyStore() {
       </div>
     </div>
   );
-}
+};

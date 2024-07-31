@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../header/Header";
+import MyPageAddress from "./MyPageAddress";
 import MyPageMemberId from "./MyPageMemberId";
 import MyPageSideBar from "./MyPageSideBar";
 import styles from "./css/MyPageMyInfo.module.css";
 
 export default function MyPageMyInfo() {
   const [infoData, setInfoData] = useState([]);
-  const [emailOption, setEmailOption] = useState('');
   const [emailDomain, setEmailDomain] = useState('');
+  const [emailOption, setEmailOption] = useState('');
 
   const memberId = MyPageMemberId();
   const defaultProfileImage = "/img/mypage/profile.png";
@@ -44,7 +45,7 @@ export default function MyPageMyInfo() {
     if (memberId) {
       const myInfoData = async () => {
         try {
-          const infoResponse = await axios.get(`http://localhost:9999/api/member/myPageInfo/${memberId}`);
+          const infoResponse = await axios.get(`http://localhost:9999/api/member/myPageMyInfo/${memberId}`);
           setInfoData(infoResponse.data);
           if (infoResponse.data.length > 0) {
             setEmailDomain(infoResponse.data[0].memberEmailDomain);
@@ -97,10 +98,15 @@ export default function MyPageMyInfo() {
                   <input className={styles.my_info_item} type="text" name="nick" defaultValue={info.memberNick} required/>
                 </div>
                 <div className={styles.my_info_content}>휴대폰 번호<br/>
-                  <input className={styles.my_info_item} type="text" name="phone" defaultValue={info.memberPhoneNumber} required/>
+                  <input className={styles.my_info_phone_number_item} type="text" name="phone" defaultValue={info.memberPhoneNumber1} required/>
+                  <span>-</span>
+                  <input className={styles.my_info_phone_number_item} type="text" name="phone" defaultValue={info.memberPhoneNumber2} required/>
+                  <span>-</span>
+                  <input className={styles.my_info_phone_number_item} type="text" name="phone" defaultValue={info.memberPhoneNumber3} required/>
                 </div>
                 <div className={styles.my_info_content}>이메일<br/>
-                  <input className={styles.my_info_email_item} type="text" name="email" defaultValue={info.memberEmailId} required/>@
+                  <input className={styles.my_info_email_item} type="text" name="email" defaultValue={info.memberEmailId} required/>
+                  <span>@</span>
                   <input
                     className={styles.my_info_email_item}
                     type="text"
@@ -111,7 +117,7 @@ export default function MyPageMyInfo() {
                     required
                   />
                   <select className={styles.my_info_select_email} onChange={handleEmailChange}>
-                    <option value="">선택하세요</option>
+                    <option value="">선택</option>
                     <option value="naver.com">naver.com</option>
                     <option value="daum.net">daum.net</option>
                     <option value="gmail.com">gmail.com</option>
@@ -120,7 +126,7 @@ export default function MyPageMyInfo() {
                   </select>
                 </div>
                 <div className={styles.my_info_content}>주소<br/>
-                  <input className={styles.my_info_item} type="text" name="address" placeholder="주소" required/>
+                  <MyPageAddress/>
                 </div>
               </div>
             ))}
