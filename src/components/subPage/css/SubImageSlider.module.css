@@ -102,7 +102,7 @@ body::-webkit-scrollbar{
   width: 100%;
   position: absolute;
   top: 705px;
-  z-index: 500;
+  z-index: 1;
 }
 
 .imageSale{

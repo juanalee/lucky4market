@@ -35,7 +35,7 @@ export default function Header() {
     localStorage.removeItem('token');
     localStorage.removeItem('tokenProvider');
     setIsAuthenticated(false);
-    navigate('/');
+    navigate(0);
   };
 
   return (
@@ -149,11 +149,11 @@ export default function Header() {
             <ul className={styles.menu_item_container}>
               <div className={styles.menu_item}>
                 <img src='/img/money.png' alt='money' />
-                <li><Link to='#'>판매하기</Link></li>
+                <li><Link to='/productRegister'>판매하기</Link></li>
               </div>
               <div className={styles.menu_item}>
                 <img src='/img/profile.png' alt='profile' />
-                <li><Link to='#'>내상점</Link></li>
+                <li><Link to='/myStore'>내상점</Link></li>
               </div>
               <div className={styles.menu_item}>
                 <img src='/img/chat.png' alt='chat' />

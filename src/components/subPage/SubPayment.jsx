@@ -27,14 +27,11 @@ const SubPayment = ({buyMethod, productNo}) => {
       if ( response.success ) { //결제 성공
         try {
           const response = await axios.put(`http://localhost:9999/updateProductSaleSatus?productNo=${productNo}`);
-          // console.log(response);       
-          alert(response.data.msg);
           window.location.reload();
         } catch (error) {
           console.log(error);
         }    
       } else {
-        alert('결제실패 : ' + response.error_msg);
         window.location.reload();
       }
     });

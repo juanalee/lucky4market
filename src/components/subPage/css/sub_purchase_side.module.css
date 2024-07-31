@@ -120,6 +120,7 @@
   padding: 20px;
   text-align: center;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .buyMethod span.selected {
@@ -170,6 +171,7 @@
   transition: transform 0.4s ease, opacity 0.4s ease;
   transform: translateX(100%);
   opacity: 0;
+  box-sizing: border-box;
 }
 
 
@@ -242,6 +244,7 @@
   border-radius: 10px;
   margin-bottom: 30px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .addAddress{
@@ -300,6 +303,7 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 30px;
+  box-sizing: border-box;
 }
 
 .mainAddressContainer{
@@ -339,6 +343,7 @@
   border: 1px solid #ccc;
   font-weight: bold;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .postcode_side {
@@ -390,4 +395,28 @@
 .errorMessage{
   margin-left: 10px;
   color: red;
+}
+
+.subSideModal {
+  position: fixed;
+  width: 400px;
+  background-color: #4C4C4C;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 30px;
+  right: calc(50% - 175px);
+  color: white;
+  bottom: -200px;
+  right: 170px;
+  transition: bottom 1s ease-in-out;
+  z-index: 1001;
+}
+
+.subSideModal.show {
+  bottom: 100px;
+}
+
+.mainAddressColor{
+  color: #ccc;
 }

@@ -75,7 +75,6 @@ const Chat = ({ isChatOpen, onClose }) => {
       setProfiles(response.data);
     } catch (error) {
       console.error("Error fetching chat profiles:", error);
-      setError("채팅 상대 프로필을 불러오는 중 오류가 발생했습니다.");
     }
   }, [otherIds]);
 
@@ -91,12 +90,12 @@ const Chat = ({ isChatOpen, onClose }) => {
     setActiveProductNo(productNo);
     setIsMainChatOpen(true);
     setIsLoading(true);
-
+    
     try {
-      const productResponse = await axios.get(`http://localhost:9999/productInfo?productNo=${productNo}`);
+      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
       setProductInfo(productResponse.data);
 
-      const imageResponse = await axios.get(`http://localhost:9999/productImage?productNo=${productNo}`);
+      const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
       setProductImg(imageResponse.data[0]);
     } catch (error) {
       setError("상품 정보를 불러오는 중 오류가 발생했습니다.");
@@ -109,7 +108,6 @@ const Chat = ({ isChatOpen, onClose }) => {
   const mainChatClose = useCallback(() => {
     setIsMainChatOpen(false);
   }, []);
-
   return (
     <>
       <Backdrop show={isChatOpen} onClick={onClose} />
@@ -120,7 +118,6 @@ const Chat = ({ isChatOpen, onClose }) => {
           </span>
           <h2>채팅방</h2>
         </div>
-        {error && <p className={styles.errorMessage}>{error}</p>}
         {chatRooms.length === 0 ? (
           <p className={styles.noChatMessage}>채팅방이 없습니다.</p>
         ) : (
@@ -156,7 +153,7 @@ const Chat = ({ isChatOpen, onClose }) => {
         <Sub_chat
           isChatOpen={isMainChatOpen}
           onClose={mainChatClose}
-          memberId={activeMemberId}
+          sellerId={activeMemberId}
           productImage={productImg}
           productInfo={productInfo}
           roomId={activeChatNo}

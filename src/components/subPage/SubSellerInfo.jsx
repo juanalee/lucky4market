@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './css/SubSellerInfo.module.css';
 import { AuthContext } from '../../services/AuthContext';
 
-const SubSellerInfo = ({ categoryInfo, productTitle }) => {
+const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId}) => {
   const navigate = useNavigate();
   const followBtn = useRef();
   const followImg = useRef();
@@ -19,7 +19,15 @@ const SubSellerInfo = ({ categoryInfo, productTitle }) => {
   const [followOpen, setFollowOpen] = useState(false);
   const [followMsg, setFollowMsg] = useState("");
   const { profile, isAuthenticated } = useContext(AuthContext);
+  const [profileSub, setProfileSub] = useState(profile?.sub || null);
   const timerRef = useRef(null);
+
+  useEffect(() => {
+    console.log(profile);
+    if (profile?.sub !== profileSub) {
+      setProfileSub(profile?.sub || null);
+    }
+  }, [profile?.sub, profileSub]);
 
   const navigateLogin = useCallback(() => {
     if (!isAuthenticated) {
@@ -28,7 +36,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle }) => {
   }, [isAuthenticated, navigate]);
 
   const followClick = useCallback(async () => {
-    if (!isAuthenticated || !profile?.sub) {
+    if (!isAuthenticated || !profileSub) {
       navigateLogin();
       return;
     }
@@ -52,31 +60,29 @@ const SubSellerInfo = ({ categoryInfo, productTitle }) => {
     });
 
     try {
-      await axios.get(`http://localhost:9999/insertFollow?buyerId=${profile.sub}&sellerId=member2`);
+      await axios.get(`http://localhost:9999/insertFollow?buyerId=${profileSub}&sellerId=${sellerId}`);
     } catch (error) {
       console.error('Error occurred during follow operation:', error);
       // 실패 시 상태 원복
       setIsFollowing(prevState => !prevState);
     }
-  }, [isAuthenticated, profile?.sub, navigateLogin]);
+  }, [isAuthenticated, profileSub, navigateLogin]);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storeResponse = await axios.get('http://localhost:9999/api/member/storeInfo?memberId=member2');
+        const storeResponse = await axios.get(`http://localhost:9999/api/member/storeInfo?memberId=${sellerId}`);
         setStoreInfo(storeResponse.data);
 
-        const sellerProfileResponse = await axios.get('http://localhost:9999/api/member/sellerProfile?memberId=member2');
+        const sellerProfileResponse = await axios.get(`http://localhost:9999/api/member/sellerProfile?memberId=${sellerId}`);
         setProfileInfo(sellerProfileResponse.data);
 
-        const response = await axios.get('http://localhost:9999/api/product/sellerProductImage?memberId=member2');
+        const response = await axios.get(`http://localhost:9999/api/product/sellerProductImage?memberId=${sellerId}`);
         setSellerProductImage(response.data);
 
-        if (profile?.sub) {
-          const followStatusResponse = await axios.get('http://localhost:9999/api/member/selectFollowStatus?memberId=member2');
-          const userLiked = followStatusResponse.data.includes(profile.sub);
-          setIsFollowing(userLiked);
-        }
+        const userLiked = followStatusResponse.data.includes(profileSub);
+        const followStatusResponse = await axios.get(`http://localhost:9999/api/member/selectFollowStatus?memberId=${sellerId}`);
+        setIsFollowing(userLiked);
 
         const categoryProductInfoResponse = await axios.get(`http://localhost:9999/api/product/categoryProductInfo?categoryNo=${categoryInfo.categoryNo}`);
         setCategoryProductInfo(categoryProductInfoResponse.data);
@@ -109,7 +115,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle }) => {
     };
 
     fetchData();
-  }, [categoryInfo.categoryNo, productTitle, profile?.sub]);
+  }, [categoryInfo.categoryNo, productTitle, profileSub]);
 
   useEffect(() => {
     return () => {
@@ -148,7 +154,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle }) => {
             </div>
             <div className={styles.seller_product_img}>
               {sellerProductImage.slice(0, 2).map((img, index) => (
-                img.productNo !== 19 && (
+                img.productNo != 19 && (
                   <div key={index}>
                     <Link to='#'>
                       <img src={img.image} alt={`Product ${index}`} ref={(el) => {

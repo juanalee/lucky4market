@@ -104,7 +104,7 @@ const LoginForm = () => {
             if (userRole.includes('ROLE_ADMIN')) {
                 navigate('/admin');
             } else {
-                navigate('/');
+                navigate('/productPage');
             }
         } catch (err) {
             setError('id 또는 비밀번호 오류');

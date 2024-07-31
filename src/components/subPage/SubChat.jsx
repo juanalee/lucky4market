@@ -4,14 +4,13 @@ import axios from 'axios';
 import Backdrop from './SubOverlay';
 import styles from './css/SubChat.module.css';
 
-function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roomId }) {
+function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roomId }) {
   const [messages, setMessages] = useState([]);
   const [messageLength, setMessageLength] = useState(0);
   const [message, setMessage] = useState("");
   const stompClient = useRef(null);
   const messagesEndRef = useRef(null);
 
-  // 채팅 데이터 로드 및 STOMP 연결
   useEffect(() => {
     if (isChatOpen) {
       fetchChatHistory();
@@ -26,7 +25,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     scrollToBottom();
   }, [messages]);
 
-  // 채팅 기록을 서버에서 가져옵니다.
   const fetchChatHistory = async () => {
     try {
       const response = await axios.get(`http://localhost:9999/selectChatInfo?chatNo=${roomId}`);
@@ -36,12 +34,10 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     }
   };
 
-  // 채팅창 스크롤을 아래로 이동시킵니다.
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // STOMP 연결
   const connect = () => {
     const socket = new WebSocket("ws://localhost:9999/ws");
     stompClient.current = Stomp.over(socket);
@@ -57,7 +53,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     });
   };
 
-  // STOMP 연결 해제
   const disconnect = () => {
     if (stompClient.current) {
       stompClient.current.disconnect(() => {
@@ -66,14 +61,13 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     }
   };
 
-  // 메시지 전송
   const sendMessage = (event) => {
     event.preventDefault();
     if (stompClient.current && stompClient.current.connected && message) {
       const messageObj = {
         chatNo: roomId,
-        receiverId: memberId,
-        senderId: 'member3', // 현재 사용자 ID로 수정
+        receiverId: sellerId,
+        senderId: 'member22', // 현재 사용자 ID로 수정
         chatContent: message,
         productNo: productInfo.productNo
       };
@@ -86,7 +80,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     }
   };
 
-  // 파일 메시지 전송
   const sendFileMessage = async (file) => {
     if (stompClient.current && stompClient.current.connected) {
       const formData = new FormData();
@@ -101,8 +94,8 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
         console.log(response.data);
         const messageObj = {
           chatNo: roomId,
-          receiverId: memberId,
-          senderId: 'member3', // 현재 사용자 ID로 수정
+          receiverId: 'member22',
+          senderId: sellerId, // 현재 사용자 ID로 수정
           chatContent: response.data.filePath, // 파일 경로 또는 파일 이름
           productNo: productInfo.productNo
         };
@@ -116,7 +109,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     }
   };
   
-  // 파일 선택 핸들러
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -124,13 +116,11 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     }
   };
 
-  // 메시지 입력 핸들러
   const handleChange = (event) => {
     setMessage(event.target.value);
     setMessageLength(event.target.value.length);
   };
 
-  // Enter 키로 메시지 전송
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault(); // 줄바꿈 방지
@@ -138,7 +128,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     }
   };
 
-  // 날짜 포맷 처리
   const safeDate = (dateStr) => {
     if (dateStr) {
       const date = new Date(dateStr);
@@ -147,7 +136,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
     return new Date(); // 기본 날짜를 현재로 설정
   };
 
-  // 채팅 메시지를 날짜와 함께 렌더링
   const renderChatWithDate = () => {
     let lastDate = null;
     return messages.map((item, index) => {
@@ -165,14 +153,18 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
       lastDate = chatDateEqual;
       const chatDateHeader = `${year}년 ${month}월 ${day}일`;
       const chatDateMain = `${period} ${formattedHour}시 ${formattedMinute}분`;
-
-      // 메시지가 이미지인지 텍스트인지 확인
+      
       const chatContent = item.chatContent && item.chatContent || "";
-      const isImage = chatContent && chatContent.startsWith('/file/ajax/down/') && chatContent.match(/\.(jpg|jpeg|png|gif)$/); // 이미지 파일 확장자 체크
+      const isImage = chatContent && chatContent.startsWith('/file/ajax/down/') && chatContent.match(/\.(jpg|jpeg|png|gif)$/);
+      
+      if (!chatContent) {
+        return null;
+      }
+
       const messageContent = isImage ? (
           <img src={`http://localhost:9999${chatContent}`} alt="이미지" className={styles.chatImage} />
       ) : (
-          <p className={item.senderId === memberId ? styles.messageReceiverStyle : styles.messageSenderStyle}>{chatContent}</p>
+          <p className={item.senderId === sellerId ? styles.messageReceiverStyle : styles.messageSenderStyle}>{chatContent}</p>
       );
 
       return (
@@ -184,7 +176,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
               <span className={styles.dateLine}></span>
             </div>
           )}
-          {item.senderId === memberId ? (
+          {item.senderId === sellerId  ? (
             <div className={styles.chatBoxOpponent}>
               <div className={styles.chatContentOpponent}>
                 {messageContent}
@@ -217,7 +209,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
       <div className={`${styles.main_chat_side} ${isChatOpen ? styles.open : ''}`}>
         <div className={styles.main_chat_header}>
           <img src="/img/back_arrow.png" onClick={onClose} alt="Back" />
-          <h2>{memberId}</h2>
+          <h2>{sellerId}</h2>
         </div>
         <div className={styles.main_chat_product_info}>
           <img src={productImage ? productImage.productImagePath : '/img/default_product.png'} alt="Product" />
@@ -227,7 +219,9 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, memberId, roo
           </div>
         </div>
         <div className={styles.chat_content_container}>
-          {messages && messages.length > 0 && renderChatWithDate()}
+          {messages.length > 0 ? renderChatWithDate() : (
+            <p className={styles.noMessages}>채팅 내용이 없습니다.</p>
+          )}
           <div ref={messagesEndRef} />
         </div>
         <form onSubmit={sendMessage}>

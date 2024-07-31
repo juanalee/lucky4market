@@ -39,6 +39,7 @@ const ProductInfo = ({ productImage }) => {
   const [likeMsgOpen, setLikeMsgOpen] = useState(false);
   const [likeMsg, setLikeMsg] = useState("");
 
+
   // Update profileSub when profile changes
   useEffect(() => {
     console.log(profile);
@@ -268,8 +269,8 @@ const ProductInfo = ({ productImage }) => {
       </div>
 
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo} />
-      <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} memberId={productMemberId} roomId={roomId} />
-      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} />}
+      <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} sellerId={productMemberId} roomId={roomId} />
+      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} sellerId={productMemberId}/>}
     </>
   );
 };

@@ -321,6 +321,7 @@
   color: white;
   top: -200px; /* 초기 위치: 화면 밖 */
   transition: top 1s ease-in-out;
+  z-index: 2;
 }
 
 .likeContainer.show {
