@@ -8,12 +8,15 @@ import NaverLoginButton from './NaverLoginButton';
 import KakaoLoginButton from './KakaoLoginButton';
 import { AuthContext } from '../../../services/AuthContext';
 import ModalPopup from '../../modalPopup/ModalPopup';
+import IdRecovery from '../IdPasswdRecovery/IdPasswdRecovery';
 import Slide from './SlideAnimation';
 
 const LoginForm = () => {
     const [memberId, setMemberId] = useState('');
     const [memberPasswd, setMemberPasswd] = useState('');
     const [error, setError] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupTab, setPopupTab] = useState('id');
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [showAnimation, setShowAnimation] = useState(false);
@@ -77,6 +80,15 @@ const LoginForm = () => {
         };
     }, []);
 
+    const openIdRecovery = (tab) => {
+        setPopupTab(tab);
+        setShowPopup(true);
+    }
+
+    const handlePopupClose = () => {
+        setShowPopup(false);
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -133,6 +145,11 @@ const LoginForm = () => {
                 onConfirm={handleModalClose}
                 isConfirmation={false}
             />
+            <IdRecovery
+                show={showPopup}
+                onClose={handlePopupClose}
+                initialTab={popupTab}
+            />
             <div className={styles.loginFormContainer}>
                 <div className={styles.loginFormLeft}>
                     <div className={styles.loginFormLogin}>
@@ -172,9 +189,21 @@ const LoginForm = () => {
                                 required
                             />
                             <div className={styles.idPasswdRecovery}>
-                                <button type="button" className={styles.loginRecovery} lang="ko">아이디 찾기</button>
+                                <button
+                                    type="button"
+                                    className={styles.loginRecovery}
+                                    lang="ko"
+                                    onClick={() => openIdRecovery('id')}>
+                                    아이디 찾기
+                                </button>
                                 <span className={styles.loginSeparator}>|</span>
-                                <button type="button" className={styles.loginRecovery} lang="ko">비밀번호 찾기</button>
+                                <button
+                                    type="button"
+                                    className={styles.loginRecovery}
+                                    lang="ko"
+                                    onClick={() => openIdRecovery('password')}>
+                                    비밀번호 재설정
+                                </button>
                             </div>
                             <input
                                 type="submit"
