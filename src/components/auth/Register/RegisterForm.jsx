@@ -57,19 +57,19 @@ const RegisterMemberForm = () => {
     const value = e.target.value;
     setMemberId(value);
     setIsIdChecked(false);
-    setMemberIdError(''); // Clear error message when value changes
+    setMemberIdError(''); // 값이 바뀌면 오류 메시지 클리어
   };
 
   const handlePasswdChange = (e) => {
     const value = e.target.value;
     setMemberPasswd(value);
-    setPasswdError(''); // Clear error message when value changes
+    setPasswdError(''); // 값이 바뀌면 오류 메시지 클리어
   };
 
   const handlePasswdConfirmChange = (e) => {
     const value = e.target.value;
     setMemberPasswdConfirm(value);
-    setPasswdConfirmError(''); // Clear error message when value changes
+    setPasswdConfirmError(''); // 값이 바뀌면 오류 메시지 클리어
   };
 
   const handleEmailIdChange = (e) => {
@@ -141,7 +141,7 @@ const RegisterMemberForm = () => {
     if (newCheckedStatus) {
       setConsentError('');
     }
-    console.log('Checkbox changed:', newCheckedStatus);
+    console.log('체크박스 상태 변화됨:', newCheckedStatus);
   };
 
   const toggleAgreementSection = () => {

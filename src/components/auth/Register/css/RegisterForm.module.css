@@ -1,12 +1,12 @@
 @font-face {
-  font-family: 'GodoM';
-  src: url('../../../../../public/fonts/GodoM.ttf') format('truetype');
+  font-family: 'LINESeedKR-Bd';
+  src: url('../../../../../public/fonts/LINESeedKR-Bd.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 body:lang(ko), .korean-text, [lang="ko"] {
-  font-family: 'GodoM', sans-serif;
+  font-family: 'LINESeedKR-Bd', sans-serif;
 }
 
 @import url('https://rsms.me/inter/inter-ui.css');
@@ -184,20 +184,24 @@ body:lang(ko), .korean-text, [lang="ko"] {
 
 .registerFormErrorText {
   color: white;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 12px;
-  height: auto;
+  height: 12px;
   visibility: hidden;
   margin: 4px 7px 0 7px;    
   display: block;
   white-space: pre-line;
 }
 
+.registerFormErrorText.visible {
+  visibility: visible;
+}
+
 .consentErrorMessage{
   color: white;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 12px;
-  height: auto;
+  height: 12px;
   display: block;
   position: absolute;
   left: 50%;

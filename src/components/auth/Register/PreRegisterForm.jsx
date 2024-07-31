@@ -88,6 +88,9 @@ const PreRegisterForm = () => {
       if (value.length === 3) {
         regPNo2Ref.current.focus();
       }
+      if (value.length === 3 && regPNo2.length >= 3 && regPNo3.length === 4) {
+        setPhoneNoError('');
+      }
     }
   };
 
@@ -98,6 +101,9 @@ const PreRegisterForm = () => {
       if (value.length === 4) {
         regPNo3Ref.current.focus();
       }
+      if (value.length === 3 && regPNo2.length >= 3 && regPNo3.length === 4) {
+        setPhoneNoError('');
+      }
     }
   };
 
@@ -105,6 +111,9 @@ const PreRegisterForm = () => {
     const value = e.target.value;
     if (/^\d{0,4}$/.test(value)) {
       setRegPNo3(value);
+    }
+    if (value.length === 3 && regPNo2.length >= 3 && regPNo3.length === 4) {
+      setPhoneNoError('');
     }
   };
 

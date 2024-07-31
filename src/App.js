@@ -4,6 +4,7 @@ import './App.css';
 import AdminMembers from './admin/components/adminMembers/AdminMembers';
 import AdminReports from './admin/components/adminReports/AdminReports';
 import LoginForm from './components/auth/Login/LoginForm';
+import IdPasswdRecovery from './components/auth/IdPasswdRecovery/IdPasswdRecovery';
 import PreRegisterForm from './components/auth/Register/PreRegisterForm';
 import RegisterForm from './components/auth/Register/RegisterForm';
 import RegisterSuccess from './components/auth/Register/RegisterSuccess';
@@ -29,6 +30,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/idPasswdRecovery" element={<IdPasswdRecovery />} />
           <Route path="/register" element={<PreRegisterForm />} />
           <Route path="/registerMember" element={<RegisterForm />} />
           <Route path="/registerSuccess" element={<RegisterSuccess />} />          
