@@ -2,76 +2,86 @@ import React, { useState } from 'react';
 import styles from './IdPasswdRecovery.module.css';
 
 const NewPasswordForm = ({ onSubmit }) => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [newPasswd, setNewPasswd] = useState('');
+  const [confirmPasswd, setConfirmPasswd] = useState('');
+  const [newPasswdError, setNewPasswdError] = useState('');
+  const [confirmPasswdError, setConfirmPasswdError] = useState('');
+
+  // 입력되는 비밀번호 실시간으로 점검 
+  const handleNewPasswdChange = (e) => {
+    const value = e.target.value;
+    setNewPasswd(value);
+    if (!value.trim() || value.length < 8 || !/[A-Za-z]/.test(value) || !/\d/.test(value)) {
+      setNewPasswdError('비밀번호는 다음 조건을 만족해야 합니다: 8자리 이상 / 영문자, 숫자 혼합');
+    } else {
+      setNewPasswdError('');
+    }
+  };
+
+  // 입력되는 비밀번호 확인 실시간으로 점검
+  const handleConfirmPasswdChange = (e) => {
+    const value = e.target.value;
+    setConfirmPasswd(value);
+    if (newPasswd !== value) {
+      setConfirmPasswdError('비밀번호가 일치하지 않습니다');
+    } else {
+      setConfirmPasswdError('');
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let hasError = false;
 
-    // 비밀번호 조건 확인
-    if (!newPassword.trim() || newPassword.length < 8 || !/[A-Za-z]/.test(newPassword) || !/\d/.test(newPassword)) {
-      setPasswordError('비밀번호는 다음 조건을 만족해야 합니다:\n8자리 이상 / 영문자, 숫자 혼합');
+    // 폼 제출 전 최종 점검
+    if (!newPasswd.trim() || newPasswd.length < 8 || !/[A-Za-z]/.test(newPasswd) || !/\d/.test(newPasswd)) {
+      setNewPasswdError('비밀번호는 다음 조건을 만족해야 합니다: 8자리 이상 / 영문자, 숫자 혼합');
       hasError = true;
-    } else {
-      setPasswordError('');
     }
-
-    // 비밀번호 일치 확인
-    if (newPassword !== confirmPassword) {
-      setConfirmPasswordError('비밀번호가 일치하지 않습니다');
+    if (newPasswd !== confirmPasswd) {
+      setConfirmPasswdError('비밀번호가 일치하지 않습니다');
       hasError = true;
-    } else {
-      setConfirmPasswordError('');
     }
 
-    // 오류가 있는 경우 진행 안 함
-    if (hasError) {
-      return;
+    if (!hasError) {
+      onSubmit(newPasswd);
     }
-
-  
-    onSubmit(newPassword);
   };
 
   return (
-    <div className={styles.recoveryFormBox}>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.recoveryFormGroup}>
-          <label htmlFor="newPasswd">새로운 비밀번호</label>
-          <input
-            type="password"
-            id="newPasswd"
-            className={styles.recoveryFormControl}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </div>
-        <p className={`${styles.recoveryFormErrorText} ${passwordError ? styles.visible : ''}`}>
-          {passwordError || ' '}
-        </p>
-        <div className={styles.recoveryFormGroup}>
-          <label htmlFor="confirmPasswd">새 비밀번호 확인</label>
-          <input
-            type="password"
-            id="confirmPasswd"
-            className={styles.recoveryFormControl}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <p className={`${styles.recoveryFormErrorText} ${confirmPasswordError ? styles.visible : ''}`}>
-          {confirmPasswordError || ' '}
-        </p>
-        <button type="submit" className={styles.recoverySubmitButton}>
-          Set New Password
-        </button>
-      </form>
-    </div>
+    <form className={styles.recoveryFormNewBox} onSubmit={handleSubmit}>
+      <div className={styles.recoveryFormGroup}>
+        <label htmlFor="newPasswd">새로운 비밀번호</label>
+        <input
+          type="password"
+          id="newPasswd"
+          className={styles.recoveryFormControl}
+          value={newPasswd}
+          onChange={handleNewPasswdChange}
+          required
+        />
+      </div>
+      <p className={`${styles.recoveryFormErrorText} ${newPasswdError ? styles.recoveryFormVisible : ''}`}>
+        {newPasswdError || ' '}
+      </p>
+      <div className={styles.recoveryFormGroup}>
+        <label htmlFor="confirmPasswd">새 비밀번호 확인</label>
+        <input
+          type="password"
+          id="confirmPasswd"
+          className={styles.recoveryFormControl}
+          value={confirmPasswd}
+          onChange={handleConfirmPasswdChange}
+          required
+        />
+      </div>
+      <p className={`${styles.recoveryFormErrorText} ${confirmPasswdError ? styles.recoveryFormVisible : ''}`}>
+        {confirmPasswdError || ' '}
+      </p>
+      <button type="submit" className={styles.recoverySubmitButton}>
+        비밀번호 재설정하기
+      </button>
+    </form>
   );
 };
 

@@ -138,7 +138,7 @@
   visibility: hidden;
 }
 
-.recoveryFormErrorText.visible {
+.recoveryFormVisible {
   visibility: visible;
 }
 
@@ -151,7 +151,7 @@
   opacity: 1;
 }
 
-.recoveryResponseMessage.hidden {
+.recoveryFormHidden {
   visibility: hidden;
   opacity: 0;
 }

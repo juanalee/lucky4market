@@ -1,14 +1,3 @@
-@font-face {
-  font-family: 'LINESeedKR-Bd';
-  src: url('../../../../../public/fonts/LINESeedKR-Bd.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.koreanText, :lang(ko), [lang="ko"] {
-  font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
 .regSuccessPage {
   background: white;
   color: black;
@@ -27,11 +16,10 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  color: black; /* Changed text color to black */
+  color: black;
 }
 
 .regSuccessVertText {
-  font-family: 'Malgun Gothic';
   display: table-cell;
   position: relative;
   vertical-align: middle;
@@ -39,12 +27,12 @@
 }
 
 .regSuccessVertText h1 {
-  font-family: 'Comfortaa', cursive;
   padding: 0;
   margin: 0;
   font-size: 4.5em;
   font-weight: 700;
 }
+
 
 .regSuccessLogo {
   text-align: center;
