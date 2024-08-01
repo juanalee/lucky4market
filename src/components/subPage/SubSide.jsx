@@ -376,7 +376,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                         <h2>최종 결제 금액</h2>
                         <p className={styles.last_price}>{productInfo.productPrice.toLocaleString()}원</p>
                     </div>
-                    <Payment buyMethod={buyMethod} productNo={19} addressInfo={addressInfo} productInfo={productInfo}/>
+                    <Payment buyMethod={buyMethod} addressInfo={addressInfo} productInfo={productInfo}/>
                 </div>
             </div>
             <div className={`${styles.address_side} ${addressClass}`}>

@@ -8,7 +8,7 @@ import Sub_chat from './SubChat';
 import StoreInfo from './SubSellerInfo';
 import { AuthContext } from '../../services/AuthContext';
 
-const ProductInfo = ({ productImage }) => {
+const ProductInfo = ({ productImage ,productNo}) => {
   const { profile, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const timerRef = useRef(null);
@@ -50,18 +50,18 @@ const ProductInfo = ({ productImage }) => {
   // Fetch product and related data
   const fetchData = useCallback(async () => {
     try {
-      const productResponse = await axios.get('http://localhost:9999/api/product/productInfo?productNo=19');
+      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
       setProductInfo(productResponse.data);
       setProductMemberId(productResponse.data.memberId);
 
-      const deliveryResponse = await axios.get('http://localhost:9999/api/product/deliveryInfo?productNo=19');
+      const deliveryResponse = await axios.get(`http://localhost:9999/api/product/deliveryInfo?productNo=${productNo}`);
       setDeliveryInfo(deliveryResponse.data);
 
       const categoryResponse = await axios.get(`http://localhost:9999/api/product/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
       setCategoryInfo(categoryResponse.data);
 
       if (profileSub) {
-        const likeStatusResponse = await axios.get('http://localhost:9999/api/product/selectLikeStatus?productNo=19');
+        const likeStatusResponse = await axios.get(`http://localhost:9999/api/product/selectLikeStatus?productNo=${productNo}`);
         const userLiked = likeStatusResponse.data.includes(profileSub);
         setIsLiked(userLiked);
       }
@@ -133,13 +133,12 @@ const ProductInfo = ({ productImage }) => {
     }, 1500); // 1.5초 후 닫기
 
     try {
-      await axios.get(`http://localhost:9999/insertProductLike?memberId=${profileSub}&productNo=19`);
+      await axios.get(`http://localhost:9999/insertProductLike?memberId=${profileSub}&productNo=${productNo}`);
     } catch (error) {
       console.error('Error occurred during like operation:', error);
       setIsLiked(prevIsLiked => !prevIsLiked); // 에러 발생 시 상태 원복
     }
   }, [isAuthenticated, profileSub, navigateLogin]);
-
   const buyWidth = useCallback(async () => {
     navigateLogin();
     setIsPurchaseOpen(true);
@@ -186,6 +185,8 @@ const ProductInfo = ({ productImage }) => {
     }
   }, [profileSub, isAuthenticated]);
 
+  const productSaleChatClass = productInfo.productSale == '판매중' ? '' : styles.productSaleChat
+
   return (
     <>
       <div className={styles.product_information}>
@@ -199,28 +200,30 @@ const ProductInfo = ({ productImage }) => {
         <p className={styles.product_title}>{productInfo.productTitle}</p>
         <p className={styles.product_price}>{productInfo.productPrice.toLocaleString()}원</p>
         <div className={styles.product_sub_information}>
-          <div className={styles.product_create}>
-            <img src="/img/time.png" alt="time" className={styles.information_img} />
-            <span>{timePassed}</span>
-          </div>
-          <div className={styles.product_count}>
-            <img src="/img/find.png" alt="find" className={styles.information_img} />
-            <span>{productInfo.productCount}</span>
-          </div>
-          <div className={styles.product_like}>
-            <img
-              src={isLiked ? "/img/redheart.png" : "/img/heart.png"}
-              alt="like"
-              onClick={likeClick}
-              className={styles.information_img}
-            />
-            <span>{productInfo.productLike}</span>
-          </div>
-          <div className={styles.product_report}>
-            <div onClick={reportOpen}>
-              <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
+          <div className={styles.product_sub_info}>
+            <div className={styles.product_create}>
+              <img src="/img/time.png" alt="time" className={styles.information_img} />
+              <span>{timePassed}</span>
+            </div>
+            <div className={styles.product_count}>
+              <img src="/img/find.png" alt="find" className={styles.information_img} />
+              <span>{productInfo.productCount}</span>
+            </div>
+            <div className={styles.product_like}>
+              <img
+                src={isLiked ? "/img/redheart.png" : "/img/heart.png"}
+                alt="like"
+                onClick={likeClick}
+                className={styles.information_img}
+                />
+              <span>{productInfo.productLike}</span>
             </div>
           </div>
+            <div className={styles.product_report}>
+              <div onClick={reportOpen}>
+                <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
+              </div>
+            </div>
           <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
         </div>
         <div className={styles.product_status_information}>
@@ -251,8 +254,10 @@ const ProductInfo = ({ productImage }) => {
           <button className={styles.like_btn} onClick={likeClick}>
             <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" />
           </button>
-          <button className={styles.chat_btn} onClick={chatOpen}>채팅하기</button>
-          <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
+          <button className={`${styles.chat_btn} ${productSaleChatClass}`} onClick={chatOpen}>채팅하기</button>
+          {productInfo.productSale == '판매중' &&
+            <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
+          }
         </div>
       </div>
       <div className={styles.product_content}>
@@ -269,7 +274,7 @@ const ProductInfo = ({ productImage }) => {
 
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo} />
       <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} sellerId={productMemberId} roomId={roomId} />
-      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} sellerId={productMemberId}/>}
+      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} sellerId={productMemberId} productNo={productNo}/>}
     </>
   );
 };

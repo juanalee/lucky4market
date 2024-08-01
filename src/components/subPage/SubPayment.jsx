@@ -2,14 +2,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const SubPayment = ({buyMethod, productNo ,addressInfo, productInfo}) => {
+const SubPayment = ({buyMethod ,addressInfo, productInfo}) => {
   const [mainAddressInfo, setMainAddressInfo] = useState();
   useEffect(() => {
     // addressInfo를 필터링하여 mainAddress가 1인 항목만 가져옵니다.
     const filteredAddress = addressInfo.filter(item => item.mainAddress === 1);
-    setMainAddressInfo(filteredAddress);
+    setMainAddressInfo(filteredAddress[0]);
   }, [addressInfo]); // addressInfo가 변경될 때마다 useEffect가 실행됩니다.
-
   const onClickPayment = async () => {
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
@@ -30,10 +29,10 @@ const SubPayment = ({buyMethod, productNo ,addressInfo, productInfo}) => {
     IMP.request_pay(data, async function(response){
       if ( response.success ) { //결제 성공
         try {
-          await axios.put(`http://localhost:9999/updateProductSaleSatus?productNo=${productNo}`);
-          await axios.post(`http://localhost:9999/updateTransaction`,{
+          await axios.put(`http://localhost:9999/updateProductSaleSatus?productNo=${productInfo.productNo}`);
+          await axios.post(`http://localhost:9999/insertTransaction`,{
             params:{
-              productNo : productNo,
+              productNo : productInfo.productNo,
               memberId : mainAddressInfo.memberId
             }
           });

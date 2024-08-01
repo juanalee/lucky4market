@@ -73,7 +73,7 @@
 /* sub_chat.module.css */
 
 .chatContentOpponent {
-  max-width: 300px; /* 최대 너비 설정 */
+  max-width: 250px; /* 최대 너비 설정 */
   font-size: 20px;
   color: black;
   box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
@@ -81,7 +81,7 @@
 }
 
 .chatContentMe {
-  max-width: 300px; /* 최대 너비 설정 */
+  max-width: 250px; /* 최대 너비 설정 */
   font-size: 20px;
   color: white;
   box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */

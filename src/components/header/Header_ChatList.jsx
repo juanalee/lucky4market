@@ -18,10 +18,7 @@ const Chat = ({ isChatOpen, onClose }) => {
   const [activeChatNo, setActiveChatNo] = useState('');
   const [activeProductNo, setActiveProductNo] = useState('');
   const [isMainChatOpen, setIsMainChatOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const chatSideClass = isChatOpen ? styles.open : '';
-  const navigate = useNavigate();
 
   // 로그인 상태가 변경되면 profile.sub 상태 업데이트
   useEffect(() => {
@@ -32,12 +29,6 @@ const Chat = ({ isChatOpen, onClose }) => {
     }
   }, [isAuthenticated, profile?.sub]);
 
-  const navigateLogin = useCallback(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, navigate]);
-
   const fetchChatRooms = useCallback(async () => {
     if (!profileSub) {
       return;
@@ -47,7 +38,6 @@ const Chat = ({ isChatOpen, onClose }) => {
       setChatRooms(response.data);
     } catch (error) {
       console.error("Error fetching chat rooms:", error);
-      setError("채팅방을 불러오는 중 오류가 발생했습니다.");
     }
   }, [profileSub]);
 
@@ -89,25 +79,23 @@ const Chat = ({ isChatOpen, onClose }) => {
     setActiveMemberId(profileId);
     setActiveProductNo(productNo);
     setIsMainChatOpen(true);
-    setIsLoading(true);
-    
     try {
       const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
       setProductInfo(productResponse.data);
 
       const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
       setProductImg(imageResponse.data[0]);
+
+      console.log(imageResponse);
     } catch (error) {
-      setError("상품 정보를 불러오는 중 오류가 발생했습니다.");
       console.error("Error fetching product info or image:", error);
-    } finally {
-      setIsLoading(false);
     }
   }, []);
 
   const mainChatClose = useCallback(() => {
     setIsMainChatOpen(false);
   }, []);
+  console.log(chatRooms);
   return (
     <>
       <Backdrop show={isChatOpen} onClick={onClose} />
@@ -118,15 +106,12 @@ const Chat = ({ isChatOpen, onClose }) => {
           </span>
           <h2>채팅방</h2>
         </div>
-        {chatRooms.length === 0 ? (
-          <p className={styles.noChatMessage}>채팅방이 없습니다.</p>
-        ) : (
-          chatRooms.map((room, index) => {
+        {chatRooms.length > 0 && (
+          chatRooms.filter(room => room.chatContent).map((room, index) => {
             const profileId = room.senderId === profileSub ? room.receiverId : room.senderId;
             const profileSame = profiles.find(profile => profile.MEMBERID === profileId) || {};
             const profileImage = profileSame.PROFILEPATH || '/img/store_basic.png';
             const chatDate = room.chatDate ? new Date(room.chatDate).toLocaleDateString('ko-KR') : '날짜 없음';
-
             return (
               <div
                 key={room.chatNo}

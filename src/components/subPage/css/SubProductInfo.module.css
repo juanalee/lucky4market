@@ -87,13 +87,8 @@
   color: black;
 }
 
-.product_create span{
-  width: 60px;
+.product_like span, .product_count span, .product_create span {
   margin-right: 10px;
-}
-
-.product_like span, .product_count span {
-  width: 25px;
 }
 
 .product_sub_information span {
@@ -116,8 +111,8 @@
 
 .product_sub_information {
   display: flex;
-  /* gap: 10px; */
   margin-bottom: 20px;
+  justify-content: space-between;
 }
 
 .product_status_information {
@@ -144,8 +139,11 @@
   font-weight: bold;
 }
 
+.product_sub_info{
+  display: flex;
+}
+
 .product_report{
-  margin-left: 359px;
   text-decoration: none;
   gap: 3px;
   color: black;
@@ -176,7 +174,6 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  justify-content: space-between;
   margin-bottom: 250px;
 }
 
@@ -197,7 +194,7 @@
 }
 
 .chat_btn {
-  width: 270px;
+  width: 280px;
   height: 75px;
   background-color: white;
   border-radius: 10px;
@@ -205,13 +202,13 @@
   background-image: url('/public/img/chat.png');
   background-repeat: no-repeat;
   background-size: 30px;
-  background-position: 50px;
-  padding-left: 40px;
+  background-position: 60px;
+  padding-left: 30px;
   border: 3px solid black;
 }
 
 .buy_btn {
-  width: 270px;
+  width: 280px;
   height: 75px;
   background-color: black;
   border-radius: 10px;
@@ -219,14 +216,19 @@
   background-image: url('/public/img/buy.png');
   background-repeat: no-repeat;
   background-size: 30px;
-  background-position: 50px;
-  padding-left: 40px;
+  background-position: 60px;
+  padding-left: 30px;
   border: 3px solid black;
   color: white;
 }
 
+.productSaleChat{
+  width: 100%;
+  background-position: 200px;
+}
+
 .product_content hr {
-  margin: 10px 0px 50px;
+  margin: 10px 0px 40px;
 }
 
 .product_content p {

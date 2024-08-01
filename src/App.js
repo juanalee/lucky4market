@@ -30,7 +30,7 @@ function App() {
           <Route path="/register" element={<PreRegisterForm />} />          
           <Route path="/naverAuthCallback" element={<NaverAuthCallback />} />
           <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback />} />
-          <Route path="/productPage" element={<SubMain />} />         
+          <Route path="/productPage/:productNo" element={<SubMain />} />         
           <Route element={<RoleProtectedRoute requiredRole="ROLE_USER" />}>
             <Route path="/myStore" element={<MyStore/>}/>
             <Route path="/myInfo" element={<MyInfo />} />

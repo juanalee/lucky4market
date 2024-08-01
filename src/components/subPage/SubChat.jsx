@@ -243,9 +243,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           </div>
         </div>
         <div className={styles.chat_content_container}>
-          {messages.length > 0 ? renderChatWithDate() : (
-            <p className={styles.noMessages}>채팅 내용이 없습니다.</p>
-          )}
+          {messages.length > 0 && renderChatWithDate() }
           <div ref={messagesEndRef} />
         </div>
         <form onSubmit={sendMessage}>

@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import ProductInfo from './SubProductInfo';
 import styles from './css/SubImageSlider.module.css'; // 모듈 CSS 파일 가져오기
+import { useParams } from 'react-router-dom';
 
 export default function SubImageSlider() {
   const [productImg, setProductImg] = useState([]);
   const [productInfo, setProductInfo] = useState([]);
+  const productNo = useParams().productNo;
 
   useEffect(() => {
     let currentIndex = 0; // 현재 보이는 이미지
@@ -48,9 +50,9 @@ export default function SubImageSlider() {
   useEffect(() => {
     const productImage = async () => {
       try {
-        const productResponse = await axios.get('http://localhost:9999/api/product/productInfo?productNo=19');
+        const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
         setProductInfo(productResponse.data);
-        const response = await axios.get('http://localhost:9999/api/product/productImage?productNo=19');
+        const response = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
         setProductImg(response.data);
       } catch (error) {
         console.error(error);
@@ -73,10 +75,14 @@ export default function SubImageSlider() {
               <div className={styles.productMainImgMove}>
                 <div className={styles.productMainImg}>
                   {productImg.map((img, index) => (
-                    <img key={index} src={img.productImagePath} alt={`Product ${index}`} className={imageClass}/>
+                    <img key={index} src={img.productImagePath} alt={`Product ${index}`} className={`${styles.productMainImage} ${imageClass}`}/>
                   ))}
                     {!imageStyle && 
+                    <>
+                      <div className={styles.productSaleBackground}></div>
+                      <img src='/img/sold_out.png' className={styles.productSaleImg}/>
                       <p className={styles.productSaleStatus}>판매완료</p>
+                    </>
                     }
                 </div>
               </div>
@@ -97,7 +103,7 @@ export default function SubImageSlider() {
               </div>
             </div>
           </div>
-          <ProductInfo productImage={productImg[0]} />
+          <ProductInfo productImage={productImg[0]} productNo={productNo}/>
         </div>
       </div>
     </>
