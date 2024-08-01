@@ -133,7 +133,7 @@ const IdRecoverForm = ({ activeTab }) => {
             required
           />
         </div>
-        <p className={`${styles.recoveryFormErrorText} ${memberNameError ? styles.visible : ''}`}>
+        <p className={`${styles.recoveryFormErrorText} ${memberNameError ? styles.recoveryFormVisible : ''}`}>
           {memberNameError || ' '}
         </p>
         <div className={styles.recoveryFormGroup}>
@@ -175,11 +175,11 @@ const IdRecoverForm = ({ activeTab }) => {
             />
           </div>
         </div>
-        <p className={`${styles.recoveryFormErrorText} ${phoneNoError ? styles.visible : ''}`}>
+        <p className={`${styles.recoveryFormErrorText} ${phoneNoError ? styles.recoveryFormVisible : ''}`}>
           {phoneNoError || ' '}
         </p>
         <div
-          className={`${styles.recoveryResponseMessage} ${!responseMessage ? styles.hidden : ''}`}
+          className={`${styles.recoveryResponseMessage} ${!responseMessage ? styles.recoveryFormHidden : ''}`}
           dangerouslySetInnerHTML={{ __html: responseMessage }}
         />
         <button type="submit" className={styles.recoverySubmitButton} lang="ko">

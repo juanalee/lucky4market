@@ -143,11 +143,21 @@ const PasswdResetForm = ({ activeTab }) => {
   };
 
   const handlePasswdReset = async (newPasswd) => {
+    console.log('Submitting new password:', newPasswd);
     try {
-      console.log('New Password:', newPasswd);
+      const response = await axios.post('http://localhost:9999/api/auth/resetPassword', {
+        memberId,
+        memberPasswd: newPasswd
+      });
+      if (response.data.success) {
+        setResponseMessage('비밀번호가 성공적으로 재설정되었습니다.');
+        navigate('/login'); // Navigate to the login page on successful password reset
+      } else {
+        setResponseMessage('비밀번호 재설정에 실패했습니다.'); // Set failure message if not successful
+      }
     } catch (error) {
-      console.error('Error setting new password:', error);
-      setResponseMessage('비밀번호 설정 중 오류가 발생했습니다.');
+      console.error('Error resetting password:', error);
+      setResponseMessage('비밀번호 설정 중 오류가 발생했습니다.'); // Handle exceptions like network issues, server errors, etc.
     }
   };
 
@@ -169,7 +179,7 @@ const PasswdResetForm = ({ activeTab }) => {
               required
             />
           </div>
-          <p className={`${styles.recoveryFormErrorText} ${memberIdError ? styles.visible : ''}`}>
+          <p className={`${styles.recoveryFormErrorText} ${memberIdError ? styles.recoveryFormVisible : ''}`}>
             {memberIdError || ' '}
           </p>
           <div className={styles.recoveryFormGroup}>
@@ -184,7 +194,7 @@ const PasswdResetForm = ({ activeTab }) => {
               required
             />
           </div>
-          <p className={`${styles.recoveryFormErrorText} ${memberNameError ? styles.visible : ''}`}>
+          <p className={`${styles.recoveryFormErrorText} ${memberNameError ? styles.recoveryFormVisible : ''}`}>
             {memberNameError || ' '}
           </p>
           <div className={styles.recoveryFormGroup}>
@@ -226,7 +236,7 @@ const PasswdResetForm = ({ activeTab }) => {
               />
             </div>
           </div>
-          <p className={`${styles.recoveryFormErrorText} ${phoneNoError ? styles.visible : ''}`}>
+          <p className={`${styles.recoveryFormErrorText} ${phoneNoError ? styles.recoveryFormVisible : ''}`}>
             {phoneNoError || ' '}
           </p>
           {responseMessage && (

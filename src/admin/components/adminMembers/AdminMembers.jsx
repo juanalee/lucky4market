@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MemberService from '../../../services/MemberService';
+import axios from 'axios';
 import AdminHeader from '../adminHeader/AdminHeader';
 import AdminPopup from '../adminPopup/AdminPopup';
 import styles from './AdminMembers.module.css';
@@ -22,11 +22,11 @@ const AdminMembers = () => {
 
   const fetchMembers = async () => {
     try {
-      const response = await MemberService.getAllMembers();
+      const response = await axios.get('http://localhost:9999/admin/allMembers');
       setMembers(response.data);
       setSearchResults(response.data);
     } catch (error) {
-      console.error('회원 정보 가져오기 오류:', error);
+      console.error('회원 목록 가져오기 오류:', error);
     }
   };
 
@@ -39,12 +39,10 @@ const AdminMembers = () => {
   };
 
   const handleSearch = async () => {
-    console.log('검색 버튼 클릭');
+    console.log('Searching for members');
     try {
-      const response = await MemberService.searchMembers({
-        [searchField]: searchTerm,
-      });
-      console.log('검색 결과:', response);
+      const response = await axios.get(`http://localhost:9999/admin/searchMembers?${searchField}=${searchTerm}`);
+      console.log('Search results:', response);
       setSearchResults(response.data);
     } catch (error) {
       console.error('회원 검색 오류:', error);
@@ -54,7 +52,7 @@ const AdminMembers = () => {
   const handleReset = () => {
     setSearchTerm('');
     setSearchResults(members);
-    console.log('조건 및 검색 결과 초기화');
+    console.log('검색 및 필터 초기화');
   };
 
   const handleEdit = (member) => {
@@ -71,8 +69,12 @@ const AdminMembers = () => {
 
   const handleSave = async () => {
     try {
-      console.log('저장하는 회원 정보:', editedMemberData);
-      const response = await MemberService.updateMember(editedMemberData);
+      console.log('저장하려는 회원 정보:', editedMemberData);
+      const response = await axios.put('http://localhost:9999/admin/update', editedMemberData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.data.count === 0) {
         throw new Error(response.data.msg);
       }
@@ -102,11 +104,11 @@ const AdminMembers = () => {
 
   const confirmDelete = async () => {
     try {
-      const response = await MemberService.deleteMember(memberToDelete);
+      const response = await axios.delete(`http://localhost:9999/api/members/${memberToDelete}`);
       setPopupMessage(response.data.msg);
       fetchMembers();
     } catch (error) {
-      console.error('회원 삭제 오류:', error);
+      console.error('Error deleting member:', error);
       setPopupMessage('회원 삭제 오류');
     }
     setIsConfirmation(false);

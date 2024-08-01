@@ -17,9 +17,9 @@ const RegisterMemberForm = () => {
   const [memberIdError, setMemberIdError] = useState('');
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [memberPasswd, setMemberPasswd] = useState('');
-  const [memberPasswdConfirm, setMemberPasswdConfirm] = useState('');
+  const [confirmPasswd, setConfirmPasswd] = useState('');
   const [passwdError, setPasswdError] = useState('');
-  const [passwdConfirmError, setPasswdConfirmError] = useState('');
+  const [confirmPasswdError, setConfirmPasswdError] = useState('');
   const [emailId, setEmailId] = useState('');
   const [emailDomain, setEmailDomain] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -46,7 +46,6 @@ const RegisterMemberForm = () => {
     }
   }, [state]);
 
-
   useEffect(() => {
     if (shouldNavigate) {
       navigate('/register');
@@ -63,13 +62,40 @@ const RegisterMemberForm = () => {
   const handlePasswdChange = (e) => {
     const value = e.target.value;
     setMemberPasswd(value);
-    setPasswdError(''); // 값이 바뀌면 오류 메시지 클리어
+    if (!value.trim() || value.length < 8 || !/[A-Za-z]/.test(value) || !/\d/.test(value)) {
+      setPasswdError('비밀번호는 다음 조건을 만족해야 합니다: 8자리 이상 / 영문자, 숫자 혼합');
+    } else {
+      setPasswdError('');
+    }
+    if (confirmPasswd && value !== confirmPasswd) {
+      setConfirmPasswdError('비밀번호가 일치하지 않습니다');
+    } else {
+      setConfirmPasswdError('');
+    }
   };
 
-  const handlePasswdConfirmChange = (e) => {
+  const handlePasswdBlur = () => {
+    if (!memberPasswd.trim()) {
+      setPasswdError('비밀번호를 입력해 주세요');
+    }
+  };
+
+  const handleConfirmPasswdChange = (e) => {
     const value = e.target.value;
-    setMemberPasswdConfirm(value);
-    setPasswdConfirmError(''); // 값이 바뀌면 오류 메시지 클리어
+    setConfirmPasswd(value);
+    if (memberPasswd !== value) {
+      setConfirmPasswdError('비밀번호가 일치하지 않습니다');
+    } else {
+      setConfirmPasswdError('');
+    }
+  };
+
+  const handleConfirmPasswdBlur = () => {
+    if (!confirmPasswd.trim()) {
+      setConfirmPasswdError('비밀번호 확인을 입력해 주세요');
+    } else if (confirmPasswd !== memberPasswd) {
+      setConfirmPasswdError('비밀번호가 일치하지 않습니다');
+    }
   };
 
   const handleEmailIdChange = (e) => {
@@ -110,6 +136,7 @@ const RegisterMemberForm = () => {
       setEmailError('');
     }
   };
+
   const checkDuplicateMemberId = async () => {
     if (!memberId.trim()) {
       setMemberIdError('사용하려는 아이디를 입력해 주세요');
@@ -149,7 +176,7 @@ const RegisterMemberForm = () => {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     console.log('Register button clicked');
     if (!state?.memberName || !state?.memberPhoneNo) {
@@ -187,11 +214,11 @@ const RegisterMemberForm = () => {
       setPasswdError('');
     }
 
-    if (memberPasswd !== memberPasswdConfirm) {
-      setPasswdConfirmError('비밀번호가 일치하지 않습니다');
+    if (memberPasswd !== confirmPasswd) {
+      setConfirmPasswdError('비밀번호가 일치하지 않습니다');
       hasError = true;
     } else {
-      setPasswdConfirmError('');
+      setConfirmPasswdError('');
     }
 
     if (!emailId.trim() || !emailDomain.trim()) {
@@ -208,7 +235,7 @@ const RegisterMemberForm = () => {
       console.log('Validation errors:', {
         memberIdError,
         passwdError,
-        passwdConfirmError,
+        confirmPasswdError,
         emailError,
       });
       return;
@@ -250,7 +277,7 @@ const RegisterMemberForm = () => {
         <div className={registerStyles.registerFormLeft}>
           <div className={registerStyles.registerFormTitle}>Join</div>
         </div>
-        <div className={registerStyles.registerFormRight}>
+        <div className={`${registerStyles.registerFormRight} ${isAgreementOpen ? registerStyles.expanded : ''}`}>
           {loading ? (
             <div className={registerStyles.registerFormLoadingSpinner}>
               <div className={registerStyles.registerFormSpinner}></div>
@@ -293,6 +320,7 @@ const RegisterMemberForm = () => {
                     id="memberPasswd"
                     value={memberPasswd}
                     onChange={handlePasswdChange}
+                    onBlur={handlePasswdBlur}
                     required
                   />
                 </div>
@@ -308,14 +336,15 @@ const RegisterMemberForm = () => {
                     className={registerStyles.registerFormInputField}
                     type="password"
                     id="memberPasswdConfirm"
-                    value={memberPasswdConfirm}
-                    onChange={handlePasswdConfirmChange}
+                    value={confirmPasswd}
+                    onChange={handleConfirmPasswdChange}
+                    onBlur={handleConfirmPasswdBlur}
                     required
                   />
                 </div>
-                <p className={`${registerStyles.registerFormErrorText} ${passwdConfirmError ? registerStyles.visible : ''}`}
-                  style={{ visibility: passwdConfirmError ? 'visible' : 'hidden' }}>
-                  {passwdConfirmError || ' '}
+                <p className={`${registerStyles.registerFormErrorText} ${confirmPasswdError ? registerStyles.visible : ''}`}
+                  style={{ visibility: confirmPasswdError ? 'visible' : 'hidden' }}>
+                  {confirmPasswdError || ' '}
                 </p>
                 <div className={registerStyles.registerFormInputBox}>
                   <label htmlFor="email">이메일</label>
@@ -327,6 +356,11 @@ const RegisterMemberForm = () => {
                       value={emailId}
                       onChange={handleEmailIdChange}
                       required
+                      onBlur={() => {
+                        if (!emailId.trim() || !emailDomain.trim()) {
+                          setEmailError('이메일 주소를 입력해 주세요');
+                        }
+                      }}
                     />@
                     <input
                       className={registerStyles.registerFormEmailInputField}
@@ -336,6 +370,11 @@ const RegisterMemberForm = () => {
                       onChange={handleEmailDomainChange}
                       readOnly={emailOption !== "직접 입력"}
                       required
+                      onBlur={() => {
+                        if (!emailDomain.trim()) {
+                          setEmailError('이메일 도메인을 입력해 주세요');
+                        }
+                      }}
                     />
                     <select
                       className={`${registerStyles.registerFormEmailInputField} ${emailOption ? registerStyles.shrink : ''}`}
@@ -360,7 +399,7 @@ const RegisterMemberForm = () => {
                     <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
                     <span className={registerStyles.consentCheckmark}></span>
                   </label>
-                  <span>개인정보 수집 이용 동의 (필수)</span>
+                  <span className={registerStyles.consentText}>개인정보 수집 이용 동의 (필수)</span>
                   <div className={registerStyles.agreementArrow}><img src="/img/down_arrow.png" alt="Toggle agreement section" /></div>
                 </div>
                 <div className={`${registerStyles.agreementSection} ${isAgreementOpen ? registerStyles.open : ''}`}>

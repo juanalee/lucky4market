@@ -15,6 +15,7 @@ const LoginForm = () => {
     const [memberId, setMemberId] = useState('');
     const [memberPasswd, setMemberPasswd] = useState('');
     const [error, setError] = useState('');
+    const [passwdError, setPasswdError] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [popupTab, setPopupTab] = useState('id');
     const [showModal, setShowModal] = useState(false);
@@ -29,7 +30,6 @@ const LoginForm = () => {
             setShowModal(true);
         }
     }, [isAuthenticated]);
-
 
     useEffect(() => {
         let current = null;
@@ -86,11 +86,26 @@ const LoginForm = () => {
     }
 
     const handlePopupClose = () => {
-        setShowPopup(false);
+        if (window.confirm('이 페이지에서 나가시겠습니까?')) {
+            setShowPopup(false);
+        }
+    };
+
+    const handlePasswdChange = (e) => {
+        const value = e.target.value;
+        setMemberPasswd(value);
+        setPasswdError(''); // Clear error message when value changes
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        // Validate password
+        if (!memberPasswd.trim() || memberPasswd.length < 8 || !/[a-z]/.test(memberPasswd) || !/\d/.test(memberPasswd)) {
+            setPasswdError('비밀번호는 8자리 이상이고 영문 소문자 및 숫자가 포함되어야 합니다.');
+            return;
+        }
+
         try {
             const response = await axios.post('http://localhost:9999/api/auth/login', {
                 memberId,
@@ -153,9 +168,10 @@ const LoginForm = () => {
             <div className={styles.loginFormContainer}>
                 <div className={styles.loginFormLeft}>
                     <div className={styles.loginFormLogin}>
-                        <Slide show={showAnimation}>Login</Slide>
+                        <Slide show={showAnimation} ><div className={styles.loginFormTitle}>Login</div></Slide>
                     </div>
                     {error && <div className={styles.loginFormErrormessages}>{error}</div>}
+                    {passwdError && <div className={styles.loginFormErrormessages}>{passwdError}</div>}
                 </div>
                 <div className={styles.loginFormRight}>
                     <svg className={styles.svgBackground} viewBox="0 0 320 600">
@@ -166,7 +182,7 @@ const LoginForm = () => {
                             </linearGradient>
                         </defs>
                         <path id="mainPath" className={styles.loginFormPath} d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984" fill="none" />
-                        <path id="hoverPath" className={`${styles.loginFormPath} ${styles.loginFormHiddenPath}`} d="m 65, 320.00032 h 190 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 190 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190" fill="none" />
+                        <path id="hoverPath" className={`${styles.loginFormPath} ${styles.loginFormHiddenPath}`} d="m 65, 320 h 190 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 190 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190" fill="none" />
                     </svg>
                     <div className={styles.loginFormInput}>
                         <form onSubmit={handleLogin}>
@@ -185,7 +201,7 @@ const LoginForm = () => {
                                 type="password"
                                 id="memberPasswd"
                                 value={memberPasswd}
-                                onChange={(e) => setMemberPasswd(e.target.value)}
+                                onChange={handlePasswdChange}
                                 required
                             />
                             <div className={styles.idPasswdRecovery}>
