@@ -3,9 +3,9 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import styles from "./css/MyPageAddress.module.css";
 
 export default function MyPageAddress({ postalCode, address, detailAddress, onAddressChange }) {
-  const [localPostalCode, setLocalPostalCode] = useState(postalCode);
-  const [localAddress, setLocalAddress] = useState(address);
-  const [localDetailAddress, setLocalDetailAddress] = useState(detailAddress);
+  const [myPostalCode, setMyPostalCode] = useState(postalCode);
+  const [myAddress, setMyAddress] = useState(address);
+  const [myDetailAddress, setMyDetailAddress] = useState(detailAddress);
 
   const open = useDaumPostcodePopup();
 
@@ -25,11 +25,11 @@ export default function MyPageAddress({ postalCode, address, detailAddress, onAd
       fullAddress = data.jibunAddress;
     }
 
-    setLocalPostalCode(data.zonecode); // 우편번호 설정
-    setLocalAddress(fullAddress); // 주소 설정
+    setMyPostalCode(data.zonecode); // 우편번호 설정
+    setMyAddress(fullAddress); // 주소 설정
 
     // 부모 컴포넌트에 주소 변경 통지
-    onAddressChange(data.zonecode, fullAddress, localDetailAddress);
+    onAddressChange(data.zonecode, fullAddress, myDetailAddress);
   };
 
   const handleClick = () => {
@@ -37,8 +37,8 @@ export default function MyPageAddress({ postalCode, address, detailAddress, onAd
   };
 
   const handleDetailAddressChange = (e) => {
-    setLocalDetailAddress(e.target.value);
-    onAddressChange(localPostalCode, localAddress, e.target.value);
+    setMyDetailAddress(e.target.value);
+    onAddressChange(myPostalCode, myAddress, e.target.value);
   };
 
   return (
@@ -48,7 +48,7 @@ export default function MyPageAddress({ postalCode, address, detailAddress, onAd
           className={styles.my_page_postal_code}
           type="text"
           placeholder="우편번호"
-          value={localPostalCode}
+          value={myPostalCode}
           readOnly
         />
         <button
@@ -63,14 +63,14 @@ export default function MyPageAddress({ postalCode, address, detailAddress, onAd
         className={styles.my_page_address}
         type="text"
         placeholder="주소"
-        value={localAddress}
+        value={myAddress}
         readOnly
       />
       <input
         className={styles.my_page_detail_address}
         type="text"
         placeholder="상세 주소"
-        value={localDetailAddress}
+        value={myDetailAddress}
         onChange={handleDetailAddressChange} // 상세 주소 업데이트
       />
     </div>

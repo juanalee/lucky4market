@@ -12,6 +12,8 @@ export default function MyPageMyInfo() {
   const [emailOption, setEmailOption] = useState('');
   const [formData, setFormData] = useState({
     memberId: '',
+    memberPassword: '',
+    memberPasswordConfirm: '',
     memberName: '',
     memberNick: '',
     memberPhoneNumber1: '',
@@ -21,9 +23,7 @@ export default function MyPageMyInfo() {
     memberEmailDomain: '',
     memberPostalCode: '',
     memberAddress: '',
-    memberDetailAddress: '',
-    memberPassword: '',
-    memberPasswordConfirm: ''
+    memberDetailAddress: ''
   });
 
   const memberId = MyPageMemberId();
@@ -34,11 +34,14 @@ export default function MyPageMyInfo() {
       const myInfoData = async () => {
         try {
           const response = await axios.get(`http://localhost:9999/api/member/myPageMyInfo/${memberId}`);
+          console.log(response.data);
           const data = response.data[0] || {};
           setInfoData(response.data);
           setEmailDomain(data.memberEmailDomain || '');
           setFormData({
             memberId: data.memberId || '',
+            memberPassword: '',
+            memberPasswordConfirm: '',
             memberName: data.memberName || '',
             memberNick: data.memberNick || '',
             memberPhoneNumber1: data.memberPhoneNumber1 || '',
@@ -46,11 +49,9 @@ export default function MyPageMyInfo() {
             memberPhoneNumber3: data.memberPhoneNumber3 || '',
             memberEmailId: data.memberEmailId || '',
             memberEmailDomain: data.memberEmailDomain || '',
-            memberAddress: data.memberAddress || '',
             memberPostalCode: data.memberPostalCode || '',
-            memberDetailAddress: data.memberDetailAddress || '',
-            memberPassword: '',
-            memberPasswordConfirm: ''
+            memberAddress: data.memberAddress || '',
+            memberDetailAddress: data.memberDetailAddress || ''
           });
         } catch (error) {
           console.error("데이터를 가져오는 중 오류가 발생했습니다:", error);
@@ -89,7 +90,7 @@ export default function MyPageMyInfo() {
 
       await axios.put('http://localhost:9999/api/member/myPageMyInfo/update', {
         ...otherFields,
-        memberPasswd : memberPassword,
+        memberPasswd: memberPassword,
         memberEmailDomain: emailDomain,
         memberAddress: formData.memberAddress,
         memberPostalCode: formData.memberPostalCode,
@@ -124,7 +125,7 @@ export default function MyPageMyInfo() {
                       <div className={styles.my_info_profile_container2}>
                         <div className={styles.my_info_profile_guide}><span className={styles.my_info_asterisk}>*</span>원하는 프로필 사진을 등록하세요.</div>
                         <div className={styles.my_info_button_container1}>
-                          <input className={styles.my_info_choice_button} type="file"/>
+                          <input className={styles.my_info_file_select_button} type="file"/>
                         </div>
                       </div>
                     </div>
