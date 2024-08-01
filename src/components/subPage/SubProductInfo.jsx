@@ -38,11 +38,10 @@ const ProductInfo = ({ productImage }) => {
   const [productMemberId, setProductMemberId] = useState(null);
   const [likeMsgOpen, setLikeMsgOpen] = useState(false);
   const [likeMsg, setLikeMsg] = useState("");
-
+  const [buyerInfo, setBuyerInfo] = useState("");
 
   // Update profileSub when profile changes
   useEffect(() => {
-    console.log(profile);
     if (profile?.sub !== profileSub) {
       setProfileSub(profile?.sub || null);
     }
@@ -141,7 +140,7 @@ const ProductInfo = ({ productImage }) => {
     }
   }, [isAuthenticated, profileSub, navigateLogin]);
 
-  const buyWidth = useCallback(() => {
+  const buyWidth = useCallback(async () => {
     navigateLogin();
     setIsPurchaseOpen(true);
   }, [navigateLogin]);

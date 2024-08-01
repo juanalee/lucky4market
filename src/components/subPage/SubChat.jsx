@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Stomp } from '@stomp/stompjs';
 import axios from 'axios';
 import Backdrop from './SubOverlay';
 import styles from './css/SubChat.module.css';
+import { AuthContext } from '../../services/AuthContext';
 
 function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roomId }) {
   const [messages, setMessages] = useState([]);
@@ -10,6 +11,14 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
   const [message, setMessage] = useState("");
   const stompClient = useRef(null);
   const messagesEndRef = useRef(null);
+  const { profile} = useContext(AuthContext);
+  const [profileSub, setProfileSub] = useState(profile?.sub || null);
+
+  useEffect(() => {
+    if (profile?.sub !== profileSub) {
+      setProfileSub(profile?.sub || null);
+    }
+  }, [profile?.sub, profileSub]);
 
   useEffect(() => {
     if (isChatOpen) {
@@ -67,7 +76,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       const messageObj = {
         chatNo: roomId,
         receiverId: sellerId,
-        senderId: 'member22', // 현재 사용자 ID로 수정
+        senderId: profileSub, // 현재 사용자 ID로 수정
         chatContent: message,
         productNo: productInfo.productNo
       };
@@ -86,17 +95,32 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       formData.append('file', file);
 
       try {
-        const response = await axios.post('http://localhost:9999/uploadFile', formData, {
+        const response = await axios.post('http://localhost:9999/images/productImg/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
-        console.log(response.data);
+        const { preSignedUrl, objectKey } = response.data;
+        console.log('Received preSignedUrl:', preSignedUrl);
+        console.log('Object Key:', objectKey);
+
+        // S3 PUT request용으로 axios 인터셉터를 피하기 위한 새로운 axios 인스턴스 생성
+        const s3Axios = axios.create();
+
+        // pre-signed URL을 사용해 AWS S3에 파일 업로드
+        console.log(file);
+        await s3Axios.put(preSignedUrl, file, {
+          headers: {
+            'Content-Type': file.type
+          },
+        });
+        const baseUrl = preSignedUrl.split("?")[0];
+        console.log(baseUrl);
         const messageObj = {
           chatNo: roomId,
-          receiverId: 'member22',
-          senderId: sellerId, // 현재 사용자 ID로 수정
-          chatContent: response.data.filePath, // 파일 경로 또는 파일 이름
+          receiverId: sellerId,
+          senderId: profileSub, // 현재 사용자 ID로 수정
+          chatContent: baseUrl, // 파일 경로 또는 파일 이름
           productNo: productInfo.productNo
         };
         stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
@@ -155,14 +179,14 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       const chatDateMain = `${period} ${formattedHour}시 ${formattedMinute}분`;
       
       const chatContent = item.chatContent && item.chatContent || "";
-      const isImage = chatContent && chatContent.startsWith('/file/ajax/down/') && chatContent.match(/\.(jpg|jpeg|png|gif)$/);
+      const isImage = chatContent && chatContent.startsWith('https://lucky4market');
       
       if (!chatContent) {
         return null;
       }
 
       const messageContent = isImage ? (
-          <img src={`http://localhost:9999${chatContent}`} alt="이미지" className={styles.chatImage} />
+          <img src={chatContent} alt="이미지" className={styles.chatImage} />
       ) : (
           <p className={item.senderId === sellerId ? styles.messageReceiverStyle : styles.messageSenderStyle}>{chatContent}</p>
       );
@@ -212,7 +236,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           <h2>{sellerId}</h2>
         </div>
         <div className={styles.main_chat_product_info}>
-          <img src={productImage ? productImage.productImagePath : '/img/default_product.png'} alt="Product" />
+          <img src={productImage && productImage.productImagePath} alt="Product" />
           <div>
             <h3>{productInfo ? productInfo.productPrice.toLocaleString() : '가격정보 없음'}원</h3>
             <p>{productInfo ? productInfo.productTitle : '제목 없음'}</p>

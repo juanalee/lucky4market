@@ -28,7 +28,6 @@ export default function Header() {
   };
 
   useEffect(() => {
-    console.log('Header isAuthenticated', isAuthenticated);
   }, [isAuthenticated]);
 
   const handleLogout = () => {
@@ -50,7 +49,7 @@ export default function Header() {
             ) : (
               <Link to="/login">로그인/회원가입</Link>
             )}
-            <Link to="#">내상점</Link>
+            <Link to="/mystore">내상점</Link>
           </div>
           <div className={styles.search_container}>
             <input type='text' name='search' placeholder='검색어를 입력하세요' />
@@ -58,7 +57,6 @@ export default function Header() {
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
               <li className={styles.first_category}>
-                <div className={styles.menu_container}></div>
                 <div className={styles.menu}>
                   <img src='/img/menu.png' className={styles.menu_bar} alt='menu' />
                   <p>카테고리</p>

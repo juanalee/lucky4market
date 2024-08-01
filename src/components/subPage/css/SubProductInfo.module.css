@@ -7,11 +7,14 @@
 .detailReport {
   overflow: hidden; /* 내용이 넘칠 경우 숨기기 */
   transition: height 0.5s ease-out; /* 높이 애니메이션 */
-  height: 70px; /* 기본 높이 0 */
+  height: 50px; /* 기본 높이 0 */
   position: relative;
   padding: 20px;
 }
 
+.detailReport p {
+  margin-top: 10px;
+}
 
 /* 텍스트영역과 버튼의 위치 조정 */
 .report textarea {
@@ -41,7 +44,7 @@
 
 .report_height{
   position: absolute;
-  top: 30px;
+  top: 35px;
   right: 30px;
   cursor: pointer;
   width: 20px;
@@ -257,6 +260,7 @@
   right: 300px;
   overflow: auto;
   margin-top: 170px;
+  box-sizing: border-box;
 }
 
 .report_container h2 {

@@ -18,12 +18,11 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId}) => {
   const [newProductInfo, setNewProductInfo] = useState([]);
   const [followOpen, setFollowOpen] = useState(false);
   const [followMsg, setFollowMsg] = useState("");
+  const timerRef = useRef(null);
   const { profile, isAuthenticated } = useContext(AuthContext);
   const [profileSub, setProfileSub] = useState(profile?.sub || null);
-  const timerRef = useRef(null);
 
   useEffect(() => {
-    console.log(profile);
     if (profile?.sub !== profileSub) {
       setProfileSub(profile?.sub || null);
     }

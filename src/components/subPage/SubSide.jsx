@@ -13,7 +13,6 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
     const [profileSub, setProfileSub] = useState(profile?.sub || null);
 
     useEffect(() => {
-        console.log(profile);
         if (profile?.sub !== profileSub) {
             setProfileSub(profile?.sub || null);
         }
@@ -57,6 +56,14 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
     }, [profileSub]);
 
     useEffect(() => {
+        if(!isAuthenticated){
+            return;
+        }
+
+        if (!profileSub) {
+            return;
+          }
+
         fetchAddressInfo();
     }, [fetchAddressInfo]);
 
@@ -369,7 +376,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                         <h2>최종 결제 금액</h2>
                         <p className={styles.last_price}>{productInfo.productPrice.toLocaleString()}원</p>
                     </div>
-                    <Payment buyMethod={buyMethod} productNo={19} />
+                    <Payment buyMethod={buyMethod} productNo={19} addressInfo={addressInfo} productInfo={productInfo}/>
                 </div>
             </div>
             <div className={`${styles.address_side} ${addressClass}`}>

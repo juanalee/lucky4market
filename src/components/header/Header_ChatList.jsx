@@ -71,7 +71,7 @@ const Chat = ({ isChatOpen, onClose }) => {
     if (otherIds.length === 0) return;
 
     try {
-      const response = await axios.post('http://localhost:9999/buyerProfile', { memberId: otherIds });
+      const response = await axios.post('http://localhost:9999/api/member/buyerProfile', { memberId: otherIds });
       setProfiles(response.data);
     } catch (error) {
       console.error("Error fetching chat profiles:", error);
@@ -124,7 +124,7 @@ const Chat = ({ isChatOpen, onClose }) => {
           chatRooms.map((room, index) => {
             const profileId = room.senderId === profileSub ? room.receiverId : room.senderId;
             const profileSame = profiles.find(profile => profile.MEMBERID === profileId) || {};
-            const profileImage = profileSame.PROFILEPATH || '/img/basic.png';
+            const profileImage = profileSame.PROFILEPATH || '/img/store_basic.png';
             const chatDate = room.chatDate ? new Date(room.chatDate).toLocaleDateString('ko-KR') : '날짜 없음';
 
             return (
@@ -140,7 +140,7 @@ const Chat = ({ isChatOpen, onClose }) => {
                     <span>{chatDate}</span>
                   </div>
                   <p>
-                    {room.chatContent && room.chatContent.startsWith('/file/ajax/down/') && /\.(jpg|jpeg|png|gif)$/.test(room.chatContent) ?
+                    {room.chatContent && room.chatContent.startsWith('https://lucky4market') ?
                       '이미지' :
                       room.chatContent
                     }

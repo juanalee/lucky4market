@@ -13,8 +13,8 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
   }, [resetAddress]);
 
 
+  
   const handleComplete = (data) => {
-    console.log(data);
     const fullAddress = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
     const address = {
       fullAddress,
