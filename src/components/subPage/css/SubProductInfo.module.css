@@ -148,6 +148,7 @@
   gap: 3px;
   color: black;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .product_report img {
@@ -372,12 +373,40 @@
   font-size: 32px;
   text-align: center;
   z-index: 1001;
-  border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   opacity: 0;
   transition: 0.5s opacity;
+  padding: 30px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  box-sizing: border-box;
 }
 
 .productStatusUpdate.open{
   opacity: 1;
 }
 
+.productStatusItem{
+  cursor: pointer;
+}
+
+.statusModalContainer{
+  position: fixed;
+  width: 400px;
+  background-color: #4C4C4C;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 30px;
+  right: calc(50% - 175px);
+  color: white;
+  bottom: -100px;
+  transition: bottom 1s ease-in-out;
+  z-index: 102;
+}
+
+.statusModalContainer.statusShow{
+  bottom: 150px;
+}

@@ -3,10 +3,9 @@ import Header from "../header/Header";
 import ImageSlider from "./SubImageSlider";
 
 export default () => {
-
   return (
     <>
-      <Header/>/
+      <Header />/
       <ImageSlider/>         
     </>
   );

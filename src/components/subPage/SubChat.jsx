@@ -236,7 +236,9 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           <h2>{sellerId}</h2>
         </div>
         <div className={styles.main_chat_product_info}>
-          <img src={productImage && productImage.productImagePath} alt="Product" />
+          <a href={`/productPage/${productInfo && productInfo.productNo}`}>
+            <img src={productImage ? productImage.productImagePath : '/img/product_basic.png'} alt="Product" />
+          </a>
           <div>
             <h3>{productInfo ? productInfo.productPrice.toLocaleString() : '가격정보 없음'}원</h3>
             <p>{productInfo ? productInfo.productTitle : '제목 없음'}</p>

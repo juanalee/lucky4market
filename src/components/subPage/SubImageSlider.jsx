@@ -2,26 +2,29 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductInfo from './SubProductInfo';
 import styles from './css/SubImageSlider.module.css'; // 모듈 CSS 파일 가져오기
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function SubImageSlider() {
   const [productImg, setProductImg] = useState([]);
-  const [productInfo, setProductInfo] = useState([]);
+  const [productInfo, setProductInfo] = useState(null); // 초기값을 null로 설정
+  const [productStatus, setProductStatus] = useState(null); // 초기값을 null로 설정
   const { productNo } = useParams(); // useParams를 이용해 productNo 가져오기
+  const navigate = useNavigate();
+
+  const fetchData = async () => {
+    try {
+      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
+      setProductInfo(productResponse.data);
+      setProductStatus(productResponse.data.productSale);
+
+      const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
+      setProductImg(imageResponse.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
-        setProductInfo(productResponse.data);
-        
-        const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
-        setProductImg(imageResponse.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
   }, [productNo]); // productNo를 의존성 배열에 추가
 
@@ -35,7 +38,7 @@ export default function SubImageSlider() {
 
     function moveSlider(num) {
       sliderMove.style.transition = "all 400ms";
-      sliderMove.style.transform = `translateX(${-500 * num}px)`;
+      sliderMove.style.transform = `translateX(${-550 * num}px)`;
       currentIndex = num;
 
       let dotActive = document.querySelectorAll(`.${styles.sliderDot} .${styles.dot}`);
@@ -62,12 +65,36 @@ export default function SubImageSlider() {
         btn.onclick = handleNext;
       }
     });
-  }, [productImg]); 
-
-  const imageStyle1 = productInfo.productSale === '완료';
-  const imageStyle2 = productInfo.productSale === '예약';
+  }, [productImg]);
+  
+  const imageStyle1 = productInfo?.productSale === '판매완료';
+  const imageStyle2 = productInfo?.productSale === '예약중';
   const imageClass1 = imageStyle1 ? '' : styles.imageSale;
   const imageClass2 = imageStyle2 ? '' : styles.imageSale;
+  
+  const backHome = () => {
+    navigate('/');
+  };
+  
+  if (productStatus === '삭제') {
+    return (
+      <div className={styles.deleteScreenContainer}>
+        <img src="/img/exclamation.png" alt="삭제된 상품" />
+        <h2>해당 상품은 삭제되었습니다</h2>
+        <button className={styles.deleteScreenBtn} onClick={backHome}>홈으로 돌아가기</button>
+      </div>
+    );
+  }
+
+  if (!productInfo) {
+    return (
+      <div className={styles.deleteScreenContainer}>
+        <img src="/img/exclamation.png" alt="존재하지 않는 상품" />
+        <h2>관련 상품이 없습니다</h2>
+        <button className={styles.deleteScreenBtn} onClick={backHome}>홈으로 돌아가기</button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -86,8 +113,8 @@ export default function SubImageSlider() {
                       src={img.productImagePath}
                       alt={`Product ${index}`}
                       className={`${styles.productMainImage} ${imageClass1} ${imageClass2}`}
-                    />
-                  ))}
+                      />
+                    ))}
                   {imageStyle1 && 
                     <>
                       <div className={styles.productSaleBackground}></div>
@@ -117,8 +144,8 @@ export default function SubImageSlider() {
               <div className={styles.sliderDot}>
                 {productImg.length > 1 && productImg.map((_, index) => (
                   <span
-                    key={index}
-                    className={`${styles.dot} ${index === 0 ? styles.active : ''}`}
+                  key={index}
+                  className={`${styles.dot} ${index === 0 ? styles.active : ''}`}
                   ></span>
                 ))}
               </div>

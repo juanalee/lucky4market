@@ -41,6 +41,10 @@ const ProductInfo = ({ productImage ,productNo}) => {
   const [likeMsgOpen, setLikeMsgOpen] = useState(false);
   const [likeMsg, setLikeMsg] = useState("");
   const [statusOpen, setStatusOpen] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [statusShow, setStatusShow] = useState(false);
+  const [status, setStatus] = useState('');
+  const [deleteOpen, setDeleteOpen] = useState('');
   // Update profileSub when profile changes
   useEffect(() => {
     if (profile?.sub !== profileSub) {
@@ -68,7 +72,7 @@ const ProductInfo = ({ productImage ,productNo}) => {
       }
 
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error(error);
     }
   }, [profileSub]);
 
@@ -114,7 +118,6 @@ const ProductInfo = ({ productImage ,productNo}) => {
     }
 
     if (!profileSub) {
-      console.warn("Profile is not defined.");
       return;
     }
 
@@ -174,7 +177,7 @@ const ProductInfo = ({ productImage ,productNo}) => {
         setRoomId(newChatRoomResponse.data.chatNo);
       }
     } catch (error) {
-      console.error('Error occurred during chat operation:', error);
+      console.error(error);
     }
 
     setIsChatOpen(true);
@@ -194,9 +197,55 @@ const ProductInfo = ({ productImage ,productNo}) => {
   const statusUpdateClose = () => {
     setStatusOpen(false)
   }
+  const statusDeleteOpen = () => {
+    setDeleteOpen(true);
+  }
+  const statusDeleteClose = () => {
+    setDeleteOpen(false)
+  }
 
   const statusUpdateClass = statusOpen ? styles.open : '';
 
+  useEffect(() => {
+    const updateProductStatus = async () => {
+      if (status) { // status가 비어있지 않을 때만 실행
+        try {
+          await axios.put(`http://localhost:9999/productStatusUpdate?status=${status}&productNo=${productNo}`);
+          setMessage(status === '판매완료' ? `${status}로 처리되었습니다` : `${status}으로 변경되었습니다`);
+          statusUpdateClose();
+          setStatusShow(true);
+
+          setTimeout(() => {
+            setStatusShow(false);
+          }, 1500);
+          setTimeout(() => {
+            navigate(0);
+          }, 2500);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    updateProductStatus();
+  }, [status]); // status가 변경될 때마다 실행
+
+  const deleteProductStatus = async () => {
+    try {
+      await axios.put(`http://localhost:9999/ProductStatusDelete?productNo=${productNo}`);
+      setMessage("삭제되었습니다");
+      statusDeleteClose();
+      setStatusShow(true);
+
+      setTimeout(() => {
+        setStatusShow(false);
+      }, 1500);
+      setTimeout(() => {
+        navigate('/');
+      }, 2500);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <div className={styles.product_information}>
@@ -208,7 +257,7 @@ const ProductInfo = ({ productImage ,productNo}) => {
           {categoryInfo?.length > 0 && <Link to="#">{categoryInfo[0]?.categoryName}</Link>}
         </div>
         <p className={styles.product_title}>{productInfo.productTitle}</p>
-        <p className={styles.product_price}>{productInfo.productPrice.toLocaleString()}원</p>
+        <p className={styles.product_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
         <div className={styles.product_sub_information}>
           <div className={styles.product_sub_info}>
             <div className={styles.product_create}>
@@ -256,7 +305,7 @@ const ProductInfo = ({ productImage ,productNo}) => {
           <li>거래희망 지역 - {deliveryInfo.tradiArea}</li>
           {deliveryInfo.deliveryCharge !== 0 && (
             <li>
-              배송비 - {deliveryInfo.deliveryCharge.toLocaleString()}원
+              배송비 - {deliveryInfo && deliveryInfo.deliveryCharge.toLocaleString()}원
             </li>
           )}
         </ul>
@@ -287,16 +336,20 @@ const ProductInfo = ({ productImage ,productNo}) => {
             onClick={statusUpdateClose}
           />
           <div className={`${styles.productStatusUpdate} ${statusUpdateClass}`}>
-            <p>판매중</p>
-            <p>판매완료</p>
-            <p>예약중</p>
+            <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>판매중</p>
+            <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>판매완료</p>
+            <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>예약중</p>
           </div>
           <span className={styles.line}></span>
-          <div className={styles.myProductUpdateItem}>
+          <SubOverlay 
+            show={deleteOpen}
+            onClick={statusDeleteClose}
+          />
+          <div className={styles.myProductUpdateItem} onClick={statusDeleteOpen}>
             <img src='/img/delete.png'></img>
-            상품삭제
+            상품삭제  
           </div>
-          <ModalPopup />
+          <ModalPopup show={deleteOpen} onClose={statusDeleteClose} onConfirm={deleteProductStatus} message={'삭제하시겠습니까?'} isConfirmation={true}/>
         </div>
         }
       </div>
@@ -307,11 +360,12 @@ const ProductInfo = ({ productImage ,productNo}) => {
           <p>{productInfo.productContent}</p>
         </div>
       </div>
-
       <div className={`${styles.likeContainer} ${likeMsgOpen ? styles.show : ''}`}>
         <p>{likeMsg}</p>
       </div>
-
+      <div className={`${styles.statusModalContainer} ${statusShow ? styles.statusShow : ''}`}>
+        <p>{message}</p>
+      </div>
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo} />
       <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} sellerId={productMemberId} roomId={roomId} />
       {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} sellerId={productMemberId} productNo={productNo}/>}

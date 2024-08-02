@@ -61,7 +61,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
     try {
       await axios.get(`http://localhost:9999/insertFollow?buyerId=${profileSub}&sellerId=${sellerId}`);
     } catch (error) {
-      console.error('Error occurred during follow operation:', error);
+      console.error(error);
       // 실패 시 상태 원복
       setIsFollowing(prevState => !prevState);
     }
@@ -99,7 +99,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
 
         const naverResponse = await axios.get(URL, {
           params: {
-            query: categoryInfo.categoryName,
+            query: productTitle,
             display: 20,
           },
           headers: {
@@ -109,13 +109,13 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
         });
         setNewProductInfo(naverResponse.data.items);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error(error);
       }
     };
 
     fetchData();
   }, [categoryInfo.categoryNo, productTitle, profileSub, sellerId]);
-
+  
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -123,10 +123,10 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
       }
     };
   }, []);
-
+  
   const remainingProducts = storeInfo.length > 0 ? storeInfo[0].saleCount - (1 + sellerImageCount.current.length) : 0;
   const remainingReviews = storeInfo.filter(item => item.review !== null).length;
-
+  
   return (
     <>
       <div className={styles.product_content_container}>
@@ -166,7 +166,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
                             sellerImageCount.current.push(el);
                           }
                         }} 
-                      />
+                        />
                     </a>
                     <p className={styles.sellerProductTitle}>{img.title}</p>
                     <p className={styles.sellerProductPrice}>{Number(img.price).toLocaleString()}원</p>
@@ -199,7 +199,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
                         <img 
                           src={matchingImg.PRODUCT_IMAGE_PATH} 
                           alt={`Product ${item.productNo}`} 
-                        />
+                          />
                         <p>{item.productTitle}</p>
                         <p className={styles.categoryProductPrice}>{Number(item.productPrice).toLocaleString()}원</p>
                       </a>
@@ -222,7 +222,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
                     <img 
                       src={item.image} 
                       alt={`Product ${index}`} 
-                    />
+                      />
                     <p dangerouslySetInnerHTML={{ __html: item.title }} className={styles.newProductTitle}></p>
                     <p className={styles.categoryProductPrice}>
                       {priceNumber.toLocaleString()}원

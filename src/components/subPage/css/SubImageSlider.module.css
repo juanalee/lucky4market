@@ -31,6 +31,7 @@ body::-webkit-scrollbar{
 }
 
 .productMainImg > img {  
+  min-width: 550px;
   border-radius: 20px;
 }
 
@@ -40,22 +41,22 @@ body::-webkit-scrollbar{
 }
 
 .productMainImgContainer {
-  margin-left: 100px;
+  margin-left: 50px;
   position: relative;
-  width: 500px;
-  height: 550px;
+  width: 550px;
+  height: 600px;
   margin-top: 50px;
 }
 
 .productMainImgMove {
   overflow: hidden;
-  width: 500px;
-  height: 550px;
+  width: 550px;
+  height: 600px;
 }
 
 .productMainImage{
-  width: 500px;
-  height: 550px;
+  width: 550px;
+  height: 600px;
 }
 
 .leftArrow {
@@ -68,13 +69,17 @@ body::-webkit-scrollbar{
 .rightArrow {
   width: 50px;
   position: absolute;
-  left: 510px;
+  left: 560px;
   top: calc(50% - 50px);
 }
 
 .sliderDot {
   position: absolute;
-  left: 240px;
+  display: flex;
+  justify-content: center;
+  min-width: 60px;
+  max-width: 90px;
+  left: calc(50% - 10px);
   bottom: -40px;
   transform: translateX(-50%);
 }
@@ -131,6 +136,28 @@ body::-webkit-scrollbar{
   font-size: 40px;
   font-weight: bold;
   bottom: 200px;
-  left: calc(50% - 80px);
+  left: calc(50% - 70px);
   z-index: 100;
 } 
+
+.deleteScreenContainer{
+  margin-top: 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 50px;
+}
+.deleteScreenContainer img {
+  width: 300px;
+}
+.deleteScreenBtn{
+  width: 300px;
+  padding: 15px 0px;
+  border-radius: 10px;
+  color: white;
+  background-color: black;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}

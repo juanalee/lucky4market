@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import InputMask from 'react-input-mask';
 import Payment from './SubPayment';
 import Backdrop from './SubOverlay';
-import styles from './css/sub_purchase_side.module.css';
+import styles from './css/sub_purchase_side.module.css'
 import axios from 'axios';
 import Sub_address from './SubAddress';
 import { AuthContext } from '../../services/AuthContext';
@@ -309,7 +309,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                         }
                         <div>
                             <p>{productInfo.productTitle}</p>
-                            <p className={styles.purchase_price}>{productInfo.productPrice.toLocaleString()}원</p>
+                            <p className={styles.purchase_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
                         </div>
                     </div>
                 </div>
@@ -372,7 +372,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                 <div className={styles.payment_amount}>
                     <div className={styles.last_price_container}>
                         <h2>최종 결제 금액</h2>
-                        <p className={styles.last_price}>{productInfo.productPrice.toLocaleString()}원</p>
+                        <p className={styles.last_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
                     </div>
                     <Payment buyMethod={buyMethod} addressInfo={addressInfo} productInfo={productInfo}/>
                 </div>

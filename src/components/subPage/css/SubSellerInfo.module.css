@@ -1,12 +1,3 @@
-.seller_inpormation hr{
-  margin: 10px 0px 50px;
-}
-
-
-.seller_inpormation{
-  width: 500px;
-}
-
 .member_id img{
   width: 70px;
   height: 70px;
@@ -71,13 +62,15 @@
 .followBtn_container img{
   width: 40px;
   position: absolute;
-  left: 200px;
+  left: 210px;
   top: 10px;
 }
 
 .store_info{
+  padding-left: 30px;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .seller_product_img{
@@ -89,10 +82,11 @@
 }
 
 .seller_product_img img{
-  width: 240px;
-  height: 200px;
+  width: 270px;
+  height: 220px;
   border-radius: 10px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .sellerProductTitle{
@@ -112,8 +106,6 @@
   color: black;
   font-weight: bold;
 }
-
-
 
 .close{
   cursor: pointer;
@@ -155,7 +147,7 @@
 }
 
 .seller_information{
-  width: 520px;
+  width: 580px;
 }
 
 .line{

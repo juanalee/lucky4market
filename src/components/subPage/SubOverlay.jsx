@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from './css/sub_overlay.module.css';
+import styles from './css/SubOverlay.module.css';
 
 const SubOverlay = ({ show, onClick }) => {
   useEffect(() => {
