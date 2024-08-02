@@ -34,6 +34,10 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
     scrollToBottom();
   }, [messages]);
 
+  // useEffect(() => {
+  //   fetchChatHistory();
+  // },[messages])
+
   const fetchChatHistory = async () => {
     try {
       const response = await axios.get(`http://localhost:9999/selectChatInfo?chatNo=${roomId}`);
