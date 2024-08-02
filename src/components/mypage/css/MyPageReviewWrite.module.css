@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 30px;
 }
 
 .reviewScore {
@@ -17,22 +18,34 @@
 }
 
 .reviewScore .on .star {
-  color: gold;
+  color: rgb(255, 38, 0);
 }
 
 .reviewScore .off .star {
   color: lightgray;
 }
 
+.star{
+  font-size: 34px;
+}
+
+.reviewText{
+  width: 70%;
+  padding-bottom: 60px;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
 .submitButton {
+  width: 80px;
+  height: 35px;
   margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #4CAF50;
+  background-color: #000000;
   color: white;
   border: none;
   cursor: pointer;
 }
 
 .submitButton:hover {
-  background-color: #45a049;
+  background-color: #888888;
 }

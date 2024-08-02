@@ -56,7 +56,19 @@ ul {
   padding-left: 10px;
   box-sizing: border-box;
 }
+.search_button{
+  height: 60px;
+  border: 3px solid black;
+  margin: 2px;
+  width: 100px;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+}
 
+.search_button:hover{
+  background-color: rgb(117, 117, 117);
+}
 .nav_container {
   width: 1440px;
   display: flex;
@@ -84,18 +96,15 @@ ul {
   width: 150px;
   border-radius: 10px;
   background-color: black;
-  color: white;
+  color:white;
   box-sizing: border-box;
 }
 
-.category_container a {
+.category_container  {
   text-decoration: none;
   color: black;
 }
 
-.category_container ul {
-  list-style: none;
-}
 
 .category_container li {
   width: 300px;
@@ -209,9 +218,6 @@ ul {
   background-color: #f5f5f5;
 }
 
-.main_category:hover .sub_category_container {
-  display: block;
-}
 
 .category_container::-webkit-scrollbar {
   display: none;

@@ -7,8 +7,8 @@ import MyPageSideBar from "./MyPageSideBar";
 import styles from "./css/MyPageMyStore.module.css";
 
 export default function MyPageMyStore() {
-  const [profileData, setProfileData] = useState([]);
-  const [productData, setProductData] = useState([]);
+  const [myProfile, setMyProfile] = useState([]);
+  const [myProduct, setMyProduct] = useState([]);
 
   const memberId = MyPageMemberId();
   const defaultProfileImage = "/img/mypage/profile.png";
@@ -22,14 +22,12 @@ export default function MyPageMyStore() {
       const myStoreData = async () => {
         try {
           const profileResponse = await axios.get(`http://localhost:9999/api/member/myPageProfile/${memberId}`);
-          console.log("Profile Data:", profileResponse.data);
-          setProfileData(profileResponse.data);
+          setMyProfile(profileResponse.data);
 
           const productResponse = await axios.get(`http://localhost:9999/api/product/myPageProduct/${memberId}`);
-          console.log("Product Data:", productResponse.data);
-          setProductData(productResponse.data);
+          setMyProduct(productResponse.data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("데이터를 가져오는 중 에러 발생:", error);
         }
       };
       myStoreData();
@@ -42,7 +40,7 @@ export default function MyPageMyStore() {
       <div className={styles.my_store_side_container}>
         <MyPageSideBar/>
         <div className={styles.my_store_main_container}>
-            {profileData.map((profile, index) => (
+            {myProfile.map((profile, index) => (
               <div className={styles.my_store_profile_container} key={index}>
                 <img
                   className={styles.my_store_profile_image}
@@ -82,13 +80,13 @@ export default function MyPageMyStore() {
             </ul>
           </div>
           <div className={styles.my_store_product_container}>
-            {productData.length > 0 ? (
-              productData.map((product, index) => (
-                <div key={index} className={styles.my_store_product_list}>
+            {myProduct.length > 0 ? (
+              myProduct.map((product, index) => (
+                <div className={styles.my_store_product_list} key={index}>
                   <img
                     className={styles.my_store_product_image}
                     src={product.productImagePath}
-                    alt="Product"
+                    alt="상품 이미지"
                   />
                   <div className={styles.my_store_product_title}>
                     <h3>{product.productTitle}</h3>
