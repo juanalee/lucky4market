@@ -403,7 +403,7 @@
   color: white;
   bottom: -100px;
   transition: bottom 1s ease-in-out;
-  z-index: 102;
+  z-index: 1002;
 }
 
 .statusModalContainer.statusShow{

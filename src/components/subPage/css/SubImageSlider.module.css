@@ -18,7 +18,7 @@ body::-webkit-scrollbar{
 }
 
 .subPageMain {
-  margin-top: 100px;
+  margin-top: 200px;
   width: 1440px;
   display: flex;
   flex-flow: row wrap;
@@ -105,7 +105,7 @@ body::-webkit-scrollbar{
 .hrContainer hr {
   width: 100%;
   position: absolute;
-  top: 625px;
+  top: 705px;
   z-index: 1;
 }
 

@@ -8,7 +8,7 @@
 .header_container {
   width: 100%; /* 100% 너비로 설정 */
   height: 220px;
-  margin: 0 auto;
+  /* margin: 80px auto; */
   display: flex;
   flex-direction: column;
   position: fixed; /* 고정 위치 */
@@ -17,7 +17,7 @@
   background: white; /* 배경색 설정 */
   z-index: 999; /* 다른 콘텐츠 위에 위치 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더에 그림자 추가 (선택 사항) */
-  zoom: 0.75;
+  zoom: 0.75; 
 }
 
 /* 헤더 높이 설정 */
@@ -26,10 +26,6 @@
   height: 80px; /* 헤더 높이에 맞게 조정 */
 }
 
-/* 콘텐츠 영역을 헤더 아래로 밀어내기 위해 여백 추가 */
-body {
-  padding-top: 80px; /* 헤더의 높이에 맞게 조정 */
-}
 
 /* 나머지 스타일 */
 ul {

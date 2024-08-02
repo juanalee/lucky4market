@@ -22,8 +22,8 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
 
   useEffect(() => {
     if (isChatOpen) {
-      fetchChatHistory();
       connect();
+      fetchChatHistory();
     } else {
       disconnect();
     }
@@ -50,11 +50,11 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
   const connect = () => {
     const socket = new WebSocket("ws://localhost:9999/ws");
     stompClient.current = Stomp.over(socket);
-
     stompClient.current.connect({}, (frame) => {
       console.log("STOMP 클라이언트가 연결되었습니다.", frame);
       stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
         const newMessage = JSON.parse(message.body);
+        console.log(newMessage);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
     }, (error) => {
@@ -84,6 +84,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
       setMessage("");
       setMessageLength(0);
+      scrollToBottom();
     } else {
       console.error("STOMP 클라이언트가 연결되지 않았습니다.");
     }
@@ -115,7 +116,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           },
         });
         const baseUrl = preSignedUrl.split("?")[0];
-        console.log(baseUrl);
+
         const messageObj = {
           chatNo: roomId,
           receiverId: sellerId,
