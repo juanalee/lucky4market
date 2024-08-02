@@ -3,12 +3,12 @@ import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
 import styles from './css/MypageProductSalesList.module.css';
 import MypagReviewWrite from './MypageReviewWrite';
-import MypageMemberId from './MypageMemberId';
+import MyPageMemberId from './MyPageMemberId';
 
-const MyPageProductPurchaseHistory = () => {
+const MypageProductPurchaseHistory = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState({}); // 리뷰 작성 폼 상태
-  const buyerId = MypageMemberId(); // 커스텀 훅을 사용
+  const buyerId = MyPageMemberId(); // 커스텀 훅을 사용
 
   const readData = async () => {
     if (!buyerId) return; // buyerId가 유효하지 않은 경우 종료
@@ -71,14 +71,14 @@ const MyPageProductPurchaseHistory = () => {
 
   return (
     <div>
-      <div className={styles.MyPageProductSalesListComponent}>
-        <MyPageSideBar/>
+      <div className={styles.MypageProductSalesListComponent}>
+        <MyPageSideBar />
         <div>
           <h3 className={styles.MypageProductTitle}>최근구매내역 ({reviewWritable.length})</h3>
           {reviewWritable.map((memberProduct, index) => (
             <div key={index}>
-              <div className={styles.MyPageProductSalesList}>
-                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product"/>
+              <div className={styles.MypageProductSalesList}>
+                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
                 <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>

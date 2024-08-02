@@ -3,14 +3,14 @@ import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
 import styles from './css/MypageProductSalesList.module.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import MypageMemberId from './MypageMemberId';
+import MyPageMemberId from './MyPageMemberId';
 
-const MyPageProductSalesList = () => {
+const MypageProductSalesList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [memberProductsoldoutList, setMemberProductsoldoutList] = useState([]);
   const [displayType, setDisplayType] = useState('saling');
   const navigate = useNavigate();
-  const memberId = MypageMemberId();
+  const memberId = MyPageMemberId();
   const { productNo } = useParams();
 
   const readData = async (memberId) => {
@@ -57,7 +57,7 @@ const MyPageProductSalesList = () => {
   return (
     <div>
       <div className={styles.MypageProductSalesListComponent}>
-        <MypageSideBar />
+        <MyPageSideBar />
         <div className={styles.MyPageProductSaleMainContainer}>
           <div className={styles.ProductButtonContainer}>
             <button 
@@ -104,4 +104,4 @@ const MyPageProductSalesList = () => {
   );
 };
 
-export default MyPageProductSalesList;
+export default MypageProductSalesList;

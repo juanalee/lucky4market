@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './css/ProductInsertPopup.module.css';
+import styles from './css/productinsertPopup.module.css';
 
 
-const ProductInsertPopup = ({ show, onClose, onConfirm, message, isConfirmation }) => {
+const ProductinsertPopup = ({ show, onClose, onConfirm, message, isConfirmation }) => {
   if (!show) return null;
 
   return (
@@ -30,4 +30,4 @@ const ProductInsertPopup = ({ show, onClose, onConfirm, message, isConfirmation 
   );
 };
 
-export default ProductInsertPopup;
+export default ProductinsertPopup;

@@ -10,6 +10,7 @@ export default function MyPageReceivedReview() {
   const [myReceivedReview, setMyReceivedReview] = useState([]);
 
   const memberId = MyPageMemberId();
+  console.log('Member ID:', memberId);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('ko-KR').format(price);
@@ -20,14 +21,14 @@ export default function MyPageReceivedReview() {
       const receivedReviewData = async () => {
         try {
           const receivedReviewResponse = await axios.get(`http://localhost:9999/api/product/myPageReceivedReview/${memberId}`);
-          console.log(receivedReviewResponse.data);
+          console.log('Received Review Response:', receivedReviewResponse.data);
           setMyReceivedReview(receivedReviewResponse.data);
         } catch (error) {
           console.error("데이터를 가져오는 중 에러 발생:", error);
         }
       };
       receivedReviewData();
-    };
+    }
   }, [memberId]);
 
   return (
@@ -74,7 +75,7 @@ export default function MyPageReceivedReview() {
                 </div>
               ))
             ) : (
-              <div className={styles.received_review_message}>받은 후기가 없습니다.</div>
+              <div className={styles.received_review_}>받은 후기가 없습니다.</div>
             )}
           </div>
         </div>

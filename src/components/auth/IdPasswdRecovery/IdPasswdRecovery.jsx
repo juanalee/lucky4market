@@ -6,7 +6,7 @@ import IdRecoverForm from './IdRecoverForm';
 import PasswdResetForm from './PasswdResetForm';
 
 const IdPasswdRecovery = ({ show, onClose, initialTab }) => {
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const [activeTab, setActiveTab] = useState(initialTab || 'id');
 
   useEffect(() => {
     if (show) {
@@ -43,8 +43,8 @@ const IdPasswdRecovery = ({ show, onClose, initialTab }) => {
                 </button>
               </div>
               <div className={styles.recoveryTabContent}>
-                {activeTab === 'id' && <IdRecoverForm />}
-                {activeTab === 'password' && <PasswdResetForm />}
+                {activeTab === 'id' && <IdRecoverForm activeTab={activeTab} />}
+                {activeTab === 'password' && <PasswdResetForm activeTab={activeTab} />}
               </div>
             </div>
           </div>

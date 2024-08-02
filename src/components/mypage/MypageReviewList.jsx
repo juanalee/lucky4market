@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import MypageSideBar from './MypageSideBar';
+import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
 import styles from './css/MypageReviewList.module.css';
-import MypageMemberId from './MypageMemberId'; // 커스텀 훅을 import
+import MyPageMemberId from './MyPageMemberId'; // 커스텀 훅을 import
 
 const MypageReviewList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
@@ -10,7 +10,7 @@ const MypageReviewList = () => {
   const [editReviewState, setEditReviewState] = useState({}); // 수정 상태를 객체로 변경
   const [tempReviewData, setTempReviewData] = useState({});
 
-  const memberId = MypageMemberId(); // 커스텀 훅을 사용
+  const memberId = MyPageMemberId(); // 커스텀 훅을 사용
 
   const readData = async (memberId) => {
     try {
@@ -138,7 +138,7 @@ const MypageReviewList = () => {
   return (
     <div>
       <div className={styles.MypageProductSalesListComponent}>
-        <MypageSideBar />
+        <MyPageSideBar />
         <div className={styles.ProductMainContainer}>
           <h3 className={styles.ProductMainTitle}>내가 작성한 후기목록 ({memberProductList.length})</h3>
           {memberProductList.map((memberProduct, index) => (
