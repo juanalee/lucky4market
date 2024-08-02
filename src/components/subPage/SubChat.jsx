@@ -126,7 +126,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
         stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
         scrollToBottom();
       } catch (error) {
-        console.error("파일 메시지 전송 실패", error);
+        console.error(error);
       }
     } else {
       console.error("STOMP 클라이언트가 연결되지 않았습니다.");

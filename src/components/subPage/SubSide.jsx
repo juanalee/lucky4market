@@ -304,11 +304,9 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                         <h2>직거래로 구매</h2>
                     )}
                     <div className={styles.purchase_productInfo}>
-                        {productImage?.productImagePath ? (
+                        {productImage?.productImagePath &&
                             <img src={productImage.productImagePath} alt='Product' />
-                        ) : (
-                            <p>상품 이미지를 불러올 수 없습니다.</p>
-                        )}
+                        }
                         <div>
                             <p>{productInfo.productTitle}</p>
                             <p className={styles.purchase_price}>{productInfo.productPrice.toLocaleString()}원</p>

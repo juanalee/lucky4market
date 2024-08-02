@@ -7,6 +7,8 @@ import Report from './SubReport';
 import Sub_chat from './SubChat';
 import StoreInfo from './SubSellerInfo';
 import { AuthContext } from '../../services/AuthContext';
+import ModalPopup from '../modalPopup/ModalPopup';
+import SubOverlay from './SubOverlay';
 
 const ProductInfo = ({ productImage ,productNo}) => {
   const { profile, isAuthenticated } = useContext(AuthContext);
@@ -38,8 +40,7 @@ const ProductInfo = ({ productImage ,productNo}) => {
   const [productMemberId, setProductMemberId] = useState(null);
   const [likeMsgOpen, setLikeMsgOpen] = useState(false);
   const [likeMsg, setLikeMsg] = useState("");
-  const [buyerInfo, setBuyerInfo] = useState("");
-
+  const [statusOpen, setStatusOpen] = useState(false);
   // Update profileSub when profile changes
   useEffect(() => {
     if (profile?.sub !== profileSub) {
@@ -187,6 +188,15 @@ const ProductInfo = ({ productImage ,productNo}) => {
 
   const productSaleChatClass = productInfo.productSale == '판매중' ? '' : styles.productSaleChat
 
+  const statusUpdateOpen = () => {
+    setStatusOpen(true);
+  }
+  const statusUpdateClose = () => {
+    setStatusOpen(false)
+  }
+
+  const statusUpdateClass = statusOpen ? styles.open : '';
+
   return (
     <>
       <div className={styles.product_information}>
@@ -250,7 +260,8 @@ const ProductInfo = ({ productImage ,productNo}) => {
             </li>
           )}
         </ul>
-        <div className={styles.product_interaction_area}>
+        {productInfo.memberId != profileSub ?
+          <div className={styles.product_interaction_area}>
           <button className={styles.like_btn} onClick={likeClick}>
             <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" />
           </button>
@@ -258,7 +269,36 @@ const ProductInfo = ({ productImage ,productNo}) => {
           {productInfo.productSale == '판매중' &&
             <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
           }
+        </div> : 
+        <div className={styles.myProductUpdateContainer}>
+          <Link to='/productRegister'>
+            <div className={styles.myProductUpdateItem}>
+                <img src='/img/edit.png'></img>
+                <p>상품수정</p>
+            </div>
+          </Link>
+          <span className={styles.line}></span>
+          <div className={styles.myProductUpdateItem} onClick={statusUpdateOpen}>
+            <img src='/img/change.png'></img>
+            상태변경
+          </div>
+          <SubOverlay 
+            show={statusOpen}
+            onClick={statusUpdateClose}
+          />
+          <div className={`${styles.productStatusUpdate} ${statusUpdateClass}`}>
+            <p>판매중</p>
+            <p>판매완료</p>
+            <p>예약중</p>
+          </div>
+          <span className={styles.line}></span>
+          <div className={styles.myProductUpdateItem}>
+            <img src='/img/delete.png'></img>
+            상품삭제
+          </div>
+          <ModalPopup />
         </div>
+        }
       </div>
       <div className={styles.product_content}>
         <div className={styles.product_info_content}>

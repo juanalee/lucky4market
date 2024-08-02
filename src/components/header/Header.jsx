@@ -1,11 +1,15 @@
-import React, { useRef, useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './css/Header.module.css';
 import Chat from './Header_ChatList';
 import { AuthContext } from '../../services/AuthContext';
+import axios from 'axios';
 
 export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [categoryAllInfo, setCategoryAllInfo] = useState([]);
+  const [productCategoryList, setProductCategoryList] = useState([]);
+  const [parentNumber, setParentNumber] = useState(null);
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
@@ -28,7 +32,32 @@ export default function Header() {
   };
 
   useEffect(() => {
-  }, [isAuthenticated]);
+    const fetchData = async () => {
+      try {
+        const categoryResponse = await axios.get('http://localhost:9999/api/product/category/list');
+        setCategoryAllInfo(categoryResponse.data);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (parentNumber !== null) {
+      const fetchProductCategories = async () => {
+        try {
+          const response = await axios.get(`http://localhost:9999/api/product/category/list/${parentNumber}`);
+          setProductCategoryList(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchProductCategories();
+    } else {
+      setProductCategoryList([]);
+    }
+  }, [parentNumber]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -63,80 +92,29 @@ export default function Header() {
                 </div>
                 <div className={styles.category_container}>
                   <ul className={styles.category}>
-                    <li className={styles.main_category}>
-                      <a href='#'>수입명품</a>
-                      <div className={styles.sub_category_container}>
-                        <div className={styles.sub_category_block}>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li className={styles.main_category}>
-                      <a href='#'>수입명품</a>
-                      <div className={styles.sub_category_container}>
-                        <div className={styles.sub_category_block}>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
+                    {categoryAllInfo.map((main) => (
+                      <li 
+                        key={main.categoryNo} 
+                        className={styles.main_category}
+                        onMouseEnter={() => setParentNumber(main.categoryNo)}
+                        onMouseLeave={() => setParentNumber(null)}
+                      >
+                        <a href='#'>{main.categoryName}</a>
+                        {parentNumber === main.categoryNo && (
+                          <div className={styles.sub_category_container}>
+                            <div className={styles.sub_category_block}>
+                              <ul className={styles.sub_category}>
+                                {productCategoryList.map((sub) => (
+                                  <li key={sub.categoryNo}>
+                                    <a href='#'>{sub.categoryName}</a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        )}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </li>

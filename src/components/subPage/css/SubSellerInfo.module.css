@@ -172,7 +172,9 @@
 }
 
 .categoryProductItem img{
-  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 250px;
   max-height: 320px;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -230,7 +232,7 @@
   color: white;
   top: -200px; /* 초기 위치: 화면 밖 */
   transition: top 1s ease-in-out;
-  z-index: 2;
+  z-index: 102;
 }
 
 .followContainer.show {

@@ -150,7 +150,7 @@ ul {
 .category_container {
   display: flex;
   flex-flow: row nowrap;
-  width: 1200px;
+  width: 600px;
   height: 0px;
   overflow: scroll;
   position: relative;
@@ -200,7 +200,7 @@ ul {
   position: absolute;
   left: 100%;
   top: -1px;
-  width: 905px;
+  width: 400px;
   height: 869px;
   background-color: #fff;
   overflow-x: hidden;

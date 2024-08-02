@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './css/SubSellerInfo.module.css';
 import { AuthContext } from '../../services/AuthContext';
 
-const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
+const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
   const navigate = useNavigate();
   const followBtn = useRef();
   const followImg = useRef();
@@ -65,8 +65,8 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
       // 실패 시 상태 원복
       setIsFollowing(prevState => !prevState);
     }
-  }, [isAuthenticated, profileSub, navigateLogin]);
-  
+  }, [isAuthenticated, profileSub, navigateLogin, sellerId]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -105,7 +105,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
           headers: {
             "X-Naver-Client-Id": ClientID,
             "X-Naver-Client-Secret": ClientSecret,
-          },  
+          },
         });
         setNewProductInfo(naverResponse.data.items);
       } catch (error) {
@@ -114,7 +114,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
     };
 
     fetchData();
-  }, [categoryInfo.categoryNo, productTitle, profileSub]);
+  }, [categoryInfo.categoryNo, productTitle, profileSub, sellerId]);
 
   useEffect(() => {
     return () => {
@@ -123,8 +123,10 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
       }
     };
   }, []);
-  const remainingProducts = storeInfo.length > 0 ? storeInfo[0].saleCount - (2 + sellerImageCount.current.length) : 0;
+
+  const remainingProducts = storeInfo.length > 0 ? storeInfo[0].saleCount - (1 + sellerImageCount.current.length) : 0;
   const remainingReviews = storeInfo.filter(item => item.review !== null).length;
+
   return (
     <>
       <div className={styles.product_content_container}>
@@ -150,21 +152,27 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
               </button>
             </div>
             <div className={styles.seller_product_img}>
-              {sellerProductImage.slice(0, 2).map((img, index) => (
-                img.productNo != productNo && (
+              {sellerProductImage
+                .filter(img => img.productNo !== productNo) // 현재 보고 있는 상품의 이미지를 제외
+                .slice(0, 2) // 나머지 이미지 중 최대 2개만 표시
+                .map((img, index) => (
                   <div key={index}>
                     <a href={`/productPage/${img.productNo}`}>
-                      <img src={img.image} alt={`Product ${index}`} ref={(el) => {
-                        if (el && !sellerImageCount.current.includes(el)) {
-                          sellerImageCount.current.push(el);
-                        }
-                      }} />
+                      <img 
+                        src={img.image} 
+                        alt={`Product ${index}`} 
+                        ref={(el) => {
+                          if (el && !sellerImageCount.current.includes(el)) {
+                            sellerImageCount.current.push(el);
+                          }
+                        }} 
+                      />
                     </a>
                     <p className={styles.sellerProductTitle}>{img.title}</p>
                     <p className={styles.sellerProductPrice}>{Number(img.price).toLocaleString()}원</p>
                   </div>
-                )
-              ))}
+                ))
+              }
             </div>
             {remainingProducts > 0 && (
               <div className={styles.more}>
@@ -178,42 +186,41 @@ const SubSellerInfo = ({ categoryInfo, productTitle ,sellerId, productNo}) => {
         </div>
       </div>
       <div className={styles.suggestContainer}>
-      {categoryProductInfo.length - 1 !== 0 && (
-        <>
-          <h2>이런 상품은 어떠세요?</h2>
-          <div className={styles.categoryProductContainer}>
-            <div className={styles.categoryProductItem}>
-              {categoryProductInfo && categoryProductInfo.map((item, index) => {
-                const matchingImg = categoryProductImg.find(img => img.PRODUCT_NO === item.productNo && img.PRODUCT_NO != productNo);
-                return matchingImg ? (
-                  <div className={styles.categoryItem} key={index}>
-                    <a href={`/productPage/${item.productNo}`}>
-                      <img 
-                        src={matchingImg.PRODUCT_IMAGE_PATH} 
-                        alt={`Product ${item.productNo}`} 
+        {categoryProductInfo.length > 0 && (
+          <>
+            <h2>이런 상품은 어떠세요?</h2>
+            <div className={styles.categoryProductContainer}>
+              <div className={styles.categoryProductItem}>
+                {categoryProductInfo.map((item, index) => {
+                  const matchingImg = categoryProductImg.find(img => img.PRODUCT_NO === item.productNo && img.PRODUCT_NO !== productNo);
+                  return matchingImg ? (
+                    <div className={styles.categoryItem} key={index}>
+                      <a href={`/productPage/${item.productNo}`}>
+                        <img 
+                          src={matchingImg.PRODUCT_IMAGE_PATH} 
+                          alt={`Product ${item.productNo}`} 
                         />
-                      <p>{item.productTitle}</p>
-                      <p className={styles.categoryProductPrice}>{Number(item.productPrice).toLocaleString()}원</p>
-                    </a>
-                  </div>
-                ) : null;
-              })}
+                        <p>{item.productTitle}</p>
+                        <p className={styles.categoryProductPrice}>{Number(item.productPrice).toLocaleString()}원</p>
+                      </a>
+                    </div>
+                  ) : null;
+                })}
+              </div>
             </div>
-          </div>
-        </>
+          </>
         )}
         <h2>새상품은 어떠세요?</h2>
         <div className={styles.categoryProductContainer}>
           <div className={styles.categoryProductItem}>
-            {newProductInfo && newProductInfo.slice(0, 5).map((item, index) => {
-              const priceString = item.lprice;
-              const priceNumber = Number(priceString);
+            {newProductInfo.slice(0, 5).map((item, index) => {
+              const priceNumber = Number(item.lprice);
 
               return (
                 <div className={styles.categoryItem} key={index}>
                   <a href={item.link}>
                     <img 
-                      src={item.image}
+                      src={item.image} 
                       alt={`Product ${index}`} 
                     />
                     <p dangerouslySetInnerHTML={{ __html: item.title }} className={styles.newProductTitle}></p>

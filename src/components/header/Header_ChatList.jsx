@@ -95,7 +95,7 @@ const Chat = ({ isChatOpen, onClose }) => {
   const mainChatClose = useCallback(() => {
     setIsMainChatOpen(false);
   }, []);
-  console.log(chatRooms);
+
   return (
     <>
       <Backdrop show={isChatOpen} onClick={onClose} />
