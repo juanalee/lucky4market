@@ -20,18 +20,21 @@
 .adminHeaderBottom {
   font-size: 16px;
   background-color: #494B50;
-  padding: 10px 0;
+  padding: 6px 0;
 }
 
 .adminHeaderLeftSection, .adminHeaderRightSection {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .adminHeaderLogo {
   margin-right: 20px;
-  margin-top: 10px;
-  height: 100%;
+}
+
+.adminHeader img {
+  height: 50px;
 }
 
 .adminHeaderBottom a {

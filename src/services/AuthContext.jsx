@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     const tokenProvider = localStorage.getItem('tokenProvider');
 
-    // console.log('Checking token validity', { token, tokenProvider });
+    console.log('Checking token validity', { token, tokenProvider });
 
     if (token) {
       if (tokenProvider === 'naver') {

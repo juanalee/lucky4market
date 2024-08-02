@@ -31,7 +31,6 @@ body::-webkit-scrollbar{
 }
 
 .productMainImg > img {  
-  min-width: 550px;
   border-radius: 20px;
 }
 

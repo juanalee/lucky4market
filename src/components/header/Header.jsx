@@ -10,6 +10,7 @@ export default function Header() {
   const [categoryAllInfo, setCategoryAllInfo] = useState([]);
   const [productCategoryList, setProductCategoryList] = useState([]);
   const [parentNumber, setParentNumber] = useState(null);
+  const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
@@ -85,12 +86,15 @@ export default function Header() {
           </div>
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
-              <li className={styles.first_category}>
+              <li className={styles.first_category}
+                onMouseEnter={() => setIsSubCategoryOpen(true)}
+                onMouseLeave={() => setIsSubCategoryOpen(false)}
+              >
                 <div className={styles.menu}>
                   <img src='/img/menu.png' className={styles.menu_bar} alt='menu' />
                   <p>카테고리</p>
                 </div>
-                <div className={styles.category_container}>
+                <div className={`${styles.category_container} ${isSubCategoryOpen ? styles.open : ''}`}>
                   <ul className={styles.category}>
                     {categoryAllInfo.map((main) => (
                       <li 
