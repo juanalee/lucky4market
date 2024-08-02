@@ -24,7 +24,7 @@ const AdminReports = () => {
     try {
       const response = await axios.get('http://localhost:9999/reports', {
         headers: {
-          'Admin-Id': 'member1',
+          'Admin-Id': 'member25',
         },
         params: filters,
       });
@@ -43,7 +43,7 @@ const AdminReports = () => {
   const fetchFilteredReports = async (filters) => {
     try {
       const headers = {
-        'Admin-Id': 'member1'
+        'Admin-Id': 'member25'
       };
 
       if (filters.claimerId) {
@@ -114,7 +114,7 @@ const AdminReports = () => {
         reportStatus: updatedProcessStatus,
       }, {
         headers: {
-          'Admin-Id': 'member1',
+          'Admin-Id': 'member25',
           'Claimer-Id': report.claimerId,
         },
       });
@@ -147,8 +147,8 @@ const AdminReports = () => {
   return (
     <div>
       <AdminHeader />
-      <div className={styles.reportsContent}>
-        <h2 className={styles.reportsTitle}>신고내역 관리</h2>
+      <div className={styles.adminReportsContent}>
+        <h2 className={styles.adminReportsTitle}>신고내역 관리</h2>
         <hr />
         <ReportSearchFilter
           searchTerm={searchTerm}
