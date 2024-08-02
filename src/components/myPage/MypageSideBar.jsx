@@ -17,13 +17,13 @@ export default function MypageSideBar() {
           <Link to="/interestProduct" className={`${styles.side_bar_item} ${styles.side_bar_interest_product}`}>관심 상품</Link>
         </li>
         <li className={styles.side_bar_li}>
-          <Link to="/" className={`${styles.side_bar_item} ${styles.side_bar_buy_history}`}>구매 내역</Link>
+          <Link to="/buy-history" className={`${styles.side_bar_item} ${styles.side_bar_buy_history}`}>구매 내역</Link>
         </li>
         <li className={styles.side_bar_li}>
-          <Link to="/" className={`${styles.side_bar_item} ${styles.side_bar_sell_history}`}>판매 내역</Link>
+          <Link to="/sell-history" className={`${styles.side_bar_item} ${styles.side_bar_sell_history}`}>판매 내역</Link>
         </li>
         <li className={styles.side_bar_li}>
-          <Link to="/" className={`${styles.side_bar_item} ${styles.side_bar_writed_review}`}>작성 후기</Link>
+          <Link to="/writed-review" className={`${styles.side_bar_item} ${styles.side_bar_writed_review}`}>작성 후기</Link>
         </li>
         <li className={styles.side_bar_li}>
           <Link to="/receivedReview" className={`${styles.side_bar_item} ${styles.side_bar_received_review}`}>받은 후기</Link>

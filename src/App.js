@@ -21,6 +21,10 @@ import SubMain from './components/subPage/SubMain';
 import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import './services/AxiosSetup';
 import { AuthProvider } from './services/AuthContext';
+import {MainPage} from'./components/mainpage/MainPage';
+import SearchBar from './components/mainpage/Search';
+import MypageReviewList from './components/myPage/MypageReviewList';
+import ProductRegistrationUpdate from './components/productRegistration/ProductRegistrationUpdate';
 
 function App() {
 
@@ -36,13 +40,17 @@ function App() {
           <Route path="/registerSuccess" element={<RegisterSuccess />} />          
           <Route path="/naverAuthCallback" element={<NaverAuthCallback />} />
           <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback />} />
-          <Route path="/productPage" element={<SubMain />} />         
+          <Route path="/productPage" element={<SubMain />} />  
+          <Route path="/search" element={<SearchBar />} />     
+          <Route path="/productMainPage" element={<MainPage/>} />    
           <Route element={<RoleProtectedRoute requiredRole="ROLE_USER" />}>
             <Route path="/myStore" element={<MyStore/>}/>
             <Route path="/myInfo" element={<MyInfo />} />
             <Route path="/productRegister" element={<ProductRegistration />} />
-            <Route path="/sell-history" element={<MypageProductSalesList />} />
-            <Route path="/buy-history" element={<MypageProductPurchaseHistory />} />
+            <Route path="/productRegisterUpdate/:productNo" element={<ProductRegistrationUpdate />} />
+            <Route path="/sell-history" element={<MypageProductSalesList />} />       
+            <Route path="/buy-history" element={<MypageProductPurchaseHistory />} />   
+            <Route path="/writed-review" element={<MypageReviewList/>} />  
             <Route path="/interestProduct" element={<InterestProduct />} />
             <Route path="/receivedReview" element={<ReceivedReview />} />
           </Route>          

@@ -2,55 +2,102 @@ import React, { useState, useEffect } from 'react';
 import MypageSideBar from './MypageSideBar';
 import axios from 'axios';
 import styles from './css/MypageProductSalesList.module.css';
-import MypageProductSoldoutList from './MypageProductSoldoutList';
-
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import MypageMemberId from './MypageMemberId';
 
 const MypageProductSalesList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
+  const [memberProductsoldoutList, setMemberProductsoldoutList] = useState([]);
+  const [displayType, setDisplayType] = useState('saling');
+  const navigate = useNavigate();
+  const memberId = MypageMemberId();
+  const { productNo } = useParams();
 
-  const memberId = 'member5';
-
-  const readData = async () => {
+  const readData = async (memberId) => {
     try {
-      const response = await axios.get(`http://localhost:9999/member/product/list/${memberId}`);
-      console.log(response.data); // 응답 데이터 구조 확인
+      const response = await axios.get(`http://localhost:9999/member/productSaleslist/${memberId}`);
+      console.log('Products:', response.data);
       setMemberProductList(response.data);
     } catch (error) {
-      console.error('Error fetching member list:', error);
+      console.error('Error fetching member product list:', error);
+    }
+  };
+
+  const readSoldOutData = async (memberId) => {
+    try {
+      const response = await axios.get(`http://localhost:9999/member/productsoldoutlist/list/${memberId}`);
+      console.log(response.data);
+      setMemberProductsoldoutList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const productDelete = async (productNo) => {
+    try {
+      await axios.delete(`http://localhost:9999/product/delete/${productNo}`);
+      alert("삭제가 완료됐습니다.");
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting product:', error);
     }
   };
 
   useEffect(() => {
-    readData();
-  }, []);
+    if (memberId) {
+      readData(memberId);
+      readSoldOutData(memberId);
+    }
+  }, [memberId]);
 
-  // 숫자를 천 단위로 구분하여 포맷팅하는 함수
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('ko-KR').format(price); // 한국 원화 형식
+    return new Intl.NumberFormat('ko-KR').format(price);
   };
-
-
 
   return (
     <div>
       <div className={styles.MypageProductSalesListComponent}>
         <MypageSideBar />
-        <div>
-          <h3>판매중 ({memberProductList.length})</h3>
-          {memberProductList.map((memberProduct, index) => (
-            <div key={index}>
-              <div className={styles.MypageProductSalesList}>
+        <div className={styles.MyPageProductSaleMainContainer}>
+          <div className={styles.ProductButtonContainer}>
+            <button 
+              className={`${styles.ProductSale} ${displayType === 'saling' ? styles.active : ''}`} 
+              onClick={() => setDisplayType('saling')}
+            >
+              판매중 ({memberProductList.length})
+            </button>
+            <button 
+              className={`${styles.ProductSoldOut} ${displayType === 'soldout' ? styles.active : ''}`} 
+              onClick={() => setDisplayType('soldout')}
+            >
+              판매완료 ({memberProductsoldoutList.length})
+            </button>
+          </div>
+          <div className={styles.MyPageProducutMainSalesList}>
+            {displayType === 'saling' && memberProductList.map((memberProduct, index) => (
+              <div key={index} className={styles.MypageProductSalesList}>
                 <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
                 <div className={styles.ProductSalestext}>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
+                  <p>조회수 {memberProduct.productCount}</p>
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
                 </div>
-
+                <Link to={`/productRegisterUpdate/${memberProduct.productNo}`} className={styles.productUpdateButton}>수정</Link>
+                <button onClick={() => productDelete(memberProduct.productNo)} className={styles.productDeleteButton}>삭제</button>
               </div>
-
+            ))}
+          </div>
+          {displayType === 'soldout' && memberProductsoldoutList.map((memberProduct, index) => (
+            <div key={index} className={styles.MypageProductSalesList}>
+              <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+              <div className={styles.ProductSalestext}>
+                <p className={styles.ProductSalesthDate}>구매확정일: {memberProduct.thDate}</p>
+                <p className={styles.productTitle}>{memberProduct.productTitle}</p>
+                <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
+              </div>
+              <button onClick={() => productDelete(memberProduct.productNo)} className={styles.productDeleteButton}>삭제</button>
             </div>
           ))}
-          <MypageProductSoldoutList />
         </div>
       </div>
     </div>

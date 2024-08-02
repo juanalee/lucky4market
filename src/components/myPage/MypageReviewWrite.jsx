@@ -54,7 +54,7 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
           );
         })}
       </div>
-      <input type="text" ref={reviewText} placeholder="후기를 입력하세요" />
+      <textarea type="text" ref={reviewText} placeholder="후기를 입력하세요" className={styles.reviewText} />
       <button onClick={submitReview} className={styles.submitButton}>리뷰 제출</button>
     </div>
   );
