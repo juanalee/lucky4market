@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './IdPasswdRecovery.module.css';
 import NewPasswdForm from './NewPasswdForm';
+import ModalPopup from '../../modalPopup/ModalPopup';
 
 const PasswdResetForm = ({ activeTab }) => {
   const [memberName, setMemberName] = useState('');
@@ -15,6 +16,7 @@ const PasswdResetForm = ({ activeTab }) => {
   const [phoneNoError, setPhoneNoError] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [showNewPasswordForm, setShowNewPasswordForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const recPNo2Ref = useRef(null);
@@ -149,17 +151,28 @@ const PasswdResetForm = ({ activeTab }) => {
         memberId,
         memberPasswd: newPasswd
       });
+
       if (response.data.success) {
         setResponseMessage('비밀번호가 성공적으로 재설정되었습니다.');
-        navigate('/login'); // Navigate to the login page on successful password reset
+        setShowModal(true); // 재설정 성공 시
+        navigate('/login');
       } else {
-        setResponseMessage('비밀번호 재설정에 실패했습니다.'); // Set failure message if not successful
+        //일반적인 실패 메시지
+        setResponseMessage('비밀번호 재설정에 실패했습니다.');
+        setShowModal(true);
       }
     } catch (error) {
       console.error('Error resetting password:', error);
-      setResponseMessage('비밀번호 설정 중 오류가 발생했습니다.'); // Handle exceptions like network issues, server errors, etc.
+      if (error.response && error.response.status === 400) {//서버에서 돌아온 메시지가 있는 경우
+        setResponseMessage(error.response.data || '비밀번호 재설정에 실패했습니다.');
+      } else {
+        // 기타 오류
+        setResponseMessage('비밀번호 설정 중 오류가 발생했습니다.');
+      }
+      setShowModal(true);
     }
   };
+
 
   return (
     <div className={styles.recoveryFormBox} >
@@ -245,11 +258,16 @@ const PasswdResetForm = ({ activeTab }) => {
               dangerouslySetInnerHTML={{ __html: responseMessage }}
             />
           )}
-          <button type="submit" className={styles.recoverySubmitButton} lang="ko">
+          <button type="submit" className={styles.recoverySubmitButton} >
             {activeTab === 'id' ? '아이디 찾기' : '비밀번호 재설정'}
           </button>
         </form>
       )}
+      <ModalPopup
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        message={responseMessage}
+      />
     </div>
   );
 };
