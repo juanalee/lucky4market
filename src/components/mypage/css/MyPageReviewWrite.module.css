@@ -1,0 +1,51 @@
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 30px;
+}
+
+.reviewScore {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.reviewScore button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.reviewScore .on .star {
+  color: rgb(255, 38, 0);
+}
+
+.reviewScore .off .star {
+  color: lightgray;
+}
+
+.star{
+  font-size: 34px;
+}
+
+.reviewText{
+  width: 70%;
+  padding-bottom: 60px;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.submitButton {
+  width: 80px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #888888;
+}

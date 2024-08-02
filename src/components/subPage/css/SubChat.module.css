@@ -2,11 +2,11 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 600px;
+  width: 800px;
   height: 100%;
   background: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 1003;
   transition: transform 0.4s ease, opacity 0.4s ease;
   transform: translateX(100%);
   opacity: 0;
@@ -40,7 +40,7 @@
   font-size: 20px;
 }
 
-.main_chat_product_info img{
+.main_chat_product_info a, .main_chat_product_info img{
   width: 70px;
   height: 70px;
   border-radius: 10px;
@@ -51,11 +51,13 @@
   flex-flow: column nowrap;
   gap: 50px;
   padding: 50px 20px;
-  margin: 20px 0px;
+  margin-top: 20px;
+  margin-bottom: 50px;
   height: 65%;
   background-color: #E9EDEF;
   position: relative;
   overflow: auto;
+  box-sizing: border-box;
 }
 
 .chat_content_input input[type="file"] {
@@ -71,10 +73,7 @@
 /* sub_chat.module.css */
 
 .chatContentOpponent {
-  border-radius: 10px;
-  max-width: 300px; /* 최대 너비 설정 */
-  padding: 20px;
-  background-color: white;
+  max-width: 250px; /* 최대 너비 설정 */
   font-size: 20px;
   color: black;
   box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
@@ -82,17 +81,29 @@
 }
 
 .chatContentMe {
-  border-radius: 10px;
-  max-width: 300px; /* 최대 너비 설정 */
-  padding: 20px;
-  background-color: #363C45; /* 색상 변경 예시 */
+  max-width: 250px; /* 최대 너비 설정 */
   font-size: 20px;
   color: white;
-  /* margin-left: auto; 오른쪽 정렬 */
   box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
   align-self: flex-end;
   position: relative;
   display: flex;
+}
+
+.messageSenderStyle{
+  background-color: #363C45;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.messageReceiverStyle{
+  background-color: white;
+  padding: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .chatBoxOpponent{
@@ -129,4 +140,73 @@
 .dateLine{
   width: 100px;
   border: 1px solid #ccc;
+}
+
+.chat_content_container::-webkit-scrollbar {
+  display: none;
+}
+
+.messageSendContainer{
+  position: relative;
+}
+
+.messageSendContainer textarea {
+  width: 100%;
+  height: 204px;
+  resize: none;
+  border: none;
+  background-color: #F7F9FA;
+  font-size: 24px;
+  padding: 20px;
+  font-family: 'Raleway', sans-serif;
+  box-sizing: border-box;
+}
+
+.messageSendContainer button{
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  border: none;
+}
+
+.messageSendContainer img{
+  width: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.messageSendContainer textarea:focus{
+  outline: none;
+}
+
+.messageLength{
+  position: absolute;
+  bottom: 10px;
+  right: 70px;
+  font-size: 24px;
+  color: #363C45;
+  font-weight: 500;
+}
+
+.chatFileLabel{
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  font-size: 24px;
+  color: #363C45;
+  font-weight: 500;
+}
+
+.chatFileLabel input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.chatImage{
+  width: 100%;
+  border-radius: 10px;
 }

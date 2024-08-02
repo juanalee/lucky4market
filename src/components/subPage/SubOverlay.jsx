@@ -1,19 +1,25 @@
-import React from 'react';
-import styles from './css/sub_overlay.module.css'
+import React, { useEffect } from 'react';
+import styles from './css/SubOverlay.module.css';
 
-const Backdrop = ({ show, onClick }) => {
+const SubOverlay = ({ show, onClick }) => {
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add(styles.noScroll);
+    } else {
+      document.body.classList.remove(styles.noScroll);
+    }
+
+    // Cleanup: 컴포넌트가 언마운트될 때도 클래스 제거
+    return () => {
+      document.body.classList.remove(styles.noScroll);
+    };
+  }, [show]);
+
   if (!show) return null;
 
-  const handleClick = (e) => {
-
-    onClick();
-
-  };
-
   return (
-    <div className={styles.backdrop} onClick={handleClick}></div>
+    <div className={styles.backdrop} onClick={onClick}></div>
   );
 };
 
-
-export default Backdrop;
+export default SubOverlay;

@@ -1,0 +1,46 @@
+.mainPageContainer {
+width: 60%;
+margin: 0 auto;
+}
+
+.mainPageTitle{
+  font-size: 30px;
+  margin: 5px;
+}
+.mainPageProductList {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.mainPageProductItem {
+  flex: 0 1 calc(20% - 15px); /* 5 items per row with spacing */
+  margin: 0px auto;
+  box-sizing: border-box;
+}
+
+.mainPageProductItem img {
+  width: 200px;
+  height: 200px;
+}
+
+.mainloadMoreButton {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+
+
+.mainProductTitle{
+ font-weight: bold;
+}
+
+.mainProductPrice{
+  font-weight: bold;
+  font-size: 20px;
+}

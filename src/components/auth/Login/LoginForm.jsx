@@ -131,7 +131,7 @@ const LoginForm = () => {
             if (userRole.includes('ROLE_ADMIN')) {
                 navigate('/admin');
             } else {
-                navigate('/');
+                window.history.back();
             }
         } catch (err) {
             setError('id 또는 비밀번호 오류');
@@ -148,7 +148,7 @@ const LoginForm = () => {
 
     const handleModalClose = () => {
         setShowModal(false);
-        navigate('/productPage');
+        navigate('/');
     };
 
     return (

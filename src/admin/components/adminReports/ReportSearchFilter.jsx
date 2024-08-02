@@ -26,12 +26,12 @@ const ReportSearchFilter = ({
   };
 
   return (
-    <div className={styles.searchFilterSection}>
-      <div className={styles.searchCondition}>
-        <label className={styles.labelMargin}>검색조건</label>
-        <div className={styles.searchBox}>
+    <div className={styles.adminReportsSearchFilterSection}>
+      <div className={styles.adminReportsSearchCondition}>
+        <label className={styles.adminReportsLabelMargin}>검색조건</label>
+        <div className={styles.adminReportsSearchBox}>
           <select
-            className={styles.selectInput1}
+            className={styles.adminReportsSelectInput1}
             value={selectedSearchOption}
             onChange={handleSearchOptionChange}
             onKeyDown={handleKeyDown}
@@ -41,36 +41,36 @@ const ReportSearchFilter = ({
             <option value="claimerId">신고자 아이디</option>
           </select>
           <input
-            className={styles.searchInput}
+            className={styles.adminReportsSearchInput}
             type="text"
             placeholder="검색어 입력"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={handleKeyDown} // Add onKeyDown handler
           />
-          <span className={styles.searchlabel}>신고일자: </span>
+          <span className={styles.adminReportsSearchlabel}>신고일자: </span>
           <div>
             <input
-              className={styles.searchDateInput1}
+              className={styles.adminReportsSearchDateInput1}
               type="date"
               placeholder="시작일"
               value={searchDateTerm.startDate}
               onChange={(e) => setSearchDateTerm({ ...searchDateTerm, startDate: e.target.value })}
               onKeyDown={handleKeyDown} // Add onKeyDown handler
             />
-            <span className={styles.searchlabel}>~</span>
+            <span className={styles.adminReportsSearchlabel}>~</span>
             <input
-              className={styles.searchDateInput2}
+              className={styles.adminReportsSearchDateInput2}
               type="date"
               placeholder="종료일"
               value={searchDateTerm.endDate}
               onChange={(e) => setSearchDateTerm({ ...searchDateTerm, endDate: e.target.value })}
               onKeyDown={handleKeyDown} // Add onKeyDown handler
             />
-            <span className={styles.searchlabel}>처리 상태: </span>
+            <span className={styles.adminReportsSearchlabel}>처리 상태: </span>
             <select
               ref={processStatusRef}
-              className={styles.selectInput2}
+              className={styles.adminReportsSelectInput2}
               value={selectedProcessStatusOption}
               onChange={handleProcessStatusChange}
               onKeyDown={handleKeyDown} // Add onKeyDown handler
@@ -82,11 +82,11 @@ const ReportSearchFilter = ({
             </select>
           </div>
         </div>
-        {notification && <div className={styles.notification}>{notification}</div>}
+        {notification && <div className={styles.adminReportsNotification}>{notification}</div>}
       </div>
-      <div className={styles.buttonGroup}>
-        <button className={styles.searchButton} onClick={handleSearch}>검색</button>
-        <button className={styles.resetButton} onClick={handleReset}>초기화</button>
+      <div className={styles.adminReportsButtonGroup}>
+        <button className={styles.adminReportsSearchButton} onClick={handleSearch}>검색</button>
+        <button className={styles.adminReportsResetButton} onClick={handleReset}>초기화</button>
       </div>
     </div>
   );

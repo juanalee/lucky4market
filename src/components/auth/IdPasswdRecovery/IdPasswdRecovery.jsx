@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import 'bootstrap/dist/css/bootstrap.min.css';
-//import 'bootstrap/dist/js/bootstrap.bundle.min';
 import styles from './IdPasswdRecovery.module.css';
 import IdRecoverForm from './IdRecoverForm';
 import PasswdResetForm from './PasswdResetForm';

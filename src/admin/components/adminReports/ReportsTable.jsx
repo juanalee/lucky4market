@@ -13,15 +13,15 @@ const ReportsTable = ({
 }) => {
   return (
     <div
-      className={`${styles.section} ${active ? styles.activeSection : ''}`}
+      className={`${styles.adminReportsSection} ${active ? styles.adminReportsActiveSection : ''}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className={styles.resultInfo}>
+      <div className={styles.adminReportsResultInfo}>
         <span>{title}: {reports.length}건</span>
-        {title === '읽지 않은 신고' && reports.length > 0 && <span className={styles.notificationDot}></span>}
+        {title === '읽지 않은 신고' && reports.length > 0 && <span className={styles.adminReportsNotificationDot}></span>}
       </div>
-      <div className={styles.membersTable}>
+      <div className={styles.adminReportsTable}>
         <table>
           <thead>
             <tr>
@@ -38,13 +38,13 @@ const ReportsTable = ({
               <React.Fragment key={index}>
                 <tr>
                   <td>{result.productNo}</td>
-                  <td className={styles.truncate} onClick={() => handleToggleRow(index)}>{result.reportContent}</td>
+                  <td className={styles.adminReportsTruncate} onClick={() => handleToggleRow(index)}>{result.reportContent}</td>
                   <td>{result.productTitle}</td>
                   <td>{result.claimerId}</td>
                   <td>{result.reportDate}</td>
                   <td>
                     <select
-                      className={styles.selectReportStatus}
+                      className={styles.adminReportsSelectReportStatus}
                       value={result.reportStatus}
                       onChange={(event) => handleStatusChange(event, result)}
                     >
@@ -55,8 +55,8 @@ const ReportsTable = ({
                   </td>
                 </tr>
                 {expandedRows[index] && (
-                  <tr className={styles.expandableRow}>
-                    <td colSpan="6" className={styles.expandableContent}>{result.reportContent}</td>
+                  <tr className={styles.adminReportsExpandableRow}>
+                    <td colSpan="6" className={styles.adminReportsExpandableContent}>{result.reportContent}</td>
                   </tr>
                 )}
               </React.Fragment>

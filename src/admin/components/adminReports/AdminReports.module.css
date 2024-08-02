@@ -1,16 +1,16 @@
-.reportsContent {
+.adminReportsContent {
   width: 1440px;
   margin: 0 auto;
   padding: 20px;
   background-color: #FFF;
 }
 
-.reportsTitle {
+.adminReportsTitle {
   margin: 0 10px 0 20px;
   padding: 10px;
 }
 
-.searchFilterSection {
+.adminReportsSearchFilterSection {
   padding: 20px;
   margin-left: 30px;
   display: flex;
@@ -18,7 +18,7 @@
   align-items: center;
 }
 
-.searchCondition {
+.adminReportsSearchCondition {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -27,18 +27,18 @@
   justify-content: flex-start;
 }
 
-.labelMargin {
+.adminReportsLabelMargin {
   margin-left: 20px;
   font-weight: bold;
   font-size: 18px;
   color:#393B3F;
 }
 
-.searchlabel {
+.adminReportsSearchlabel {
   color:#393B3F;
 }
 
-.searchBox {
+.adminReportsSearchBox {
   height: 120px;
   width: 1300px;
   display: flex;
@@ -48,12 +48,12 @@
   border-bottom: 1px solid #9C9E9C;
 }
 
-.searchBox:hover {
+.adminReportsSearchBox:hover {
   background-color: #f1f1f1;
   transition: background-color 0.2s ease-in;
 }
 
-.selectInput1 {
+.adminReportsSelectInput1 {
   height: 50px;
   width: 120px;
   font-family: 'Montserrat', sans-serif;
@@ -70,12 +70,12 @@
   margin-left: 20px;
 }
 
-.selectInput1:focus {
+.adminReportsSelectInput1:focus {
   border-right: none;
   outline: none;
 }
 
-.searchInput {
+.adminReportsSearchInput {
   width: 200px;;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
@@ -90,12 +90,12 @@
   transition: all .4s;
 }
 
-.searchInput:focus {
+.adminReportsSearchInput:focus {
   border-left: none;
   outline: none;
 }
 
-.searchDateInput1 {
+.adminReportsSearchDateInput1 {
   width: 200px;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
@@ -108,7 +108,7 @@
   transition: all .4s;
 }
 
-.searchDateInput2 {
+.adminReportsSearchDateInput2 {
   width: 200px;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
@@ -121,11 +121,11 @@
   transition: all .4s;
 }
 
-.searchDateInput1, .searchDateInput2:focus {
+.adminReportsSearchDateInput1, .adminReportsSearchDateInput2:focus {
   outline: none;
 }
 
-.selectInput2 {
+.adminReportsSelectInput2 {
   height: 50px;
   width: 100px;
   font-family: 'Montserrat', sans-serif;
@@ -140,17 +140,17 @@
   margin-left: 10px;
 }
 
-.selectInput2:focus {
+.adminReportsSelectInput2:focus {
   outline: none;
 }
 
-.buttonGroup {
+.adminReportsButtonGroup {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-.searchButton {
+.adminReportsSearchButton {
   padding: 8px 16px;
   background-color: #393B3F;
   color: white;
@@ -159,11 +159,11 @@
   cursor: pointer;
 }
 
-.searchButton:hover {
+.adminReportsSearchButton:hover {
   background-color: #CCCCCC;
 }
 
-.resetButton {
+.adminReportsResetButton {
   padding: 8px 16px;
   background-color: #9C9E9C;
   color: white;
@@ -172,11 +172,11 @@
   cursor: pointer;
 }
 
-.resetButton:hover {
+.adminReportsResetButton:hover {
   background-color: #d32f2f;
 }
 
-.section {
+.adminReportsSection {
   width: 100%;
   margin-bottom: 20px;
   padding: 20px;
@@ -186,47 +186,47 @@
   transition: all 0.5s ease;
 }
 
-.section:not(.activeSection) {
+.adminReportsSection:not(.activeSection) {
   opacity: 0.5;
 }
 
-.activeSection {
+.adminReportsSActiveSection {
   opacity: 1;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
 }
 
-.membersTable {
+.adminReportsTable {
   width: 100%;
   overflow-y: auto;
   max-height: 300px;
 }
 
-.table {
+.adminReportsTable {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table th, .table td {
+.adminReportsTable th, .adminReportsTable td {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-.table th {
+.adminReportsTable th {
   background-color: #f2f2f2;
   text-align: left;
 }
 
-.selectReportStatus {
+.adminReportsSelectReportStatus {
   width: 100px;
 }
 
-.resultInfo {
+.adminReportsResultInfo {
   margin-bottom: 10px;
   position: relative;
   display: inline-block;
 }
 
-.notificationDot {
+.adminReportsNotificationDot {
   width: 8px;
   height: 8px;
   background-color: #d32f2f;
@@ -236,32 +236,32 @@
   left: calc(100% + 3px);
 }
 
-.membersTable table {
+.adminReportsTable table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.membersTable th, .membersTable td {
+.adminReportsTable th, .adminReportsTable td {
   border: 1px solid #CCCCCC;
   padding: 8px;
   text-align: center;
 }
 
-.membersTable th {
+.adminReportsTable th {
   background-color: #f4f4f4;
   font-weight: bold;
 }
 
-.membersTable tr:nth-child(even) {
+.adminReportsTable tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.membersTable tr:hover {
+.adminReportsTable tr:hover {
   background-color: #f1f1f1;
 }
 
-.truncate {
+.adminReportsTruncate {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -269,22 +269,22 @@
   cursor: pointer;
 }
 
-.expandable-row {
+.adminReportsExpandableRow {
   display: none;
   background-color: #f9f9f9;
 }
 
-.expandable-row.active {
+.adminReportsExpandableRow.active {
   display: table-row;
 }
 
-.expandable-content {
+.adminReportsExpandableContent {
   padding: 10px;
   background-color: #ffffff;
   border-top: 1px solid #cccccc;
 }
 
-.membersTable .editButton {
+.adminReportsTable .editButton {
   padding: 5px;
   background-color: #393B3F;
   color: white;
@@ -294,11 +294,11 @@
   margin-right: 5px;
 }
 
-.membersTable .editButton:hover {
+.adminReportsTable .editButton:hover {
   background-color: #CCCCCC;
 }
 
-.membersTable .deleteButton {
+.adminReportsTable .deleteButton {
   padding: 5px;
   background-color: #9C9E9C;
   color: white;
@@ -308,11 +308,11 @@
   margin-left: 5px;
 }
 
-.membersTable .deleteButton:hover {
+.adminReportsTable .deleteButton:hover {
   background-color: #d32f2f;
 }
 
-.notification {
+.adminReportsNotification {
   color: red;
   margin-top: 5px;
   font-size: 12px;
