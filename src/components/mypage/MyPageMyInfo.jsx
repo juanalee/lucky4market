@@ -7,13 +7,13 @@ import MyPageSideBar from "./MyPageSideBar";
 import styles from "./css/MyPageMyInfo.module.css";
 
 export default function MyPageMyInfo() {
-  const [infoData, setInfoData] = useState([]);
+  const [myInfo, setMyInfo] = useState([]);
   const [emailDomain, setEmailDomain] = useState('');
   const [emailOption, setEmailOption] = useState('');
   const [formData, setFormData] = useState({
     memberId: '',
-    memberPassword: '',
-    memberPasswordConfirm: '',
+    memberPasswd: '',
+    memberPasswdConfirm: '',
     memberName: '',
     memberNick: '',
     memberPhoneNumber1: '',
@@ -36,12 +36,12 @@ export default function MyPageMyInfo() {
           const response = await axios.get(`http://localhost:9999/api/member/myPageMyInfo/${memberId}`);
           console.log(response.data);
           const data = response.data[0] || {};
-          setInfoData(response.data);
+          setMyInfo(response.data);
           setEmailDomain(data.memberEmailDomain || '');
           setFormData({
             memberId: data.memberId || '',
-            memberPassword: '',
-            memberPasswordConfirm: '',
+            memberPasswd: '',
+            memberPasswdConfirm: '',
             memberName: data.memberName || '',
             memberNick: data.memberNick || '',
             memberPhoneNumber1: data.memberPhoneNumber1 || '',
@@ -54,7 +54,7 @@ export default function MyPageMyInfo() {
             memberDetailAddress: data.memberDetailAddress || ''
           });
         } catch (error) {
-          console.error("데이터를 가져오는 중 오류가 발생했습니다:", error);
+          console.error("데이터를 가져오는 중 오류가 발생했습니다.:", error);
         }
       };
       myInfoData();
@@ -82,25 +82,26 @@ export default function MyPageMyInfo() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { memberPassword, memberPasswordConfirm, ...otherFields } = formData;
-      if (memberPassword !== memberPasswordConfirm) {
+      const { memberPasswd, memberPasswdConfirm, ...otherFields } = formData;
+      if (memberPasswd !== memberPasswdConfirm) {
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
 
       await axios.put('http://localhost:9999/api/member/myPageMyInfo/update', {
         ...otherFields,
-        memberPasswd: memberPassword,
+        memberPasswd: memberPasswd,
         memberEmailDomain: emailDomain,
-        memberAddress: formData.memberAddress,
         memberPostalCode: formData.memberPostalCode,
+        memberAddress: formData.memberAddress,
         memberDetailAddress: formData.memberDetailAddress,
+        memberProfileNo: '',
         memberProfilePath: ''
       });
 
       alert("회원 정보 수정 완료");
     } catch (error) {
-      console.error("회원 정보를 수정하는 중 오류가 발생했습니다.:", error);
+      console.error("회원 정보를 수정하는 중 오류 발생:", error);
       alert("회원 정보 수정 실패");
     }
   };
@@ -114,7 +115,7 @@ export default function MyPageMyInfo() {
           <div className={styles.my_infomation}>내 정보</div>
           <div className={styles.my_info_main_container}>
             <form onSubmit={handleFormSubmit}>
-              {infoData.map((info, index) => (
+              {myInfo.map((info, index) => (
                 <div key={index}>
                   <div className={styles.my_info_content}>프로필
                     <div className={styles.my_info_profile_container1}>
@@ -134,10 +135,10 @@ export default function MyPageMyInfo() {
                     <input className={styles.my_info_item} type="text" name="memberId" value={formData.memberId} readOnly/>
                   </div>
                   <div className={styles.my_info_content}>비밀번호<br/>
-                    <input className={styles.my_info_item} type="password" name="memberPassword" placeholder="비밀번호를 입력하세요." value={formData.memberPassword} onChange={handleChange} required/>
+                    <input className={styles.my_info_item} type="password" name="memberPasswd" placeholder="비밀번호를 입력하세요." value={formData.memberPasswd} onChange={handleChange} required/>
                   </div>
                   <div className={styles.my_info_content}>비밀번호 확인<br/>
-                    <input className={styles.my_info_item} type="password" name="memberPasswordConfirm" placeholder="비밀번호를 다시 입력하세요." value={formData.memberPasswordConfirm} onChange={handleChange} required/>
+                    <input className={styles.my_info_item} type="password" name="memberPasswdConfirm" placeholder="비밀번호를 다시 입력하세요." value={formData.memberPasswdConfirm} onChange={handleChange} required/>
                   </div>
                   <div className={styles.my_info_content}>이름<br/>
                     <input className={styles.my_info_item} type="text" name="memberName" value={formData.memberName} readOnly/>

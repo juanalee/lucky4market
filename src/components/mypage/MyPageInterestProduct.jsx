@@ -6,7 +6,7 @@ import MyPageSideBar from "./MyPageSideBar";
 import styles from "./css/MyPageInterestProduct.module.css";
 
 export default function MyPageInterestProduct() {
-  const [interestData, setInterestData] = useState([]);
+  const [interestProduct, setInterestProduct] = useState([]);
 
   const memberId = MyPageMemberId();
 
@@ -15,15 +15,17 @@ export default function MyPageInterestProduct() {
   };
 
   useEffect(() => {
-    const interestProductData = async () => {
-      try {
-        const interestResponse = await axios.get(`http://localhost:9999/api/product/myPageInterest/${memberId}`);
-        setInterestData(interestResponse.data);
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류 발생: ", error);
-      }
+    if (memberId) {
+      const interestProductData = async () => {
+        try {
+          const interestResponse = await axios.get(`http://localhost:9999/api/product/myPageInterestProduct/${memberId}`);
+          setInterestProduct(interestResponse.data);
+        } catch (error) {
+          console.error("데이터를 가져오는 중 오류 발생: ", error);
+        }
+      };
+      interestProductData();
     };
-    interestProductData();
   }, [memberId]);
 
   return (
@@ -34,8 +36,8 @@ export default function MyPageInterestProduct() {
         <div className={styles.interest_product_main_container}>
           <div className={styles.interest_product}>관심 상품</div>
           <div className={styles.interest_product_container}>
-            {interestData.length > 0 ? (
-              interestData.map((product, index) => (
+            {interestProduct.length > 0 ? (
+              interestProduct.map((product, index) => (
                 <div key={index} className={styles.interest_product_list}>
                   <img
                     className={styles.interest_product_image}
