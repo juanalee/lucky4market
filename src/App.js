@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import AdminMembers from './admin/components/tempadminMembers/AdminMembers';
-import AdminReports from './admin/components/tempadminReports/AdminReports';
+import AdminMembers from './admin/components/adminMembers/AdminMembers';
+import AdminReports from './admin/components/adminReports/AdminReports';
 import LoginForm from './components/auth/Login/LoginForm';
 import IdPasswdRecovery from './components/auth/IdPasswdRecovery/IdPasswdRecovery';
 import PreRegisterForm from './components/auth/Register/PreRegisterForm';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminHeader from '../tempadminHeader/AdminHeader';
-import AdminPopup from '../tempadminPopup/AdminPopup';
+import AdminHeader from '../sadminHeader/AdminHeader';
+import AdminPopup from '../adminPopup/AdminPopup';
 import styles from './AdminMembers.module.css';
 
 const AdminMembers = () => {
