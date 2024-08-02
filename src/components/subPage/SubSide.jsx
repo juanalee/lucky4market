@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import InputMask from 'react-input-mask';
 import Payment from './SubPayment';
 import Backdrop from './SubOverlay';
-import styles from './css/sub_purchase_side.module.css';
+import styles from './css/sub_purchase_side.module.css'
 import axios from 'axios';
 import Sub_address from './SubAddress';
+import { AuthContext } from '../../services/AuthContext';
 
 const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
+  // 로그인 정보 관리
+  const { profile, isAuthenticated } = useContext(AuthContext);
+  const [profileSub, setProfileSub] = useState(profile?.sub || null);
+
+  useEffect(() => {
+    if (profile?.sub !== profileSub) {
+      setProfileSub(profile?.sub || null);
+    }
+  }, [profile?.sub, profileSub]);
+
+  // 상태 관리
   const [deliveryAddressValue, setDeliveryAddressValue] = useState('');
   const [addressNameValue, setAddressNameValue] = useState('');
   const [addressPhoneNumberValue, setAddressPhoneNumberValue] = useState('');
   const [addressDetailInfoValue, setAddressDetailInfoValue] = useState('');
-  const [resetAddress, setResetAddress] = useState(false);
   const [tradeMethod, setTradeMethod] = useState(0);
   const [buyMethod, setBuyMethod] = useState('kakaopay');
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(false);
@@ -23,25 +34,45 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
   const [mainAddressInfo, setMainAddressInfo] = useState([]);
   const [addressMainInfo, setAddressMainInfo] = useState({ postalCode: '', fullAddress: '' });
 
-  const fetchAddressInfo = async () => {
+  // 오류 관리
+  const [deliveryAddressError, setDeliveryAddressError] = useState('');
+  const [addressNameError, setAddressNameError] = useState('');
+  const [addressPhoneNumberError, setAddressPhoneNumberError] = useState('');
+  const [addressDetailInfoError, setAddressDetailInfoError] = useState('');
+  const [addressMainInfoError, setAddressMainInfoError] = useState('');
+
+  // 메시지 및 모달 상태
+  const [subSideModalOpen, setSubSideModalOpen] = useState(false);
+  const [subSideModalMsg, setSubSideModalMsg] = useState('');
+
+  // 주소 정보 가져오기
+  const fetchAddressInfo = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:9999/addressInfo?memberId=member4');
+      const response = await axios.get(`http://localhost:9999/addressInfo?memberId=${profileSub}`);
       setAddressInfo(response.data);
-      // console.log(response.data);
     } catch (error) {
       console.error('주소 정보를 가져오는 데 실패했습니다:', error);
     }
-  };
+  }, [profileSub]);
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    if (!profileSub) {
+      return;
+    }
+
     fetchAddressInfo();
-  }, []);
+  }, [fetchAddressInfo]);
 
   useEffect(() => {
     const filteredMainAddresses = addressInfo.filter(info => info.mainAddress === 1);
     setMainAddressInfo(filteredMainAddresses);
   }, [addressInfo]);
 
+  // 클래스 이름 설정
   const tradeMethodClass = isOpen ? styles.open : '';
   const purchaseClass = isPurchaseOpen ? styles.open : '';
   const addressClass = isAddressOpen ? styles.open : '';
@@ -51,108 +82,178 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
   const tradeMethodDeliveryClass = tradeMethod === 1 ? styles.selected : '';
   const tradeMethodDirectClass = tradeMethod === 2 ? styles.selected : '';
 
-  const selectTradeMethodDelivery = () => setTradeMethod(1);
-  const selectTradeMethodDirect = () => setTradeMethod(2);
-  const proceedToPurchase = () => setIsPurchaseOpen(true);
-  const closePurchase = () => {
+  // 거래 방법 선택
+  const selectTradeMethodDelivery = useCallback(() => setTradeMethod(1), []);
+  const selectTradeMethodDirect = useCallback(() => setTradeMethod(2), []);
+
+  // 구매 진행
+  const proceedToPurchase = useCallback(() => setIsPurchaseOpen(true), []);
+  const closePurchase = useCallback(() => {
     setIsPurchaseOpen(false);
+    addressClose();
+    editClose();
+    addAddressClose();
     onClose();
-  };
+  }, [onClose]);
 
-  const addressOpen = () => setAddressOpen(true);
-  const addressClose = () => setAddressOpen(false);
-  const editOpen = () => setEditOpen(true);
-  const editClose = () => setEditOpen(false);
-  const addAddressOpen = () => setAddAddressOpen(true);
-  const addAddressClose = () => setAddAddressOpen(false);
+  // 주소 관련 열기/닫기
+  const addressOpen = useCallback(() => setAddressOpen(true), []);
+  const addressClose = useCallback(() => { setAddressOpen(false); }, []);
+  const editOpen = useCallback(() => setEditOpen(true), []);
+  const editClose = useCallback(() => setEditOpen(false), []);
+  const addAddressOpen = useCallback(() => setAddAddressOpen(true), []);
+  const addAddressClose = useCallback(() => setAddAddressOpen(false), []);
 
-  const handleAddressClick = (id) => setSelectedAddressId(id);
+  const handleAddressClick = useCallback((id) => setSelectedAddressId(id), []);
 
-  const handleDeliveryAddressChange = (event) => setDeliveryAddressValue(event.target.value);
-  const handleAddressNameChange = (event) => setAddressNameValue(event.target.value);
-  const handleAddressPhoneNumberChange = (event) => setAddressPhoneNumberValue(event.target.value);
-  const handleAddressDetailInfoChange = (event) => setAddressDetailInfoValue(event.target.value);
+  // 입력 값 변경 핸들러
+  const handleDeliveryAddressChange = useCallback((event) => setDeliveryAddressValue(event.target.value), []);
+  const handleAddressNameChange = useCallback((event) => setAddressNameValue(event.target.value), []);
+  const handleAddressPhoneNumberChange = useCallback((event) => setAddressPhoneNumberValue(event.target.value), []);
+  const handleAddressDetailInfoChange = useCallback((event) => setAddressDetailInfoValue(event.target.value), []);
+
+  // 주소 객체
+  const mainAddress = addressInfo.length > 0 ? 0 : 1;
 
   const obj = {
-    memberId: 'member4',
+    memberId: profileSub,
     addressName: deliveryAddressValue,
     memberName: addressNameValue,
     memberPhoneNumber: addressPhoneNumberValue,
     postalCode: addressMainInfo.postalCode,
-    address: `${addressMainInfo.fullAddress} ${addressDetailInfoValue}`.trim()
+    address: `${addressMainInfo.fullAddress} ${addressDetailInfoValue}`.trim(),
+    mainAddress: mainAddress
   };
 
-  const resetAddAddress = () => {
+  // 주소 폼 초기화
+  const resetAddAddress = useCallback(() => {
     setDeliveryAddressValue('');
     setAddressNameValue('');
     setAddressPhoneNumberValue('');
     setAddressDetailInfoValue('');
     setAddressMainInfo({ postalCode: '', fullAddress: '' });
-    setResetAddress(true);
-  };
+  }, []);
 
-  const checkField = () => {
+  // 필드 유효성 검사
+  const checkField = useCallback(() => {
+    let isValid = true;
+
     if (deliveryAddressValue === '') {
-      alert("배송지를 입력하세요.");
-      return false;
+      setDeliveryAddressError("배송지를 입력하세요.");
+      isValid = false;
+    } else {
+      setDeliveryAddressError('');
     }
-    if (addressNameValue === '') {
-      alert("이름을 입력하세요.");
-      return false;
-    }
-    if (addressPhoneNumberValue === '') {
-      alert("핸드폰 번호를 입력하세요.");
-      return false;
-    }
-    if (addressDetailInfoValue === '') {
-      alert("상세 주소를 입력하세요.");
-      return false;
-    }
-    if (addressMainInfo.postalCode === '' || addressMainInfo.fullAddress === '') {
-      alert("주소를 입력하세요.");
-      return false;
-    }
-    return true;
-  };
 
-  const insertMemberAddress = async () => {
+    if (addressNameValue === '') {
+      setAddressNameError("이름을 입력하세요.");
+      isValid = false;
+    } else {
+      setAddressNameError('');
+    }
+
+    if (addressPhoneNumberValue === '') {
+      setAddressPhoneNumberError("핸드폰 번호를 입력하세요.");
+      isValid = false;
+    } else {
+      setAddressPhoneNumberError('');
+    }
+
+    if (addressDetailInfoValue === '') {
+      setAddressDetailInfoError("상세 주소를 입력하세요.");
+      isValid = false;
+    } else {
+      setAddressDetailInfoError('');
+    }
+
+    if (addressMainInfo.postalCode === '' || addressMainInfo.fullAddress === '') {
+      setAddressMainInfoError("주소를 입력하세요.");
+      isValid = false;
+    } else {
+      setAddressMainInfoError('');
+    }
+
+    return isValid;
+  }, [deliveryAddressValue, addressNameValue, addressPhoneNumberValue, addressDetailInfoValue, addressMainInfo]);
+
+  // 주소 추가
+  const insertMemberAddress = useCallback(async () => {
     if (!checkField()) {
       return;
     }
     try {
       const response = await axios.post('http://localhost:9999/insertMemberAddress', obj);
-      alert(response.data.msg);
+      setSubSideModalMsg(response.data.msg);
+      setSubSideModalOpen(true); // 모달 열기
+      resetAddAddress(); // 주소 추가 후 폼 초기화
+      fetchAddressInfo(); // 주소 정보 갱신
+      setTimeout(() => {
+        setSubSideModalOpen(false);
+      }, 2000);
     } catch (error) {
       console.error(error);
     }
     addAddressClose();
-    fetchAddressInfo();
-    resetAddAddress();
-  };
-
-  const deleteMemberAddress = async (memberAddressNo) => {
+  }, [checkField, obj, fetchAddressInfo, resetAddAddress, addAddressClose]);
+  // 주소 삭제
+  const deleteMemberAddress = useCallback(async (memberAddressNo, mainAddressNo) => {
+    if (mainAddressNo == 1) {
+      setSubSideModalMsg('대표 배송지는 삭제 하실 수 없습니다');
+      setSubSideModalOpen(true);
+      setTimeout(() => {
+        setSubSideModalOpen(false);
+      }, 2000);
+      return;
+    }
     try {
-      const response = await axios.delete(`http://localhost:9999/deleteMemberAddress?memberAddressNo=${memberAddressNo}`)
-      alert(response.data.msg);
+      const response = await axios.delete(`http://localhost:9999/deleteMemberAddress?memberAddressNo=${memberAddressNo}`);
+      setSubSideModalMsg(response.data.msg);
+      setSubSideModalOpen(true); // 모달 열기
+      fetchAddressInfo();
+      setTimeout(() => {
+        setSubSideModalOpen(false);
+      }, 2000);
     } catch (error) {
       console.error(error);
     }
-    fetchAddressInfo();
-  };
+  }, [fetchAddressInfo]);
 
-  const changeMainAddress = async (memberAddressNo) => {
+  // 기본 주소 변경
+  const changeMainAddress = useCallback(async (memberAddressNo, mainAddressNo) => {
+    if (mainAddressNo == 1) {
+      return;
+    }
+
     try {
       const response = await axios.put('http://localhost:9999/changeMainAddress', {
-        memberId: 'member4',
+        memberId: profileSub,
         memberAddressNo: memberAddressNo
-      })
-      alert(response.data.msg);
+      });
+      setSubSideModalMsg(response.data.msg);
+      setSubSideModalOpen(true); // 모달 열기
+      fetchAddressInfo();
+      setTimeout(() => {
+        setSubSideModalOpen(false);
+      }, 2000);
     } catch (error) {
       console.error(error);
     }
-    fetchAddressInfo();
-  }
+  }, [fetchAddressInfo, profileSub]);
 
+  // 주소 클릭 시
+  const handleAddressSelect = (id) => {
+    handleAddressClick(id);
+    if (isEditOpen) {
+      setAddressNameValue(addressInfo.find(info => info.memberAddressNo === id)?.addressName || '');
+      setAddressPhoneNumberValue(addressInfo.find(info => info.memberAddressNo === id)?.memberPhoneNumber || '');
+      setDeliveryAddressValue(addressInfo.find(info => info.memberAddressNo === id)?.address || '');
+      setAddressDetailInfoValue(addressInfo.find(info => info.memberAddressNo === id)?.detailAddress || '');
+      setAddressMainInfo({
+        postalCode: addressInfo.find(info => info.memberAddressNo === id)?.postalCode || '',
+        fullAddress: addressInfo.find(info => info.memberAddressNo === id)?.fullAddress || ''
+      });
+    }
+  };
   return (
     <>
       <Backdrop
@@ -203,31 +304,39 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
             <h2>직거래로 구매</h2>
           )}
           <div className={styles.purchase_productInfo}>
-            {productImage?.productImagePath ? (
+            {productImage?.productImagePath &&
               <img src={productImage.productImagePath} alt='Product' />
-            ) : (
-              <p>상품 이미지를 불러올 수 없습니다.</p>
-            )}
+            }
             <div>
               <p>{productInfo.productTitle}</p>
-              <p className={styles.purchase_price}>{productInfo.productPrice.toLocaleString()}원</p>
+              <p className={styles.purchase_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
             </div>
           </div>
         </div>
         <hr />
-        {tradeMethod === 1 && mainAddressInfo.length > 0 && (
-          <div className={styles.buyer_address}>
-            <h2>배송정보</h2>
-            {mainAddressInfo.map(info => (
-              <div key={info.memberAddressNo} className={styles.buyer_address_info}>
-                <h3>{info.addressName}</h3>
-                <p>{info.memberName}</p>
-                <p>{info.memberPhoneNumber}</p>
-                <p>[{info.postalCode}] {info.address}</p>
+        {tradeMethod === 1 && (
+          <>
+            {mainAddressInfo.length > 0 ? (
+              <div className={styles.buyer_address}>
+                <h2>배송정보</h2>
+                {mainAddressInfo.map(info => (
+                  <div key={info.memberAddressNo} className={styles.buyer_address_info}>
+                    <h3>{info.addressName}</h3>
+                    <p>{info.memberName}</p>
+                    <p>{info.memberPhoneNumber}</p>
+                    <p>[{info.postalCode}] {info.address}</p>
+                  </div>
+                ))}
+                <button type='button' className={styles.change_address} onClick={addressOpen}>변경</button>
               </div>
-            ))}
-            <button type='button' className={styles.change_address} onClick={addressOpen}>변경</button>
-          </div>
+            ) : (
+              <div className={styles.no_address}>
+                <h2>배송지 설정</h2>
+                <p>배송지가 없습니다. 새로운 배송지를 추가해주세요.</p>
+                <button type='button' className={styles.addAddress} onClick={addAddressOpen}>배송지 추가</button>
+              </div>
+            )}
+          </>
         )}
         <hr />
         <div className={styles.buyMethod_container}>
@@ -263,9 +372,9 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
         <div className={styles.payment_amount}>
           <div className={styles.last_price_container}>
             <h2>최종 결제 금액</h2>
-            <p className={styles.last_price}>{productInfo.productPrice.toLocaleString()}원</p>
+            <p className={styles.last_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
           </div>
-          <Payment buyMethod={buyMethod} productNo={20} />
+          <Payment buyMethod={buyMethod} addressInfo={addressInfo} productInfo={productInfo} />
         </div>
       </div>
       <div className={`${styles.address_side} ${addressClass}`}>
@@ -275,7 +384,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
           <img src='/img/edit.png' alt='edit' />
           <p>편집</p>
         </div>
-        {addressInfo.length > 0 && (
+        {addressInfo.length > 0 ? (
           <>
             {addressInfo.map(info => (
               <div
@@ -292,14 +401,19 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                 <p>[{info.postalCode}] {info.address}</p>
               </div>
             ))}
+            <button className={styles.addAddress} onClick={addAddressOpen}>+ 배송지 추가</button>
           </>
+        ) : (
+          <div className={styles.no_address}>
+            <p>현재 저장된 배송지가 없습니다. 배송지를 추가해 주세요.</p>
+            <button className={styles.addAddress} onClick={addAddressOpen}>+ 배송지 추가</button>
+          </div>
         )}
-        <button className={styles.addAddress} onClick={addAddressOpen}>+ 배송지 추가</button>
       </div>
       <div className={`${styles.edit_side} ${editClass}`}>
         <img src='/img/back_arrow.png' alt='back' onClick={editClose} className={styles.addressBack} />
         <h2>배송지 편집</h2>
-        {addressInfo.length > 0 && (
+        {addressInfo.length > 0 ? (
           <>
             {addressInfo.map((info) => (
               <div key={info.memberAddressNo} className={styles.editInfo}>
@@ -311,28 +425,40 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
                 <p>{info.memberPhoneNumber}</p>
                 <p>[{info.postalCode}] {info.address}</p>
                 <div className={styles.editBtn}>
-                  <button onClick={() => changeMainAddress(info.memberAddressNo)}>배송지 설정</button>
+                  <button onClick={() => changeMainAddress(info.memberAddressNo, info.mainAddress)} className={info.mainAddress == 1 ? styles.mainAddressColor : ''}>배송지 설정</button>
                   <span></span>
-                  <button onClick={() => deleteMemberAddress(info.memberAddressNo)}>삭제</button>
+                  <button onClick={() => deleteMemberAddress(info.memberAddressNo, info.mainAddress)}>삭제</button>
                 </div>
               </div>
             ))}
           </>
+        ) : (
+          <div className={styles.no_address}>
+            <p>현재 저장된 배송지가 없습니다. 배송지를 추가해 주세요.</p>
+          </div>
         )}
       </div>
       <div className={`${styles.addAddressSide} ${addAddressClass}`}>
         <img src='/img/back_arrow.png' alt='back' onClick={addAddressClose} className={styles.addressBack} />
         <h2>배송지 추가</h2>
         <div className={styles.addAddressInfo}>
-          <input type='text' placeholder='배송지명 (최대 10글자)' maxLength={10} onChange={handleDeliveryAddressChange} />
-          <input type='text' placeholder='이름 입력' onChange={handleAddressNameChange} />
-          <InputMask mask="999-9999-9999" maskChar={null} onChange={handleAddressPhoneNumberChange}>
+          <input type='text' placeholder='배송지명 (최대 10글자)' maxLength={10} value={deliveryAddressValue} onChange={handleDeliveryAddressChange} />
+          {deliveryAddressError && <p className={styles.errorMessage}>{deliveryAddressError}</p>}
+          <input type='text' placeholder='이름 입력' value={addressNameValue} onChange={handleAddressNameChange} />
+          {addressNameError && <p className={styles.errorMessage}>{addressNameError}</p>}
+          <InputMask mask="999-9999-9999" maskChar={null} value={addressPhoneNumberValue} onChange={handleAddressPhoneNumberChange}>
             {(inputProps) => <input type='text' {...inputProps} placeholder='휴대폰 번호' />}
           </InputMask>
-          <Sub_address setAddressMainInfo={setAddressMainInfo} resetAddress={resetAddress} />
-          <input type='text' placeholder='상세 주소(예시: 101동 101호)' onChange={handleAddressDetailInfoChange} />
+          {addressPhoneNumberError && <p className={styles.errorMessage}>{addressPhoneNumberError}</p>}
+          <Sub_address setAddressMainInfo={setAddressMainInfo} />
+          {addressMainInfoError && <p className={styles.errorMessage}>{addressMainInfoError}</p>}
+          <input type='text' placeholder='상세 주소(예시: 101동 101호)' value={addressDetailInfoValue} onChange={handleAddressDetailInfoChange} />
+          {addressDetailInfoError && <p className={styles.errorMessage}>{addressDetailInfoError}</p>}
         </div>
         <button className={styles.editSubmit} onClick={insertMemberAddress}>추가</button>
+      </div>
+      <div className={`${styles.subSideModal} ${subSideModalOpen ? styles.show : ''}`}>
+        <p>{subSideModalMsg}</p>
       </div>
     </>
   );

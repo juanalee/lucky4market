@@ -1,22 +1,44 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductInfo from './SubProductInfo';
-import StoreInfo from './SubSellerInfo';
-import styles from './css/SubImageSlider.module.css';
+import styles from './css/SubImageSlider.module.css'; // 모듈 CSS 파일 가져오기
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function ImageSlider() {
+export default function SubImageSlider() {
   const [productImg, setProductImg] = useState([]);
-  const [productInfo, setProductInfo] = useState([]);
+  const [productInfo, setProductInfo] = useState(null); // 초기값을 null로 설정
+  const [productStatus, setProductStatus] = useState(null); // 초기값을 null로 설정
+  const { productNo } = useParams(); // useParams를 이용해 productNo 가져오기
+  const navigate = useNavigate();
+
+  const fetchData = async () => {
+    try {
+      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
+      setProductInfo(productResponse.data);
+      setProductStatus(productResponse.data.productSale);
+
+      const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
+      setProductImg(imageResponse.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
+    fetchData();
+  }, [productNo]); // productNo를 의존성 배열에 추가
+
+  useEffect(() => {
+    if (productImg.length === 0) return;
+
     let currentIndex = 0; // 현재 보이는 이미지
-    const sliderCount = productImg.length; // 이미지 갯수
+    const sliderCount = productImg.length; // 이미지 개수
     const sliderMove = document.querySelector(`.${styles.productMainImg}`);
     const sliderBtn = document.querySelectorAll(`.${styles.arrow} a`);
 
     function moveSlider(num) {
       sliderMove.style.transition = "all 400ms";
-      sliderMove.style.transform = `translateX(${-500 * num}px)`;
+      sliderMove.style.transform = `translateX(${-550 * num}px)`;
       currentIndex = num;
 
       let dotActive = document.querySelectorAll(`.${styles.sliderDot} .${styles.dot}`);
@@ -43,25 +65,37 @@ export default function ImageSlider() {
         btn.onclick = handleNext;
       }
     });
-
   }, [productImg]);
 
-  useEffect(() => {
-    const productImage = async () => {
-      try {
-        const productResponse = await axios.get('http://localhost:9999/api/product/productInfo?productNo=20');
-        setProductInfo(productResponse.data);
-        const response = await axios.get('http://localhost:9999/api/product/productImage?productNo=20');
-        setProductImg(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const imageStyle1 = productInfo?.productSale === '판매완료';
+  const imageStyle2 = productInfo?.productSale === '예약중';
+  const imageClass1 = imageStyle1 ? '' : styles.imageSale;
+  const imageClass2 = imageStyle2 ? '' : styles.imageSale;
 
-    productImage();
-  }, []);
-  const imageStyle = productInfo.productSale === '판매중' ? true : false;
-  const imageClass = imageStyle ? '' : styles.imageSale
+  const backHome = () => {
+    navigate('/');
+  };
+
+  if (productStatus === '삭제') {
+    return (
+      <div className={styles.deleteScreenContainer}>
+        <img src="/img/exclamation.png" alt="삭제된 상품" />
+        <h2>해당 상품은 삭제되었습니다</h2>
+        <button className={styles.deleteScreenBtn} onClick={backHome}>홈으로 돌아가기</button>
+      </div>
+    );
+  }
+
+  if (!productInfo) {
+    return (
+      <div className={styles.deleteScreenContainer}>
+        <img src="/img/exclamation.png" alt="존재하지 않는 상품" />
+        <h2>관련 상품이 없습니다</h2>
+        <button className={styles.deleteScreenBtn} onClick={backHome}>홈으로 돌아가기</button>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={styles.hrContainer}>
@@ -74,14 +108,30 @@ export default function ImageSlider() {
               <div className={styles.productMainImgMove}>
                 <div className={styles.productMainImg}>
                   {productImg.map((img, index) => (
-                    <img key={index} src={img.productImagePath} alt={`Product ${index}`} className={imageClass} />
+                    <img
+                      key={index}
+                      src={img.productImagePath}
+                      alt={`Product ${index}`}
+                      className={`${styles.productMainImage} ${imageClass1} ${imageClass2}`}
+                    />
                   ))}
-                  {!imageStyle &&
-                    <p className={styles.productSaleStatus}>판매완료</p>
+                  {imageStyle1 &&
+                    <>
+                      <div className={styles.productSaleBackground}></div>
+                      <img src='/img/sold_out.png' className={styles.productSaleImg} alt="Sold Out" />
+                      <p className={styles.productSaleStatus}>판매완료</p>
+                    </>
+                  }
+                  {imageStyle2 &&
+                    <>
+                      <div className={styles.productSaleBackground}></div>
+                      <img src='/img/sold_out.png' className={styles.productSaleImg} alt="Reserved" />
+                      <p className={styles.productSaleStatus}>예약중</p>
+                    </>
                   }
                 </div>
               </div>
-              {productImg.length > 1 && imageStyle &&
+              {productImg.length > 1 && !imageStyle1 && !imageStyle2 &&
                 <div className={styles.arrow}>
                   <a href="#" className={styles.prev}>
                     <img src="/img/left.png" className={styles.leftArrow} alt="Previous" />
@@ -92,14 +142,16 @@ export default function ImageSlider() {
                 </div>
               }
               <div className={styles.sliderDot}>
-                {imageStyle && productImg.map((_, index) => (
-                  <span key={index} className={`${styles.dot} ${index === 0 ? styles.active : ''}`}></span>
+                {productImg.length > 1 && productImg.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`${styles.dot} ${index === 0 ? styles.active : ''}`}
+                  ></span>
                 ))}
               </div>
             </div>
           </div>
-          <ProductInfo productImage={productImg[0]} />
-          <StoreInfo />
+          <ProductInfo productImage={productImg[0]} productNo={productNo} />
         </div>
       </div>
     </>

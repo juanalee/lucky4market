@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
-import styles from './css/MypageProductSalesList.module.css';
+import styles from './css/MyPageProductSalesList.module.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import MyPageMemberId from './MyPageMemberId';
 
@@ -60,14 +60,14 @@ const MypageProductSalesList = () => {
         <MyPageSideBar />
         <div className={styles.MyPageProductSaleMainContainer}>
           <div className={styles.ProductButtonContainer}>
-            <button 
-              className={`${styles.ProductSale} ${displayType === 'saling' ? styles.active : ''}`} 
+            <button
+              className={`${styles.ProductSale} ${displayType === 'saling' ? styles.active : ''}`}
               onClick={() => setDisplayType('saling')}
             >
               판매중 ({memberProductList.length})
             </button>
-            <button 
-              className={`${styles.ProductSoldOut} ${displayType === 'soldout' ? styles.active : ''}`} 
+            <button
+              className={`${styles.ProductSoldOut} ${displayType === 'soldout' ? styles.active : ''}`}
               onClick={() => setDisplayType('soldout')}
             >
               판매완료 ({memberProductsoldoutList.length})

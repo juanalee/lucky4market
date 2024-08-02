@@ -13,6 +13,7 @@
   display: flex;
   transition: transform 500ms ease-in-out;
   width: 100%; /* Match the width of the container */
+  margin-top: 300px;
 }
 
 .imgContainer img {

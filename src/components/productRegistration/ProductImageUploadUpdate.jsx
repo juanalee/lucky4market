@@ -79,7 +79,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
                 const reader = new FileReader();
                 reader.onloadend = () => {
                     setImagePreviews(prev => [
-                        ...prev, 
+                        ...prev,
                         { src: reader.result, key: objectKey } // `key`는 `PRODUCT_IMAGE_NO`처럼 사용
                     ]);
                 };
@@ -102,7 +102,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
         setImagePreviews(prev => prev.filter(image => image.key !== key));
         setUploadedImages(prev => prev.filter(image => image.key !== key));
         setDeleteImages(prev => [...prev, key]); // 삭제 이미지 배열에 key 추가
-        
+
     };
 
     return (

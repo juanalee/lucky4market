@@ -1,3 +1,5 @@
+/* sub_purchase_side.module.css */
+
 /* 전체 레이아웃 스타일 */
 .purchase_tradeMethod_container {
   padding: 50px;
@@ -11,8 +13,8 @@
 /* 거래 방법 선택 */
 .direct, .delivery {
   padding: 20px;
-  width: 500px;
-  height: 150px;
+  width: 100%;
+  height: 170px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   display: flex;
@@ -29,8 +31,8 @@
 }
 
 .purchase_next {
-  width: 500px;
-  padding: 20px 0;
+  width: 100%;
+  padding: 20px ;
   border-radius: 10px;
   color: white;
   background-color: black;
@@ -100,21 +102,25 @@
   flex-flow: row wrap;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
 }
 
 .buyMethod_container {
   padding: 30px;
 }
 
+.buyMethod_container h2 {
+  margin-bottom: 20px;
+}
+
 .buyMethod_container span {
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 230px;
-  padding: 15px;
+  width: 365px;
+  padding: 20px;
   text-align: center;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .buyMethod span.selected {
@@ -141,7 +147,7 @@
 }
 
 .payment_amount button {
-  width: 540px;
+  width: 100%;
   padding: 20px;
   font-size: 20px;
   font-weight: bold;
@@ -157,7 +163,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 600px;
+  width: 800px;
   height: 100%;
   background: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
@@ -168,11 +174,6 @@
   box-sizing: border-box;
 }
 
-.postcode_side{
-  position: fixed;
-  top: 0;
-  width: 600px;
-}
 
 .purchase_side.open, .tradeMethod_side.open, .address_side.open, .edit_side.open, .addAddressSide.open{
   transform: translateX(0);
@@ -220,7 +221,7 @@
   flex-flow: row nowrap;
   position: absolute;
   top: 60px;
-  left: 520px;
+  right: 30px;
   gap: 5px;
   margin-top: 20px;
   cursor: pointer;
@@ -234,9 +235,10 @@
 .addressInfo{
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
   gap: 10px;
-  width: 550px;
-  height: 200px;
+  width: 100%;
+  height: 230px;
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 10px;
@@ -246,7 +248,7 @@
 }
 
 .addAddress{
-  width: 550px;
+  width: 100%;
   padding: 15px;
   border-radius: 10px;
   border: 1px dashed #ccc;
@@ -257,7 +259,7 @@
 .editSubmit{
   position: absolute;
   bottom: 30px;
-  width: 550px;
+  width: 760px;
   padding: 15px;
   border-radius: 10px;
   background-color: black;
@@ -295,7 +297,7 @@
   display: flex;
   flex-flow: column nowrap;
   gap: 10px;
-  width: 550px;
+  width: 100%;
   height: 250px;
   border: 1px solid #ccc;
   padding: 20px;
@@ -332,16 +334,11 @@
   gap: 10px;
 }
 
-.addAddressInfo{
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  gap: 20px;
-}
 
 .addAddressInfo input{
-  width: 550px;
-  padding: 20px;
+  width: 100%;
+  margin: 10px 0px;
+  padding: 25px;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-weight: bold;
@@ -353,7 +350,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 600px; /* 사이드 바의 너비를 조정하세요 */
+  width: 800px; /* 사이드 바의 너비를 조정하세요 */
   height: 100%;
   background-color: white;
   box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
@@ -381,4 +378,45 @@
 .postcode_side img{
   width: 25px;
   height: 25px;
+}
+
+.no_address p{
+  font-size: 20px;
+}
+
+.no_address{
+  height: 250px;
+  padding: 50px 30px;
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
+
+.errorMessage{
+  margin-left: 10px;
+  color: red;
+}
+
+.subSideModal {
+  position: fixed;
+  width: 400px;
+  background-color: #4C4C4C;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 30px;
+  right: calc(50% - 175px);
+  color: white;
+  bottom: -200px;
+  right: 170px;
+  transition: bottom 1s ease-in-out;
+  z-index: 1001;
+}
+
+.subSideModal.show {
+  bottom: 100px;
+}
+
+.mainAddressColor{
+  color: #ccc;
 }

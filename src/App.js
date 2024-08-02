@@ -11,8 +11,8 @@ import RegisterSuccess from './components/auth/Register/RegisterSuccess';
 import NaverAuthCallback from './components/auth/Login/NaverAuthCallback';
 import KakaoAuthCallback from './components/auth/Login/KakaoAuthCallback';
 import ProductRegistration from './components/productRegistration/ProductRegistration';
-import MypageProductSalesList from './components/myPage/MypageProductSalesList';
-import MypageProductPurchaseHistory from './components/myPage/MypageProductPurchaseHistory';
+import MypageProductSalesList from './components/myPage/MyPageProductSalesList';
+import MypageProductPurchaseHistory from './components/myPage/MyPageProductPurchaseHistory';
 import MyPageMyInfo from './components/myPage/MyPageMyInfo';
 import MyPageMyStore from './components/myPage/MyPageMyStore';
 import MyPageInterestProduct from './components/myPage/MyPageInterestProduct';
@@ -40,9 +40,9 @@ function App() {
           <Route path="/registerSuccess" element={<RegisterSuccess/>}/>          
           <Route path="/naverAuthCallback" element={<NaverAuthCallback/>}/>
           <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback/>}/>
-          <Route path="/productPage" element={<SubMain/>}/>  
+          <Route path="/productPage/:productNo" element={<SubMain />} />  
           <Route path="/search" element={<SearchBar/>}/>     
-          <Route path="/productMainPage" element={<MainPage/>}/>    
+          <Route path="/" element={<MainPage/>}/>    
           <Route element={<RoleProtectedRoute requiredRole="ROLE_USER"/>}>
             <Route path="/myStore" element={<MyPageMyStore/>}/>
             <Route path="/myInfo" element={<MyPageMyInfo/>}/>

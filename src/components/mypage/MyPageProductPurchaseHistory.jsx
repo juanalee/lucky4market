@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
-import styles from './css/MypageProductSalesList.module.css';
+import styles from './css/MyPageProductSalesList.module.css';
 import MypagReviewWrite from './MypageReviewWrite';
 import MyPageMemberId from './MyPageMemberId';
 
@@ -92,18 +92,18 @@ const MypageProductPurchaseHistory = () => {
                     구매후기 작성하기
                   </button>
                   <p className={styles.reviewWriteText}>작성기한 : {memberProduct.deadline} ({`D-${memberProduct.dDay}`})</p>
+                </div>
               </div>
-              </div>
-              {showReviewForm[index] && <MypagReviewWrite 
-               productNo={memberProduct.productNo}
-               buyerId={buyerId}
-               sellerId={memberProduct.memberId}
-               />}
+              {showReviewForm[index] && <MypagReviewWrite
+                productNo={memberProduct.productNo}
+                buyerId={buyerId}
+                sellerId={memberProduct.memberId}
+              />}
             </div>
           ))}
           <div className={styles.ProductBuyItems}>
-          <h3 className={styles.MypageProductTitle}>구매내역({reviewExpired.length})</h3>
-          {reviewExpired.map((memberProduct, index) => (
+            <h3 className={styles.MypageProductTitle}>구매내역({reviewExpired.length})</h3>
+            {reviewExpired.map((memberProduct, index) => (
               <div key={index} className={styles.MypageProductSalesList}>
                 <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
                 <div className={styles.ProductSalestext}>
@@ -114,9 +114,9 @@ const MypageProductPurchaseHistory = () => {
                 <div>
                   <button className={styles.productOver}>기한 만료</button>
                   <p className={styles.productText}>작성기한 : {memberProduct.deadline} (기한 초과)</p>
+                </div>
               </div>
-              </div>
-          ))}
+            ))}
           </div>
         </div>
       </div>
