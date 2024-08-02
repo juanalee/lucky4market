@@ -59,7 +59,7 @@ ul {
 }
 
 .search_container {
-  width: 1440px;
+  width: 700px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -72,6 +72,7 @@ ul {
   border: 3px solid black;
   height: 65px;
   padding-left: 10px;
+  font-size: 16px;
   box-sizing: border-box;
 }
 
@@ -283,3 +284,16 @@ ul {
 .header_hr hr {
   border: 3px solid #F1F4F6;
 }
+
+.search_container{
+  position: relative;
+}
+
+.search_img{
+  position: absolute;
+  width: 30px;
+  top: 45px;
+  right: 70px;
+  cursor: pointer;
+}
+

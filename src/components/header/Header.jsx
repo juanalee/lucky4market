@@ -11,6 +11,7 @@ export default function Header() {
   const [productCategoryList, setProductCategoryList] = useState([]);
   const [parentNumber, setParentNumber] = useState(null);
   const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
@@ -67,6 +68,16 @@ export default function Header() {
     navigate(0);
   };
 
+  const handleSearch = () => {
+    navigate(`/search?query=${searchValue}&parentCategoryNo=&categoryNo=`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <>
       <div className={styles.header_container}>
@@ -82,7 +93,15 @@ export default function Header() {
             <Link to="/mystore">내상점</Link>
           </div>
           <div className={styles.search_container}>
-            <input type='text' name='search' placeholder='검색어를 입력하세요' />
+          <input
+              type="text"
+              name="search"
+              placeholder="검색어를 입력하세요"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <img src='/img/search.png' className={styles.search_img} onClick={handleSearch}></img>
           </div>
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
