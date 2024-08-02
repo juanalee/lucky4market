@@ -15,10 +15,16 @@ const AdminMembers = () => {
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [memberToDelete, setMemberToDelete] = useState(null);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const membersPerPage = 10;
 
   useEffect(() => {
     fetchMembers();
-  }, []);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [page]);
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -26,13 +32,15 @@ const AdminMembers = () => {
   };
 
   const fetchMembers = async () => {
+    setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:9999/admin/allMembers');
-      setMembers(response.data);
-      setSearchResults(response.data);
+      const response = await axios.get(`http://localhost:9999/admin/allMembers?page=${page}&limit=${membersPerPage}`);
+      setMembers(prevMembers => [...prevMembers, ...response.data]);
+      setSearchResults(prevResults => [...prevResults, ...response.data]);
     } catch (error) {
       console.error('회원 목록 가져오기 오류:', error);
     }
+    setIsLoading(false);
   };
 
   const handleSearchChange = (event) => {
@@ -44,10 +52,11 @@ const AdminMembers = () => {
   };
 
   const handleSearch = async () => {
+    setPage(1);
     console.log('Searching for members');
     try {
-      const response = await axios.get(`http://localhost:9999/admin/searchMembers?${searchField}=${searchTerm}`);
-      console.log('Search results:', response);
+      const response = await axios.get(`http://localhost:9999/admin/searchMembers?${searchField}=${searchTerm}&page=1&limit=${membersPerPage}`);
+      setMembers(response.data);
       setSearchResults(response.data);
     } catch (error) {
       console.error('회원 검색 오류:', error);
@@ -56,7 +65,9 @@ const AdminMembers = () => {
 
   const handleReset = () => {
     setSearchTerm('');
-    setSearchResults(members);
+    setPage(1);
+    setMembers([]);
+    fetchMembers();
     console.log('검색 및 필터 초기화');
   };
 
@@ -86,7 +97,7 @@ const AdminMembers = () => {
       setPopupMessage(response.data.msg);
       setIsConfirmation(false);
       setEditMemberId(null);
-      fetchMembers();
+      handleReset();
     } catch (error) {
       console.error('회원 정보 수정 오류:', error);
       setPopupMessage('회원 정보 수정 실패');
@@ -111,7 +122,7 @@ const AdminMembers = () => {
     try {
       const response = await axios.delete(`http://localhost:9999/admin/deleteMember/${memberToDelete}`);
       setPopupMessage(response.data.msg);
-      fetchMembers();
+      handleReset();
     } catch (error) {
       console.error('Error deleting member:', error);
       setPopupMessage('회원 삭제 오류');
@@ -129,6 +140,12 @@ const AdminMembers = () => {
 
   const closePopup = () => {
     setShowModal(false);
+  };
+
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      setPage(prevPage => prevPage + 1);
+    }
   };
 
   return (
@@ -286,6 +303,7 @@ const AdminMembers = () => {
             </tbody>
           </table>
         </div>
+        {isLoading && <div className={styles.loadingIndicator}>Loading...</div>}
       </div>
       <AdminPopup
         show={showModal}

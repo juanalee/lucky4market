@@ -2,19 +2,38 @@ import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './css/Header.module.css';
 import Chat from './Header_ChatList';
+import CategorySelector from './Header_CategorySelector';
 import { AuthContext } from '../../services/AuthContext';
 
 export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-
   const chatWidth = () => {
     setIsChatOpen(true);
   };
 
   const closeChat = () => {
     setIsChatOpen(false);
+  };
+
+  const handleCategoryChange = (categoryNo) => {
+    console.log('Selected category number:', categoryNo);
+  };
+
+  const handleParentChange = (parentNo) => {
+    console.log('Selected parent category number:', parentNo);
+  };
+
+  const handleSearch = () => {
+    navigate(`/search?query=${searchValue}&parentCategoryNo=&categoryNo=`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   useEffect(() => {
@@ -27,6 +46,7 @@ export default function Header() {
     setIsAuthenticated(false);
     navigate('/');
   };
+
 
   return (
     <>
@@ -43,7 +63,15 @@ export default function Header() {
             <Link to="#">내상점</Link>
           </div>
           <div className={styles.search_container}>
-            <input type='text' name='search' placeholder='검색어를 입력하세요' />
+            <input
+              type="text"
+              name="search"
+              placeholder="검색어를 입력하세요"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <button className={styles.search_button} onClick={handleSearch}>검색</button>
           </div>
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
@@ -54,82 +82,10 @@ export default function Header() {
                   <p>카테고리</p>
                 </div>
                 <div className={styles.category_container}>
-                  <ul className={styles.category}>
-                    <li className={styles.main_category}>
-                      <a href='#'>수입명품</a>
-                      <div className={styles.sub_category_container}>
-                        <div className={styles.sub_category_block}>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li className={styles.main_category}>
-                      <a href='#'>수입명품</a>
-                      <div className={styles.sub_category_container}>
-                        <div className={styles.sub_category_block}>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                          <ul className={styles.sub_category}>
-                            <li><a href='#'>남성신발</a></li>
-                            <li><a href='#'>여성신발</a></li>
-                            <li><a href='#'>가방</a></li>
-                            <li><a href='#'>지갑</a></li>
-                            <li><a href='#'>액세서리</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                            <li><a href='#'>기타</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+                  <CategorySelector
+                    onCategoryChange={handleCategoryChange}
+                    onParentChange={handleParentChange}
+                  />
                 </div>
               </li>
               <li className={styles.menu}><Link to='#'>무료 나눔</Link></li>
