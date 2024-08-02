@@ -21,7 +21,7 @@ const AdminHeader = () => {
             <div className={styles.adminHeaderLogo}>
               <img src="/img/lm_symbol_only.png" alt="symbol" />
             </div>
-            <span>관리자</span>
+            <span className={styles.adminHeaderTitle}>관리자</span>
           </div>
           <div className={styles.adminHeaderRightSection}>
             <NavLink to="/admin/info" className={styles.adminHeaderInfoLink}>관리자정보</NavLink>

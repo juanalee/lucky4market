@@ -34,7 +34,12 @@
 }
 
 .adminHeader img {
-  height: 50px;
+  height: 100%;
+  margin-top: 10px;
+}
+
+.adminHeaderTitle {
+  margin-top: 2px;
 }
 
 .adminHeaderBottom a {

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './css/Header.module.css';
 import Chat from './Header_ChatList';
+import CategorySelector from './Header_CategorySelector';
 import { AuthContext } from '../../services/AuthContext';
 import axios from 'axios';
 
@@ -31,6 +32,24 @@ export default function Header() {
 
   const closeChat = () => {
     setIsChatOpen(false);
+  };
+
+  const handleCategoryChange = (categoryNo) => {
+    console.log('Selected category number:', categoryNo);
+  };
+
+  const handleParentChange = (parentNo) => {
+    console.log('Selected parent category number:', parentNo);
+  };
+
+  const handleSearch = () => {
+    navigate(`/search?query=${searchValue}&parentCategoryNo=&categoryNo=`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   useEffect(() => {
@@ -77,6 +96,7 @@ export default function Header() {
       handleSearch();
     }
   };
+
 
   return (
     <>
