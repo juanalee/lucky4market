@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductRegistration.module.css';
-import ProductinsertPopup from './productinsertPopup';
+import ProductinsertPopup from './ProductinsertPopup';
 import ProductImageUploadUpdate from './ProductImageUploadUpdate';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
 import ProductTradeArea from './ProductTradeArea';

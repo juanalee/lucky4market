@@ -148,7 +148,7 @@ const LoginForm = () => {
 
     const handleModalClose = () => {
         setShowModal(false);
-        navigate('/productPage');
+        navigate('/');
     };
 
     return (
