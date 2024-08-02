@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminHeader from '../adminHeader/AdminHeader';
+import AdminHeader from '../tempadminHeader/AdminHeader';
 import axios from 'axios';
 import styles from './AdminReports.module.css';
 import ReportSearchFilter from './ReportSearchFilter';
