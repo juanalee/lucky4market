@@ -20,6 +20,11 @@ const AdminMembers = () => {
     fetchMembers();
   }, []);
 
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    return dateString.replace('T', '<br />');
+  };
+
   const fetchMembers = async () => {
     try {
       const response = await axios.get('http://localhost:9999/admin/allMembers');
@@ -70,7 +75,7 @@ const AdminMembers = () => {
   const handleSave = async () => {
     try {
       console.log('저장하려는 회원 정보:', editedMemberData);
-      const response = await axios.put('http://localhost:9999/admin/update', editedMemberData, {
+      const response = await axios.put('http://localhost:9999/admin/updateMember', editedMemberData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -104,7 +109,7 @@ const AdminMembers = () => {
 
   const confirmDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:9999/api/members/${memberToDelete}`);
+      const response = await axios.delete(`http://localhost:9999/admin/deleteMember/${memberToDelete}`);
       setPopupMessage(response.data.msg);
       fetchMembers();
     } catch (error) {
@@ -256,7 +261,7 @@ const AdminMembers = () => {
                           result.memberPhoneNo
                         )}
                       </td>
-                      <td className={styles.adminMembersRegDate}>{result.memberRegDate}</td>
+                      <td className={styles.adminMembersRegDate} dangerouslySetInnerHTML={{ __html: formatDate(result.memberRegDate) }}></td>
                       <td className={styles.adminMembersManage}>
                         {editMemberId === result.memberId ? (
                           <>
