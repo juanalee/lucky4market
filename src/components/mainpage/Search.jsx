@@ -34,13 +34,14 @@ function SearchBar() {
     const queryParam = query.get('query') || '';
     const parentCategoryNo = query.get('parentCategoryNo') || '';
     const categoryNo = query.get('categoryNo') || '';
-
+    const maxPrice = query.get('maxPrice') || '';
     setSearchQuery(queryParam);
     setFormData(prevState => ({
       ...prevState,
       searchQuery: queryParam,
-      parentCategoryNo,
-      categoryNo
+      parentCategoryNo : parentCategoryNo,
+      categoryNo: categoryNo,
+      maxPrice : maxPrice
     }));
   }, [query.toString()]);
 
@@ -127,6 +128,8 @@ function SearchBar() {
   const formatPrice = (price) => {
     return new Intl.NumberFormat('ko-KR').format(price);
   };
+
+  console.log(searchResultproductList)
 
   return (
     <div>

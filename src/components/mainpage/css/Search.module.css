@@ -1,7 +1,7 @@
 .searchContainer{
-  Width: 55%;
+  Width: 1080px;
   margin: 0 auto ;
-  margin-top: 350px;
+  margin-top: 250px;
 }
 .searchTitle{
   margin-top: 30px;
@@ -14,12 +14,13 @@
 }
 
 .searchCategory button{
-  width: 170px;
+  min-width: 170px;
   height: 40px;
   font-size: 16px;
   text-align: center;
   border: 0px;
   background-color: rgb(224, 224, 224);
+  cursor: pointer;
 }
 
 .searchOption{
@@ -52,6 +53,7 @@
   background-color: black;
   color: rgb(255, 255, 255);
   margin-left: 3px;
+  cursor: pointer;
  }
 
 .searchSolioutOption{
@@ -67,22 +69,21 @@
 .searchOrderbyOption{
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 50px;
 }
 
 
-
-
 .searchPageProductList{
-  Width: 55%;
+  Width: 1080px;
   margin: 0 auto ;
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
  
 }
 
 .productContainer{
-  flex: 0 1 calc(20% - 15px); /* 5 items per row with spacing */
-  margin: 0px auto;
+  /* flex: 0 1 calc(20% - 15px); 5 items per row with spacing */
   box-sizing: border-box;
 }
 
