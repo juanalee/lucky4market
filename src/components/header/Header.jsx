@@ -12,6 +12,7 @@ export default function Header() {
   const [parentNumber, setParentNumber] = useState(null);
   const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [unreadMessages, setUnreadMessages] = useState(0); // Unread messages count
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
@@ -61,6 +62,21 @@ export default function Header() {
     }
   }, [parentNumber]);
 
+  useEffect(() => {
+    // Fetch unread messages count if authenticated
+    if (isAuthenticated) {
+      const fetchUnreadMessages = async () => {
+        try {
+          const response = await axios.get(`http://localhost:9999/api/chat/unreadMessages`);
+          setUnreadMessages(response.data.count);
+        } catch (error) {
+          console.error('Error fetching unread messages count:', error);
+        }
+      };
+      fetchUnreadMessages();
+    }
+  }, [isAuthenticated]);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('tokenProvider');
@@ -98,7 +114,7 @@ export default function Header() {
           </div>
           <div className={styles.search_container}>
             <div className={styles.headerLogoContainer} onClick={handleHome}>
-              <img src='/img/lm_logo_default_black.png' className={styles.logoImg}></img>
+              <img src='/img/lm_logo_default_black.png' className={styles.logoImg} alt='logo'></img>
               <h1>럭키마켓</h1>
             </div>
             <input
@@ -109,7 +125,7 @@ export default function Header() {
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <img src='/img/search.png' className={styles.search_img} onClick={handleSearch} />
+            <img src='/img/search.png' className={styles.search_img} onClick={handleSearch} alt='search' />
           </div>
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
@@ -123,7 +139,7 @@ export default function Header() {
                 </div>
                 <div className={`${styles.category_container} ${isSubCategoryOpen ? styles.open : ''}`}>
                   <ul className={styles.category}>
-                    {categoryAllInfo.map((main) => (                        
+                    {categoryAllInfo.map((main) => (
                       <li 
                         key={main.categoryNo} 
                         className={styles.main_category}
@@ -163,7 +179,12 @@ export default function Header() {
               </div>
               <div className={styles.menu_item}>
                 <img src='/img/chat.png' alt='chat' />
-                <li><button onClick={chatWidth}>채팅하기</button></li>
+                <li>
+                  <button onClick={chatWidth} className={styles.chatButton}>
+                    채팅하기
+                    {unreadMessages > 0 && <span className={styles.chatBadge}>{unreadMessages}</span>}
+                  </button>
+                </li>
               </div>
             </ul>
           </nav>
