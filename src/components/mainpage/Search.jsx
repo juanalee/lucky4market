@@ -35,6 +35,7 @@ function SearchBar() {
     const parentCategoryNo = query.get('parentCategoryNo') || '';
     const categoryNo = query.get('categoryNo') || '';
     const maxPrice = query.get('maxPrice') || '';
+
     setSearchQuery(queryParam);
     setFormData(prevState => ({
       ...prevState,
@@ -128,9 +129,7 @@ function SearchBar() {
   const formatPrice = (price) => {
     return new Intl.NumberFormat('ko-KR').format(price);
   };
-
   console.log(searchResultproductList)
-
   return (
     <div>
       <Header />
