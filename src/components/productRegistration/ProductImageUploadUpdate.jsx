@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductImageUpload.module.css';
+import ProductInsertPopup from './ProductInsertPopup';
 
 
 const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo, deleteImages, setDeleteImages }) => {
@@ -130,7 +131,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
                     </div>
                 ))}
             </div>
-            <ProductinsertPopup
+            <ProductInsertPopup
                 show={popup.show}
                 onClose={() => setPopup({ ...popup, show: false })}
                 message={popup.message}
