@@ -78,6 +78,10 @@ export default function Header() {
     }
   };
 
+  const handleHome = () => {
+    navigate('/');
+  }
+
   return (
     <>
       <div className={styles.header_container}>
@@ -93,6 +97,10 @@ export default function Header() {
             <Link to="/mystore">내상점</Link>
           </div>
           <div className={styles.search_container}>
+            <div className={styles.headerLogoContainer} onClick={handleHome}>
+              <img src='/img/lm_logo_default_black.png' className={styles.logoImg}></img>
+              <h1>럭키마켓</h1>
+            </div>
             <input
               type="text"
               name="search"
