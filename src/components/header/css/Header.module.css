@@ -170,6 +170,10 @@ ul {
   gap: 10px;
 }
 
+.menu p{
+  margin-top: 5px;
+}
+
 .sub_category li:first-child > a {
   font-weight: bold;
   font-size: 20px;
@@ -288,8 +292,8 @@ ul {
 .search_img{
   position: absolute;
   width: 30px;
-  top: 55px;
-  right:50px;
+  top: 65px;
+  right:430px;
   cursor: pointer;
 }
 
