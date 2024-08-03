@@ -7,7 +7,7 @@ export default () => {
   return (
     <>
       <Header />/
-      <ImageSlider/>         
+      <ImageSlider />
     </>
   );
 }

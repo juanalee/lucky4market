@@ -13,7 +13,7 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
   }, [resetAddress]);
 
 
-  
+
   const handleComplete = (data) => {
     const fullAddress = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
     const address = {
@@ -30,26 +30,26 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
   const postcodeStyle = {
     width: '100%',
     height: '100%',
-    marginTop : '70px',
-    borderTop : '1px solid black',
+    marginTop: '70px',
+    borderTop: '1px solid black',
   };
-  
+
   return (
     <>
-        <input
-          type='text'
-          placeholder='주소찾기'
-          value={selectAddress.fullAddress || ''}
-          onClick={() => setShowPostcode(true)}
-          readOnly
-        />
+      <input
+        type='text'
+        placeholder='주소찾기'
+        value={selectAddress.fullAddress || ''}
+        onClick={() => setShowPostcode(true)}
+        readOnly
+      />
 
       {showPostcode && (
         <div className={sidebarClass}>
           <Postcode
-          onComplete={handleComplete}
-          autoClose={false}
-          style={postcodeStyle}
+            onComplete={handleComplete}
+            autoClose={false}
+            style={postcodeStyle}
           />
           <button
             onClick={() => setShowPostcode(false)}

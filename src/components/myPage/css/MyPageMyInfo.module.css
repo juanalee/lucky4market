@@ -29,55 +29,79 @@
 
 .my_info_content {
   width: 500px;
+  margin: 5px 0px;
 }
 
-.my_info_profile_image {
+.my_info_profile_container1 {
   width: 500px;
   height: 50px;
-  background-image: url('/public/img/mypage/profile.png');
-  background-repeat: no-repeat;
-  border: none;
+  display: flex;
+  flex-flow: row nowrap;
   border-bottom: 1px solid #CCCCCC;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-left: 50px;
-  box-sizing: border-box;
+  padding: 5px 0px;
+}
+
+.my_info_profile_container2 {
+  margin-left: 5px;
 }
 
 .my_info_profile_guide {
   color: #9C9E9C;
   font-size: 12px;
+  margin: 5px 0px;
 }
 
 .my_info_asterisk {
   color: red;
 }
 
-.my_info_register_button, .my_info_delete_button {
+.my_info_delete_button {
   width: 50px;
-  border: 1px solid black;
-  background-color: white;
-  color: black;
-  margin: 5px 5px;
+  height: 24px;
 }
 
 .my_info_item {
   width: 500px;
   height: 30px;
+  display: flex;
+  flex-flow: row nowrap;
   border: none;
   border-bottom: 1px solid #CCCCCC;
+  outline: none;
+  margin: 10px 0px;
+}
+
+.my_info_phone_number_item {
+  width: calc((100% - 20px) / 3);
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #CCCCCC;
+  outline: none;
+  text-align: center;
   margin: 10px 0px;
 }
 
 .my_info_email_item {
-  width: calc(215px - 20px);
+  width: calc((100% - 190px) / 2);
   height: 30px;
   border: none;
   border-bottom: 1px solid #CCCCCC;
+  outline: none;
+  text-align: center;
   margin: 10px 0px;
 }
 
-.my_info_button_container {
+.my_info_select_email {
+  width: 160px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #CCCCCC;
+  outline: none;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.my_info_button_container2 {
   margin: 10px 0px;
 }
 

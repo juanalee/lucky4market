@@ -115,7 +115,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
 
     fetchData();
   }, [categoryInfo.categoryNo, productTitle, profileSub, sellerId]);
-  
+
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -123,10 +123,10 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
       }
     };
   }, []);
-  
+
   const remainingProducts = storeInfo.length > 0 ? storeInfo[0].saleCount - (1 + sellerImageCount.current.length) : 0;
   const remainingReviews = storeInfo.filter(item => item.review !== null).length;
-  
+
   return (
     <>
       <div className={styles.product_content_container}>
@@ -158,15 +158,15 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
                 .map((img, index) => (
                   <div key={index}>
                     <a href={`/productPage/${img.productNo}`}>
-                      <img 
-                        src={img.image} 
-                        alt={`Product ${index}`} 
+                      <img
+                        src={img.image}
+                        alt={`Product ${index}`}
                         ref={(el) => {
                           if (el && !sellerImageCount.current.includes(el)) {
                             sellerImageCount.current.push(el);
                           }
-                        }} 
-                        />
+                        }}
+                      />
                     </a>
                     <p className={styles.sellerProductTitle}>{img.title}</p>
                     <p className={styles.sellerProductPrice}>{Number(img.price).toLocaleString()}원</p>
@@ -196,10 +196,10 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
                   return matchingImg ? (
                     <div className={styles.categoryItem} key={index}>
                       <a href={`/productPage/${item.productNo}`}>
-                        <img 
-                          src={matchingImg.PRODUCT_IMAGE_PATH} 
-                          alt={`Product ${item.productNo}`} 
-                          />
+                        <img
+                          src={matchingImg.PRODUCT_IMAGE_PATH}
+                          alt={`Product ${item.productNo}`}
+                        />
                         <p>{item.productTitle}</p>
                         <p className={styles.categoryProductPrice}>{Number(item.productPrice).toLocaleString()}원</p>
                       </a>
@@ -219,10 +219,10 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
               return (
                 <div className={styles.categoryItem} key={index}>
                   <a href={item.link}>
-                    <img 
-                      src={item.image} 
-                      alt={`Product ${index}`} 
-                      />
+                    <img
+                      src={item.image}
+                      alt={`Product ${index}`}
+                    />
                     <p dangerouslySetInnerHTML={{ __html: item.title }} className={styles.newProductTitle}></p>
                     <p className={styles.categoryProductPrice}>
                       {priceNumber.toLocaleString()}원

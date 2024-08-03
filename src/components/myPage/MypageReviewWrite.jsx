@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import styles from './css/MypagReviewWrite.module.css';
+import styles from './css/MyPageReviewWrite.module.css';
 
 const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
   const [reviewScore, setreviewScore] = useState(0);
@@ -14,9 +14,9 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
     review.append('sellerId', sellerId);
     review.append('reviewScore', reviewScore);
     review.append('reviewText', reviewText.current.value);
-  
+
     console.log('Review to submit:', review.toString()); // 리뷰 객체 콘솔에 출력
-  
+
     try {
       const response = await axios.post('http://localhost:9999/review/insert', review.toString(), {
         headers: {
@@ -54,7 +54,7 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
           );
         })}
       </div>
-      <input type="text" ref={reviewText} placeholder="후기를 입력하세요" />
+      <textarea type="text" ref={reviewText} placeholder="후기를 입력하세요" className={styles.reviewText} />
       <button onClick={submitReview} className={styles.submitButton}>리뷰 제출</button>
     </div>
   );

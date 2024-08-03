@@ -10,7 +10,7 @@ import { AuthContext } from '../../services/AuthContext';
 import ModalPopup from '../modalPopup/ModalPopup';
 import SubOverlay from './SubOverlay';
 
-const ProductInfo = ({ productImage ,productNo}) => {
+const ProductInfo = ({ productImage, productNo }) => {
   const { profile, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const timerRef = useRef(null);
@@ -274,15 +274,15 @@ const ProductInfo = ({ productImage ,productNo}) => {
                 alt="like"
                 onClick={likeClick}
                 className={styles.information_img}
-                />
+              />
               <span>{productInfo.productLike}</span>
             </div>
           </div>
-            <div className={styles.product_report}>
-              <div onClick={reportOpen}>
-                <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
-              </div>
+          <div className={styles.product_report}>
+            <div onClick={reportOpen}>
+              <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
             </div>
+          </div>
           <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
         </div>
         <div className={styles.product_status_information}>
@@ -311,46 +311,46 @@ const ProductInfo = ({ productImage ,productNo}) => {
         </ul>
         {productInfo.memberId != profileSub ?
           <div className={styles.product_interaction_area}>
-          <button className={styles.like_btn} onClick={likeClick}>
-            <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" />
-          </button>
-          <button className={`${styles.chat_btn} ${productSaleChatClass}`} onClick={chatOpen}>채팅하기</button>
-          {productInfo.productSale == '판매중' &&
-            <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
-          }
-        </div> : 
-        <div className={styles.myProductUpdateContainer}>
-          <Link to='/productRegister'>
-            <div className={styles.myProductUpdateItem}>
+            <button className={styles.like_btn} onClick={likeClick}>
+              <img src={isLiked ? "/img/redheart.png" : "/img/heart.png"} alt="like" />
+            </button>
+            <button className={`${styles.chat_btn} ${productSaleChatClass}`} onClick={chatOpen}>채팅하기</button>
+            {productInfo.productSale == '판매중' &&
+              <button className={styles.buy_btn} onClick={buyWidth}>구매하기</button>
+            }
+          </div> :
+          <div className={styles.myProductUpdateContainer}>
+            <Link to='/productRegister'>
+              <div className={styles.myProductUpdateItem}>
                 <img src='/img/edit.png'></img>
                 <p>상품수정</p>
+              </div>
+            </Link>
+            <span className={styles.line}></span>
+            <div className={styles.myProductUpdateItem} onClick={statusUpdateOpen}>
+              <img src='/img/change.png'></img>
+              상태변경
             </div>
-          </Link>
-          <span className={styles.line}></span>
-          <div className={styles.myProductUpdateItem} onClick={statusUpdateOpen}>
-            <img src='/img/change.png'></img>
-            상태변경
+            <SubOverlay
+              show={statusOpen}
+              onClick={statusUpdateClose}
+            />
+            <div className={`${styles.productStatusUpdate} ${statusUpdateClass}`}>
+              <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>판매중</p>
+              <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>판매완료</p>
+              <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>예약중</p>
+            </div>
+            <span className={styles.line}></span>
+            <SubOverlay
+              show={deleteOpen}
+              onClick={statusDeleteClose}
+            />
+            <div className={styles.myProductUpdateItem} onClick={statusDeleteOpen}>
+              <img src='/img/delete.png'></img>
+              상품삭제
+            </div>
+            <ModalPopup show={deleteOpen} onClose={statusDeleteClose} onConfirm={deleteProductStatus} message={'삭제하시겠습니까?'} isConfirmation={true} />
           </div>
-          <SubOverlay 
-            show={statusOpen}
-            onClick={statusUpdateClose}
-          />
-          <div className={`${styles.productStatusUpdate} ${statusUpdateClass}`}>
-            <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>판매중</p>
-            <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>판매완료</p>
-            <p className={styles.productStatusItem} onClick={(e) => setStatus(e.target.textContent)}>예약중</p>
-          </div>
-          <span className={styles.line}></span>
-          <SubOverlay 
-            show={deleteOpen}
-            onClick={statusDeleteClose}
-          />
-          <div className={styles.myProductUpdateItem} onClick={statusDeleteOpen}>
-            <img src='/img/delete.png'></img>
-            상품삭제  
-          </div>
-          <ModalPopup show={deleteOpen} onClose={statusDeleteClose} onConfirm={deleteProductStatus} message={'삭제하시겠습니까?'} isConfirmation={true}/>
-        </div>
         }
       </div>
       <div className={styles.product_content}>
@@ -368,7 +368,7 @@ const ProductInfo = ({ productImage ,productNo}) => {
       </div>
       <PurchaseSide isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} productImage={productImage} productInfo={productInfo} />
       <Sub_chat isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} productImage={productImage} productInfo={productInfo} sellerId={productMemberId} roomId={roomId} />
-      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} sellerId={productMemberId} productNo={productNo}/>}
+      {categoryInfo.length > 0 && <StoreInfo categoryInfo={categoryInfo[0]} productTitle={productInfo.productTitle} navigateLogin={navigateLogin} sellerId={productMemberId} productNo={productNo} />}
     </>
   );
 };

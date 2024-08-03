@@ -142,7 +142,6 @@ export default function Header() {
                 </div>
               </li>
               <li className={styles.menu}><Link to='#'>무료 나눔</Link></li>
-              <li className={styles.menu}><Link to='#'>찜한 상품</Link></li>
               <li className={styles.menu}><Link to='#'>실시간 시세</Link></li>
             </ul>
             <ul className={styles.menu_item_container}>

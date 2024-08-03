@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/js/bootstrap.bundle.min';
 import styles from './IdPasswdRecovery.module.css';
 import IdRecoverForm from './IdRecoverForm';
 import PasswdResetForm from './PasswdResetForm';
 
 const IdPasswdRecovery = ({ show, onClose, initialTab }) => {
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const [activeTab, setActiveTab] = useState(initialTab || 'id');
 
   useEffect(() => {
     if (show) {
@@ -43,8 +41,8 @@ const IdPasswdRecovery = ({ show, onClose, initialTab }) => {
                 </button>
               </div>
               <div className={styles.recoveryTabContent}>
-                {activeTab === 'id' && <IdRecoverForm />}
-                {activeTab === 'password' && <PasswdResetForm />}
+                {activeTab === 'id' && <IdRecoverForm activeTab={activeTab} />}
+                {activeTab === 'password' && <PasswdResetForm activeTab={activeTab} />}
               </div>
             </div>
           </div>

@@ -1,0 +1,100 @@
+.searchContainer{
+  Width: 55%;
+  margin: 0 auto ;
+  margin-top: 350px;
+}
+.searchTitle{
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.searchCategory{
+  display: flex;
+  flex: row;
+}
+
+.searchCategory button{
+  width: 170px;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
+  border: 0px;
+  background-color: rgb(224, 224, 224);
+}
+
+.searchOption{
+  width: 170px;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 10px;
+  background-color: rgb(224, 224, 224);
+}
+
+
+.searchPrice{
+  display: flex;
+  flex: row;
+}
+
+.searchPrice input{
+ width: 150px;
+ height: 28px;
+ border: 1px solid rgb(201, 201, 201);
+ color: rgb(0, 0, 0);
+ padding-left: 6px;
+}
+
+.searchPrice button{
+  width: 50px;
+  height: 28px;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: black;
+  color: rgb(255, 255, 255);
+  margin-left: 3px;
+ }
+
+.searchSolioutOption{
+  display: flex;
+  flex: row;
+}
+
+.searchOptionResult{
+  display: flex;
+  flex: row;
+}
+
+.searchOrderbyOption{
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+
+.searchPageProductList{
+  Width: 55%;
+  margin: 0 auto ;
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+
+.productContainer{
+  flex: 0 1 calc(20% - 15px); /* 5 items per row with spacing */
+  margin: 0px auto;
+  box-sizing: border-box;
+}
+
+.ProductSalesimg{
+  width: 200px;
+  height: 200px;
+}
+.searchProductTitle{
+ font-weight: bold;
+}
+
+.searchProductPrice{
+  font-weight: bold;
+  font-size: 20px;
+}

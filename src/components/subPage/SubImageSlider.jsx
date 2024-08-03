@@ -51,7 +51,7 @@ export default function SubImageSlider() {
       let prevIndex = (currentIndex + sliderCount - 1) % sliderCount;
       moveSlider(prevIndex);
     }
-    
+
     function handleNext(e) {
       e.preventDefault();
       let nextIndex = (currentIndex + 1) % sliderCount;
@@ -66,16 +66,16 @@ export default function SubImageSlider() {
       }
     });
   }, [productImg]);
-  
+
   const imageStyle1 = productInfo?.productSale === '판매완료';
   const imageStyle2 = productInfo?.productSale === '예약중';
   const imageClass1 = imageStyle1 ? '' : styles.imageSale;
   const imageClass2 = imageStyle2 ? '' : styles.imageSale;
-  
+
   const backHome = () => {
     navigate('/');
   };
-  
+
   if (productStatus === '삭제') {
     return (
       <div className={styles.deleteScreenContainer}>
@@ -113,19 +113,19 @@ export default function SubImageSlider() {
                       src={img.productImagePath}
                       alt={`Product ${index}`}
                       className={`${styles.productMainImage} ${imageClass1} ${imageClass2}`}
-                      />
-                    ))}
-                  {imageStyle1 && 
+                    />
+                  ))}
+                  {imageStyle1 &&
                     <>
                       <div className={styles.productSaleBackground}></div>
-                      <img src='/img/sold_out.png' className={styles.productSaleImg} alt="Sold Out"/>
+                      <img src='/img/sold_out.png' className={styles.productSaleImg} alt="Sold Out" />
                       <p className={styles.productSaleStatus}>판매완료</p>
                     </>
                   }
-                  {imageStyle2 && 
+                  {imageStyle2 &&
                     <>
                       <div className={styles.productSaleBackground}></div>
-                      <img src='/img/sold_out.png' className={styles.productSaleImg} alt="Reserved"/>
+                      <img src='/img/sold_out.png' className={styles.productSaleImg} alt="Reserved" />
                       <p className={styles.productSaleStatus}>예약중</p>
                     </>
                   }
@@ -144,8 +144,8 @@ export default function SubImageSlider() {
               <div className={styles.sliderDot}>
                 {productImg.length > 1 && productImg.map((_, index) => (
                   <span
-                  key={index}
-                  className={`${styles.dot} ${index === 0 ? styles.active : ''}`}
+                    key={index}
+                    className={`${styles.dot} ${index === 0 ? styles.active : ''}`}
                   ></span>
                 ))}
               </div>

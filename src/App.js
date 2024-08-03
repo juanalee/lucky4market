@@ -11,16 +11,20 @@ import RegisterSuccess from './components/auth/Register/RegisterSuccess';
 import NaverAuthCallback from './components/auth/Login/NaverAuthCallback';
 import KakaoAuthCallback from './components/auth/Login/KakaoAuthCallback';
 import ProductRegistration from './components/productRegistration/ProductRegistration';
-import MypageProductSalesList from './components/myPage/MypageProductSalesList';
-import MypageProductPurchaseHistory from './components/myPage/MypageProductPurchaseHistory';
-import MyInfo from './components/myPage/MyInfo';
-import MyStore from './components/myPage/MyStore';
-import InterestProduct from './components/myPage/InterestProduct';
-import ReceivedReview from './components/myPage/ReceivedReview';
+import MypageProductSalesList from './components/myPage/MyPageProductSalesList';
+import MypageProductPurchaseHistory from './components/myPage/MyPageProductPurchaseHistory';
+import MyPageMyInfo from './components/myPage/MyPageMyInfo';
+import MyPageMyStore from './components/myPage/MyPageMyStore';
+import MyPageInterestProduct from './components/myPage/MyPageInterestProduct';
+import MyPageReceivedReview from './components/myPage/MyPageReceivedReview';
 import SubMain from './components/subPage/SubMain';
 import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import './services/AxiosSetup';
 import { AuthProvider } from './services/AuthContext';
+import {MainPage} from'./components/mainpage/MainPage';
+import SearchBar from './components/mainpage/Search';
+import MypageReviewList from './components/myPage/MypageReviewList';
+import ProductRegistrationUpdate from './components/productRegistration/ProductRegistrationUpdate';
 
 function App() {
 
@@ -29,27 +33,31 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/idPasswdRecovery" element={<IdPasswdRecovery />} />
-          <Route path="/register" element={<PreRegisterForm />} />
-          <Route path="/registerMember" element={<RegisterForm />} />
-          <Route path="/registerSuccess" element={<RegisterSuccess />} />          
-          <Route path="/naverAuthCallback" element={<NaverAuthCallback />} />
-          <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback />} />
-          <Route path="/productPage/:productNo" element={<SubMain />} />               
-          <Route element={<RoleProtectedRoute requiredRole="ROLE_USER" />}>
-            <Route path="/myStore" element={<MyStore/>}/>
-            <Route path="/myInfo" element={<MyInfo />} />
-            <Route path="/productRegister" element={<ProductRegistration />} />
-            <Route path="/sell-history" element={<MypageProductSalesList />} />
-            <Route path="/buy-history" element={<MypageProductPurchaseHistory />} />
-            <Route path="/interestProduct" element={<InterestProduct />} />
-            <Route path="/receivedReview" element={<ReceivedReview />} />
+          <Route path="/login" element={<LoginForm/>}/>
+          <Route path="/idPasswdRecovery" element={<IdPasswdRecovery/>}/>
+          <Route path="/register" element={<PreRegisterForm/>}/>
+          <Route path="/registerMember" element={<RegisterForm/>}/>
+          <Route path="/registerSuccess" element={<RegisterSuccess/>}/>          
+          <Route path="/naverAuthCallback" element={<NaverAuthCallback/>}/>
+          <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback/>}/>
+          <Route path="/productPage/:productNo" element={<SubMain />} />  
+          <Route path="/search" element={<SearchBar/>}/>     
+          <Route path="/" element={<MainPage/>}/>    
+          <Route element={<RoleProtectedRoute requiredRole="ROLE_USER"/>}>
+            <Route path="/myStore" element={<MyPageMyStore/>}/>
+            <Route path="/myInfo" element={<MyPageMyInfo/>}/>
+            <Route path="/productRegister" element={<ProductRegistration/>}/>
+            <Route path="/productRegisterUpdate/:productNo" element={<ProductRegistrationUpdate/>}/>
+            <Route path="/sellHistory" element={<MypageProductSalesList/>}/>       
+            <Route path="/buyHistory" element={<MypageProductPurchaseHistory/>}/>   
+            <Route path="/writedReview" element={<MypageReviewList/>}/>  
+            <Route path="/interestProduct" element={<MyPageInterestProduct/>}/>
+            <Route path="/receivedReview" element={<MyPageReceivedReview/>}/>
           </Route>          
-          <Route element={<RoleProtectedRoute requiredRole="ROLE_ADMIN" />}>
-            <Route path="/admin" element={<Navigate to="/admin/reports" />} />
-            <Route path="/admin/members" element={<AdminMembers />} />
-            <Route path="/admin/reports" element={<AdminReports />} />
+          <Route element={<RoleProtectedRoute requiredRole="ROLE_ADMIN"/>}>
+            <Route path="/admin" element={<Navigate to="/admin/reports"/>}/>
+            <Route path="/admin/members" element={<AdminMembers/>}/>
+            <Route path="/admin/reports" element={<AdminReports/>}/>
           </Route>
         </Routes>
       </Router>

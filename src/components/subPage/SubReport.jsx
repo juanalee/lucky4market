@@ -84,9 +84,9 @@ const SubReport = ({ isReportOpen, onClose }) => {
               <Fragment key={type}>
                 <div className={`${styles.detailReport} ${expanded === type ? styles.expandable : ''}`}>
                   <p>{type === 'ad' ? '광고성 상점이에요.' :
-                      type === 'inaccurate' ? '상품 정보가 부정확해요.' :
+                    type === 'inaccurate' ? '상품 정보가 부정확해요.' :
                       type === 'prohibited' ? '거래 금지 품목으로 판단돼요.' :
-                      type === 'scam' ? '사기가 의심돼요.' : '기타'}</p>
+                        type === 'scam' ? '사기가 의심돼요.' : '기타'}</p>
                   <img
                     src={expanded === type ? '/img/report_click_arrow.png' : '/img/report_arrow.png'}
                     alt="arrow"

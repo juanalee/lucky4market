@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import MypageSideBar from './MypageSideBar';
+import MyPageSideBar from './MyPageSideBar';
 import axios from 'axios';
-import styles from './css/MypageProductSalesList.module.css';
-import MypagReviewWrite from './MypagReviewWrite';
+import styles from './css/MyPageProductSalesList.module.css';
+import MypagReviewWrite from './MypageReviewWrite';
+import MyPageMemberId from './MyPageMemberId';
 
 const MypageProductPurchaseHistory = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState({}); // 리뷰 작성 폼 상태
-  const buyerId = 'member5';
+  const buyerId = MyPageMemberId(); // 커스텀 훅을 사용
 
   const readData = async () => {
+    if (!buyerId) return; // buyerId가 유효하지 않은 경우 종료
     try {
       const response = await axios.get(`http://localhost:9999/member/ProductPurchaseHistory/${buyerId}`);
       console.log(response.data); // 응답 데이터 구조 확인
@@ -21,7 +23,7 @@ const MypageProductPurchaseHistory = () => {
 
   useEffect(() => {
     readData();
-  }, []);
+  }, [buyerId]); // buyerId 변경 시 데이터 새로 읽어오기
 
   // 숫자를 천 단위로 구분하여 포맷팅하는 함수
   const formatPrice = (price) => {
@@ -70,9 +72,9 @@ const MypageProductPurchaseHistory = () => {
   return (
     <div>
       <div className={styles.MypageProductSalesListComponent}>
-        <MypageSideBar />
+        <MyPageSideBar />
         <div>
-          <h3>최근구매내역 ({reviewWritable.length})</h3>
+          <h3 className={styles.MypageProductTitle}>최근구매내역 ({reviewWritable.length})</h3>
           {reviewWritable.map((memberProduct, index) => (
             <div key={index}>
               <div className={styles.MypageProductSalesList}>
@@ -82,41 +84,40 @@ const MypageProductPurchaseHistory = () => {
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
                 </div>
-                <div className={styles.reviewWrite}>
+                <div>
                   <button
                     className={styles.reviewWriteButton}
                     onClick={() => handleReviewButtonClick(index)}
                   >
                     구매후기 작성하기
                   </button>
-                  <p>작성기한 : {memberProduct.deadline} ({`D-${memberProduct.dDay}`})</p>
+                  <p className={styles.reviewWriteText}>작성기한 : {memberProduct.deadline} ({`D-${memberProduct.dDay}`})</p>
                 </div>
               </div>
               {showReviewForm[index] && <MypagReviewWrite
                 productNo={memberProduct.productNo}
                 buyerId={buyerId}
                 sellerId={memberProduct.memberId}
-
               />}
             </div>
           ))}
-
-          <h3>구매내역({reviewExpired.length})</h3>
-          {reviewExpired.map((memberProduct, index) => (
-            <div key={index}>
-              <div className={styles.MypageProductSalesList}>
+          <div className={styles.ProductBuyItems}>
+            <h3 className={styles.MypageProductTitle}>구매내역({reviewExpired.length})</h3>
+            {reviewExpired.map((memberProduct, index) => (
+              <div key={index} className={styles.MypageProductSalesList}>
                 <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
                 <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
                 </div>
-                <div className={styles.reviewWrite}>
-                  <p>작성기한 : {memberProduct.deadline} (기한 초과)</p>
+                <div>
+                  <button className={styles.productOver}>기한 만료</button>
+                  <p className={styles.productText}>작성기한 : {memberProduct.deadline} (기한 초과)</p>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

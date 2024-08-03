@@ -1,0 +1,46 @@
+.mainpageSlider {
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ensure only one image is visible at a time */
+  position: relative; /* Positioning context for arrows */
+  width: 1440px; /* 이미지크기 */
+  margin: auto; /* Center the slider horizontally */
+  margin-top: 250px;
+  zoom: 0.75;
+}
+
+.imgContainer {
+  display: flex;
+  transition: transform 500ms ease-in-out;
+  width: 100%; /* Match the width of the container */
+  height: 100%;
+}
+
+.imgContainer img {
+  width: 100%;
+  min-width: 100%; /* Ensure each image takes full container width */
+  height: 100%;
+}
+
+.faSolid {
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  opacity: 0.75;
+  transition: opacity 100ms ease-in-out;
+  z-index: 100;
+}
+
+.faSolid:hover {
+  opacity: 1;
+}
+
+.mainpageprevious {
+  left: 1rem;
+}
+
+.next {
+  right: 1rem;
+}

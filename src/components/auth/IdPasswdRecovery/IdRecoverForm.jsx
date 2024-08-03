@@ -118,6 +118,7 @@ const IdRecoverForm = ({ activeTab }) => {
     }
   };
 
+  console.log('Active tab is:', activeTab);
   return (
     <div className={styles.recoveryFormBox} >
       <form onSubmit={handleSubmit}>
@@ -182,7 +183,7 @@ const IdRecoverForm = ({ activeTab }) => {
           className={`${styles.recoveryResponseMessage} ${!responseMessage ? styles.recoveryFormHidden : ''}`}
           dangerouslySetInnerHTML={{ __html: responseMessage }}
         />
-        <button type="submit" className={styles.recoverySubmitButton} lang="ko">
+        <button type="submit" className={styles.recoverySubmitButton} >
           {activeTab === 'id' ? '아이디 찾기' : '비밀번호 재설정'}
         </button>
       </form>

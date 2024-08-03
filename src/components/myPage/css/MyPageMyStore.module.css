@@ -14,8 +14,8 @@
   display: flex;
 }
 
-.my_store_profile {
-  width: 300px;
+.my_store_profile_container {
+  width: 700px;
   height: 48px;
   display: flex;
   flex-flow: row nowrap;
@@ -31,6 +31,12 @@
 
 .my_store_score {
   color: red;
+  margin: 5px;
+  
+}
+
+.my_store_no_nick {
+  margin: 5px;
 }
 
 .my_store_nav_container .my_store_nav_ul {
@@ -57,10 +63,17 @@
   text-decoration: none;
 }
 
-.my_store_product {
+.my_store_product_container {
+  width: 700px;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px 0px;
+}
+
+.my_store_product_list {
   width: 300px;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   border: 1px solid #CCCCCC;
   margin: 10px;
   padding: 10px;
@@ -68,7 +81,7 @@
 }
 
 .my_store_product_image {
-  width: 300px;
+  width: 100%;
   height: 200px;
 }
 
@@ -76,6 +89,13 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: right;
+}
+
+.my_store_no_product {
+  width: 700px;
+  font-size: 64px;
+  text-align: center;
+  margin: 100px 0px;
 }
 
 .my_store_banner {

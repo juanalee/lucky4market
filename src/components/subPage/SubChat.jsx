@@ -11,7 +11,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
   const [message, setMessage] = useState("");
   const stompClient = useRef(null);
   const messagesEndRef = useRef(null);
-  const { profile} = useContext(AuthContext);
+  const { profile } = useContext(AuthContext);
   const [profileSub, setProfileSub] = useState(profile?.sub || null);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
 
   useEffect(() => {
     if (isChatOpen) {
-      connect();
       fetchChatHistory();
+      connect();
     } else {
       disconnect();
     }
@@ -33,10 +33,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  // useEffect(() => {
-  //   fetchChatHistory();
-  // },[messages])
 
   const fetchChatHistory = async () => {
     try {
@@ -54,11 +50,11 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
   const connect = () => {
     const socket = new WebSocket("ws://localhost:9999/ws");
     stompClient.current = Stomp.over(socket);
+
     stompClient.current.connect({}, (frame) => {
       console.log("STOMP 클라이언트가 연결되었습니다.", frame);
       stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
         const newMessage = JSON.parse(message.body);
-        console.log(newMessage);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
     }, (error) => {
@@ -88,7 +84,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
       setMessage("");
       setMessageLength(0);
-      scrollToBottom();
     } else {
       console.error("STOMP 클라이언트가 연결되지 않았습니다.");
     }
@@ -120,7 +115,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           },
         });
         const baseUrl = preSignedUrl.split("?")[0];
-
+        console.log(baseUrl);
         const messageObj = {
           chatNo: roomId,
           receiverId: sellerId,
@@ -137,7 +132,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       console.error("STOMP 클라이언트가 연결되지 않았습니다.");
     }
   };
-  
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -182,18 +177,18 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       lastDate = chatDateEqual;
       const chatDateHeader = `${year}년 ${month}월 ${day}일`;
       const chatDateMain = `${period} ${formattedHour}시 ${formattedMinute}분`;
-      
+
       const chatContent = item.chatContent && item.chatContent || "";
       const isImage = chatContent && chatContent.startsWith('https://lucky4market');
-      
+
       if (!chatContent) {
         return null;
       }
 
       const messageContent = isImage ? (
-          <img src={chatContent} alt="이미지" className={styles.chatImage} />
+        <img src={chatContent} alt="이미지" className={styles.chatImage} />
       ) : (
-          <p className={item.senderId === sellerId ? styles.messageReceiverStyle : styles.messageSenderStyle}>{chatContent}</p>
+        <p className={item.senderId === sellerId ? styles.messageReceiverStyle : styles.messageSenderStyle}>{chatContent}</p>
       );
 
       return (
@@ -205,7 +200,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
               <span className={styles.dateLine}></span>
             </div>
           )}
-          {item.senderId === sellerId  ? (
+          {item.senderId === sellerId ? (
             <div className={styles.chatBoxOpponent}>
               <div className={styles.chatContentOpponent}>
                 {messageContent}
@@ -231,9 +226,9 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
 
   return (
     <>
-      <Backdrop 
-        show={isChatOpen} 
-        onClick={onClose} 
+      <Backdrop
+        show={isChatOpen}
+        onClick={onClose}
       />
       <div className={`${styles.main_chat_side} ${isChatOpen ? styles.open : ''}`}>
         <div className={styles.main_chat_header}>
@@ -250,7 +245,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           </div>
         </div>
         <div className={styles.chat_content_container}>
-          {messages.length > 0 && renderChatWithDate() }
+          {messages.length > 0 && renderChatWithDate()}
           <div ref={messagesEndRef} />
         </div>
         <form onSubmit={sendMessage}>
@@ -268,7 +263,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
               <input type='file' name='file' className={styles.chatFile} onChange={handleFileChange} />
               <img src='/img/chatFile.png' alt='File' />
             </label>
-            <button type="submit"><img src='/img/send.png' alt='Send'/></button>
+            <button type="submit"><img src='/img/send.png' alt='Send' /></button>
             <p className={styles.messageLength}>{messageLength} / 1000</p>
           </div>
         </form>

@@ -3,7 +3,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const SubPayment = ({buyMethod ,addressInfo, productInfo}) => {
+const SubPayment = ({ buyMethod, addressInfo, productInfo }) => {
   const [mainAddressInfo, setMainAddressInfo] = useState();
   useEffect(() => {
     // addressInfo를 필터링하여 mainAddress가 1인 항목만 가져옵니다.
@@ -27,14 +27,14 @@ const SubPayment = ({buyMethod ,addressInfo, productInfo}) => {
       buyer_postcode: mainAddressInfo.postalCode                    // 구매자 우편번호
     };
     /* 4. 결제 창 호출하기 */
-    IMP.request_pay(data, async function(response){
-      if ( response.success ) { //결제 성공
+    IMP.request_pay(data, async function (response) {
+      if (response.success) { //결제 성공
         try {
           await axios.put(`http://localhost:9999/updateProductSaleSatus?productNo=${productInfo.productNo}`);
-          await axios.post(`http://localhost:9999/insertTransaction`,{
-            params:{
-              productNo : productInfo.productNo,
-              memberId : mainAddressInfo.memberId
+          await axios.post(`http://localhost:9999/insertTransaction`, {
+            params: {
+              productNo: productInfo.productNo,
+              memberId: mainAddressInfo.memberId
             }
           });
           window.location.reload();

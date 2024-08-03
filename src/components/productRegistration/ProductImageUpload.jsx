@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductImageUpload.module.css';
-import ProductinsertPopup from './ProductinsertPopup';
+import ProductinsertPopup from './productInsertPopup';
 
-const ProductImageUpload = ({ uploadedImages, setUploadedImages }) => {
+const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [popup, setPopup] = useState({
     show: false,
     message: '',
     isConfirmation: false,
   });
+
+  useEffect(() => {
+    const fetchExistingImages = async () => {
+      if (productNo) {
+        try {
+          const response = await axios.get(`http://localhost:9999/api/product/${productNo}/images`);
+          console.log(response.data);
+          const existingImages = response.data.map(image => ({
+            src: image.productImagePath// Assume image.url contains the URL to view the image
+           
+          }));
+          setImagePreviews(existingImages);
+        } catch (error) {
+          console.error('Error fetching existing images:', error);
+          setPopup({
+            show: true,
+            message: '기존 이미지를 불러오는 데 실패했습니다.',
+            isConfirmation: false,
+          });
+        }
+      }
+    };
+
+    fetchExistingImages();
+  }, [productNo]);
 
   const handleFileChange = async (event) => {
     const files = Array.from(event.target.files);
@@ -56,7 +81,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages }) => {
 
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImagePreviews(prev => [...prev, { src: reader.result, name: file.name }]);
+          setImagePreviews(prev => [...prev, { src: reader.result}]);
         };
         reader.readAsDataURL(file);
       } catch (error) {
@@ -75,6 +100,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages }) => {
   const removeImage = (index) => {
     setImagePreviews(prev => prev.filter((_, i) => i !== index));
     setUploadedImages(prev => prev.filter((_, i) => i !== index));
+    console.log(index);
   };
 
   return (

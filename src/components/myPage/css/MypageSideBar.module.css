@@ -4,6 +4,7 @@
 }
 
 .side_bar_my_page {
+  border-bottom: 1px solid black;
   margin: 20px 0px;
 }
 
@@ -15,19 +16,13 @@
 
 .side_bar_li {
   list-style-type: none;
-  padding: 20px 0px;
+  margin: 20px 0px;
 }
 
 .side_bar_ul .side_bar_li .side_bar_item {
   color: black;
   font-size: 24px;
   text-decoration: none;
-}
-
-.side_bar_my_page {
-  border-bottom: 1px solid black;
-  font-size: 32px;
-  font-weight: bold;
 }
 
 .side_bar_my_store {
