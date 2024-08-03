@@ -128,7 +128,8 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
           </div>
         ))}
       </div>
-      <ProductInsertPopup
+
+      <ProductinsertPopup
         show={popup.show}
         onClose={() => setPopup({ ...popup, show: false })}
         message={popup.message}

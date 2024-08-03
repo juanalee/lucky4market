@@ -18,7 +18,7 @@ export const MainPage = () => {
     const fetchHotProductList = async () => {
         try {
             const response = await axios.get('http://localhost:9999/api/product/hotproductlist');
-            console.log('Hot Products:', response.data);
+            // console.log('Hot Products:', response.data);
             setHotProductList(response.data);
             setHotDisplayList(response.data.slice(0, itemsPerPage));
             if (response.data.length <= itemsPerPage) {
@@ -32,7 +32,7 @@ export const MainPage = () => {
     const fetchNewProductList = async () => {
         try {
             const response = await axios.get('http://localhost:9999/api/product/newproductlist');
-            console.log('New Products:', response.data);
+            // console.log('New Products:', response.data);
             setNewProductList(response.data);
             setNewDisplayList(response.data.slice(0, itemsPerPage));
             if (response.data.length <= itemsPerPage) {

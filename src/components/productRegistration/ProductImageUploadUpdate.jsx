@@ -3,7 +3,6 @@ import axios from 'axios';
 import styles from './css/ProductImageUpload.module.css';
 import ProductInsertPopup from './ProductInsertPopup';
 
-
 const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo, deleteImages, setDeleteImages }) => {
     const [imagePreviews, setImagePreviews] = useState([]);
     const [popup, setPopup] = useState({
@@ -131,7 +130,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
                     </div>
                 ))}
             </div>
-            <ProductInsertPopup
+            <ProductinsertPopup
                 show={popup.show}
                 onClose={() => setPopup({ ...popup, show: false })}
                 message={popup.message}
