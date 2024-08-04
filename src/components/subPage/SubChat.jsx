@@ -24,6 +24,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
     if (isChatOpen) {
       fetchChatHistory();
       connect();
+      markMessagesAsRead(); // 채팅방 열릴 때 메시지 읽음 처리
     } else {
       disconnect();
     }
@@ -56,6 +57,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
+        markSingleMessageAsRead(newMessage.messageNo); // 새 메시지를 읽음 처리
       });
     }, (error) => {
       console.error("STOMP 클라이언트 연결 실패", error);
@@ -70,13 +72,29 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
     }
   };
 
+  const markMessagesAsRead = async () => {
+    try {
+      await axios.post('http://localhost:9999/markMessagesAsRead', { chatNo: roomId, memberId: profileSub });
+    } catch (error) {
+      console.error("메시지 읽음 처리 실패", error);
+    }
+  };
+
+  const markSingleMessageAsRead = async (messageNo) => {
+    try {
+      await axios.post('http://localhost:9999/markSingleMessageAsRead', { messageNo, memberId: profileSub });
+    } catch (error) {
+      console.error("단일 메시지 읽음 처리 실패", error);
+    }
+  };
+
   const sendMessage = (event) => {
     event.preventDefault();
     if (stompClient.current && stompClient.current.connected && message) {
       const messageObj = {
         chatNo: roomId,
         receiverId: sellerId,
-        senderId: profileSub, // 현재 사용자 ID로 수정
+        senderId: profileSub,
         chatContent: message,
         productNo: productInfo.productNo
       };
@@ -119,8 +137,8 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
         const messageObj = {
           chatNo: roomId,
           receiverId: sellerId,
-          senderId: profileSub, // 현재 사용자 ID로 수정
-          chatContent: baseUrl, // 파일 경로 또는 파일 이름
+          senderId: profileSub,
+          chatContent: baseUrl,
           productNo: productInfo.productNo
         };
         setMessages((prevMessages) => [...prevMessages, messageObj]);
@@ -148,7 +166,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault(); // 줄바꿈 방지
+      event.preventDefault();
       sendMessage(event);
     }
   };
@@ -158,7 +176,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       const date = new Date(dateStr);
       return isNaN(date.getTime()) ? new Date() : date;
     }
-    return new Date(); // 기본 날짜를 현재로 설정
+    return new Date();
   };
 
   const renderChatWithDate = () => {
