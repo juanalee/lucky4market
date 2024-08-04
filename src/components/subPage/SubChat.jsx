@@ -24,7 +24,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
     if (isChatOpen) {
       fetchChatHistory();
       connect();
-      markMessagesAsRead(); // 채팅방 열릴 때 메시지 읽음 처리
     } else {
       disconnect();
     }
@@ -57,7 +56,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
-        markSingleMessageAsRead(newMessage.messageNo); // 새 메시지를 읽음 처리
       });
     }, (error) => {
       console.error("STOMP 클라이언트 연결 실패", error);
@@ -69,22 +67,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       stompClient.current.disconnect(() => {
         console.log("STOMP 클라이언트가 연결 해제되었습니다.");
       });
-    }
-  };
-
-  const markMessagesAsRead = async () => {
-    try {
-      await axios.post('http://localhost:9999/markMessagesAsRead', { chatNo: roomId, memberId: profileSub });
-    } catch (error) {
-      console.error("메시지 읽음 처리 실패", error);
-    }
-  };
-
-  const markSingleMessageAsRead = async (messageNo) => {
-    try {
-      await axios.post('http://localhost:9999/markSingleMessageAsRead', { messageNo, memberId: profileSub });
-    } catch (error) {
-      console.error("단일 메시지 읽음 처리 실패", error);
     }
   };
 
