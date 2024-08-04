@@ -123,6 +123,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
           chatContent: baseUrl, // 파일 경로 또는 파일 이름
           productNo: productInfo.productNo
         };
+        setMessages((prevMessages) => [...prevMessages, messageObj]);
         stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
         scrollToBottom();
       } catch (error) {
