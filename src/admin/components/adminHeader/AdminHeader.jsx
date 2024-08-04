@@ -1,18 +1,45 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, useNavigate} from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 import styles from './AdminHeader.module.css';
+import { AuthContext } from '../../../services/AuthContext';
 
 const AdminHeader = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const [memberNick, setMemberNick] = useState('');
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    // 로그아웃 시 토큰 제거
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      console.log('Decoded Token:', decodedToken); 
+      const memberId = decodedToken.sub;
+
+      const fetchMemberNick = async () => {
+        try {
+          const response = await axios.get(`http://localhost:9999/admin/adminNickname/${memberId}`);
+          console.log('API Response:', response.data);
+          setMemberNick(response.data.memberNick);
+        } catch (error) {
+          console.error('관리자 닉네임 가져오기 실패:', error);
+          if (error.response && error.response.status === 403) {
+            console.error('403 error 접근 제한');
+          }
+        }
+      };
+
+      fetchMemberNick();
+    }
+  }, []);
+
+  const handleLogout = () => {
     localStorage.removeItem('token');
-
-    // 메인으로 돌아가기
-    navigate('/');
+    localStorage.removeItem('tokenProvider');
+    setIsAuthenticated(false);
   };
+
   return (
     <div className={styles.adminHeaderContainer}>
       <div className={styles.adminHeader}>
@@ -24,7 +51,7 @@ const AdminHeader = () => {
             <span className={styles.adminHeaderTitle}>관리자</span>
           </div>
           <div className={styles.adminHeaderRightSection}>
-            <NavLink to="/admin/info" className={styles.adminHeaderInfoLink}>관리자정보</NavLink>
+          <span className={styles.adminHeaderInfo}>{memberNick}님</span>
             <NavLink to="/" className={styles.adminHeaderLogoutLink} onClick={handleLogout}>로그아웃</NavLink>
           </div>
         </div>
@@ -33,7 +60,6 @@ const AdminHeader = () => {
           <NavLink to="/admin/reports" className={styles.adminHeaderLink}>신고관리</NavLink>
           <NavLink to="/admin/products" className={styles.adminHeaderLink}>상품관리</NavLink>
           <NavLink to="/admin/categories" className={styles.adminHeaderLink}>카테고리 관리</NavLink>
-          <NavLink to="/admin/support" className={styles.adminHeaderLink}>고객센터</NavLink>
         </div>
       </div>
     </div>

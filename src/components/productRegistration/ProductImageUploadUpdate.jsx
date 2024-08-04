@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductImageUpload.module.css';
-import ProductInsertPopup from './ProductInsertPopup';
+import ProductInsertPopup from './ProductInsertPopup'; 
 
 
 const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo, deleteImages, setDeleteImages }) => {
