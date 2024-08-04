@@ -61,7 +61,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       console.error("STOMP 클라이언트 연결 실패", error);
     });
   };
-
   const disconnect = () => {
     if (stompClient.current) {
       stompClient.current.disconnect(() => {
