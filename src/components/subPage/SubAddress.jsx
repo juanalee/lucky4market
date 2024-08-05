@@ -32,6 +32,7 @@ function SubAddress({ setAddressMainInfo, resetAddress }) {
     height: '100%',
     marginTop: '70px',
     borderTop: '1px solid black',
+    zIndex : 1004
   };
 
   return (

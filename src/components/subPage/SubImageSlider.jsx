@@ -85,6 +85,15 @@ export default function SubImageSlider() {
       </div>
     );
   }
+  if (productStatus === '차단') {
+    return (
+      <div className={styles.deleteScreenContainer}>
+        <img src="/img/exclamation.png" alt="차단된 상품" />
+        <h2>해당 상품은 차단되었습니다</h2>
+        <button className={styles.deleteScreenBtn} onClick={backHome}>홈으로 돌아가기</button>
+      </div>
+    );
+  }
 
   if (!productInfo) {
     return (

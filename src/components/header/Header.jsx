@@ -62,20 +62,6 @@ export default function Header() {
     }
   }, [parentNumber]);
 
-  useEffect(() => {
-    // Fetch unread messages count if authenticated
-    if (isAuthenticated) {
-      const fetchUnreadMessages = async () => {
-        try {
-          const response = await axios.get(`http://localhost:9999/api/chat/unreadMessages`);
-          setUnreadMessages(response.data.count);
-        } catch (error) {
-          console.error('Error fetching unread messages count:', error);
-        }
-      };
-      fetchUnreadMessages();
-    }
-  }, [isAuthenticated]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');

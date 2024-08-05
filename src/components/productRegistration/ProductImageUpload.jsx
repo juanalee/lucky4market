@@ -129,7 +129,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
         ))}
       </div>
 
-      <ProductinsertPopup
+      <ProductInsertPopup
         show={popup.show}
         onClose={() => setPopup({ ...popup, show: false })}
         message={popup.message}

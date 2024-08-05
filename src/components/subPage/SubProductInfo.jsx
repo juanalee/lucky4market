@@ -283,7 +283,7 @@ const ProductInfo = ({ productImage, productNo }) => {
               <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
             </div>
           </div>
-          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
+          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} productInfo={productInfo} profileSub={profileSub}/>
         </div>
         <div className={styles.product_status_information}>
           <div className={styles.product_status}>
