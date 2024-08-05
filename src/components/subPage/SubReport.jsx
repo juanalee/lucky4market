@@ -3,7 +3,7 @@ import styles from './css/SubProductInfo.module.css';
 import Backdrop from './SubOverlay';
 import axios from 'axios';
 
-const SubReport = ({ isReportOpen, onClose }) => {
+const SubReport = ({ isReportOpen, onClose ,productInfo, profileSub}) => {
   const [expanded, setExpanded] = useState(null); // 단일 섹션만 열리도록 상태 변경
   const [reportContents, setReportContents] = useState({
     ad: '',
@@ -44,9 +44,9 @@ const SubReport = ({ isReportOpen, onClose }) => {
     try {
       // axios 요청에 params로 전달
       const response = await axios.post('http://localhost:9999/insertReport', {
-        productNo: '19',
-        claimerId: 'member3',
-        sellerId: 'member2',
+        productNo: productInfo.productNo,
+        claimerId: profileSub,
+        sellerId: productInfo.memberId,
         reportContent: `[${typeText}] ${reportContents[type]}` // 타입에 따른 문구와 내용을 결합
       });
 
