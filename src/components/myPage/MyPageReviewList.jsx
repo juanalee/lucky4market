@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import MyPageSideBar from './MypageSideBar';
+import Header from './../header/Header';
 import axios from 'axios';
 import styles from './css/MypageReviewList.module.css';
 import MyPageMemberId from './MypageMemberId'; // 커스텀 훅을 import
+import { Link, useNavigate } from 'react-router-dom';
+import ProductinsertPopup from '../modalPopup/ModalPopup';
 
-const MyPageReviewList = () => {
+const MypageReviewList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
-  const [reviewList, setReviewList] = useState({}); // 리뷰 목록을 객체로 변경
-  const [editReviewState, setEditReviewState] = useState({}); // 수정 상태를 객체로 변경
+  const [reviewList, setReviewList] = useState({});
+  const [editReviewState, setEditReviewState] = useState({});
   const [tempReviewData, setTempReviewData] = useState({});
-
-  const memberId = MyPageMemberId(); // 커스텀 훅을 사용
+  const [popup, setPopup] = useState({
+    show: false,
+    message: '',
+    isConfirmation: false,
+  });
+  const memberId = MyPageMemberId();
+  const navigate = useNavigate();
 
   const readData = async (memberId) => {
     try {
       const response = await axios.get(`http://localhost:9999/review/productWroteList/${memberId}`);
-      console.log(response.data); // 응답 데이터 구조 확인
+      console.log(response.data);
       setMemberProductList(response.data);
     } catch (error) {
       console.error('Error fetching member product list:', error);
@@ -25,8 +33,8 @@ const MyPageReviewList = () => {
   const readReviewData = async (productNo) => {
     try {
       const response = await axios.get(`http://localhost:9999/review/wroteList/${productNo}`);
-      console.log(response.data); // 응답 데이터 구조 확인
-      setReviewList(prevState => ({ ...prevState, [productNo]: response.data })); // 리뷰 데이터를 객체에 저장
+      console.log(response.data);
+      setReviewList(prevState => ({ ...prevState, [productNo]: response.data }));
     } catch (error) {
       console.error('Error fetching review list:', error);
     }
@@ -35,13 +43,15 @@ const MyPageReviewList = () => {
   const reviewDelete = async (productNo) => {
     try {
       await axios.delete(`http://localhost:9999/review/delete/${productNo}`);
-      // 리뷰 삭제 후 상태에서 해당 리뷰 제거
       setReviewList(prevState => ({
         ...prevState,
         [productNo]: []
       }));
-      alert("삭제가 완료됐습니다."); // alert 창으로 메시지 표시
-      window.location.reload(); // 페이지 새로고침
+      setPopup({
+        show: true,
+        message: '삭제가 완료됐습니다.',
+        isConfirmation: false,
+      });
     } catch (error) {
       console.error('Error deleting reviews:', error);
     }
@@ -50,10 +60,9 @@ const MyPageReviewList = () => {
   const reviewUpdate = (productNo, review) => {
     setEditReviewState(prevState => ({
       ...prevState,
-      [productNo]: !prevState[productNo] // 해당 productNo의 수정 상태를 토글
+      [productNo]: !prevState[productNo]
     }));
     if (!editReviewState[productNo]) {
-      // 수정 상태로 변경 시 임시 리뷰 데이터 설정
       setTempReviewData(prevState => ({
         ...prevState,
         [productNo]: { ...review }
@@ -75,31 +84,30 @@ const MyPageReviewList = () => {
     }));
   };
 
-
   const saveReview = async (productNo, reviewId) => {
     const updatedReview = tempReviewData[productNo];
     console.log(updatedReview);
     try {
       await axios.put(`http://localhost:9999/review/update/${productNo}`, updatedReview);
-      // 저장 후 수정 상태를 false로 변경
       setEditReviewState(prevState => ({
         ...prevState,
         [productNo]: false
       }));
-      // 실제 리뷰 데이터 업데이트
       setReviewList(prevState => ({
         ...prevState,
         [productNo]: prevState[productNo].map(review =>
           review.reviewId === reviewId ? { ...review, ...updatedReview } : review
         )
       }));
-      alert("수정이 완료됐습니다."); // alert 창으로 메시지 표시
-      window.location.reload(); // 페이지 새로고침
+      setPopup({
+        show: true,
+        message: '수정이 완료됐습니다.',
+        isConfirmation: false,
+      });
     } catch (error) {
       console.error('Error updating review:', error);
     }
   };
-
 
   useEffect(() => {
     if (memberId) {
@@ -113,12 +121,10 @@ const MyPageReviewList = () => {
     });
   }, [memberProductList]);
 
-  // 숫자를 천 단위로 구분하여 포맷팅하는 함수
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('ko-KR').format(price); // 한국 원화 형식
+    return new Intl.NumberFormat('ko-KR').format(price);
   };
 
-  // reviewScore를 별 모양으로 변환하는 함수 (읽기 전용)
   const renderStars = (reviewScore, onClickHandler) => {
     return (
       <div className={styles.reviewScore}>
@@ -135,16 +141,26 @@ const MyPageReviewList = () => {
     );
   };
 
+  const handlePopupClose = () => {
+    setPopup({ ...popup, show: false });
+    // Navigate and refresh
+    navigate('/writedReview', { replace: true }); // Navigate to the desired page
+    window.location.reload(); // Refresh the page
+  };
+
   return (
     <div>
+      <Header />
       <div className={styles.MypageProductSalesListComponent}>
         <MyPageSideBar />
-        <div className={styles.ProductMainContainer}>
+        <div className={styles.MypageProductListMainContainer}>
           <h3 className={styles.ProductMainTitle}>내가 작성한 후기목록 ({memberProductList.length})</h3>
           {memberProductList.map((memberProduct, index) => (
             <div key={index}>
               <div className={styles.MypageProductSalesList}>
-                <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+                <Link to={`/productPage/${memberProduct.productNo}`}>
+                  <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" />
+                </Link>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                   <p className={styles.ProductSalesthDate}>판매자 : {memberProduct.sellerId}</p>
@@ -166,7 +182,7 @@ const MyPageReviewList = () => {
                       </>
                     ) : (
                       <>
-                        {renderStars(memberReview.reviewScore, () => { })}
+                        {renderStars(memberReview.reviewScore, () => {})}
                         <textarea className={styles.reviewTitle}>{memberReview.review}</textarea>
                       </>
                     )}
@@ -178,7 +194,7 @@ const MyPageReviewList = () => {
                     </button>
                     {editReviewState[memberProduct.productNo] && (
                       <button onClick={() => saveReview(memberProduct.productNo, memberReview.reviewId)}
-                        className={styles.productReportButton}>저장</button>
+                      className={styles.productReportButton}>저장</button>
                     )}
                     <button onClick={() => reviewDelete(memberProduct.productNo)}
                       className={styles.productDeleteButton}>삭제</button>
@@ -189,8 +205,14 @@ const MyPageReviewList = () => {
           ))}
         </div>
       </div>
+      <ProductinsertPopup
+        show={popup.show}
+        onClose={handlePopupClose}
+        message={popup.message}
+        isConfirmation={popup.isConfirmation}
+      />
     </div>
   );
 };
 
-export default MyPageReviewList;
+export default MypageReviewList;

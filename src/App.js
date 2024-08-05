@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-do
 import './App.css';
 import AdminMembers from './admin/components/adminMembers/AdminMembers';
 import AdminReports from './admin/components/adminReports/AdminReports';
-import AdminProductList from './admin/components/adminProductList/AdminProductList';
 import LoginForm from './components/auth/Login/LoginForm';
 import IdPasswdRecovery from './components/auth/IdPasswdRecovery/IdPasswdRecovery';
 import PreRegisterForm from './components/auth/Register/PreRegisterForm';
@@ -58,7 +57,7 @@ function App() {
             <Route path="/admin" element={<Navigate to="/admin/reports"/>}/>
             <Route path="/admin/members" element={<AdminMembers/>}/>
             <Route path="/admin/reports" element={<AdminReports/>}/>
-            <Route path="/admin/products" element={<AdminProductList/>}/>
+        
           </Route>
         </Routes>
       </Router>
