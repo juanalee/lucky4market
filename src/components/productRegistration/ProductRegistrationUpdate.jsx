@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductRegistration.module.css';
-import ProductInsertPopup from './ProductInsertPopup';
+
 import ProductImageUploadUpdate from './ProductImageUploadUpdate';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
 import ProductTradeArea from './ProductTradeArea';
@@ -31,7 +31,7 @@ export default function ProductRegistrationUpdate() {
     });
 
 
-   
+
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
     const [parentNumber, setParentNumber] = useState('1');
     const [errors, setErrors] = useState({
@@ -210,7 +210,7 @@ export default function ProductRegistrationUpdate() {
                     setUploadedImages={setUploadedImages}
                     productNo={productNo}
                     deleteImages={deleteImages}
-                    setDeleteImages={setDeleteImages} 
+                    setDeleteImages={setDeleteImages}
                 />
                 <div className={styles.productHeader}>
                     <input

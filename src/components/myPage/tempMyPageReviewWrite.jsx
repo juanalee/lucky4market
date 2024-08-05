@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import styles from './css/MyPageReviewWrite.module.css';
 
-const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
+const MyPageReviewWrite = ({ productNo, buyerId, sellerId }) => {
   const [reviewScore, setreviewScore] = useState(0);
   const [hover, setHover] = useState(0);
   const reviewText = useRef();
@@ -60,4 +60,4 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
   );
 };
 
-export default MypagReviewWrite;
+export default MyPageReviewWrite;

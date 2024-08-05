@@ -5,7 +5,7 @@ import styles from './css/MyPageProductSalesList.module.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import MyPageMemberId from './MyPageMemberId';
 
-const MypageProductSalesList = () => {
+const MyPageProductSalesList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [memberProductsoldoutList, setMemberProductsoldoutList] = useState([]);
   const [displayType, setDisplayType] = useState('saling');
@@ -104,4 +104,4 @@ const MypageProductSalesList = () => {
   );
 };
 
-export default MypageProductSalesList;
+export default MyPageProductSalesList;

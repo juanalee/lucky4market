@@ -5,7 +5,7 @@ import styles from './css/MyPageProductSalesList.module.css';
 import MypagReviewWrite from './MypageReviewWrite';
 import MyPageMemberId from './MyPageMemberId';
 
-const MypageProductPurchaseHistory = () => {
+const MyPageProductPurchaseHistory = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState({}); // 리뷰 작성 폼 상태
   const buyerId = MyPageMemberId(); // 커스텀 훅을 사용
@@ -124,4 +124,4 @@ const MypageProductPurchaseHistory = () => {
   );
 };
 
-export default MypageProductPurchaseHistory;
+export default MyPageProductPurchaseHistory;

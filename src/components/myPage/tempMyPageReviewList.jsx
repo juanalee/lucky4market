@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import MyPageSideBar from './MyPageSideBar';
+import MyPageSideBar from './tempMyPageSideBar';
 import axios from 'axios';
 import styles from './css/MypageReviewList.module.css';
 import MyPageMemberId from './MyPageMemberId'; // 커스텀 훅을 import
 
-const MypageReviewList = () => {
+const MyPageReviewList = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [reviewList, setReviewList] = useState({}); // 리뷰 목록을 객체로 변경
   const [editReviewState, setEditReviewState] = useState({}); // 수정 상태를 객체로 변경
@@ -75,32 +75,32 @@ const MypageReviewList = () => {
     }));
   };
 
-    
-      const saveReview = async (productNo, reviewId) => {
-        const updatedReview = tempReviewData[productNo];
-        console.log(updatedReview);
-        try {
-          await axios.put(`http://localhost:9999/review/update/${productNo}`, updatedReview);
-          // 저장 후 수정 상태를 false로 변경
-          setEditReviewState(prevState => ({
-            ...prevState,
-            [productNo]: false
-          }));
-          // 실제 리뷰 데이터 업데이트
-          setReviewList(prevState => ({
-            ...prevState,
-            [productNo]: prevState[productNo].map(review =>
-              review.reviewId === reviewId ? { ...review, ...updatedReview } : review
-            )
-          }));
-          alert("수정이 완료됐습니다."); // alert 창으로 메시지 표시
-          window.location.reload(); // 페이지 새로고침
-        } catch (error) {
-          console.error('Error updating review:', error);
-        }
-      };
-  
-   
+
+  const saveReview = async (productNo, reviewId) => {
+    const updatedReview = tempReviewData[productNo];
+    console.log(updatedReview);
+    try {
+      await axios.put(`http://localhost:9999/review/update/${productNo}`, updatedReview);
+      // 저장 후 수정 상태를 false로 변경
+      setEditReviewState(prevState => ({
+        ...prevState,
+        [productNo]: false
+      }));
+      // 실제 리뷰 데이터 업데이트
+      setReviewList(prevState => ({
+        ...prevState,
+        [productNo]: prevState[productNo].map(review =>
+          review.reviewId === reviewId ? { ...review, ...updatedReview } : review
+        )
+      }));
+      alert("수정이 완료됐습니다."); // alert 창으로 메시지 표시
+      window.location.reload(); // 페이지 새로고침
+    } catch (error) {
+      console.error('Error updating review:', error);
+    }
+  };
+
+
   useEffect(() => {
     if (memberId) {
       readData(memberId);
@@ -166,7 +166,7 @@ const MypageReviewList = () => {
                       </>
                     ) : (
                       <>
-                        {renderStars(memberReview.reviewScore, () => {})}
+                        {renderStars(memberReview.reviewScore, () => { })}
                         <textarea className={styles.reviewTitle}>{memberReview.review}</textarea>
                       </>
                     )}
@@ -178,7 +178,7 @@ const MypageReviewList = () => {
                     </button>
                     {editReviewState[memberProduct.productNo] && (
                       <button onClick={() => saveReview(memberProduct.productNo, memberReview.reviewId)}
-                      className={styles.productReportButton}>저장</button>
+                        className={styles.productReportButton}>저장</button>
                     )}
                     <button onClick={() => reviewDelete(memberProduct.productNo)}
                       className={styles.productDeleteButton}>삭제</button>
@@ -193,4 +193,4 @@ const MypageReviewList = () => {
   );
 };
 
-export default MypageReviewList;
+export default MyPageReviewList;

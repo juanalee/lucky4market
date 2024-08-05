@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './css/productinsertPopup.module.css';
+
 
 
 const ProductInsertPopup = ({ show, onClose, onConfirm, message, isConfirmation }) => {
