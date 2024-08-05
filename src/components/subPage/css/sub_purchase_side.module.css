@@ -356,7 +356,7 @@
   box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   transform: translateX(100%); /* 사이드 바를 화면 바깥으로 위치시킵니다 */
-  z-index: 1000;
+  z-index: 1004;
 }
 
 .postcode_side.open {

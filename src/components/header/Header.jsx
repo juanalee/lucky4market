@@ -12,6 +12,7 @@ export default function Header() {
   const [parentNumber, setParentNumber] = useState(null);
   const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [unreadMessages, setUnreadMessages] = useState(0); // Unread messages count
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
@@ -61,6 +62,7 @@ export default function Header() {
     }
   }, [parentNumber]);
 
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('tokenProvider');
@@ -69,7 +71,7 @@ export default function Header() {
   };
 
   const handleSearch = () => {
-    navigate(`/search?query=${searchValue}&parentCategoryNo=&categoryNo=`);
+    navigate(`/search?query=${searchValue}`);
   };
 
   const handleKeyDown = (event) => {
@@ -77,6 +79,10 @@ export default function Header() {
       handleSearch();
     }
   };
+
+  const handleHome = () => {
+    navigate('/');
+  }
 
   return (
     <>
@@ -93,6 +99,10 @@ export default function Header() {
             <Link to="/mystore">내상점</Link>
           </div>
           <div className={styles.search_container}>
+            <div className={styles.headerLogoContainer} onClick={handleHome}>
+              <img src='/img/lm_logo_default_black.png' className={styles.logoImg} alt='logo'></img>
+              <h1>럭키마켓</h1>
+            </div>
             <input
               type="text"
               name="search"
@@ -101,7 +111,7 @@ export default function Header() {
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <img src='/img/search.png' className={styles.search_img} onClick={handleSearch}></img>
+            <img src='/img/search.png' className={styles.search_img} onClick={handleSearch} alt='search' />
           </div>
           <nav className={styles.nav_container}>
             <ul className={styles.main_category_container}>
@@ -116,20 +126,20 @@ export default function Header() {
                 <div className={`${styles.category_container} ${isSubCategoryOpen ? styles.open : ''}`}>
                   <ul className={styles.category}>
                     {categoryAllInfo.map((main) => (
-                      <li
-                        key={main.categoryNo}
+                      <li 
+                        key={main.categoryNo} 
                         className={styles.main_category}
                         onMouseEnter={() => setParentNumber(main.categoryNo)}
                         onMouseLeave={() => setParentNumber(null)}
                       >
-                        <a href='#'>{main.categoryName}</a>
+                        <a href={`/search?parentCategoryNo=${main.categoryNo}`}>{main.categoryName}</a>
                         {parentNumber === main.categoryNo && (
                           <div className={styles.sub_category_container}>
                             <div className={styles.sub_category_block}>
                               <ul className={styles.sub_category}>
                                 {productCategoryList.map((sub) => (
                                   <li key={sub.categoryNo}>
-                                    <a href='#'>{sub.categoryName}</a>
+                                    <a href={`/search?categoryNo=${sub.categoryNo}`}>{sub.categoryName}</a>
                                   </li>
                                 ))}
                               </ul>
@@ -141,9 +151,8 @@ export default function Header() {
                   </ul>
                 </div>
               </li>
-              <li className={styles.menu}><Link to='#'>무료 나눔</Link></li>
-              <li className={styles.menu}><Link to='#'>찜한 상품</Link></li>
-              <li className={styles.menu}><Link to='#'>실시간 시세</Link></li>
+              <li className={styles.menu}><Link to={`/search?maxPrice=0`}>무료 나눔</Link></li>
+              <li className={styles.menu}><Link to={`/interestProduct`}>찜한 상품</Link></li>
             </ul>
             <ul className={styles.menu_item_container}>
               <div className={styles.menu_item}>
@@ -156,7 +165,12 @@ export default function Header() {
               </div>
               <div className={styles.menu_item}>
                 <img src='/img/chat.png' alt='chat' />
-                <li><button onClick={chatWidth}>채팅하기</button></li>
+                <li>
+                  <button onClick={chatWidth} className={styles.chatButton}>
+                    채팅하기
+                    {unreadMessages > 0 && <span className={styles.chatBadge}>{unreadMessages}</span>}
+                  </button>
+                </li>
               </div>
             </ul>
           </nav>

@@ -128,10 +128,11 @@ const LoginForm = () => {
             setRoles(decodedToken.role);
 
             const userRole = decodedToken.role;
+          
             if (userRole.includes('ROLE_ADMIN')) {
                 navigate('/admin');
             } else {
-                window.history.back();
+                navigate(-1);
             }
         } catch (err) {
             setError('id 또는 비밀번호 오류');

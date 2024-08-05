@@ -7,7 +7,7 @@
 /* 헤더 컨테이너를 고정 위치로 설정 */
 .header_container {
   width: 100%; /* 100% 너비로 설정 */
-  height: 220px;
+  height: 255px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -54,12 +54,13 @@ ul {
 }
 
 .search_container {
-  width: 700px;
+  width: 1440px;
   display: flex;
-  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 20px 0px;
+  gap: 200px;
 }
 
 .search_container input {
@@ -167,6 +168,10 @@ ul {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+.menu p{
+  margin-top: 5px;
 }
 
 .sub_category li:first-child > a {
@@ -287,8 +292,19 @@ ul {
 .search_img{
   position: absolute;
   width: 30px;
-  top: 45px;
-  right: 70px;
+  top: 65px;
+  right:430px;
   cursor: pointer;
 }
 
+.logoImg{
+  width: 100px;
+}
+
+.headerLogoContainer{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}

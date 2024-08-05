@@ -19,7 +19,6 @@ const Chat = ({ isChatOpen, onClose }) => {
   const [activeProductNo, setActiveProductNo] = useState('');
   const [isMainChatOpen, setIsMainChatOpen] = useState(false);
   const chatSideClass = isChatOpen ? styles.open : '';
-
   // 로그인 상태가 변경되면 profile.sub 상태 업데이트
   useEffect(() => {
     if (isAuthenticated && profile?.sub) {
@@ -39,7 +38,7 @@ const Chat = ({ isChatOpen, onClose }) => {
     } catch (error) {
       console.error("Error fetching chat rooms:", error);
     }
-  }, [profileSub]);
+  }, [profileSub,isAuthenticated]);
 
   useEffect(() => {
     if (profileSub) {

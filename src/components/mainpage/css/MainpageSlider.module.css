@@ -1,24 +1,27 @@
 .mainpageSlider {
   display: flex;
-  height: 55vh;
+  height: 600px;
   justify-content: center;
   align-items: center;
   overflow: hidden; /* Ensure only one image is visible at a time */
   position: relative; /* Positioning context for arrows */
-  width: 60vw; /* 이미지크기 */
-  margin: 0 auto; /* Center the slider horizontally */
+  width: 1440px; /* 이미지크기 */
+  margin: auto; /* Center the slider horizontally */
+  margin-top: 250px;
+  zoom: 0.75;
 }
 
 .imgContainer {
   display: flex;
   transition: transform 500ms ease-in-out;
   width: 100%; /* Match the width of the container */
-  margin-top: 300px;
+  height: 100%;
 }
 
 .imgContainer img {
-  width: 100%; /* Adjust the image width to take full container width */
+  width: 100%;
   min-width: 100%; /* Ensure each image takes full container width */
+  height: 100%;
 }
 
 .faSolid {
