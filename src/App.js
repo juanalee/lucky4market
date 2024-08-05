@@ -13,7 +13,7 @@ import KakaoAuthCallback from './components/auth/Login/KakaoAuthCallback';
 import ProductRegistration from './components/productRegistration/ProductRegistration';
 import MyPageMyInfo from './components/myPage/MyPageMyInfo';
 import MyPageMyStore from './components/myPage/MyPageMyStore';
-import MyPageProductSalesList from './components/myPage/MyPageProductSalesList';
+import MyPageProductSalesList from './components/myPage/MypageProductSalesList';
 import MyPageProductPurchaseHistory from './components/myPage/MypageProductPurchaseHistory';
 import MyPageInterestProduct from './components/myPage/MyPageInterestProduct';
 import MyPageReviewList from './components/myPage/MyPageReviewList';
