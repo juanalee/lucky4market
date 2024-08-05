@@ -5,6 +5,8 @@ import axios from 'axios';
 
 const SubReport = ({ isReportOpen, onClose ,productInfo, profileSub}) => {
   const [expanded, setExpanded] = useState(null); // 단일 섹션만 열리도록 상태 변경
+  const [reportMsg, setReportMsg] = useState(null); // 단일 섹션만 열리도록 상태 변경
+  const [statusShow, setStatusShow] = useState(false); // 단일 섹션만 열리도록 상태 변경
   const [reportContents, setReportContents] = useState({
     ad: '',
     inaccurate: '',
@@ -59,7 +61,12 @@ const SubReport = ({ isReportOpen, onClose ,productInfo, profileSub}) => {
         other: ''
       });
       setExpanded(null); // 모든 섹션 닫기
-      alert(response.data.msg);
+      setReportMsg(response.data.msg);
+      setStatusShow(true);
+
+      setTimeout(() => {
+        setStatusShow(false);
+      }, 1500);
       onClose();
     } catch (error) {
       console.error(error);
@@ -107,8 +114,11 @@ const SubReport = ({ isReportOpen, onClose ,productInfo, profileSub}) => {
               </Fragment>
             ))}
           </div>
-        </div>
+        </div>  
       )}
+      <div className={`${styles.ReportContainer} ${statusShow ? styles.show : ''}`}>
+        <p>{reportMsg}</p>
+      </div>
     </>
   );
 };
