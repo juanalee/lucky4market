@@ -1,6 +1,7 @@
 .mainPageContainer {
-width: 60%;
+width: 1440px;
 margin: 0 auto;
+zoom: 0.75;
 }
 
 .mainPageTitle{

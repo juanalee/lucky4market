@@ -31,7 +31,7 @@ export default function ProductRegistrationUpdate() {
     });
 
 
-   
+
     const [parentNumberOptions, setParentNumberOptions] = useState([]);
     const [parentNumber, setParentNumber] = useState('1');
     const [errors, setErrors] = useState({
@@ -210,7 +210,7 @@ export default function ProductRegistrationUpdate() {
                     setUploadedImages={setUploadedImages}
                     productNo={productNo}
                     deleteImages={deleteImages}
-                    setDeleteImages={setDeleteImages} 
+                    setDeleteImages={setDeleteImages}
                 />
                 <div className={styles.productHeader}>
                     <input
@@ -325,6 +325,7 @@ export default function ProductRegistrationUpdate() {
                 )}
                 <button type="submit" className={styles.submitButton}>{productNo ? '수정 완료' : '작성 완료'}</button>
             </form>
+
             <ProductInsertPopup
                 show={popup.show}
                 onClose={() => setPopup({ ...popup, show: false })}

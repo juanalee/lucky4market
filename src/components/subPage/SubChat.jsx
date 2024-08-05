@@ -61,7 +61,6 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       console.error("STOMP 클라이언트 연결 실패", error);
     });
   };
-
   const disconnect = () => {
     if (stompClient.current) {
       stompClient.current.disconnect(() => {
@@ -76,7 +75,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       const messageObj = {
         chatNo: roomId,
         receiverId: sellerId,
-        senderId: profileSub, // 현재 사용자 ID로 수정
+        senderId: profileSub,
         chatContent: message,
         productNo: productInfo.productNo
       };
@@ -119,10 +118,11 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
         const messageObj = {
           chatNo: roomId,
           receiverId: sellerId,
-          senderId: profileSub, // 현재 사용자 ID로 수정
-          chatContent: baseUrl, // 파일 경로 또는 파일 이름
+          senderId: profileSub,
+          chatContent: baseUrl,
           productNo: productInfo.productNo
         };
+        setMessages((prevMessages) => [...prevMessages, messageObj]);
         stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
         scrollToBottom();
       } catch (error) {
@@ -147,7 +147,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault(); // 줄바꿈 방지
+      event.preventDefault();
       sendMessage(event);
     }
   };
@@ -157,7 +157,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       const date = new Date(dateStr);
       return isNaN(date.getTime()) ? new Date() : date;
     }
-    return new Date(); // 기본 날짜를 현재로 설정
+    return new Date();
   };
 
   const renderChatWithDate = () => {

@@ -75,7 +75,7 @@ export default function ProductRegistrationUpdate() {
 
     // 제품 번호가 있을 경우 기존 제품 정보를 가져오는 useEffect
     useEffect(() => {
-      console.log("productNo:", productNo);
+        console.log("productNo:", productNo);
         if (productNo) {
             const fetchProductData = async () => {
                 try {
@@ -213,9 +213,9 @@ export default function ProductRegistrationUpdate() {
     return (
         <div className={styles.productContainer}>
             <form onSubmit={handleSubmit}>
-            <ProductImageUpload
-                       uploadedImages={uploadedImages}
-                       setUploadedImages={setUploadedImages}
+                <ProductImageUpload
+                    uploadedImages={uploadedImages}
+                    setUploadedImages={setUploadedImages}
 
                     productNo={productNo}
                 />

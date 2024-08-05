@@ -1,11 +1,19 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import styles from './css/MyPageReviewWrite.module.css';
+import ProductinsertPopup from '../modalPopup/ModalPopup';
+import { useNavigate } from 'react-router-dom';
 
 const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
-  const [reviewScore, setreviewScore] = useState(0);
+  const [reviewScore, setReviewScore] = useState(0);
   const [hover, setHover] = useState(0);
+  const [popup, setPopup] = useState({
+    show: false,
+    message: '',
+    isConfirmation: false,
+  });
   const reviewText = useRef();
+  const navigate = useNavigate();
 
   const submitReview = async () => {
     const review = new URLSearchParams();
@@ -20,21 +28,38 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
     try {
       const response = await axios.post('http://localhost:9999/review/insert', review.toString(), {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       });
-      console.log(response);
-      alert(response.data.msg);
+
       if (response.data.result) {
         reviewText.current.value = ''; // Clear the input
-        setreviewScore(0);
+        setReviewScore(0);
         setHover(0); // Reset hover
+        setPopup({
+          show: true,
+          message: response.data.msg,
+          isConfirmation: false,
+        });
       }
     } catch (error) {
       console.error('Error submitting review:', error);
       alert('리뷰 제출에 실패했습니다. 다시 시도해주세요.');
+      setPopup({
+        show: true,
+        message: '리뷰 제출에 실패했습니다.',
+        isConfirmation: false,
+      });
     }
   };
+
+  const handlePopupClose = () => {
+    setPopup({ ...popup, show: false });
+    // Navigate and refresh
+    navigate('/buyHistory', { replace: true }); // Use replace to avoid adding a new entry to history
+    window.location.reload(); // Refresh the page
+  };
+
   return (
     <div className={styles.reviewContainer}>
       <div className={styles.reviewScore}>
@@ -45,7 +70,7 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
               type="button"
               key={index}
               className={index <= (hover || reviewScore) ? styles.on : styles.off}
-              onClick={() => setreviewScore(index)}
+              onClick={() => setReviewScore(index)}
               onMouseEnter={() => setHover(index)}
               onMouseLeave={() => setHover(reviewScore)}
             >
@@ -54,8 +79,19 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
           );
         })}
       </div>
-      <textarea type="text" ref={reviewText} placeholder="후기를 입력하세요" className={styles.reviewText} />
+      <textarea
+        type="text"
+        ref={reviewText}
+        placeholder="후기를 입력하세요"
+        className={styles.reviewText}
+      />
       <button onClick={submitReview} className={styles.submitButton}>리뷰 제출</button>
+      <ProductinsertPopup
+        show={popup.show}
+        onClose={handlePopupClose} // Call handlePopupClose to navigate and refresh after closing popup
+        message={popup.message}
+        isConfirmation={popup.isConfirmation}
+      />
     </div>
   );
 };

@@ -51,6 +51,7 @@ const AdminMembers = () => {
     setSearchTerm('');
     setSearchField('memberId');
     setFilteredMembers(members);
+    setFilteredMembers(members);
   };
 
   const handleKeyDown = (event) => {

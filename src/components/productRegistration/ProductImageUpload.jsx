@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './css/ProductImageUpload.module.css'; 
+import styles from './css/ProductImageUpload.module.css';
 import ProductInsertPopup from './ProductInsertPopup';
 
 const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) => {
@@ -19,7 +19,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
           console.log(response.data);
           const existingImages = response.data.map(image => ({
             src: image.productImagePath// Assume image.url contains the URL to view the image
-           
+
           }));
           setImagePreviews(existingImages);
         } catch (error) {
@@ -81,7 +81,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
 
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImagePreviews(prev => [...prev, { src: reader.result}]);
+          setImagePreviews(prev => [...prev, { src: reader.result }]);
         };
         reader.readAsDataURL(file);
       } catch (error) {
@@ -128,6 +128,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
           </div>
         ))}
       </div>
+
       <ProductInsertPopup
         show={popup.show}
         onClose={() => setPopup({ ...popup, show: false })}

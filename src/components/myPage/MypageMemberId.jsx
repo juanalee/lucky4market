@@ -10,7 +10,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-const MypageMemberId = () => {
+const MyPageMemberId = () => {
   const [memberId, setMemberId] = useState(null);
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const MypageMemberId = () => {
   return memberId;
 };
 
-export default MypageMemberId;
+export default MyPageMemberId;

@@ -4,12 +4,14 @@ import Header from '../header/Header';
 import CategorySelector from './CategorySelector';
 import styles from './css/Search.module.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 function SearchBar() {
+  const query = useQuery();
   const [searchResultproductList, setSearchResultproductList] = useState([]);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -27,8 +29,12 @@ function SearchBar() {
     categoryNo: '' // 두 번째 카테고리 번호 추가
   });
 
-  const query = useQuery();
+ 
+
   const prevFormDataRef = useRef(formData);
+
+  // 새로 추가된 부분: 검색 버튼 클릭 및 엔터 키 입력 처리
+
 
   useEffect(() => {
     const queryParam = query.get('query') || '';
@@ -39,8 +45,8 @@ function SearchBar() {
     setFormData(prevState => ({
       ...prevState,
       searchQuery: queryParam,
-      parentCategoryNo,
-      categoryNo
+      parentCategoryNo:'',
+      categoryNo:''
     }));
   }, [query.toString()]);
 
@@ -93,6 +99,15 @@ function SearchBar() {
     }));
   };
 
+  const handleCloseCategory = () => {
+    setFormData(prevState => ({
+      ...prevState,
+      parentCategoryNo: '',
+      categoryNo: ''
+    }));
+    sendSearchOption();
+  };
+
   const handleParentChange = (parentCategoryNo) => {
     console.log('Selected parent category number:', parentCategoryNo);
     setFormData(prevState => ({
@@ -134,9 +149,16 @@ function SearchBar() {
       <div className={styles.searchContainer}>
         <h1 className={styles.searchTitle}>'{searchQuery}' 검색결과 ({searchResultproductList.length})</h1>
         <div className={styles.searchCategory}>
-          <button onClick={toggleCategorySelector}>
-            {isCategorySelectorVisible ? '카테고리 - ' : '카테고리 + '}
-          </button>
+        <button onClick={toggleCategorySelector}>
+  {isCategorySelectorVisible ? (
+    <>
+    
+      <button onClick={handleCloseCategory}>카테고리 -</button>
+    </>
+  ) : (
+    '카테고리 + '
+  )}
+</button>
           {isCategorySelectorVisible && (
             <CategorySelector 
               onCategoryChange={handleCategoryChange}
@@ -218,11 +240,12 @@ function SearchBar() {
         {searchResultproductList.length > 0 ? (
           searchResultproductList.map((searchProduct, index) => (
                <div  key={index} className={styles.productContainer}>
-                <img className={styles.ProductSalesimg} src={searchProduct.productImagePath} alt="Product" />
+              <Link to={`/productPage/${searchProduct.productNo}`}>
+                 <img className={styles.ProductSalesimg} src={searchProduct.productImagePath} alt="Product" /></Link>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.searchProductTitle}>{searchProduct.productTitle}</p>
                   <p className={styles.searchProductPrice}>￦{formatPrice(searchProduct.productPrice)}</p>
-                  <p className={styles.searchProductCount}>조회수{searchProduct.productCount}</p>
+                  <p className={styles.searchProductCount}> 조회수{searchProduct.productCount}  좋아요{searchProduct.productLike}</p>
                 </div>
               </div>
           

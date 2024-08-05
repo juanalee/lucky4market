@@ -11,11 +11,12 @@ import RegisterSuccess from './components/auth/Register/RegisterSuccess';
 import NaverAuthCallback from './components/auth/Login/NaverAuthCallback';
 import KakaoAuthCallback from './components/auth/Login/KakaoAuthCallback';
 import ProductRegistration from './components/productRegistration/ProductRegistration';
-import MypageProductSalesList from './components/myPage/MyPageProductSalesList';
-import MypageProductPurchaseHistory from './components/myPage/MyPageProductPurchaseHistory';
 import MyPageMyInfo from './components/myPage/MyPageMyInfo';
 import MyPageMyStore from './components/myPage/MyPageMyStore';
+import MyPageProductSalesList from './components/myPage/MyPageProductSalesList';
+import MyPageProductPurchaseHistory from './components/myPage/MypageProductPurchaseHistory';
 import MyPageInterestProduct from './components/myPage/MyPageInterestProduct';
+import MyPageReviewList from './components/myPage/MyPageReviewList';
 import MyPageReceivedReview from './components/myPage/MyPageReceivedReview';
 import SubMain from './components/subPage/SubMain';
 import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
@@ -23,9 +24,7 @@ import './services/AxiosSetup';
 import { AuthProvider } from './services/AuthContext';
 import {MainPage} from'./components/mainpage/MainPage';
 import SearchBar from './components/mainpage/Search';
-import MypageReviewList from './components/myPage/MypageReviewList';
 import ProductRegistrationUpdate from './components/productRegistration/ProductRegistrationUpdate';
-
 function App() {
 
 
@@ -48,9 +47,9 @@ function App() {
             <Route path="/myInfo" element={<MyPageMyInfo/>}/>
             <Route path="/productRegister" element={<ProductRegistration/>}/>
             <Route path="/productRegisterUpdate/:productNo" element={<ProductRegistrationUpdate/>}/>
-            <Route path="/sellHistory" element={<MypageProductSalesList/>}/>       
-            <Route path="/buyHistory" element={<MypageProductPurchaseHistory/>}/>   
-            <Route path="/writedReview" element={<MypageReviewList/>}/>  
+            <Route path="/sellHistory" element={<MyPageProductSalesList/>}/>       
+            <Route path="/buyHistory" element={<MyPageProductPurchaseHistory/>}/>   
+            <Route path="/writedReview" element={<MyPageReviewList/>}/>  
             <Route path="/interestProduct" element={<MyPageInterestProduct/>}/>
             <Route path="/receivedReview" element={<MyPageReceivedReview/>}/>
           </Route>          

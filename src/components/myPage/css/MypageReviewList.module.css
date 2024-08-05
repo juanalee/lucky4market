@@ -1,131 +1,136 @@
-.MypageProductSalesListComponent {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .ProductMainContainer{
-    margin-top: 100px;
-  }
-  
-  .ProductMainTitle{
-    font-size: 22px;
-  }
 
-  .MypageProductSalesList {
-    display: flex;
-    flex-direction: row;
-    margin-top: 50px;
-    margin-bottom: 25px;
-  }
-  
-  .ProductSalesimg {
-    width: 110px;
-    height: 110px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-   }
-  
-  .ProductSalestext {
-    font-weight: bold;
-    width: 300px;
-  }
-  
-  .ProductSalesthDate {
-    font-size: 13px;
-    margin-top: 0px;
-    margin-left: 7px;
-  }
-  
-  .productPrice,
-  .productTitle {
-    font-size: 22px;
-    margin: 5px;
-    margin-left: 7px;
-    width: 350px;
-  }
-  
-  .reviewContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 120px;
-  }
-  
-  .reviewScore {
-    display: flex;
-    margin-bottom: 5px;
-    font-size: 24px;
-  }
-  
-  .reviewScore .on {
-    color: rgb(255, 38, 0);
-  }
-  
-  .reviewScore .off {
-    color: lightgray;
-  }
 
-  .productReviewText{
-    width: 400px;
-    padding-bottom: 80px;
-    margin-left: 10px;
-    font-size: 20px;
-    padding-top: 5px
-  }
-  
-  .reviewTitle{
-    width: 400px;
-    height: 150px;
-    border: none;
-    padding-left: 10px;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
+.MypageProductSalesListComponent{
+  display: flex;
+  flex: row;
+  width: 1000;
+  margin: 0 auto;
+  margin-top: 200px;
+  justify-content: center;
+}
 
-  .submitButton {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .updateDeleteButton{
-    margin-left: 500px;
-    width: 80px;
-    height: 35px;
-    margin-top: 10px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
+.MypageProductListMainContainer{
+  margin-top: 50px;
+  width: 700px;
+}
 
-  .productDeleteButton{
-    width: 80px;
-    height: 35px;
-    margin-top: 10px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-  }
+.ProductMainTitle{
+  font-size: 22px;
+}
 
-  .productReportButton{
-    width: 80px;
-    height: 35px;
-    margin-top: 10px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-  }
+.MypageProductSalesList {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
 
-  .submitButton:hover {
-    background-color: #888888;
-  }
-  
+.ProductSalesimg {
+  width: 110px;
+  height: 110px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ }
+
+.ProductSalestext {
+  font-weight: bold;
+  width: 300px;
+}
+
+.ProductSalesthDate {
+  font-size: 13px;
+  margin-top: 0px;
+  margin-left: 7px;
+}
+
+.productPrice,
+.productTitle {
+  font-size: 22px;
+  margin: 5px;
+  margin-left: 7px;
+  width: 350px;
+}
+
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 120px;
+}
+
+.reviewScore {
+  display: flex;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.reviewScore .on {
+  color: rgb(255, 38, 0);
+}
+
+.reviewScore .off {
+  color: lightgray;
+}
+
+.productReviewText{
+  width: 400px;
+  padding-bottom: 80px;
+  margin-left: 10px;
+  font-size: 20px;
+  padding-top: 5px
+}
+
+.reviewTitle{
+  width: 400px;
+  height: 150px;
+  border: none;
+  padding-left: 10px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.submitButton {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.updateDeleteButton{
+  width: 80px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.productDeleteButton{
+  width: 80px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.productReportButton{
+  width: 80px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.submitButton:hover {
+  background-color: #888888;
+}

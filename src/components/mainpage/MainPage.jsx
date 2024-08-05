@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './css/MainPage.module.css';
 import MainpageSilder from "./MainpageSlider";
+import { Link } from 'react-router-dom';
 
 export const MainPage = () => {
     const [hotproductList, setHotProductList] = useState([]);
@@ -87,11 +88,12 @@ export const MainPage = () => {
                 <div className={styles.mainPageProductList}>
                     {hotDisplayList.map((product, index) => (
                         <div key={index} className={styles.mainPageProductItem}>
-                            <img src={product.productImagePath} alt="Product" />
+                             <Link to={`productPage/${product.productNo}`}> <img src={product.productImagePath} alt="Product" />  </Link>
+                        
                             <div>
                             <p className={styles.mainProductTitle}>{product.productTitle}</p>
                             <p className={styles.mainProductPrice}>￦{formatPrice(product.productPrice)}</p>
-                               
+                               <p>조회수{product.productCount}        좋아요{product.productLike}</p>
                             </div>
                         </div>
                     ))}
@@ -108,11 +110,12 @@ export const MainPage = () => {
                 <p className={styles.mainPageTitle}>새로 등록된 상품</p>
                 <div className={styles.mainPageProductList}>
                     {newDisplayList.map((product, index) => (
-                        <div key={index} className={styles.mainPageProductItem}>
-                            <img src={product.productImagePath} alt="Product" />
+                    <div key={index} className={styles.mainPageProductItem}>
+                    <Link to={`productPage/${product.productNo}`}> <img src={product.productImagePath} alt="Product" /></Link>
                             <div>
-                                <p>{product.productTitle}</p>
-                                <p>{product.productPrice}</p>
+                                <p className={styles.mainProductTitle}>{product.productTitle}</p>
+                                <p className={styles.mainProductPrice}>￦{formatPrice(product.productPrice)}</p>
+                                <p>조회수{product.productCount}        좋아요{product.productLike}</p>
                             </div>
                         </div>
                     ))}
