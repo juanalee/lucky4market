@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MyPageSideBar from './MypageSideBar';
 import axios from 'axios';
 import Header from '../header/Header';
-import styles from './css/MyPageProductSalesList.module.css';
+import styles from './css/MypageProductSalesList.module.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import MyPageMemberId from './MypageMemberId';
 import ProductinsertPopup from '../modalPopup/ModalPopup';
@@ -111,7 +111,7 @@ const MypageProductSalesList = () => {
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
                 </div>
                 <Link to={`/productRegisterUpdate/${memberProduct.productNo}`} className={styles.productUpdateButton}>수정</Link>
-                <button 
+                <button
                   onClick={() => {
                     setProductToDelete(memberProduct.productNo);
                     setPopup({
@@ -119,7 +119,7 @@ const MypageProductSalesList = () => {
                       message: '정말로 삭제하시겠습니까?',
                       isConfirmation: true,
                     });
-                  }} 
+                  }}
                   className={styles.productDeleteButton}
                 >
                   삭제
@@ -137,7 +137,7 @@ const MypageProductSalesList = () => {
                 <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                 <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
               </div>
-              <button 
+              <button
                 onClick={() => {
                   setProductToDelete(memberProduct.productNo);
                   setPopup({
@@ -145,7 +145,7 @@ const MypageProductSalesList = () => {
                     message: '정말로 삭제하시겠습니까?',
                     isConfirmation: true,
                   });
-                }} 
+                }}
                 className={styles.productDeleteButton}
               >
                 삭제

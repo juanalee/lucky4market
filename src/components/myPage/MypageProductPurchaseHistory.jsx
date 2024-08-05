@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MypageSideBar from './MypageSideBar';
 import axios from 'axios';
-import styles from './css/MyPageProductSalesList.module.css';
+import styles from './css/MypageProductSalesList.module.css';
 import MypagReviewWrite from './MyPageReviewWrite';
 import MypageMemberId from './MypageMemberId';
 import { useNavigate } from 'react-router-dom';
@@ -66,7 +66,7 @@ const MypageProductPurchaseHistory = () => {
   );
 
   const hasReview = (product) => product.review != null;
- 
+
   const navigate = useNavigate();
   const gotoreviewList = () => {
     navigate('/writedreview');
@@ -81,7 +81,7 @@ const MypageProductPurchaseHistory = () => {
 
   return (
     <div className={styles.MypageProductSalesListHeader}>
-      <Header/>
+      <Header />
       <div className={styles.MypageProductSalesListComponent}>
         <MypageSideBar />
         <div className={styles.MypageProductListMainContainer}>
@@ -89,9 +89,9 @@ const MypageProductPurchaseHistory = () => {
           {reviewWritable.map((memberProduct, index) => (
             <div key={index}>
               <div className={styles.MypageProductSalesList}>
-              <Link to={`/productPage/${memberProduct.productNo}`}>
-               <img className={styles.ProductSalesimg}  src={memberProduct.productImagePath}  alt="Product" /> </Link>
-                 <div className={styles.ProductSalestext}>
+                <Link to={`/productPage/${memberProduct.productNo}`}>
+                  <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" /> </Link>
+                <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
@@ -111,38 +111,38 @@ const MypageProductPurchaseHistory = () => {
                     </>
                   )}
                 </div>
-            
+
               </div>
-              {showReviewForm[index] && <MypagReviewWrite 
-               productNo={memberProduct.productNo}
-               buyerId={buyerId}
-               sellerId={memberProduct.memberId}
-               />}
+              {showReviewForm[index] && <MypagReviewWrite
+                productNo={memberProduct.productNo}
+                buyerId={buyerId}
+                sellerId={memberProduct.memberId}
+              />}
             </div>
           ))}
           <div className={styles.ProductBuyItems}>
-          <h3 className={styles.MypageProductTitle}>구매내역({reviewExpired.length})</h3>
-          {reviewExpired.map((memberProduct, index) => (
+            <h3 className={styles.MypageProductTitle}>구매내역({reviewExpired.length})</h3>
+            {reviewExpired.map((memberProduct, index) => (
               <div key={index} className={styles.MypageProductSalesList}>
-              <Link to={`/productPage/${memberProduct.productNo}`}>
-              <img className={styles.ProductSalesimg}  src={memberProduct.productImagePath}  alt="Product" /> </Link>
+                <Link to={`/productPage/${memberProduct.productNo}`}>
+                  <img className={styles.ProductSalesimg} src={memberProduct.productImagePath} alt="Product" /> </Link>
                 <div className={styles.ProductSalestext}>
                   <p className={styles.ProductSalesthDate}>구매확정일 : {memberProduct.thDate}</p>
                   <p className={styles.productTitle}>{memberProduct.productTitle}</p>
                   <p className={styles.productPrice}>￦{formatPrice(memberProduct.productPrice)}</p>
                 </div>
                 <div>
-                {hasReview(memberProduct) ? (
+                  {hasReview(memberProduct) ? (
                     <button className={styles.productOver}>리뷰 등록 완료</button>
                   ) : (
                     <>
-                  <button className={styles.productOver}>기한 만료</button>
-                  <p className={styles.productText}>작성기한 : {memberProduct.deadline} (기한 초과)</p>
-                  </>
+                      <button className={styles.productOver}>기한 만료</button>
+                      <p className={styles.productText}>작성기한 : {memberProduct.deadline} (기한 초과)</p>
+                    </>
                   )}
+                </div>
               </div>
-              </div>
-          ))}
+            ))}
           </div>
         </div>
       </div>
