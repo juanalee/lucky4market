@@ -1,0 +1,332 @@
+.adminProductsContainer {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.adminProductsContent {
+  flex: 1;
+  width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.adminProductsTitle {
+  margin: 0 10px 0 20px;
+  padding: 10px;
+}
+
+.adminProductsSearchFilterSection {
+  padding: 20px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminProductsSearchCondition {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.adminProductsLabelMargin {
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #393B3F;
+}
+
+.adminProductsSearchlabel {
+  color: #393B3F;
+}
+
+.adminProductsSearchBox {
+  height: 120px;
+  width: 1300px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border-top: 1px solid #9C9E9C;
+  border-bottom: 1px solid #9C9E9C;
+}
+
+.adminProductsSearchBox:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.2s ease-in;
+}
+
+.adminProductsSelectInput1,
+.adminProductsSelectInput2 {
+  height: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  background-color: #FFFFFF;
+  color: #9C9E9C;
+  border-radius: 6px;
+  border: 1px solid #9C9E9C;
+  text-align: center;
+  text-align-last: center;
+  transition: all .4s;
+}
+
+.adminProductsSelectInput1 {
+  width: 120px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-right: none;
+  margin-left: 20px;
+}
+
+.adminProductsSelectInput1:focus,
+.adminProductsSelectInput2:focus {
+  outline: none;
+}
+
+.adminProductsSelectInput2 {
+  width: 100px;
+  margin-left: 10px;
+}
+
+.adminProductsSearchInput,
+.adminProductsSearchDateInput1,
+.adminProductsSearchDateInput2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  padding: 15px;
+  background-color: #FFFFFF;
+  color: #9C9E9C;
+  border-radius: 6px;
+  border: 1px solid #9C9E9C;
+  transition: all .4s;
+}
+
+.adminProductsSearchInput {
+  width: 200px;
+  padding-right: 45px;
+  margin-right: 30px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-left: none;
+}
+
+.adminProductsSearchInput:focus {
+  border-left: none;
+  outline: none;
+}
+
+.adminProductsSearchDateInput1,
+.adminProductsSearchDateInput2 {
+  width: 200px;
+  padding-right: 45px;
+}
+
+.adminProductsSearchDateInput1 {
+  margin: 0 10px;
+}
+
+.adminProductsSearchDateInput2 {
+  margin: 0 30px 0 10px;
+}
+
+.adminProductsSearchDateInput1:focus,
+.adminProductsSearchDateInput2:focus {
+  outline: none;
+}
+
+.adminProductsButtonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.adminProductsSearchButton,
+.adminProductsResetButton {
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminProductsSearchButton {
+  background-color: #393B3F;
+}
+
+.adminProductsSearchButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminProductsResetButton {
+  background-color: #9C9E9C;
+}
+
+.adminProductsResetButton:hover {
+  background-color: #d32f2f;
+}
+
+
+.adminMembersTableContainer {
+  flex: 1;
+  overflow-y: auto;
+  height: calc(100vh - 300px);
+  padding-bottom: 20px;
+}
+
+/* Table styling */
+.adminMembersTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminMembersTable th, .adminMembersTable td {
+  border: 0.5px solid #E0E0E0;
+  padding: 8px;
+  text-align: center;
+}
+
+.adminMembersTable th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+  border-bottom: 2px solid #E0E0E0;
+}
+
+.adminMembersTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.adminMembersTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.adminMembersTable th.adminMembersId, .adminMembersTable td.adminMembersId {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersName, .adminMembersTable td.adminMembersName {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersNick, .adminMembersTable td.adminMembersNick {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersEmail, .adminMembersTable td.adminMembersEmail {
+  width: 15%;
+}
+
+.adminMembersTable th.adminMembersAddr, .adminMembersTable td.adminMembersAddr {
+  width: 15%;
+}
+
+.adminMembersTable th.adminMembersGrade, .adminMembersTable td.adminMembersGrade {
+  width: 8%;
+}
+
+.adminMembersTable th.adminMembersPhoneNo, .adminMembersTable td.adminMembersPhoneNo {
+  width: 12%;
+}
+
+.adminMembersTable th.adminMembersRegDate, .adminMembersTable td.adminMembersRegDate {
+  width: 10%;
+}
+
+.adminMembersTable th.adminMembersManage, .adminMembersTable td.adminMembersManage {
+  width: 10%;
+}
+
+.adminMembersFixedWidthInput {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.adminMembersSaveButton, .adminMembersCancelButton {
+  padding: 5px;
+  background-color: #393B3F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersSaveButton {
+  margin-right: 5px;
+}
+
+.adminMembersSaveButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminMembersDeleteButton {
+  padding: 5px;
+  background-color: #9C9E9C;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.adminMembersDeleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.adminMembersEditButton, .adminMembersCancelButton {
+  padding: 5px;
+  background-color: #393B3F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminMembersEditButton:hover {
+  background-color: #CCCCCC;
+}
+
+.adminMembersNoResults {
+  text-align: center;
+  padding: 20px;
+}
+
+.loadingIndicator {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: #9C9E9C;
+}
+
+/* 스크롤바 숨김 */
+.adminMembersTableContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.adminMembersTableContainer {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE edge */
+}
+
+.adminMembersLoadMoreRow {
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.adminMembersLoadMoreRow:hover {
+  background-color: #f1f1f1;
+}
+
+.adminMembersLoadMore {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.loadMoreText {
+  font-weight: bold;
+  color: #666;
+}
