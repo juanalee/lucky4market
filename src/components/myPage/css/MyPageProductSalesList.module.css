@@ -1,28 +1,28 @@
 .MypageProductSalesListComponent{
-    display: flex;
-    flex: row;
-    margin-top: 100px;
+  display: flex;
+  flex: row;
+  margin-top: 100px;
 }
 
 .MypageProductSalesList{
-    display: flex;
-    flex: row;
-    margin-top: 30px;
-    border-bottom: 2px solid #5e5d5d;
-    width: 800px;
-    margin-left: 30px;
-    padding-bottom: 10px;
+  display: flex;
+  flex: row;
+  margin-top: 30px;
+  border-bottom: 2px solid #5e5d5d;
+  width: 800px;
+  margin-left: 30px;
+  padding-bottom: 10px;
 }
 
 .ProductSalesimg{
-    width: 110px;
-    height: 110px;
-    padding: 10px 10px;
+  width: 110px;
+  height: 110px;
+  padding: 10px 10px;
 }
 
 .ProductSalestext{
-    font-weight: bold;
-    width: 300px;
+  font-weight: bold;
+  width: 300px;
 }
 .ProductSalesthDate{
 font-size: 13px;   
@@ -39,119 +39,119 @@ width: 350px;
 }
 
 .reviewWrite {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* 오른쪽 정렬 */
-    margin-left: 500px; /* 왼쪽 여백을 자동으로 설정하여 오른쪽으로 배치 */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* 오른쪽 정렬 */
+  margin-left: 500px; /* 왼쪽 여백을 자동으로 설정하여 오른쪽으로 배치 */
+}
 
-  .MyPageProducutMainSalesList{
-    margin-top: 30px;
-  }
+.MyPageProducutMainSalesList{
+  margin-top: 30px;
+}
 
 .ProductButtonContainer{
-    display: flex;
-    justify-content: center;
-    width: 820px;
-    height: 50px;
-    margin-left: 20px;
-    padding-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  width: 820px;
+  height: 50px;
+  margin-left: 20px;
+  padding-bottom: 40px;
 }
 
 .ProductButtonContainer button.active {
-    background-color: #ccc;
-  }
+  background-color: #ccc;
+}
 
-  .ProductSale{
-    width: 49%;
-    background-color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    border-right: 1px solid black;
-    font-size: 20px;
-  }
-    
-  .ProductSoldOut{
-    width: 49%;
-    background-color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    border-left: 1px solid black;
-    font-size: 20px;
+.ProductSale{
+  width: 49%;
+  background-color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-right: 1px solid black;
+  font-size: 20px;
+}
+  
+.ProductSoldOut{
+  width: 49%;
+  background-color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-left: 1px solid black;
+  font-size: 20px;
 }
 
 .ProductSale.active {
-  background-color: #ccc;
+background-color: #ccc;
 }
 
 .ProductSoldOut.active {
-  background-color: #ccc;
+background-color: #ccc;
 }
 
 
 .productUpdateButton{
-    background-color: black;
-    border: none;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    font-size: 18px;
-    width: 75px;
-    height: 28px;
-    padding: 7px 0px;
-    margin-top: 50px;
-    margin-left: 150px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-size: 18px;
+  width: 75px;
+  height: 28px;
+  padding: 7px 0px;
+  margin-top: 50px;
+  margin-left: 150px;
 }
 
 .productDeleteButton{
-    background-color: black;
-    color: white;
-    width: 75px;
-    height: 40px;
-    margin-left: 20px;
-    margin-top: 50px;
-    font-size: 19px;
+  background-color: black;
+  color: white;
+  width: 75px;
+  height: 40px;
+  margin-left: 20px;
+  margin-top: 50px;
+  font-size: 19px;
 }
 
 
 
 .reviewWriteButton{
-    width: 200px;
-    height: 40px;
-    background-color: black;
-    color: white;
-    font-size: 18px;
-    border-radius: 20px;
-    margin-top: 30px;
-    cursor: pointer;
+  width: 200px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  border-radius: 20px;
+  margin-top: 30px;
+  cursor: pointer;
 }
 
 .reviewWriteText{
-    margin-top: 10px;
-    padding-left: 10px;
+  margin-top: 10px;
+  padding-left: 10px;
 }
 
 .productOver{
-    width: 200px;
-    height: 40px;
-    background-color: black;
-    color: white;
-    font-size: 18px;
-    border-radius: 20px;
-    margin-top: 30px;
+  width: 200px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  border-radius: 20px;
+  margin-top: 30px;
 }
 
 .productText{
-    margin-top: 10px;
-    padding-left: 10px;
+  margin-top: 10px;
+  padding-left: 10px;
 }
 
 .MypageProductTitle{
-    padding-left: 30px;
+  padding-left: 30px;
 }
 
 .ProductBuyItems{
-    margin-top: 50px;
+  margin-top: 50px;
 }
