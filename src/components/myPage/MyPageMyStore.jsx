@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../header/Header";
-import MyPageMemberId from "./MyPageMemberId";
-import MyPageSideBar from "./MyPageSideBar";
+import MyPageMemberId from "./MypageMemberId";
+import MyPageSideBar from "./MypageSideBar";
 import styles from "./css/MyPageMyStore.module.css";
 
 export default function MyPageMyStore() {
@@ -38,34 +38,34 @@ export default function MyPageMyStore() {
     <div className={styles.my_store_header_container}>
       {/* <Header/> */}
       <div className={styles.my_store_side_container}>
-        <MyPageSideBar/>
+        <MyPageSideBar />
         <div className={styles.my_store_main_container}>
-            {myProfile.map((profile, index) => (
-              <div className={styles.my_store_profile_container} key={index}>
-                <img
-                  className={styles.my_store_profile_image}
-                  src={profile.memberProfilePath ? profile.memberProfilePath : defaultProfileImage}
-                  alt="Profile"
-                />
-                <div className={styles.my_store_profile_info}>
-                  {profile.memberNick ? (
-                    <>
-                      {profile.memberNick}
-                      <span>| 평점:</span>
-                      <span className={styles.my_store_score}>★</span>
-                      {profile.memberScore}
-                    </>
-                  ) : (
-                    <>
-                      <span className={styles.my_store_no_nick}>내 정보에서 닉네임을 설정하세요.</span>
-                      <span>| 평점:</span>
-                      <span className={styles.my_store_score}>★</span>
-                      {profile.memberScore}
-                    </>
-                  )}
-                </div>
+          {myProfile.map((profile, index) => (
+            <div className={styles.my_store_profile_container} key={index}>
+              <img
+                className={styles.my_store_profile_image}
+                src={profile.memberProfilePath ? profile.memberProfilePath : defaultProfileImage}
+                alt="Profile"
+              />
+              <div className={styles.my_store_profile_info}>
+                {profile.memberNick ? (
+                  <>
+                    {profile.memberNick}
+                    <span>| 평점:</span>
+                    <span className={styles.my_store_score}>★</span>
+                    {profile.memberScore}
+                  </>
+                ) : (
+                  <>
+                    <span className={styles.my_store_no_nick}>내 정보에서 닉네임을 설정하세요.</span>
+                    <span>| 평점:</span>
+                    <span className={styles.my_store_score}>★</span>
+                    {profile.memberScore}
+                  </>
+                )}
               </div>
-            ))}
+            </div>
+          ))}
           <div className={styles.my_store_nav_container}>
             <ul className={styles.my_store_nav_ul}>
               <li className={styles.my_store_nav_li}>

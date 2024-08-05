@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../header/Header";
-import MyPageMemberId from "./MyPageMemberId";
-import MyPageSideBar from "./MyPageSideBar";
+import MyPageMemberId from "./MypageMemberId";
+import MyPageSideBar from "./MypageSideBar";
 import styles from "./css/MyPageInterestProduct.module.css";
 
 export default function MyPageInterestProduct() {
@@ -32,7 +32,7 @@ export default function MyPageInterestProduct() {
     <div className={styles.interest_product_header_container}>
       {/* <Header/> */}
       <div className={styles.interest_product_side_container}>
-        <MyPageSideBar/>
+        <MyPageSideBar />
         <div className={styles.interest_product_main_container}>
           <div className={styles.interest_product}>관심 상품</div>
           <div className={styles.interest_product_container}>

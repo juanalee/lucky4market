@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import MyPageSideBar from './MyPageSideBar';
+import MyPageSideBar from './MypageSideBar';
 import axios from 'axios';
-import styles from './css/MyPageProductSalesList.module.css';
-import MypagReviewWrite from './MypageReviewWrite';
-import MyPageMemberId from './MyPageMemberId';
+import styles from './css/MypageProductSalesList.module.css';
+import MypagReviewWrite from './MyPageReviewWrite';
+import MyPageMemberId from './MypageMemberId';
 
-const MyPageProductPurchaseHistory = () => {
+const MypageProductPurchaseHistory = () => {
   const [memberProductList, setMemberProductList] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState({}); // 리뷰 작성 폼 상태
   const buyerId = MyPageMemberId(); // 커스텀 훅을 사용
@@ -124,4 +124,4 @@ const MyPageProductPurchaseHistory = () => {
   );
 };
 
-export default MyPageProductPurchaseHistory;
+export default MypageProductPurchaseHistory;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import MyPageSideBar from './MyPageSideBar';
+import MyPageSideBar from './MypageSideBar';
 import axios from 'axios';
-import styles from './css/MyPageProductSalesList.module.css';
+import styles from './css/MypageProductSalesList.module.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import MyPageMemberId from './MyPageMemberId';
+import MyPageMemberId from './MypageMemberId';
 
 const MyPageProductSalesList = () => {
   const [memberProductList, setMemberProductList] = useState([]);

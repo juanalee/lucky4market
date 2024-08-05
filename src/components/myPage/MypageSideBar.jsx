@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./css/MyPageSideBar.module.css";
+import styles from "./css/MypageSideBar.module.css";
 
 export default function MyPageSideBar() {
   return (

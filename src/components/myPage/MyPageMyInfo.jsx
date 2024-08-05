@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../header/Header";
 import MyPageAddress from "./MyPageAddress";
-import MyPageMemberId from "./MyPageMemberId";
-import MyPageSideBar from "./MyPageSideBar";
+import MyPageMemberId from "./MypageMemberId";
+import MyPageSideBar from "./MypageSideBar";
 import styles from "./css/MyPageMyInfo.module.css";
 
 export default function MyPageMyInfo() {
@@ -110,7 +110,7 @@ export default function MyPageMyInfo() {
     <div className={styles.my_info_header_container}>
       {/* <Header/> */}
       <div className={styles.my_info_side_container}>
-        <MyPageSideBar/>
+        <MyPageSideBar />
         <div className={styles.my_info_container}>
           <div className={styles.my_infomation}>내 정보</div>
           <div className={styles.my_info_main_container}>
@@ -126,35 +126,35 @@ export default function MyPageMyInfo() {
                       <div className={styles.my_info_profile_container2}>
                         <div className={styles.my_info_profile_guide}><span className={styles.my_info_asterisk}>*</span>원하는 프로필 사진을 등록하세요.</div>
                         <div className={styles.my_info_button_container1}>
-                          <input className={styles.my_info_file_select_button} type="file"/>
+                          <input className={styles.my_info_file_select_button} type="file" />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className={styles.my_info_content}>아이디<br/>
-                    <input className={styles.my_info_item} type="text" name="memberId" value={formData.memberId} readOnly/>
+                  <div className={styles.my_info_content}>아이디<br />
+                    <input className={styles.my_info_item} type="text" name="memberId" value={formData.memberId} readOnly />
                   </div>
-                  <div className={styles.my_info_content}>비밀번호<br/>
-                    <input className={styles.my_info_item} type="password" name="memberPasswd" placeholder="비밀번호를 입력하세요." value={formData.memberPasswd} onChange={handleChange} required/>
+                  <div className={styles.my_info_content}>비밀번호<br />
+                    <input className={styles.my_info_item} type="password" name="memberPasswd" placeholder="비밀번호를 입력하세요." value={formData.memberPasswd} onChange={handleChange} required />
                   </div>
-                  <div className={styles.my_info_content}>비밀번호 확인<br/>
-                    <input className={styles.my_info_item} type="password" name="memberPasswdConfirm" placeholder="비밀번호를 다시 입력하세요." value={formData.memberPasswdConfirm} onChange={handleChange} required/>
+                  <div className={styles.my_info_content}>비밀번호 확인<br />
+                    <input className={styles.my_info_item} type="password" name="memberPasswdConfirm" placeholder="비밀번호를 다시 입력하세요." value={formData.memberPasswdConfirm} onChange={handleChange} required />
                   </div>
-                  <div className={styles.my_info_content}>이름<br/>
-                    <input className={styles.my_info_item} type="text" name="memberName" value={formData.memberName} readOnly/>
+                  <div className={styles.my_info_content}>이름<br />
+                    <input className={styles.my_info_item} type="text" name="memberName" value={formData.memberName} readOnly />
                   </div>
-                  <div className={styles.my_info_content}>닉네임<br/>
-                    <input className={styles.my_info_item} type="text" name="memberNick" value={formData.memberNick} onChange={handleChange}/>
+                  <div className={styles.my_info_content}>닉네임<br />
+                    <input className={styles.my_info_item} type="text" name="memberNick" value={formData.memberNick} onChange={handleChange} />
                   </div>
-                  <div className={styles.my_info_content}>휴대폰 번호<br/>
-                    <input className={styles.my_info_phone_number_item} type="text" name="memberPhoneNumber1" value={formData.memberPhoneNumber1} onChange={handleChange} required/>
+                  <div className={styles.my_info_content}>휴대폰 번호<br />
+                    <input className={styles.my_info_phone_number_item} type="text" name="memberPhoneNumber1" value={formData.memberPhoneNumber1} onChange={handleChange} required />
                     <span>-</span>
-                    <input className={styles.my_info_phone_number_item} type="text" name="memberPhoneNumber2" value={formData.memberPhoneNumber2} onChange={handleChange} required/>
+                    <input className={styles.my_info_phone_number_item} type="text" name="memberPhoneNumber2" value={formData.memberPhoneNumber2} onChange={handleChange} required />
                     <span>-</span>
-                    <input className={styles.my_info_phone_number_item} type="text" name="memberPhoneNumber3" value={formData.memberPhoneNumber3} onChange={handleChange} required/>
+                    <input className={styles.my_info_phone_number_item} type="text" name="memberPhoneNumber3" value={formData.memberPhoneNumber3} onChange={handleChange} required />
                   </div>
-                  <div className={styles.my_info_content}>이메일<br/>
-                    <input className={styles.my_info_email_item} type="text" name="memberEmailId" value={formData.memberEmailId} onChange={handleChange} required/>
+                  <div className={styles.my_info_content}>이메일<br />
+                    <input className={styles.my_info_email_item} type="text" name="memberEmailId" value={formData.memberEmailId} onChange={handleChange} required />
                     <span>@</span>
                     <input
                       className={styles.my_info_email_item}
@@ -174,8 +174,8 @@ export default function MyPageMyInfo() {
                       <option value="직접 입력">직접 입력</option>
                     </select>
                   </div>
-                  <div className={styles.my_info_content}>주소<br/>
-                  <MyPageAddress
+                  <div className={styles.my_info_content}>주소<br />
+                    <MyPageAddress
                       postalCode={formData.memberPostalCode}
                       address={formData.memberAddress}
                       detailAddress={formData.memberDetailAddress}

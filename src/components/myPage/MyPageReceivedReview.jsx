@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../header/Header";
-import MyPageMemberId from "./MyPageMemberId";
-import MyPageSideBar from "./MyPageSideBar";
+import MyPageMemberId from "./MypageMemberId";
+import MyPageSideBar from "./MypageSideBar";
 import styles from "./css/MyPageReceivedReview.module.css";
 
 export default function MyPageReceivedReview() {
@@ -35,7 +35,7 @@ export default function MyPageReceivedReview() {
     <div className={styles.received_review_header_container}>
       {/* <Header/> */}
       <div className={styles.received_review_side_container}>
-        <MyPageSideBar/>
+        <MyPageSideBar />
         <div className={styles.received_review_main_container}>
           <div className={styles.my_received_review}>받은 후기</div>
           <div className={styles.received_review_nav_container}>
