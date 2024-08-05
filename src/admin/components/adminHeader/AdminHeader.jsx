@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NavLink, useNavigate} from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import styles from './AdminHeader.module.css';
@@ -14,7 +14,7 @@ const AdminHeader = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token);
-      console.log('Decoded Token:', decodedToken); 
+      console.log('Decoded Token:', decodedToken);
       const memberId = decodedToken.sub;
 
       const fetchMemberNick = async () => {
@@ -51,7 +51,7 @@ const AdminHeader = () => {
             <span className={styles.adminHeaderTitle}>관리자</span>
           </div>
           <div className={styles.adminHeaderRightSection}>
-          <span className={styles.adminHeaderInfo}>{memberNick}님</span>
+            <span className={styles.adminHeaderInfo}>{memberNick}님</span>
             <NavLink to="/" className={styles.adminHeaderLogoutLink} onClick={handleLogout}>로그아웃</NavLink>
           </div>
         </div>
