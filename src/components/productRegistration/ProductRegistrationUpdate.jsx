@@ -51,7 +51,7 @@ export default function ProductRegistrationUpdate() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9999/api/product/category/list');
+                const response = await axios.get('https://lucky4market.me/api/product/category/list');
                 setParentNumberOptions(response.data);
             } catch (error) {
                 console.error('카테고리 목록을 가져오는 데 오류가 발생했습니다:', error);
@@ -63,7 +63,7 @@ export default function ProductRegistrationUpdate() {
     useEffect(() => {
         const readData = async () => {
             try {
-                const response = await axios.get(`http://localhost:9999/api/product/category/list/${parentNumber}`);
+                const response = await axios.get(`https://lucky4market.me/api/product/category/list/${parentNumber}`);
                 setProductCategoryList(response.data);
             } catch (error) {
                 console.error('카테고리 데이터를 가져오는 데 오류가 발생했습니다:', error);
@@ -76,7 +76,7 @@ export default function ProductRegistrationUpdate() {
         if (productNo) {
             const fetchProductData = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:9999/api/product/update/view/${productNo}`);
+                    const response = await axios.get(`https://lucky4market.me/api/product/update/view/${productNo}`);
                     setFormData({
                         ...response.data,
                         productPrice: formatPrice(response.data.productPrice) // Format the price on load
@@ -197,13 +197,13 @@ export default function ProductRegistrationUpdate() {
         });
 
         if (deleteImages.length > 0) {
-            await axios.delete(`http://localhost:9999/product/deleteImage/${productNo}/${deleteImages.join(',')}`);
+            await axios.delete(`https://lucky4market.me/product/deleteImage/${productNo}/${deleteImages.join(',')}`);
         }
 
         try {
             const url = productNo
-                ? `http://localhost:9999/product/update/${productNo}`
-                : 'http://localhost:9999/product/insert';
+                ? `https://lucky4market.me/product/update/${productNo}`
+                : 'https://lucky4market.me/product/insert';
             const response = await axios.post(url, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -211,7 +211,7 @@ export default function ProductRegistrationUpdate() {
             });
             setPopup({
                 show: true,
-                message: response.data.msg,
+                message: '상품 수정에 성공했습니다.',
                 isConfirmation: false,
             });
             navigate('/sellHistory');

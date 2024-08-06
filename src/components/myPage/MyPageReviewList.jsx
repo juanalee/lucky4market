@@ -22,7 +22,7 @@ const MypageReviewList = () => {
 
   const readData = async (memberId) => {
     try {
-      const response = await axios.get(`http://localhost:9999/review/productWroteList/${memberId}`);
+      const response = await axios.get(`https://lucky4market.me/review/productWroteList/${memberId}`);
       console.log(response.data);
       setMemberProductList(response.data);
     } catch (error) {
@@ -32,7 +32,7 @@ const MypageReviewList = () => {
 
   const readReviewData = async (productNo) => {
     try {
-      const response = await axios.get(`http://localhost:9999/review/wroteList/${productNo}`);
+      const response = await axios.get(`https://lucky4market.me/review/wroteList/${productNo}`);
       console.log(response.data);
       setReviewList(prevState => ({ ...prevState, [productNo]: response.data }));
     } catch (error) {
@@ -42,7 +42,7 @@ const MypageReviewList = () => {
 
   const reviewDelete = async (productNo) => {
     try {
-      await axios.delete(`http://localhost:9999/review/delete/${productNo}`);
+      await axios.delete(`https://lucky4market.me/review/delete/${productNo}`);
       setReviewList(prevState => ({
         ...prevState,
         [productNo]: []
@@ -88,7 +88,7 @@ const MypageReviewList = () => {
     const updatedReview = tempReviewData[productNo];
     console.log(updatedReview);
     try {
-      await axios.put(`http://localhost:9999/review/update/${productNo}`, updatedReview);
+      await axios.put(`https://lucky4market.me/review/update/${productNo}`, updatedReview);
       setEditReviewState(prevState => ({
         ...prevState,
         [productNo]: false
@@ -182,7 +182,7 @@ const MypageReviewList = () => {
                       </>
                     ) : (
                       <>
-                        {renderStars(memberReview.reviewScore, () => {})}
+                        {renderStars(memberReview.reviewScore, () => { })}
                         <textarea className={styles.reviewTitle}>{memberReview.review}</textarea>
                       </>
                     )}
@@ -194,7 +194,7 @@ const MypageReviewList = () => {
                     </button>
                     {editReviewState[memberProduct.productNo] && (
                       <button onClick={() => saveReview(memberProduct.productNo, memberReview.reviewId)}
-                      className={styles.productReportButton}>저장</button>
+                        className={styles.productReportButton}>저장</button>
                     )}
                     <button onClick={() => reviewDelete(memberProduct.productNo)}
                       className={styles.productDeleteButton}>삭제</button>

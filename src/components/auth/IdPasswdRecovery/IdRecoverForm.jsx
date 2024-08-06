@@ -102,7 +102,7 @@ const IdRecoverForm = ({ activeTab }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/recoverId', {
+      const response = await axios.post('https://lucky4market.me/api/auth/recoverId', {
         memberName,
         memberPhoneNo
       });

@@ -127,7 +127,7 @@ const PasswdResetForm = ({ activeTab }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/checkMemberMatch', {
+      const response = await axios.post('https://lucky4market.me/api/auth/checkMemberMatch', {
         memberName,
         memberId,
         memberPhoneNo
@@ -147,7 +147,7 @@ const PasswdResetForm = ({ activeTab }) => {
   const handlePasswdReset = async (newPasswd) => {
     console.log('Submitting new password:', newPasswd);
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/resetPassword', {
+      const response = await axios.post('https://lucky4market.me/api/auth/resetPassword', {
         memberId,
         memberPasswd: newPasswd
       });

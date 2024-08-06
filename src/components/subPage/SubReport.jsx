@@ -45,7 +45,7 @@ const SubReport = ({ isReportOpen, onClose ,productInfo, profileSub}) => {
 
     try {
       // axios 요청에 params로 전달
-      const response = await axios.post('http://localhost:9999/insertReport', {
+      const response = await axios.post('https://lucky4market.me/insertReport', {
         productNo: productInfo.productNo,
         claimerId: profileSub,
         sellerId: productInfo.memberId,

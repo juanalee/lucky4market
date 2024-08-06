@@ -22,7 +22,7 @@ const AdminMembers = () => {
 
   const fetchMembers = async () => {
     try {
-      const response = await axios.get('http://localhost:9999/admin/allMembers');
+      const response = await axios.get('https://lucky4market.me/admin/allMembers');
       setMembers(response.data);
       setFilteredMembers(response.data);
     } catch (error) {
@@ -40,7 +40,7 @@ const AdminMembers = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:9999/admin/searchMembers?${searchField}=${searchTerm}`);
+      const response = await axios.get(`https://lucky4market.me/admin/searchMembers?${searchField}=${searchTerm}`);
       setFilteredMembers(response.data);
     } catch (error) {
       console.error('회원 검색 오류:', error);

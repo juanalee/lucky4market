@@ -55,18 +55,18 @@ const ProductInfo = ({ productImage, productNo }) => {
   // Fetch product and related data
   const fetchData = useCallback(async () => {
     try {
-      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
+      const productResponse = await axios.get(`https://lucky4market.me/api/product/productInfo?productNo=${productNo}`);
       setProductInfo(productResponse.data);
       setProductMemberId(productResponse.data.memberId);
 
-      const deliveryResponse = await axios.get(`http://localhost:9999/api/product/deliveryInfo?productNo=${productNo}`);
+      const deliveryResponse = await axios.get(`https://lucky4market.me/api/product/deliveryInfo?productNo=${productNo}`);
       setDeliveryInfo(deliveryResponse.data);
 
-      const categoryResponse = await axios.get(`http://localhost:9999/api/product/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
+      const categoryResponse = await axios.get(`https://lucky4market.me/api/product/categoryInfo?categoryNo=${productResponse.data.categoryNo}`);
       setCategoryInfo(categoryResponse.data);
 
       if (profileSub) {
-        const likeStatusResponse = await axios.get(`http://localhost:9999/api/product/selectLikeStatus?productNo=${productNo}`);
+        const likeStatusResponse = await axios.get(`https://lucky4market.me/api/product/selectLikeStatus?productNo=${productNo}`);
         const userLiked = likeStatusResponse.data.includes(profileSub);
         setIsLiked(userLiked);
       }
@@ -137,7 +137,7 @@ const ProductInfo = ({ productImage, productNo }) => {
     }, 1500); // 1.5초 후 닫기
 
     try {
-      await axios.get(`http://localhost:9999/insertProductLike?memberId=${profileSub}&productNo=${productNo}`);
+      await axios.get(`https://lucky4market.me/insertProductLike?memberId=${profileSub}&productNo=${productNo}`);
     } catch (error) {
       console.error('Error occurred during like operation:', error);
       setIsLiked(prevIsLiked => !prevIsLiked); // 에러 발생 시 상태 원복
@@ -160,7 +160,7 @@ const ProductInfo = ({ productImage, productNo }) => {
     }
 
     try {
-      const chatRoomExistResponse = await axios.get('http://localhost:9999/chatRoomExist', {
+      const chatRoomExistResponse = await axios.get('https://lucky4market.me/chatRoomExist', {
         params: {
           memberId: profileSub,
           productNo: productInfo.productNo
@@ -169,7 +169,7 @@ const ProductInfo = ({ productImage, productNo }) => {
       if (chatRoomExistResponse.data.length > 0) {
         setRoomId(chatRoomExistResponse.data[0]);
       } else {
-        const newChatRoomResponse = await axios.post('http://localhost:9999/createChatRoom', {
+        const newChatRoomResponse = await axios.post('https://lucky4market.me/createChatRoom', {
           receiverId: productInfo.memberId,
           senderId: profileSub,
           productNo: productInfo.productNo
@@ -210,7 +210,7 @@ const ProductInfo = ({ productImage, productNo }) => {
     const updateProductStatus = async () => {
       if (status) { // status가 비어있지 않을 때만 실행
         try {
-          await axios.put(`http://localhost:9999/productStatusUpdate?status=${status}&productNo=${productNo}`);
+          await axios.put(`https://lucky4market.me/productStatusUpdate?status=${status}&productNo=${productNo}`);
           setMessage(status === '판매완료' ? `${status}로 처리되었습니다` : `${status}으로 변경되었습니다`);
           statusUpdateClose();
           setStatusShow(true);
@@ -231,7 +231,7 @@ const ProductInfo = ({ productImage, productNo }) => {
 
   const deleteProductStatus = async () => {
     try {
-      await axios.put(`http://localhost:9999/ProductStatusDelete?productNo=${productNo}`);
+      await axios.put(`https://lucky4market.me/ProductStatusDelete?productNo=${productNo}`);
       setMessage("삭제되었습니다");
       statusDeleteClose();
       setStatusShow(true);
@@ -240,7 +240,7 @@ const ProductInfo = ({ productImage, productNo }) => {
         setStatusShow(false);
       }, 1500);
       setTimeout(() => {
-        navigate('/');
+        navigate(0);
       }, 2500);
     } catch (error) {
       console.log(error);
@@ -250,11 +250,11 @@ const ProductInfo = ({ productImage, productNo }) => {
     <>
       <div className={styles.product_information}>
         <div className={styles.product_category}>
-          <Link to="#">홈</Link>
+          <Link to="/">홈</Link>
           <span>{'>'}</span>
-          {categoryInfo?.length > 1 && <Link to="#">{categoryInfo[1]?.categoryName}</Link>}
+          {categoryInfo?.length > 1 && <Link to={`/search?categoryNo=${categoryInfo[1].categoryNo}`}>{categoryInfo[1]?.categoryName}</Link>}
           <span>{'>'}</span>
-          {categoryInfo?.length > 0 && <Link to="#">{categoryInfo[0]?.categoryName}</Link>}
+          {categoryInfo?.length > 0 && <Link to={`/search?categoryNo=${categoryInfo[0].categoryNo}`}>{categoryInfo[0]?.categoryName}</Link>}
         </div>
         <p className={styles.product_title}>{productInfo.productTitle}</p>
         <p className={styles.product_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
@@ -283,7 +283,7 @@ const ProductInfo = ({ productImage, productNo }) => {
               <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
             </div>
           </div>
-          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} productInfo={productInfo} profileSub={profileSub}/>
+          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} productInfo={productInfo} profileSub={profileSub} />
         </div>
         <div className={styles.product_status_information}>
           <div className={styles.product_status}>
@@ -320,7 +320,7 @@ const ProductInfo = ({ productImage, productNo }) => {
             }
           </div> :
           <div className={styles.myProductUpdateContainer}>
-            <Link to='/productRegister'>
+            <Link to={`/productRegisterUpdate/${productInfo.productNo}`}>
               <div className={styles.myProductUpdateItem}>
                 <img src='/img/edit.png'></img>
                 <p>상품수정</p>

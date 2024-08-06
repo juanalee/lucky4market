@@ -26,7 +26,7 @@ const MypagReviewWrite = ({ productNo, buyerId, sellerId }) => {
     console.log('Review to submit:', review.toString()); // 리뷰 객체 콘솔에 출력
 
     try {
-      const response = await axios.post('http://localhost:9999/review/insert', review.toString(), {
+      const response = await axios.post('https://lucky4market.me/review/insert', review.toString(), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },

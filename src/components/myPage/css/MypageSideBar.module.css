@@ -1,10 +1,12 @@
 .side_bar_container {
-  width: 300px;
-  margin: 0px 50px;
+  width: 25%;
+  margin-right: 5%;
 }
 
 .side_bar_my_page {
   border-bottom: 1px solid black;
+  font-size: 36px;
+  font-weight: bold;
   margin: 20px 0px;
 }
 
@@ -12,6 +14,7 @@
   display: flex;
   flex-flow: column nowrap;
   text-decoration-line: none;
+  padding: 0px;
 }
 
 .side_bar_li {
@@ -26,56 +29,56 @@
 }
 
 .side_bar_my_store {
-  background-image: url('/public/img/mypage/store.png');
+  background-image: url('/public/img/myPage/my_store.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_my_info {
-  background-image: url('/public/img/mypage/info.png');
+  background-image: url('/public/img/myPage/my_info.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_buy_history {
-  background-image: url('/public/img/mypage/buy.png');
+  background-image: url('/public/img/myPage/buy_history.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_sell_history {
-  background-image: url('/public/img/mypage/sell.png');
+  background-image: url('/public/img/myPage/sell_history.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_interest_product {
-  background-image: url('/public/img/mypage/interest.png');
+  background-image: url('/public/img/myPage/interest_product.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
-.side_bar_writed_review {
-  background-image: url('/public/img/mypage/writed_review.png');
+.side_bar_wrote_review {
+  background-image: url('/public/img/myPage/wrote_review.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_received_review {
-  background-image: url('/public/img/mypage/received_review.png');
+  background-image: url('/public/img/myPage/received_review.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_follow_list {
-  background-image: url('/public/img/mypage/follow.png');
+  background-image: url('/public/img/myPage/follow_list.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;

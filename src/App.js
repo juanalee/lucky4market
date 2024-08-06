@@ -18,6 +18,10 @@ import MyPageProductPurchaseHistory from './components/myPage/MypageProductPurch
 import MyPageInterestProduct from './components/myPage/MyPageInterestProduct';
 import MyPageReviewList from './components/myPage/MyPageReviewList';
 import MyPageReceivedReview from './components/myPage/MyPageReceivedReview';
+import MyPageFollowList from './components/myPage/MyPageFollowList';
+import SellerPageSellerStore from './components/sellerPage/SellerPageSellerStore';
+import SellerPageReceivedReview from './components/sellerPage/SellerPageReceivedReview';
+import SellerPageFollowList from './components/sellerPage/SellerPageFollowList';
 import SubMain from './components/subPage/SubMain';
 import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import './services/AxiosSetup';
@@ -41,7 +45,10 @@ function App() {
           <Route path="/kakaoAuthCallback" element={<KakaoAuthCallback/>}/>
           <Route path="/productPage/:productNo" element={<SubMain />} />  
           <Route path="/search" element={<SearchBar/>}/>     
-          <Route path="/" element={<MainPage/>}/>    
+          <Route path="/" element={<MainPage/>}/>  
+          <Route path="/sellerStore" element={<SellerPageSellerStore/>}/>
+          <Route path="/sellerReceivedReview" element={<SellerPageReceivedReview/>}/>
+          <Route path="/sellerFollowList" element={<SellerPageFollowList/>}/>  
           <Route element={<RoleProtectedRoute requiredRole="ROLE_USER"/>}>
             <Route path="/myStore" element={<MyPageMyStore/>}/>
             <Route path="/myInfo" element={<MyPageMyInfo/>}/>
@@ -52,6 +59,7 @@ function App() {
             <Route path="/writedReview" element={<MyPageReviewList/>}/>  
             <Route path="/interestProduct" element={<MyPageInterestProduct/>}/>
             <Route path="/receivedReview" element={<MyPageReceivedReview/>}/>
+            <Route path="/followList" element={<MyPageFollowList/>}/>
           </Route>          
           <Route element={<RoleProtectedRoute requiredRole="ROLE_ADMIN"/>}>
             <Route path="/admin" element={<Navigate to="/admin/reports"/>}/>

@@ -1,27 +1,20 @@
-* {
-  margin: 0px;
-  padding: 0px;
-}
-
-.my_info_header_container {
-  width: 1440px;
-  display: flex;
-  flex-flow: column wrap;
-  margin: 0px auto;
-}
-
 .my_info_side_container {
+  width: 1000px;
   display: flex;
-}
-
-.my_infomation {
-  display: flex;
-  font-size: 24px;
-  padding: 20px 0px;
+  margin: 200px auto;
 }
 
 .my_info_main_container {
-  width: 700px;
+  width: 70%;
+}
+
+.my_infomation {
+  font-size: 32px;
+  margin: 20px 0px;
+}
+
+.my_info_main_container {
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -41,6 +34,11 @@
   padding: 5px 0px;
 }
 
+.my_info_profile_image {
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
 .my_info_profile_container2 {
   margin-left: 5px;
 }
@@ -48,16 +46,36 @@
 .my_info_profile_guide {
   color: #9C9E9C;
   font-size: 12px;
-  margin: 5px 0px;
+  margin-bottom: 5px;
 }
 
 .my_info_asterisk {
   color: red;
 }
 
+.my_info_register_button {
+  width: 50px;
+  height: 24px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.my_info_register_button:hover {
+  background-color: #CCCCCC;
+}
+
 .my_info_delete_button {
   width: 50px;
   height: 24px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.my_info_delete_button:hover {
+  background-color: #CCCCCC;
 }
 
 .my_info_item {
@@ -115,19 +133,6 @@
   font-size: 24px;
 }
 
-.my_info_withdrawal_button {
-  width: 500px;
-  height: 50px;
-  border: none;
-  border-radius: 10px;
+.my_info_update_button:hover {
   background-color: red;
-  color: white;
-  font-size: 24px;
-}
-
-.my_info_banner {
-  width: 200px;
-  border: 1px solid black;
-  text-align: center;
-  margin: 20px 50px;
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from './css/MypageSideBar.module.css';
+import styles from "./css/MypageSideBar.module.css";
 
 export default function MyPageSideBar() {
   return (
     <div className={styles.side_bar_container}>
-      <div className={styles.side_bar_my_page}><h1>마이 페이지</h1></div>
+      <div className={styles.side_bar_my_page}>마이 페이지</div>
       <ul className={styles.side_bar_ul}>
         <li className={styles.side_bar_li}>
           <Link to="/myStore" className={`${styles.side_bar_item} ${styles.side_bar_my_store}`}>내 상점</Link>
@@ -23,7 +23,7 @@ export default function MyPageSideBar() {
           <Link to="/sellHistory" className={`${styles.side_bar_item} ${styles.side_bar_sell_history}`}>판매 내역</Link>
         </li>
         <li className={styles.side_bar_li}>
-          <Link to="/writedReview" className={`${styles.side_bar_item} ${styles.side_bar_writed_review}`}>작성 후기</Link>
+          <Link to="/writedReview" className={`${styles.side_bar_item} ${styles.side_bar_wrote_review}`}>작성 후기</Link>
         </li>
         <li className={styles.side_bar_li}>
           <Link to="/receivedReview" className={`${styles.side_bar_item} ${styles.side_bar_received_review}`}>받은 후기</Link>

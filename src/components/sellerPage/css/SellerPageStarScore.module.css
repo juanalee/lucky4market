@@ -1,0 +1,13 @@
+.star_score {
+  display: inline-flex;
+  font-size: 1.5rem;
+  color: #FFD700;
+}
+
+.filledStar {
+  color: #FFD700;
+}
+
+.emptyStar {
+  color: #E0E0E0;
+}

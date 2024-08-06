@@ -59,7 +59,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
     });
 
     try {
-      await axios.get(`http://localhost:9999/insertFollow?buyerId=${profileSub}&sellerId=${sellerId}`);
+      await axios.get(`https://lucky4market.me/insertFollow?buyerId=${profileSub}&sellerId=${sellerId}`);
     } catch (error) {
       console.error(error);
       // 실패 시 상태 원복
@@ -70,25 +70,25 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storeResponse = await axios.get(`http://localhost:9999/api/member/storeInfo?memberId=${sellerId}`);
+        const storeResponse = await axios.get(`https://lucky4market.me/api/member/storeInfo?memberId=${sellerId}`);
         setStoreInfo(storeResponse.data);
 
-        const sellerProfileResponse = await axios.get(`http://localhost:9999/api/member/sellerProfile?memberId=${sellerId}`);
+        const sellerProfileResponse = await axios.get(`https://lucky4market.me/api/member/sellerProfile?memberId=${sellerId}`);
         setProfileInfo(sellerProfileResponse.data);
 
-        const response = await axios.get(`http://localhost:9999/api/product/sellerProductImage?memberId=${sellerId}`);
+        const response = await axios.get(`https://lucky4market.me/api/product/sellerProductImage?memberId=${sellerId}`);
         setSellerProductImage(response.data);
 
-        const followStatusResponse = await axios.get(`http://localhost:9999/api/member/selectFollowStatus?memberId=${sellerId}`);
+        const followStatusResponse = await axios.get(`https://lucky4market.me/api/member/selectFollowStatus?memberId=${sellerId}`);
         const userLiked = followStatusResponse.data.includes(profileSub);
         setIsFollowing(userLiked);
 
-        const categoryProductInfoResponse = await axios.get(`http://localhost:9999/api/product/categoryProductInfo?categoryNo=${categoryInfo.categoryNo}`);
+        const categoryProductInfoResponse = await axios.get(`https://lucky4market.me/api/product/categoryProductInfo?categoryNo=${categoryInfo.categoryNo}`);
         setCategoryProductInfo(categoryProductInfoResponse.data);
 
         const mergedProductNos = categoryProductInfoResponse.data.map(product => product.productNo);
 
-        const categoryProductImgResponse = await axios.post(`http://localhost:9999/api/product/categoryProductImg`, {
+        const categoryProductImgResponse = await axios.post(`https://lucky4market.me/api/product/categoryProductImg`, {
           productNo: mergedProductNos
         });
         setCategoryProductImg(categoryProductImgResponse.data);
@@ -135,15 +135,15 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
           <hr />
           <div className={styles.store_info}>
             <div className={styles.member_id}>
-              <Link><img src={profileInfo.length > 0 ? profileInfo : "/img/store_basic.png"} alt="profile" /></Link>
-              <Link className={styles.storeMemberId}>{storeInfo.length > 0 && storeInfo[0].sellerId}</Link>
+              <Link to='/sellerStore'><img src={profileInfo.length > 0 ? profileInfo : "/img/store_basic.png"} alt="profile" /></Link>
+              <Link to='/sellerStore' className={styles.storeMemberId}>{storeInfo.length > 0 && storeInfo[0].sellerId}</Link>
             </div>
             <div className={styles.seller_sub_2}>
-              <Link to='#'>상품<p>{storeInfo.length > 0 && storeInfo[0].saleCount}개</p></Link>
+              <Link to='/sellerStore'>상품<p>{storeInfo.length > 0 && storeInfo[0].saleCount}개</p></Link>
               <span className={styles.line}></span>
-              <Link>팔로워 <p>{storeInfo.length > 0 && storeInfo[0].followerCount}명</p></Link>
+              <Link to='/sellerFollowList'>팔로워 <p>{storeInfo.length > 0 && storeInfo[0].followerCount}명</p></Link>
               <span className={styles.line}></span>
-              <Link>후기<p>{remainingReviews}개</p></Link>
+              <Link to='/sellerReceivedReview'>후기<p>{remainingReviews}개</p></Link>
             </div>
             <div className={styles.followBtn_container}>
               <img src={isFollowing ? "/img/unfollow.png" : "/img/follow.png"} ref={followImg} alt="followImage" />
@@ -176,7 +176,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
             </div>
             {remainingProducts > 0 && (
               <div className={styles.more}>
-                <Link to="#">
+                <Link to='/sellerStore'>
                   <span>{remainingProducts}개</span> 상품 더보기
                 </Link>
                 <hr />

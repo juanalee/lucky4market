@@ -1,45 +1,47 @@
-* {
-  margin: 0px;
-  padding: 0px;
-}
-
-.interest_product_header_container {
-  width: 1440px;
-  display: flex;
-  flex-flow: column wrap;
-  margin: 0px auto;
-}
-
 .interest_product_side_container {
+  width: 1000px;
   display: flex;
+  margin: 200px auto;
+}
+
+.interest_product_main_container {
+  width: 70%;
 }
 
 .interest_product {
   display: flex;
-  font-size: 24px;
-  padding: 20px 0px;
+  font-size: 32px;
+  margin: 20px 0px;
 }
 
 .interest_product_container {
-  width: 700px;
+  width: 100%;
   display: flex;
   flex-flow: row wrap;
   margin: 20px 0px;
 }
 
 .interest_product_list {
-  width: 300px;
+  width: calc((100% - 60px) / 3);
   display: flex;
   flex-flow: column nowrap;
   border: 1px solid #CCCCCC;
+  font-size: 16px;
   margin: 10px;
   padding: 10px;
-  font-size: 24px;
+  box-sizing: border-box;
 }
 
 .interest_product_image {
-  width: 300px;
+  width: 100%;
   height: 200px;
+  border: 1px solid #CCCCCC;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.interest_product_price {
+  font-weight: bold;
 }
 
 .interest_product_detail {
@@ -48,16 +50,9 @@
   justify-content: right;
 }
 
-.interest_product_no_interest {
-  width: 700px;
-  font-size: 64px;
+.interest_product_nothing {
+  width: 100%;
+  font-size: 48px;
   text-align: center;
   margin: 100px 0px;
-}
-
-.interest_product_banner {
-  width: 200px;
-  border: 1px solid black;
-  text-align: center;
-  margin: 20px 50px;
 }

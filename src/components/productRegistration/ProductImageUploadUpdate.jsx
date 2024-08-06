@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductImageUpload.module.css';
-import ProductInsertPopup from './ProductInsertPopup';
+import ProductinsertPopup from './ProductInsertPopup';
 
 const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo, deleteImages, setDeleteImages }) => {
     const [imagePreviews, setImagePreviews] = useState([]);
@@ -17,11 +17,15 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
         const fetchExistingImages = async () => {
             if (productNo) {
                 try {
-                    const response = await axios.get(`http://localhost:9999/api/product/${productNo}/images`);
+                    const response = await axios.get(`https://lucky4market.me/api/product/${productNo}/images`);
+                    console.log(response.data);
+
+                    // 데이터를 preview 형식으로 변환
                     const existingImages = response.data.map(image => ({
-                        src: image.productImagePath,
-                        key: image.PRODUCT_IMAGE_NO, // PRODUCT_IMAGE_NO를 key로 사용
+                        src: image.productImagePath, // productImagePath를 src로 설정
+                        key: image.productImageNo // productImageNo를 key로 설정
                     }));
+
                     setImagePreviews(existingImages);
                 } catch (error) {
                     console.error('Error fetching existing images:', error);
@@ -55,7 +59,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
             const formData = new FormData();
             formData.append('file', file);
             try {
-                const response = await axios.post('http://localhost:9999/images/productImg/upload', formData, {
+                const response = await axios.post('https://lucky4market.me/images/productImg/upload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -74,7 +78,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
                 });
 
                 // 새로운 이미지 추가
-                newUploadedImages.push({ key: objectKey, file: file });
+                newUploadedImages.push({ key: objectKey, file: file, number: imagePreviews.length + i });
 
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -102,7 +106,6 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
         setImagePreviews(prev => prev.filter(image => image.key !== key));
         setUploadedImages(prev => prev.filter(image => image.key !== key));
         setDeleteImages(prev => [...prev, key]); // 삭제 이미지 배열에 key 추가
-
     };
 
     return (
@@ -130,7 +133,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
                     </div>
                 ))}
             </div>
-            <ProductInsertPopup
+            <ProductinsertPopup
                 show={popup.show}
                 onClose={() => setPopup({ ...popup, show: false })}
                 message={popup.message}

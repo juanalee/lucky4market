@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './css/ProductImageUpload.module.css';
-import ProductInsertPopup from './ProductInsertPopup';
+import ProductinsertPopup from './ProductInsertPopup';
 
 const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -15,11 +15,11 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
     const fetchExistingImages = async () => {
       if (productNo) {
         try {
-          const response = await axios.get(`http://localhost:9999/api/product/${productNo}/images`);
+          const response = await axios.get(`https://lucky4market.me/api/product/${productNo}/images`);
           console.log(response.data);
           const existingImages = response.data.map(image => ({
             src: image.productImagePath// Assume image.url contains the URL to view the image
-
+           
           }));
           setImagePreviews(existingImages);
         } catch (error) {
@@ -56,7 +56,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
 
       try {
         console.log('Uploading file:', file.name);
-        const response = await axios.post('http://localhost:9999/images/productImg/upload', formData, {
+        const response = await axios.post('https://lucky4market.me/images/productImg/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -81,7 +81,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
 
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImagePreviews(prev => [...prev, { src: reader.result }]);
+          setImagePreviews(prev => [...prev, { src: reader.result}]);
         };
         reader.readAsDataURL(file);
       } catch (error) {
@@ -128,8 +128,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
           </div>
         ))}
       </div>
-
-      <ProductInsertPopup
+      <ProductinsertPopup
         show={popup.show}
         onClose={() => setPopup({ ...popup, show: false })}
         message={popup.message}

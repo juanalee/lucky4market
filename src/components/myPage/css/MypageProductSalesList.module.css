@@ -1,12 +1,9 @@
 
 
 .MypageProductSalesListComponent{
+    width: 1000px;
     display: flex;
-    flex: row;
-    width: 1000;
-    margin: 0 auto;
-    margin-top: 200px;
-    justify-content: center;
+    margin: 200px auto;
 }
 
 .MypageProductSalesList{
@@ -15,7 +12,7 @@
     margin-top: 30px;
     border-bottom: 2px solid #5e5d5d;
     padding-bottom: 10px;
-    width: 100%;
+
 }
 
 .MypageProductSoldoutList{

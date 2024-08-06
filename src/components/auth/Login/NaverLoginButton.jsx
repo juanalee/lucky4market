@@ -5,7 +5,7 @@ const NaverLoginButton = () => {
   const handleNaverLogin = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('tokenProvider');
-    window.location.href = 'http://localhost:9999/api/auth/naver';
+    window.location.href = 'https://lucky4market.me/api/auth/naver';
   };
 
   return (

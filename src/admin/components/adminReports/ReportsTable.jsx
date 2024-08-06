@@ -46,12 +46,12 @@ const ReportsTable = ({
                 <React.Fragment key={index}>
                   <tr>
                     <td>{result.productNo}</td>
-                    <td className={styles.adminReportsTruncate} 
-                        onClick={() => { 
+                    <td className={styles.adminReportsTruncate}
+                      onClick={() => {
                         handleToggleRow(index);
                         handleReportReadStatus(result);
-                        }}
-                        >
+                      }}
+                    >
                       {category}
                     </td>
                     <td

@@ -33,12 +33,12 @@ const Chat = ({ isChatOpen, onClose }) => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:9999/selectChatRoom?memberId=${profileSub}`);
+      const response = await axios.get(`https://lucky4market.me/selectChatRoom?memberId=${profileSub}`);
       setChatRooms(response.data);
     } catch (error) {
       console.error("Error fetching chat rooms:", error);
     }
-  }, [profileSub,isAuthenticated]);
+  }, [profileSub, isAuthenticated]);
 
   useEffect(() => {
     if (profileSub) {
@@ -60,7 +60,7 @@ const Chat = ({ isChatOpen, onClose }) => {
     if (otherIds.length === 0) return;
 
     try {
-      const response = await axios.post('http://localhost:9999/api/member/buyerProfile', { memberId: otherIds });
+      const response = await axios.post('https://lucky4market.me/api/member/buyerProfile', { memberId: otherIds });
       setProfiles(response.data);
     } catch (error) {
       console.error("Error fetching chat profiles:", error);
@@ -79,10 +79,10 @@ const Chat = ({ isChatOpen, onClose }) => {
     setActiveProductNo(productNo);
     setIsMainChatOpen(true);
     try {
-      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
+      const productResponse = await axios.get(`https://lucky4market.me/api/product/productInfo?productNo=${productNo}`);
       setProductInfo(productResponse.data);
 
-      const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
+      const imageResponse = await axios.get(`https://lucky4market.me/api/product/productImage?productNo=${productNo}`);
       setProductImg(imageResponse.data[0]);
 
       console.log(imageResponse);

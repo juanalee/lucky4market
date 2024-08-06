@@ -35,7 +35,7 @@ const MembersTable = ({ members, onDelete, fetchMembers }) => {
   const handleSave = async () => {
     try {
       console.log('Saving member:', editedMemberData);
-      const response = await axios.put(`http://localhost:9999/admin/updateMember`, editedMemberData, {
+      const response = await axios.put(`https://lucky4market.me/admin/updateMember`, editedMemberData, {
         headers: {
           'Content-Type': 'application/json',
         },

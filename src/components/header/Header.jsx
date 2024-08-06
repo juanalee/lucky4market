@@ -37,7 +37,7 @@ export default function Header() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categoryResponse = await axios.get('http://localhost:9999/api/product/category/list');
+        const categoryResponse = await axios.get('https://lucky4market.me/api/product/category/list');
         setCategoryAllInfo(categoryResponse.data);
       } catch (error) {
         console.error('Error fetching category data:', error);
@@ -50,7 +50,7 @@ export default function Header() {
     if (parentNumber !== null) {
       const fetchProductCategories = async () => {
         try {
-          const response = await axios.get(`http://localhost:9999/api/product/category/list/${parentNumber}`);
+          const response = await axios.get(`https://lucky4market.me/api/product/category/list/${parentNumber}`);
           setProductCategoryList(response.data);
         } catch (error) {
           console.error(error);
@@ -96,7 +96,7 @@ export default function Header() {
             ) : (
               <Link to="/login">로그인/회원가입</Link>
             )}
-            <Link to="/mystore">내상점</Link>
+            <Link to="/myStore">내상점</Link>
           </div>
           <div className={styles.search_container}>
             <div className={styles.headerLogoContainer} onClick={handleHome}>
@@ -126,8 +126,8 @@ export default function Header() {
                 <div className={`${styles.category_container} ${isSubCategoryOpen ? styles.open : ''}`}>
                   <ul className={styles.category}>
                     {categoryAllInfo.map((main) => (
-                      <li 
-                        key={main.categoryNo} 
+                      <li
+                        key={main.categoryNo}
                         className={styles.main_category}
                         onMouseEnter={() => setParentNumber(main.categoryNo)}
                         onMouseLeave={() => setParentNumber(null)}

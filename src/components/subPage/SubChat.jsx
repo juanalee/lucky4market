@@ -36,7 +36,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
 
   const fetchChatHistory = async () => {
     try {
-      const response = await axios.get(`http://localhost:9999/selectChatInfo?chatNo=${roomId}`);
+      const response = await axios.get(`https://lucky4market.me/selectChatInfo?chatNo=${roomId}`);
       setMessages(response.data);
     } catch (error) {
       console.error("채팅 히스토리 로드 실패", error);
@@ -94,7 +94,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
       formData.append('file', file);
 
       try {
-        const response = await axios.post('http://localhost:9999/images/productImg/upload', formData, {
+        const response = await axios.post('https://lucky4market.me/images/productImg/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
