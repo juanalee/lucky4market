@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../Login/css/LoginForm.module.css';
 import registerStyles from './css/RegisterForm.module.css';
@@ -29,6 +29,7 @@ const RegisterMemberForm = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isAgreementOpen, setIsAgreementOpen] = useState(false);
   const [consentError, setConsentError] = useState('');
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -254,8 +255,9 @@ const RegisterMemberForm = () => {
 
       if (response.status === 200) {
         localStorage.setItem('isRegistered', 'true');
+        setIsRegistered(true);
         console.log('Registration successful');
-        navigate('/registerSuccess');
+        navigate('/registerSuccess', { state: { isRegistered: true } });
       }
     } catch (error) {
       console.log('회원 등록 오류:', error);
@@ -411,15 +413,21 @@ const RegisterMemberForm = () => {
                   <p className={registerStyles.consentErrorMessage}>{consentError}</p>
                 )}
                 <div>
-                  <button
-                    type="submit"
-                    id="submit"
-                    lang="ko"
-                    className={styles.loginFormButton}
-                    onClick={handleRegister}
-                  >
-                    등록
-                  </button>
+                  {isRegistered ? (
+                    <Link to={{ pathname: "/registerSuccess", state: { isRegistered: true } }} className={styles.loginFormButton}>
+                      Go to Registration Success
+                    </Link>
+                  ) : (
+                    <button
+                      type="submit"
+                      id="submit"
+                      lang="ko"
+                      className={styles.loginFormButton}
+                      onClick={handleRegister}
+                    >
+                      등록
+                    </button>
+                  )}
                 </div>
               </form>
             </div>

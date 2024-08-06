@@ -27,8 +27,8 @@ const RegisterSuccess = () => {
       const options = {
         stringsElement: '#typed-strings',
         loop: true,
-        typeSpeed: 60, // Increased type speed to slow down the typing
-        backSpeed: 35, // Increased back speed to slow down the backspacing
+        typeSpeed: 60, // Adjusted type speed
+        backSpeed: 35, // Adjusted back speed
         startDelay: 1000,
         backDelay: 7000,
       };
@@ -64,7 +64,7 @@ const RegisterSuccess = () => {
               <p>WELCOME</p>
             </div>
           </h1>
-          <h3>가입을 환영합니다</h3>
+          <h3>행운을 발견하세요!</h3>
         </div>
       </div>
     </div>
