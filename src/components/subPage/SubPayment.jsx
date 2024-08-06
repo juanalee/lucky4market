@@ -30,8 +30,8 @@ const SubPayment = ({ buyMethod, addressInfo, productInfo }) => {
     IMP.request_pay(data, async function (response) {
       if (response.success) { //결제 성공
         try {
-          await axios.put(`http://localhost:9999/updateProductSaleSatus?productNo=${productInfo.productNo}`);
-          await axios.post(`http://localhost:9999/insertTransaction`, {
+          await axios.put(`https://lucky4market.me/updateProductSaleSatus?productNo=${productInfo.productNo}`);
+          await axios.post(`https://lucky4market.me/insertTransaction`, {
             params: {
               productNo: productInfo.productNo,
               memberId: mainAddressInfo.memberId

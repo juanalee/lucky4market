@@ -16,7 +16,7 @@ const MypageProductPurchaseHistory = () => {
   const readData = async () => {
     if (!buyerId) return; // buyerId가 유효하지 않은 경우 종료
     try {
-      const response = await axios.get(`http://localhost:9999/member/ProductPurchaseHistory/${buyerId}`);
+      const response = await axios.get(`https://lucky4market.me/member/ProductPurchaseHistory/${buyerId}`);
       console.log(response.data); // 응답 데이터 구조 확인
       setMemberProductList(response.data);
     } catch (error) {

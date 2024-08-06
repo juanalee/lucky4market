@@ -33,7 +33,7 @@ export default function MyPageMyInfo() {
     if (memberId) {
       const myInfoData = async () => {
         try {
-          const response = await axios.get(`http://localhost:9999/api/member/myPageMyInfo/${memberId}`);
+          const response = await axios.get(`https://lucky4market.me/api/member/myPageMyInfo/${memberId}`);
           console.log(response.data);
           const data = response.data[0] || {};
           setMyInfo(response.data);
@@ -88,7 +88,7 @@ export default function MyPageMyInfo() {
         return;
       }
 
-      await axios.put('http://localhost:9999/api/member/myPageMyInfo/update', {
+      await axios.put('https://lucky4market.me/api/member/myPageMyInfo/update', {
         ...otherFields,
         memberPasswd: memberPasswd,
         memberEmailDomain: emailDomain,

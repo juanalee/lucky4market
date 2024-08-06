@@ -19,7 +19,7 @@ const AdminHeader = () => {
 
       const fetchMemberNick = async () => {
         try {
-          const response = await axios.get(`http://localhost:9999/admin/adminNickname/${memberId}`);
+          const response = await axios.get(`https://lucky4market.me/admin/adminNickname/${memberId}`);
           console.log('API Response:', response.data);
           setMemberNick(response.data.memberNick);
         } catch (error) {

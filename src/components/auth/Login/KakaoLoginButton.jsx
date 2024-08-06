@@ -3,7 +3,7 @@ import styles from './css/LoginButtons.module.css';
 
 const KakaoLoginButton = () => {
   const handleKakaoLogin = () => {
-    window.location.href = 'http://localhost:9999/api/auth/kakao';
+    window.location.href = 'https://lucky4market.me/api/auth/kakao';
   };
 
   return (

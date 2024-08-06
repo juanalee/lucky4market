@@ -23,10 +23,10 @@ export default function MyPageReceivedReview() {
     if (memberId) {
       const receivedReviewData = async () => {
         try {
-          const profileResponse = await axios.get(`http://localhost:9999/api/member/myPageProfile/${memberId}`);
+          const profileResponse = await axios.get(`https://lucky4market.me/api/member/myPageProfile/${memberId}`);
           setMyProfile(profileResponse.data);
 
-          const receivedReviewResponse = await axios.get(`http://localhost:9999/api/member/myPageReceivedReview/${memberId}`);
+          const receivedReviewResponse = await axios.get(`https://lucky4market.me/api/member/myPageReceivedReview/${memberId}`);
           setMyReceivedReview(receivedReviewResponse.data);
           console.log(receivedReviewResponse.data);
         } catch (error) {

@@ -21,10 +21,10 @@ export default function SellerPageReceivedReview() {
     if (sellerId) {
       const receivedReviewData = async () => {
         try {
-          const profileResponse = await axios.get(`http://localhost:9999/api/member/sellerPageProfile/${sellerId}`);
+          const profileResponse = await axios.get(`https://lucky4market.me/api/member/sellerPageProfile/${sellerId}`);
           setSellerProfile(profileResponse.data);
 
-          const receivedReviewResponse = await axios.get(`http://localhost:9999/api/member/sellerPageReceivedReview/${sellerId}`);
+          const receivedReviewResponse = await axios.get(`https://lucky4market.me/api/member/sellerPageReceivedReview/${sellerId}`);
           setSellerReceivedReview(receivedReviewResponse.data);
         } catch (error) {
           console.error("데이터를 가져오는 중 오류 발생:", error);

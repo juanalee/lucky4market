@@ -15,7 +15,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
     const fetchExistingImages = async () => {
       if (productNo) {
         try {
-          const response = await axios.get(`http://localhost:9999/api/product/${productNo}/images`);
+          const response = await axios.get(`https://lucky4market.me/api/product/${productNo}/images`);
           console.log(response.data);
           const existingImages = response.data.map(image => ({
             src: image.productImagePath// Assume image.url contains the URL to view the image
@@ -56,7 +56,7 @@ const ProductImageUpload = ({ uploadedImages, setUploadedImages, productNo }) =>
 
       try {
         console.log('Uploading file:', file.name);
-        const response = await axios.post('http://localhost:9999/images/productImg/upload', formData, {
+        const response = await axios.post('https://lucky4market.me/images/productImg/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

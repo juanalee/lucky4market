@@ -48,7 +48,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
   // 주소 정보 가져오기
   const fetchAddressInfo = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:9999/addressInfo?memberId=${profileSub}`);
+      const response = await axios.get(`https://lucky4market.me/addressInfo?memberId=${profileSub}`);
       setAddressInfo(response.data);
     } catch (error) {
       console.error('주소 정보를 가져오는 데 실패했습니다:', error);
@@ -182,7 +182,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:9999/insertMemberAddress', obj);
+      const response = await axios.post('https://lucky4market.me/insertMemberAddress', obj);
       setSubSideModalMsg(response.data.msg);
       setSubSideModalOpen(true); // 모달 열기
       resetAddAddress(); // 주소 추가 후 폼 초기화
@@ -206,7 +206,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
       return;
     }
     try {
-      const response = await axios.delete(`http://localhost:9999/deleteMemberAddress?memberAddressNo=${memberAddressNo}`);
+      const response = await axios.delete(`https://lucky4market.me/deleteMemberAddress?memberAddressNo=${memberAddressNo}`);
       setSubSideModalMsg(response.data.msg);
       setSubSideModalOpen(true); // 모달 열기
       fetchAddressInfo();
@@ -225,7 +225,7 @@ const Sub_side = ({ isOpen, onClose, productImage, productInfo }) => {
     }
 
     try {
-      const response = await axios.put('http://localhost:9999/changeMainAddress', {
+      const response = await axios.put('https://lucky4market.me/changeMainAddress', {
         memberId: profileSub,
         memberAddressNo: memberAddressNo
       });

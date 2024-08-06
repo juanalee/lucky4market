@@ -22,10 +22,10 @@ export default function MyPageMyStore() {
     if (memberId) {
       const myStoreData = async () => {
         try {
-          const profileResponse = await axios.get(`http://localhost:9999/api/member/myPageProfile/${memberId}`);
+          const profileResponse = await axios.get(`https://lucky4market.me/api/member/myPageProfile/${memberId}`);
           setMyProfile(profileResponse.data);
 
-          const productResponse = await axios.get(`http://localhost:9999/api/product/myPageProduct/${memberId}`);
+          const productResponse = await axios.get(`https://lucky4market.me/api/product/myPageProduct/${memberId}`);
           setMyProduct(productResponse.data);
         } catch (error) {
           console.error("데이터를 가져오는 중 오류 발생:", error);

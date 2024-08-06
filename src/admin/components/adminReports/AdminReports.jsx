@@ -169,7 +169,7 @@ const AdminReports = () => {
     }
 
     try {
-      const response = await axios.put('http://localhost:9999/reports', {
+      const response = await axios.put('https://lucky4market.me/reports', {
         productNo: report.productNo,
         sellerId: report.sellerId,
         reportStatus: updatedProcessStatus,
@@ -193,7 +193,7 @@ const AdminReports = () => {
 
   const handleReportReadStatus = async (report) => {
     try {
-      const response = await axios.put('http://localhost:9999/reports/readStatus', null, {
+      const response = await axios.put('https://lucky4market.me/reports/readStatus', null, {
         params: {
           productNo: report.productNo,
           sellerId: report.sellerId,

@@ -144,7 +144,7 @@ const RegisterMemberForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/checkIdAvailability', {
+      const response = await axios.post('https://lucky4market.me/api/auth/checkIdAvailability', {
         memberId
       });
 
@@ -244,7 +244,7 @@ const RegisterMemberForm = () => {
     const memberEmail = `${emailId}@${emailDomain}`;
 
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/registerMember', {
+      const response = await axios.post('https://lucky4market.me/api/auth/registerMember', {
         memberId,
         memberName,
         memberPasswd,

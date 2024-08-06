@@ -19,7 +19,7 @@ export default function MyPageInterestProduct() {
     if (memberId) {
       const interestProductData = async () => {
         try {
-          const interestResponse = await axios.get(`http://localhost:9999/api/product/myPageInterestProduct/${memberId}`);
+          const interestResponse = await axios.get(`https://lucky4market.me/api/product/myPageInterestProduct/${memberId}`);
           setInterestProduct(interestResponse.data);
         } catch (error) {
           console.error("데이터를 가져오는 중 오류 발생:", error);
@@ -40,12 +40,12 @@ export default function MyPageInterestProduct() {
             {interestProduct.length > 0 ? (
               interestProduct.map((data, idx) => (
                 <div className={styles.interest_product_list} key={idx} >
-                    <Link to={`/productPage/${data.productNo}`}>
-                  <img
-                    className={styles.interest_product_image}
-                    src={data.productImagePath}
-                    alt="상품 이미지"
-                  /></Link>
+                  <Link to={`/productPage/${data.productNo}`}>
+                    <img
+                      className={styles.interest_product_image}
+                      src={data.productImagePath}
+                      alt="상품 이미지"
+                    /></Link>
                   <div className={styles.interest_product_title}>
                     {data.productTitle}
                   </div>

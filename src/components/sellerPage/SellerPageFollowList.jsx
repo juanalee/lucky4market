@@ -16,10 +16,10 @@ export default function SellerPageFollowList() {
     if (sellerId) {
       const followListData = async () => {
         try {
-          const profileResponse = await axios.get(`http://localhost:9999/api/member/sellerPageProfile/${sellerId}`);
+          const profileResponse = await axios.get(`https://lucky4market.me/api/member/sellerPageProfile/${sellerId}`);
           setSellerProfile(profileResponse.data);
 
-          const followListResponse = await axios.get(`http://localhost:9999/api/member/sellerPageFollowList/${sellerId}`);
+          const followListResponse = await axios.get(`https://lucky4market.me/api/member/sellerPageFollowList/${sellerId}`);
           setSellerFollowList(followListResponse.data);
         } catch (error) {
           console.error("데이터를 가져오는 중 오류 발생:", error);

@@ -13,11 +13,11 @@ export default function SubImageSlider() {
 
   const fetchData = async () => {
     try {
-      const productResponse = await axios.get(`http://localhost:9999/api/product/productInfo?productNo=${productNo}`);
+      const productResponse = await axios.get(`https://lucky4market.me/api/product/productInfo?productNo=${productNo}`);
       setProductInfo(productResponse.data);
       setProductStatus(productResponse.data.productSale);
 
-      const imageResponse = await axios.get(`http://localhost:9999/api/product/productImage?productNo=${productNo}`);
+      const imageResponse = await axios.get(`https://lucky4market.me/api/product/productImage?productNo=${productNo}`);
       setProductImg(imageResponse.data);
     } catch (error) {
       console.error(error);

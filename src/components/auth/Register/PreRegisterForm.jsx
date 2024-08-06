@@ -159,7 +159,7 @@ const PreRegisterForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:9999/api/auth/preRegister', {
+      const response = await axios.post('https://lucky4market.me/api/auth/preRegister', {
         memberName,
         memberPhoneNo
       });

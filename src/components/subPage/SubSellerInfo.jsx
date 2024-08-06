@@ -59,7 +59,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
     });
 
     try {
-      await axios.get(`http://localhost:9999/insertFollow?buyerId=${profileSub}&sellerId=${sellerId}`);
+      await axios.get(`https://lucky4market.me/insertFollow?buyerId=${profileSub}&sellerId=${sellerId}`);
     } catch (error) {
       console.error(error);
       // 실패 시 상태 원복
@@ -70,25 +70,25 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storeResponse = await axios.get(`http://localhost:9999/api/member/storeInfo?memberId=${sellerId}`);
+        const storeResponse = await axios.get(`https://lucky4market.me/api/member/storeInfo?memberId=${sellerId}`);
         setStoreInfo(storeResponse.data);
 
-        const sellerProfileResponse = await axios.get(`http://localhost:9999/api/member/sellerProfile?memberId=${sellerId}`);
+        const sellerProfileResponse = await axios.get(`https://lucky4market.me/api/member/sellerProfile?memberId=${sellerId}`);
         setProfileInfo(sellerProfileResponse.data);
 
-        const response = await axios.get(`http://localhost:9999/api/product/sellerProductImage?memberId=${sellerId}`);
+        const response = await axios.get(`https://lucky4market.me/api/product/sellerProductImage?memberId=${sellerId}`);
         setSellerProductImage(response.data);
 
-        const followStatusResponse = await axios.get(`http://localhost:9999/api/member/selectFollowStatus?memberId=${sellerId}`);
+        const followStatusResponse = await axios.get(`https://lucky4market.me/api/member/selectFollowStatus?memberId=${sellerId}`);
         const userLiked = followStatusResponse.data.includes(profileSub);
         setIsFollowing(userLiked);
 
-        const categoryProductInfoResponse = await axios.get(`http://localhost:9999/api/product/categoryProductInfo?categoryNo=${categoryInfo.categoryNo}`);
+        const categoryProductInfoResponse = await axios.get(`https://lucky4market.me/api/product/categoryProductInfo?categoryNo=${categoryInfo.categoryNo}`);
         setCategoryProductInfo(categoryProductInfoResponse.data);
 
         const mergedProductNos = categoryProductInfoResponse.data.map(product => product.productNo);
 
-        const categoryProductImgResponse = await axios.post(`http://localhost:9999/api/product/categoryProductImg`, {
+        const categoryProductImgResponse = await axios.post(`https://lucky4market.me/api/product/categoryProductImg`, {
           productNo: mergedProductNos
         });
         setCategoryProductImg(categoryProductImgResponse.data);

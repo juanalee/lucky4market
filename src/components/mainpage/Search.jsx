@@ -76,7 +76,7 @@ function SearchBar() {
     }).toString();
 
     try {
-      const response = await axios.get(`http://localhost:9999/api/product/search?${queryParams}`);
+      const response = await axios.get(`https://lucky4market.me/api/product/search?${queryParams}`);
       console.log('Query Params:', queryParams);
       console.log('Response:', response.data);
       setSearchResultproductList(response.data);

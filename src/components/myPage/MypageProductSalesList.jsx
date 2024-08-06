@@ -23,7 +23,7 @@ const MypageProductSalesList = () => {
 
   const readData = async (memberId) => {
     try {
-      const response = await axios.get(`http://localhost:9999/member/productSaleslist/${memberId}`);
+      const response = await axios.get(`https://lucky4market.me/member/productSaleslist/${memberId}`);
       setMemberProductList(response.data);
     } catch (error) {
       console.error('Error fetching member product list:', error);
@@ -32,7 +32,7 @@ const MypageProductSalesList = () => {
 
   const readSoldOutData = async (memberId) => {
     try {
-      const response = await axios.get(`http://localhost:9999/member/productsoldoutlist/list/${memberId}`);
+      const response = await axios.get(`https://lucky4market.me/member/productsoldoutlist/list/${memberId}`);
       setMemberProductsoldoutList(response.data);
     } catch (error) {
       console.error('Error fetching sold out list:', error);
@@ -42,7 +42,7 @@ const MypageProductSalesList = () => {
   const productDelete = async () => {
     if (!productToDelete) return;
     try {
-      await axios.put(`http://localhost:9999/product/delete/${productToDelete}`);
+      await axios.put(`https://lucky4market.me/product/delete/${productToDelete}`);
       // 상태 업데이트
       if (displayType === 'saling') {
         setMemberProductList(prevList => prevList.filter(product => product.productNo !== productToDelete));

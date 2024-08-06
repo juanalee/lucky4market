@@ -17,7 +17,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
         const fetchExistingImages = async () => {
             if (productNo) {
                 try {
-                    const response = await axios.get(`http://localhost:9999/api/product/${productNo}/images`);
+                    const response = await axios.get(`https://lucky4market.me/api/product/${productNo}/images`);
                     console.log(response.data);
 
                     // 데이터를 preview 형식으로 변환
@@ -59,7 +59,7 @@ const ProductImageUploadUpdate = ({ uploadedImages, setUploadedImages, productNo
             const formData = new FormData();
             formData.append('file', file);
             try {
-                const response = await axios.post('http://localhost:9999/images/productImg/upload', formData, {
+                const response = await axios.post('https://lucky4market.me/images/productImg/upload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
