@@ -29,56 +29,56 @@
 }
 
 .side_bar_my_store {
-  background-image: url('/public/img/myPage/my_store.png');
+  background-image: url('/public/img/tempmyPage/my_store.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_my_info {
-  background-image: url('/public/img/myPage/my_info.png');
+  background-image: url('/public/img/tempmyPage/my_info.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_buy_history {
-  background-image: url('/public/img/myPage/buy_history.png');
+  background-image: url('/public/img/tempmyPage/buy_history.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_sell_history {
-  background-image: url('/public/img/myPage/sell_history.png');
+  background-image: url('/public/img/tempmyPage/sell_history.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_interest_product {
-  background-image: url('/public/img/myPage/interest_product.png');
+  background-image: url('/public/img/tempmyPage/interest_product.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_wrote_review {
-  background-image: url('/public/img/myPage/wrote_review.png');
+  background-image: url('/public/img/tempmyPage/wrote_review.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_received_review {
-  background-image: url('/public/img/myPage/received_review.png');
+  background-image: url('/public/img/tempmyPage/received_review.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
 }
 
 .side_bar_follow_list {
-  background-image: url('/public/img/myPage/follow_list.png');
+  background-image: url('/public/img/tempmyPage/follow_list.png');
   background-repeat: no-repeat;
   background-position: 5px;
   padding-left: 35px;
