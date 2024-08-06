@@ -48,15 +48,15 @@ export const AuthProvider = ({ children }) => {
 
   const validateNaverToken = async (token) => {
     try {
-      /*const response = await axios.get('https://openapi.naver.com/v1/nid/me', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-       setProfile({
-          name: response.data.response.name,
-          email: response.data.response.email,
-        }); */
+      const response = await axios.get('https://openapi.naver.com/v1/nid/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProfile({
+        name: response.data.response.name,
+        email: response.data.response.email,
+      });
       setIsAuthenticated(true);
       setRoles(['ROLE_USER']);
     } catch (error) {
