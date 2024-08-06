@@ -93,18 +93,12 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
         });
         setCategoryProductImg(categoryProductImgResponse.data);
 
-        const URL = "https://openapi.naver.com/v1/search/shop";
-        const ClientID = "L8aaE_LJIjhtUSnAUFky";
-        const ClientSecret = "LWeLIajCRF";
+        const URL = "/api/search";
 
         const naverResponse = await axios.get(URL, {
           params: {
             query: productTitle,
             display: 20,
-          },
-          headers: {
-            "X-Naver-Client-Id": ClientID,
-            "X-Naver-Client-Secret": ClientSecret,
           },
         });
         console.log(naverResponse);

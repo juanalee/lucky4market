@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.js",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/search",
+      "dest": "https://openapi.naver.com/v1/search/shop.json",
+      "headers": {
+        "X-Naver-Client-Id": "L8aaE_LJIjhtUSnAUFky",
+        "X-Naver-Client-Secret": "LWeLIajCRF"
+      }
+    }
+  ]
+}
