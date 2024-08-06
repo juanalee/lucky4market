@@ -87,37 +87,39 @@ const AdminMembers = () => {
   };
 
   return (
-    <div className={styles.adminMembersContainer}>
+    <>
       <AdminHeader />
-      <div className={styles.adminMembersContent}>
-        <h2 className={styles.adminMembersTitle}>회원 정보관리</h2>
-        <hr />
-        <MembersSearchFilter
-          searchField={searchField}
-          searchTerm={searchTerm}
-          handleSearchFieldChange={handleSearchFieldChange}
-          handleSearchChange={handleSearchChange}
-          handleSearch={handleSearch}
-          handleReset={handleReset}
-          handleKeyDown={handleKeyDown}
-        />
-        <div className={styles.adminMembersResultInfo}>
-          <span>총 회원 수: {filteredMembers.length}명</span>
+      <div className={styles.adminMembersContainer}>
+        <div className={styles.adminMembersContent}>
+          <h2 className={styles.adminMembersTitle}>회원 정보관리</h2>
+          <hr />
+          <MembersSearchFilter
+            searchField={searchField}
+            searchTerm={searchTerm}
+            handleSearchFieldChange={handleSearchFieldChange}
+            handleSearchChange={handleSearchChange}
+            handleSearch={handleSearch}
+            handleReset={handleReset}
+            handleKeyDown={handleKeyDown}
+          />
+          <div className={styles.adminMembersResultInfo}>
+            <span>총 회원 수: {filteredMembers.length}명</span>
+          </div>
+          <MembersTable
+            members={filteredMembers}
+            onDelete={handleDelete}
+            fetchMembers={fetchMembers}
+          />
         </div>
-        <MembersTable
-          members={filteredMembers}
-          onDelete={handleDelete}
-          fetchMembers={fetchMembers}
+        <AdminPopup
+          show={showModal}
+          onClose={closePopup}
+          onConfirm={isConfirmation ? confirmDelete : closePopup}
+          message={popupMessage}
+          isConfirmation={isConfirmation}
         />
       </div>
-      <AdminPopup
-        show={showModal}
-        onClose={closePopup}
-        onConfirm={isConfirmation ? confirmDelete : closePopup}
-        message={popupMessage}
-        isConfirmation={isConfirmation}
-      />
-    </div>
+    </>
   );
 };
 
