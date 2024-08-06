@@ -1,17 +1,14 @@
 
 
 .MypageProductSalesListComponent{
+  width: 1000px;
   display: flex;
-  flex: row;
-  width: 1000;
-  margin: 0 auto;
-  margin-top: 200px;
-  justify-content: center;
+  margin: 200px auto;
 }
 
 .MypageProductListMainContainer{
   margin-top: 50px;
-  width: 700px;
+  width: 70%;
 }
 
 .ProductMainTitle{
