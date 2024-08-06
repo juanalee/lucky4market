@@ -29,8 +29,8 @@ import { AuthProvider } from './services/AuthContext';
 import {MainPage} from'./components/mainpage/MainPage';
 import SearchBar from './components/mainpage/Search';
 import ProductRegistrationUpdate from './components/productRegistration/ProductRegistrationUpdate';
-function App() {
 
+function App() {
 
   return (
     <AuthProvider>
