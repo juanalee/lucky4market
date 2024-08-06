@@ -93,7 +93,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
         });
         setCategoryProductImg(categoryProductImgResponse.data);
 
-        const URL = "/v1/search/shop";
+        const URL = "https://openapi.naver.com/v1/search/shop";
         const ClientID = "L8aaE_LJIjhtUSnAUFky";
         const ClientSecret = "LWeLIajCRF";
 
