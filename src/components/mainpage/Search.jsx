@@ -29,7 +29,7 @@ function SearchBar() {
     categoryNo: '' // 두 번째 카테고리 번호 추가
   });
 
- 
+
 
   const prevFormDataRef = useRef(formData);
 
@@ -40,13 +40,15 @@ function SearchBar() {
     const queryParam = query.get('query') || '';
     const parentCategoryNo = query.get('parentCategoryNo') || '';
     const categoryNo = query.get('categoryNo') || '';
+    const maxPrice = query.get('maxPrice') || '';
 
     setSearchQuery(queryParam);
     setFormData(prevState => ({
       ...prevState,
       searchQuery: queryParam,
-      parentCategoryNo:'',
-      categoryNo:''
+      parentCategoryNo: parentCategoryNo,
+      categoryNo: categoryNo,
+      maxPrice: maxPrice
     }));
   }, [query.toString()]);
 
@@ -149,18 +151,18 @@ function SearchBar() {
       <div className={styles.searchContainer}>
         <h1 className={styles.searchTitle}>'{searchQuery}' 검색결과 ({searchResultproductList.length})</h1>
         <div className={styles.searchCategory}>
-        <button onClick={toggleCategorySelector}>
-  {isCategorySelectorVisible ? (
-    <>
-    
-      <button onClick={handleCloseCategory}>카테고리 -</button>
-    </>
-  ) : (
-    '카테고리 + '
-  )}
-</button>
+          <button onClick={toggleCategorySelector}>
+            {isCategorySelectorVisible ? (
+              <>
+
+                <button onClick={handleCloseCategory}>카테고리 -</button>
+              </>
+            ) : (
+              '카테고리 + '
+            )}
+          </button>
           {isCategorySelectorVisible && (
-            <CategorySelector 
+            <CategorySelector
               onCategoryChange={handleCategoryChange}
               onParentChange={handleParentChange}
             />
@@ -184,20 +186,20 @@ function SearchBar() {
             onChange={handleChangeOption}
             name="maxPrice"
           />
-          <button onClick={() => {}}>적용</button>
+          <button onClick={() => { }}>적용</button>
         </div>
         <div className={styles.searchSolioutOption}>
-        <label className={styles.searchOption}>옵션</label>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={includeSoldOut}
-              onChange={handleIncludeSoldOutChange}
-            />
-            판매완료 상품 포함
-          </label>
-        </div>
+          <label className={styles.searchOption}>옵션</label>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={includeSoldOut}
+                onChange={handleIncludeSoldOutChange}
+              />
+              판매완료 상품 포함
+            </label>
+          </div>
         </div>
         <div className={styles.searchOptionResult}>
           <label className={styles.searchOption}>선택한 필터</label>
@@ -239,16 +241,16 @@ function SearchBar() {
       <div className={styles.searchPageProductList}>
         {searchResultproductList.length > 0 ? (
           searchResultproductList.map((searchProduct, index) => (
-               <div  key={index} className={styles.productContainer}>
+            <div key={index} className={styles.productContainer}>
               <Link to={`/productPage/${searchProduct.productNo}`}>
-                 <img className={styles.ProductSalesimg} src={searchProduct.productImagePath} alt="Product" /></Link>
-                <div className={styles.ProductSalestext}>
-                  <p className={styles.searchProductTitle}>{searchProduct.productTitle}</p>
-                  <p className={styles.searchProductPrice}>￦{formatPrice(searchProduct.productPrice)}</p>
-                  <p className={styles.searchProductCount}> 조회수{searchProduct.productCount}  좋아요{searchProduct.productLike}</p>
-                </div>
+                <img className={styles.ProductSalesimg} src={searchProduct.productImagePath} alt="Product" /></Link>
+              <div className={styles.ProductSalestext}>
+                <p className={styles.searchProductTitle}>{searchProduct.productTitle}</p>
+                <p className={styles.searchProductPrice}>￦{formatPrice(searchProduct.productPrice)}</p>
+                <p className={styles.searchProductCount}> 조회수{searchProduct.productCount}  좋아요{searchProduct.productLike}</p>
               </div>
-          
+            </div>
+
           ))
         ) : (
           <p>검색 결과가 없습니다.</p>
