@@ -4,6 +4,7 @@ import Header from "../header/Header";
 import MyPageMemberId from "./MypageMemberId";
 import MyPageSideBar from "./MypageSideBar";
 import styles from "./css/MyPageInterestProduct.module.css";
+import { Link } from 'react-router-dom';
 
 export default function MyPageInterestProduct() {
   const [interestProduct, setInterestProduct] = useState([]);
@@ -39,11 +40,12 @@ export default function MyPageInterestProduct() {
             {interestProduct.length > 0 ? (
               interestProduct.map((data, idx) => (
                 <div className={styles.interest_product_list} key={idx} >
+                    <Link to={`/productPage/${data.productNo}`}>
                   <img
                     className={styles.interest_product_image}
                     src={data.productImagePath}
                     alt="상품 이미지"
-                  />
+                  /></Link>
                   <div className={styles.interest_product_title}>
                     {data.productTitle}
                   </div>
