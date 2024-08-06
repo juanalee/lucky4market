@@ -48,7 +48,7 @@ function SubChat({ isChatOpen, onClose, productImage, productInfo, sellerId, roo
   };
 
   const connect = () => {
-    const socket = new WebSocket("ws://lucky4market.me/ws");
+    const socket = new WebSocket("wss://lucky4market.me/ws");
     stompClient.current = Stomp.over(socket);
 
     stompClient.current.connect({}, (frame) => {
