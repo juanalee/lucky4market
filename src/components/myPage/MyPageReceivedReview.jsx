@@ -13,7 +13,7 @@ export default function MyPageReceivedReview() {
 
   const memberId = MyPageMemberId();
 
-  const defaultProfileImage = "/img/myPage/default_profile_image.png";
+  const defaultProfileImage = "/img/tempmyPage/default_profile_image.png";
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('ko-KR').format(price);

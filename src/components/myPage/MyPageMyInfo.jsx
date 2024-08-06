@@ -27,7 +27,7 @@ export default function MyPageMyInfo() {
   });
 
   const memberId = MyPageMemberId();
-  const defaultProfileImage = "/img/myPage/default_profile_image.png";
+  const defaultProfileImage = "/img/tempmyPage/default_profile_image.png";
 
   useEffect(() => {
     if (memberId) {

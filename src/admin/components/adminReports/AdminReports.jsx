@@ -32,7 +32,7 @@ const AdminReports = () => {
 
   const fetchProductDetails = async (productNo) => {
     try {
-      const response = await axios.get(`http://localhost:9999/api/product/productPreview`, {
+      const response = await axios.get(`https://lucky4market.me/api/product/productPreview`, {
         params: { productNo },
       });
       return response.data;
@@ -45,7 +45,7 @@ const AdminReports = () => {
   const fetchReports = async (filters = {}) => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:9999/reports', {
+      const response = await axios.get('https://lucky4market.me/reports', {
         headers: {
           'AdminId': profile.sub,
         },

@@ -10,7 +10,7 @@ export default function SellerPageFollowList() {
 
   const sellerId = "member10";
 
-  const defaultProfileImage = "/img/myPage/default_profile_image.png";
+  const defaultProfileImage = "/img/tempmyPage/default_profile_image.png";
 
   useEffect(() => {
     if (sellerId) {

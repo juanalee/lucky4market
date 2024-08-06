@@ -11,7 +11,7 @@ export default function SellerPageReceivedReview() {
 
   const sellerId = "member10";
 
-  const defaultProfileImage = "/img/myPage/default_profile_image.png";
+  const defaultProfileImage = "/img/tempmyPage/default_profile_image.png";
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('ko-KR').format(price);
@@ -36,7 +36,7 @@ export default function SellerPageReceivedReview() {
 
   return (
     <div className={styles.received_review_header_container}>
-      <Header/>
+      <Header />
       <div className={styles.received_review_side_container}>
         <div className={styles.received_review_main_container}>
           {sellerProfile.map((data, idx) => (
@@ -87,7 +87,7 @@ export default function SellerPageReceivedReview() {
                       {data.buyerNick || data.buyerId}, {data.reviewDate}
                     </div>
                     <div className={styles.received_review_score}>
-                      <SellerPageStarScore score={data.reviewScore}/>
+                      <SellerPageStarScore score={data.reviewScore} />
                     </div>
                     <div className={styles.received_review_content}>
                       {data.review}

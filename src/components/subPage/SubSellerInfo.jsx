@@ -213,7 +213,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
         <h2>새상품은 어떠세요?</h2>
         <div className={styles.categoryProductContainer}>
           <div className={styles.categoryProductItem}>
-            {newProductInfo.slice(0, 5).map((item, index) => {
+            {newProductInfo && newProductInfo.slice(0, 5).map((item, index) => {
               const priceNumber = Number(item.lprice);
 
               return (
