@@ -211,7 +211,7 @@ export default function ProductRegistrationUpdate() {
             });
             setPopup({
                 show: true,
-                message: response.data.msg,
+                message: '상품 수정에 성공했습니다.',
                 isConfirmation: false,
             });
             navigate('/sellHistory');
@@ -227,7 +227,7 @@ export default function ProductRegistrationUpdate() {
 
     return (
         <div>
-            <Header />
+            <Header/>
             <div className={styles.productContainer}>
                 <form onSubmit={handleSubmit}>
                     <ProductImageUploadUpdate
@@ -235,7 +235,7 @@ export default function ProductRegistrationUpdate() {
                         setUploadedImages={setUploadedImages}
                         productNo={productNo}
                         deleteImages={deleteImages}
-                        setDeleteImages={setDeleteImages}
+                        setDeleteImages={setDeleteImages} 
                     />
                     <div className={styles.productHeader}>
                         <input

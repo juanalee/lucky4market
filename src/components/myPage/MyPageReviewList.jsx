@@ -182,7 +182,7 @@ const MypageReviewList = () => {
                       </>
                     ) : (
                       <>
-                        {renderStars(memberReview.reviewScore, () => {})}
+                        {renderStars(memberReview.reviewScore, () => { })}
                         <textarea className={styles.reviewTitle}>{memberReview.review}</textarea>
                       </>
                     )}
@@ -194,7 +194,7 @@ const MypageReviewList = () => {
                     </button>
                     {editReviewState[memberProduct.productNo] && (
                       <button onClick={() => saveReview(memberProduct.productNo, memberReview.reviewId)}
-                      className={styles.productReportButton}>저장</button>
+                        className={styles.productReportButton}>저장</button>
                     )}
                     <button onClick={() => reviewDelete(memberProduct.productNo)}
                       className={styles.productDeleteButton}>삭제</button>

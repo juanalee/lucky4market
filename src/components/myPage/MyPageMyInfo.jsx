@@ -27,7 +27,7 @@ export default function MyPageMyInfo() {
   });
 
   const memberId = MyPageMemberId();
-  const defaultProfileImage = "/img/mypage/profile.png";
+  const defaultProfileImage = "/img/myPage/default_profile_image.png";
 
   useEffect(() => {
     if (memberId) {
@@ -108,25 +108,27 @@ export default function MyPageMyInfo() {
 
   return (
     <div className={styles.my_info_header_container}>
-      {/* <Header/> */}
+      <Header />
       <div className={styles.my_info_side_container}>
         <MyPageSideBar />
         <div className={styles.my_info_container}>
           <div className={styles.my_infomation}>내 정보</div>
           <div className={styles.my_info_main_container}>
             <form onSubmit={handleFormSubmit}>
-              {myInfo.map((info, index) => (
-                <div key={index}>
+              {myInfo.map((data, idx) => (
+                <div key={idx}>
                   <div className={styles.my_info_content}>프로필
                     <div className={styles.my_info_profile_container1}>
                       <img
-                        src={info.memberinfoPath ? info.memberProfilePath : defaultProfileImage}
+                        className={styles.my_info_profile_image}
+                        src={data.memberinfoPath ? data.memberProfilePath : defaultProfileImage}
                         alt="프로필 이미지"
                       />
                       <div className={styles.my_info_profile_container2}>
                         <div className={styles.my_info_profile_guide}><span className={styles.my_info_asterisk}>*</span>원하는 프로필 사진을 등록하세요.</div>
                         <div className={styles.my_info_button_container1}>
-                          <input className={styles.my_info_file_select_button} type="file" />
+                          <button className={styles.my_info_register_button}>등록</button>
+                          <button className={styles.my_info_delete_button}>삭제</button>
                         </div>
                       </div>
                     </div>
@@ -194,13 +196,9 @@ export default function MyPageMyInfo() {
               <div className={styles.my_info_button_container2}>
                 <button className={styles.my_info_update_button} type="submit">수정하기</button>
               </div>
-              <div className={styles.my_info_button_container2}>
-                <button className={styles.my_info_withdrawal_button} type="button">탈퇴하기</button>
-              </div>
             </form>
           </div>
         </div>
-        <div className={styles.my_info_banner}>배너</div>
       </div>
     </div>
   );

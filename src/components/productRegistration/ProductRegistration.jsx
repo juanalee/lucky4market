@@ -6,19 +6,18 @@ import ProductImageUpload from './ProductImageUpload';
 import ProductDeliveryOptions from './ProductDeliveryOptions';
 import ProductTradeArea from './ProductTradeArea';
 import CategorySelector from './CategorySelector';
-import ProductMemberId from './ProductMemberId'; // 커스텀 훅을 import
-import { useParams } from 'react-router-dom'; // useParams 훅을 import
+import ProductMemberId from './ProductMemberId';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../header/Header';
-import { useNavigate } from 'react-router-dom';
 
 export default function ProductRegistrationUpdate() {
-    const { productNo } = useParams(); // URL 파라미터에서 productNo를 읽어옴
+    const { productNo } = useParams();
     const productTitle = useRef();
     const productContent = useRef();
     const productPrice = useRef();
     const deliveryCharge = useRef();
     const [ProductCategoryList, setProductCategoryList] = useState([]);
-    const memberId = ProductMemberId(); // 커스텀 훅을 사용
+    const memberId = ProductMemberId();
     const [uploadedImages, setUploadedImages] = useState([]);
     const [formData, setFormData] = useState({
         productTitle: '',
@@ -50,13 +49,6 @@ export default function ProductRegistrationUpdate() {
         isConfirmation: false,
     });
 
-    // Helper function to format price
-    const formatPrice = (price) => {
-        if (!price) return '';
-        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    };
-
-    // 카테고리 목록을 가져오는 useEffect
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -69,7 +61,6 @@ export default function ProductRegistrationUpdate() {
         fetchData();
     }, []);
 
-    // 부모 카테고리에 따라 자식 카테고리를 가져오는 useEffect
     useEffect(() => {
         const readData = async () => {
             try {
@@ -82,7 +73,6 @@ export default function ProductRegistrationUpdate() {
         readData();
     }, [parentNumber]);
 
-    // 제품 번호가 있을 경우 기존 제품 정보를 가져오는 useEffect
     useEffect(() => {
         if (productNo) {
             const fetchProductData = async () => {
@@ -90,7 +80,7 @@ export default function ProductRegistrationUpdate() {
                     const response = await axios.get(`http://localhost:9999/api/product/update/view/${productNo}`);
                     setFormData({
                         ...response.data,
-                        productPrice: formatPrice(response.data.productPrice) // Format the price on load
+                        productPrice: formatPrice(response.data.productPrice)
                     });
                 } catch (error) {
                     console.error('제품 정보를 가져오는 데 오류가 발생했습니다:', error);
@@ -100,14 +90,16 @@ export default function ProductRegistrationUpdate() {
         }
     }, [productNo]);
 
-    // 폼 데이터 변경 핸들러
+    const formatPrice = (price) => {
+        if (!price) return '';
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         if (name === 'productPrice') {
-            // Remove non-digit characters
             const rawValue = value.replace(/[^\d]/g, '');
-            // Format the price
             const formattedValue = formatPrice(rawValue);
 
             setFormData({
@@ -132,7 +124,6 @@ export default function ProductRegistrationUpdate() {
         }));
     }, [deliveryTransaction]);
 
-    // 폼 유효성 검사
     const validateForm = () => {
         let valid = true;
         const newErrors = {
@@ -173,7 +164,6 @@ export default function ProductRegistrationUpdate() {
         return valid;
     };
 
-    // 폼 제출 핸들러
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -183,7 +173,7 @@ export default function ProductRegistrationUpdate() {
 
         const formDataToSend = new FormData();
         formDataToSend.append('productTitle', formData.productTitle);
-        formDataToSend.append('productPrice', formData.productPrice.replace(/,/g, '')); // Remove commas for submission
+        formDataToSend.append('productPrice', formData.productPrice.replace(/,/g, ''));
         formDataToSend.append('categoryNo', formData.categoryNo);
         formDataToSend.append('productContent', productContent.current.value);
         formDataToSend.append('productStatus', formData.productStatus);
@@ -193,13 +183,8 @@ export default function ProductRegistrationUpdate() {
         formDataToSend.append('memberId', memberId);
 
         uploadedImages.forEach((image, index) => {
-            formDataToSend.append(`imageKey${index}`, image.key); // 이미지 키를 폼 데이터에 추가
-            console.log(`imageKey${index}:`, image.key);
+            formDataToSend.append(`imageKey${index}`, image.key);
         });
-
-        const handleImageUpload = (images) => {
-            setUploadedImages(images);
-        };
 
         const fileInputs = document.querySelectorAll('input[type="file"]');
         fileInputs.forEach((fileInput) => {
@@ -221,9 +206,9 @@ export default function ProductRegistrationUpdate() {
             setPopup({
                 show: true,
                 message: response.data.msg,
-                isConfirmation: false,
+                isConfirmation: true,
+                onConfirm: () => navigate('/sellHistory'), // Correctly navigate on confirmation
             });
-            navigate('/sellHistory');
         } catch (error) {
             console.error('상품 등록/수정에 실패했습니다:', error);
             setPopup({
@@ -291,11 +276,11 @@ export default function ProductRegistrationUpdate() {
                             name="productContent"
                             ref={productContent}
                             placeholder="판매상품 상세 설명
-                        -구매기시 
-                        - 사용 기간
-                        - 하자 여부
-                        * 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.
-                        * 부적절한 게시물 등록시 삭제 및 이용제재 처리될수있어요."
+                            -구매기시 
+                            - 사용 기간
+                            - 하자 여부
+                            * 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.
+                            * 부적절한 게시물 등록시 삭제 및 이용제재 처리될수있어요."
                             className={styles.description}
                             onChange={handleChange}
                             value={formData.productContent}
@@ -362,6 +347,7 @@ export default function ProductRegistrationUpdate() {
                     onClose={() => setPopup({ ...popup, show: false })}
                     message={popup.message}
                     isConfirmation={popup.isConfirmation}
+                    onConfirm={popup.onConfirm} // Pass onConfirm function
                 />
             </div>
         </div>

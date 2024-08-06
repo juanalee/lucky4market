@@ -1,14 +1,15 @@
-.my_store_side_container {
+.seller_store_side_container {
   width: 1000px;
   display: flex;
+  justify-content: center;
   margin: 200px auto;
 }
 
-.my_store_main_container {
+.seller_store_main_container {
   width: 70%;
 }
 
-.my_store_profile_container {
+.seller_store_profile_container {
   width: 100%;
   height: auto;
   display: flex;
@@ -18,7 +19,7 @@
   margin: 20px 0px;
 }
 
-.my_store_profile_image {
+.seller_store_profile_image {
   width: 48px;
   height: 48px;
   border: 1px solid black;
@@ -26,12 +27,12 @@
   margin-right: 5px;
 }
 
-.my_store_avg_score {
+.seller_store_avg_score {
   color: #FFD700;
   margin: 5px;
 }
 
-.my_store_nav_container .my_store_nav_ul {
+.seller_store_nav_container .seller_store_nav_ul {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -40,30 +41,30 @@
   padding: 0px;
 }
 
-.my_store_nav_container .my_store_nav_ul .my_store_nav_li {
+.seller_store_nav_container .seller_store_nav_ul .seller_store_nav_li {
   width: 200px;
   border-bottom: 1px solid black;
   list-style-type: none;
   text-align: center;
 }
 
-.my_store_nav_container .my_store_nav_ul .my_store_nav_li:hover {
+.seller_store_nav_container .seller_store_nav_ul .seller_store_nav_li:hover {
   border-bottom: 1px solid red;
 }
 
-.my_store_nav_container .my_store_nav_ul .my_store_nav_li .my_store_nav_item {
+.seller_store_nav_container .seller_store_nav_ul .seller_store_nav_li .seller_store_nav_item {
   color: black;
   text-decoration: none;
 }
 
-.my_store_product_container {
+.seller_store_product_container {
   width: 100%;
   display: flex;
   flex-flow: row wrap;
   margin: 20px 0px;
 }
 
-.my_store_product_list {
+.seller_store_product_list {
   width: calc((100% - 60px) / 3);
   display: flex;
   flex-flow: column nowrap;
@@ -71,10 +72,9 @@
   font-size: 16px;
   margin: 10px;
   padding: 10px;
-  box-sizing: border-box;
 }
 
-.my_store_product_image {
+.seller_store_product_image {
   width: 100%;
   height: 200px;
   border: 1px solid #CCCCCC;
@@ -82,17 +82,17 @@
   margin-bottom: 10px;
 }
 
-.my_store_product_price {
+.seller_store_product_price {
   font-weight: bold;
 }
 
-.my_store_product_detail {
+.seller_store_product_detail {
   display: flex;
   flex-flow: row nowrap;
   justify-content: right;
 }
 
-.my_store_nothing {
+.seller_store_nothing {
   width: 100%;
   font-size: 48px;
   text-align: center;

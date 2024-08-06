@@ -240,7 +240,7 @@ const ProductInfo = ({ productImage, productNo }) => {
         setStatusShow(false);
       }, 1500);
       setTimeout(() => {
-        navigate('/');
+        navigate(0);
       }, 2500);
     } catch (error) {
       console.log(error);
@@ -250,11 +250,11 @@ const ProductInfo = ({ productImage, productNo }) => {
     <>
       <div className={styles.product_information}>
         <div className={styles.product_category}>
-          <Link to="#">홈</Link>
+          <Link to="/">홈</Link>
           <span>{'>'}</span>
-          {categoryInfo?.length > 1 && <Link to="#">{categoryInfo[1]?.categoryName}</Link>}
+          {categoryInfo?.length > 1 && <Link to={`/search?categoryNo=${categoryInfo[1].categoryNo}`}>{categoryInfo[1]?.categoryName}</Link>}
           <span>{'>'}</span>
-          {categoryInfo?.length > 0 && <Link to="#">{categoryInfo[0]?.categoryName}</Link>}
+          {categoryInfo?.length > 0 && <Link to={`/search?categoryNo=${categoryInfo[0].categoryNo}`}>{categoryInfo[0]?.categoryName}</Link>}
         </div>
         <p className={styles.product_title}>{productInfo.productTitle}</p>
         <p className={styles.product_price}>{productInfo && productInfo.productPrice.toLocaleString()}원</p>
@@ -283,7 +283,7 @@ const ProductInfo = ({ productImage, productNo }) => {
               <img src="/img/report.png" alt="report" className={styles.information_img} />신고하기
             </div>
           </div>
-          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} productInfo={productInfo} profileSub={profileSub}/>
+          <Report isReportOpen={isReportOpen} onClose={() => setIsReportOpen(false)} productInfo={productInfo} profileSub={profileSub} />
         </div>
         <div className={styles.product_status_information}>
           <div className={styles.product_status}>
@@ -320,7 +320,7 @@ const ProductInfo = ({ productImage, productNo }) => {
             }
           </div> :
           <div className={styles.myProductUpdateContainer}>
-            <Link to='/productRegister'>
+            <Link to={`/productRegisterUpdate/${productInfo.productNo}`}>
               <div className={styles.myProductUpdateItem}>
                 <img src='/img/edit.png'></img>
                 <p>상품수정</p>

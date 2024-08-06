@@ -135,15 +135,15 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
           <hr />
           <div className={styles.store_info}>
             <div className={styles.member_id}>
-              <Link><img src={profileInfo.length > 0 ? profileInfo : "/img/store_basic.png"} alt="profile" /></Link>
-              <Link className={styles.storeMemberId}>{storeInfo.length > 0 && storeInfo[0].sellerId}</Link>
+              <Link to='/sellerStore'><img src={profileInfo.length > 0 ? profileInfo : "/img/store_basic.png"} alt="profile" /></Link>
+              <Link to='/sellerStore' className={styles.storeMemberId}>{storeInfo.length > 0 && storeInfo[0].sellerId}</Link>
             </div>
             <div className={styles.seller_sub_2}>
-              <Link to='#'>상품<p>{storeInfo.length > 0 && storeInfo[0].saleCount}개</p></Link>
+              <Link to='/sellerStore'>상품<p>{storeInfo.length > 0 && storeInfo[0].saleCount}개</p></Link>
               <span className={styles.line}></span>
-              <Link>팔로워 <p>{storeInfo.length > 0 && storeInfo[0].followerCount}명</p></Link>
+              <Link to='/sellerFollowList'>팔로워 <p>{storeInfo.length > 0 && storeInfo[0].followerCount}명</p></Link>
               <span className={styles.line}></span>
-              <Link>후기<p>{remainingReviews}개</p></Link>
+              <Link to='/sellerReceivedReview'>후기<p>{remainingReviews}개</p></Link>
             </div>
             <div className={styles.followBtn_container}>
               <img src={isFollowing ? "/img/unfollow.png" : "/img/follow.png"} ref={followImg} alt="followImage" />
@@ -176,7 +176,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
             </div>
             {remainingProducts > 0 && (
               <div className={styles.more}>
-                <Link to="#">
+                <Link to='/sellerStore'>
                   <span>{remainingProducts}개</span> 상품 더보기
                 </Link>
                 <hr />

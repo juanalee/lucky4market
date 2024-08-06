@@ -96,7 +96,7 @@ export default function Header() {
             ) : (
               <Link to="/login">로그인/회원가입</Link>
             )}
-            <Link to="/mystore">내상점</Link>
+            <Link to="/myStore">내상점</Link>
           </div>
           <div className={styles.search_container}>
             <div className={styles.headerLogoContainer} onClick={handleHome}>
