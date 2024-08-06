@@ -107,6 +107,7 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
             "X-Naver-Client-Secret": ClientSecret,
           },
         });
+        console.log(naverResponse);
         setNewProductInfo(naverResponse.data.items);
       } catch (error) {
         console.error(error);
