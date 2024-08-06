@@ -43,11 +43,13 @@ export default function MyPageMyStore() {
         <div className={styles.my_store_main_container}>
           {myProfile.map((data, idx) => (
             <div className={styles.my_store_profile_container} key={idx}>
+             
               <img
                 className={styles.my_store_profile_image}
                 src={data.memberProfilePath ? data.memberProfilePath : defaultProfileImage}
                 alt="프로필 이미지"
               />
+          
               <div className={styles.my_store_profile_info}>
                 <span>{data.memberNick || data.memberId}</span>
                 <span>님의 상점 | 평점:</span>
@@ -73,11 +75,12 @@ export default function MyPageMyStore() {
             {myProduct.length > 0 ? (
               myProduct.map((data, idx) => (
                 <div className={styles.my_store_product_list} key={idx}>
+                  <Link to={`/productPage/${data.productNo}`}>
                   <img
                     className={styles.my_store_product_image}
                     src={data.productImagePath}
                     alt="상품 이미지"
-                  />
+                  /></Link>
                   <div className={styles.my_store_product_title}>
                     {data.productTitle}
                   </div>

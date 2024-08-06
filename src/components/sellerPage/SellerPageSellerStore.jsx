@@ -70,11 +70,13 @@ export default function SellerPageSellerStore() {
             {sellerProduct.length > 0 ? (
               sellerProduct.map((data, idx) => (
                 <div className={styles.seller_store_product_list} key={idx}>
+                 <Link to={`/productPage/${data.productNo}`}>
                   <img
                     className={styles.seller_store_product_image}
                     src={data.productImagePath}
                     alt="상품 이미지"
                   />
+                  </Link>
                   <div className={styles.seller_store_product_title}>
                     {data.productTitle}
                   </div>
