@@ -205,29 +205,6 @@ const SubSellerInfo = ({ categoryInfo, productTitle, sellerId, productNo }) => {
             </div>
           </>
         )}
-        <h2>새상품은 어떠세요?</h2>
-        <div className={styles.categoryProductContainer}>
-          <div className={styles.categoryProductItem}>
-            {newProductInfo && newProductInfo.slice(0, 5).map((item, index) => {
-              const priceNumber = Number(item.lprice);
-
-              return (
-                <div className={styles.categoryItem} key={index}>
-                  <a href={item.link}>
-                    <img
-                      src={item.image}
-                      alt={`Product ${index}`}
-                    />
-                    <p dangerouslySetInnerHTML={{ __html: item.title }} className={styles.newProductTitle}></p>
-                    <p className={styles.categoryProductPrice}>
-                      {priceNumber.toLocaleString()}원
-                    </p>
-                  </a>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </div>
       <div className={`${styles.followContainer} ${followOpen ? styles.show : ''}`}>
         <p>{followMsg}</p>
